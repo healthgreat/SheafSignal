@@ -25,6 +25,10 @@ METADATA_PLACEHOLDER_PATH = Path("release/RELEASE_METADATA_PLACEHOLDER_AUDIT.tsv
 CLEAN_PREFLIGHT_REPORT_PATH = Path(
     "release/clean_clone_preflight/CLEAN_CLONE_PREFLIGHT_REPORT.md"
 )
+JOURNAL_METRIC_AUDIT_PATH = Path("manuscript/journal_metric_audit/JOURNAL_METRIC_AUDIT.tsv")
+JOURNAL_METRIC_AUDIT_REPORT_PATH = Path(
+    "manuscript/journal_metric_audit/JOURNAL_METRIC_AUDIT_REPORT.md"
+)
 
 GAP_MATRIX_PATH = Path("manuscript/IF20_50_GAP_MATRIX.tsv")
 SUPPLEMENT_PLAN_PATH = Path("manuscript/IF20_50_SUPPLEMENTATION_PLAN.tsv")
@@ -147,9 +151,9 @@ OPTIONAL_STRENGTHENING_ROWS = [
     },
     {
         "priority": "S4",
-        "action": "Add a journal-day metric audit covering latest JIF source, CAS zone, and warning-journal status for the chosen target.",
+        "action": "Refresh the journal metric audit on the submission day, covering latest JIF source, CAS zone, and warning-journal status for the chosen target.",
         "gate_type": "submission_day_safety",
-        "why_it_matters": "Journal metrics and warning lists change; the current target board uses 2024 JIF values and needs day-of verification.",
+        "why_it_matters": "Journal metrics and warning lists change; the open-web audit is useful, but final CAS/warning status must be verified from official or institutional sources.",
         "expected_effect": "Prevents stale IF/CAS/warning claims in the final submission plan.",
         "estimated_effort": "short",
         "blocking": "no before science freeze; yes before journal decision",
@@ -397,11 +401,44 @@ def clean_preflight_status(root: Path) -> str:
     return "unknown"
 
 
+def journal_metric_audit_status(root: Path) -> str:
+    path = root / JOURNAL_METRIC_AUDIT_REPORT_PATH
+    if not path.exists():
+        return "not_run"
+    text = path.read_text(encoding="utf-8", errors="replace")
+    if "JOURNAL_METRIC_AUDIT_READY" in text:
+        return "if_cas_warning_verified_current"
+    if "JOURNAL_METRIC_AUDIT_IF_VERIFIED_CAS_WARNING_NEEDS_FINAL_CHECK" in text:
+        return "publisher_if_verified_cas_warning_final_check_required"
+    if "JOURNAL_METRIC_AUDIT_HAS_NONPUBLISHER_METRICS" in text:
+        return "nonpublisher_metric_source_blocker"
+    if "JOURNAL_METRIC_AUDIT_EMPTY" in text:
+        return "empty"
+    return "unknown"
+
+
 def _count_gap_rows(rows: list[dict[str, object]], risk: str) -> int:
     return sum(1 for row in rows if row.get("if20_50_risk") == risk)
 
 
 def _target_summary(root: Path) -> list[str]:
+    audit_path = root / JOURNAL_METRIC_AUDIT_PATH
+    if audit_path.exists():
+        table = pd.read_csv(audit_path, sep="\t")
+        lines = []
+        for row in table.sort_values("priority").head(6).to_dict(orient="records"):
+            lines.append(
+                f"- {row['journal']}: JIF {row['jif_2024']}, 5-year JIF "
+                f"{row['five_year_jif_2024']}, route `{row['route_decision']}`, "
+                f"CAS/warning boundary `{row['open_web_cas_zone_status']}` / "
+                f"`{row['warning_list_status']}`."
+            )
+        lines.append(
+            "- Metric boundary: JIF values are tied to publisher metric pages; "
+            "CAS zone and warning-journal status remain submission-day official checks."
+        )
+        return lines
+
     path = root / "manuscript/JOURNAL_TARGETS_20_50.tsv"
     if not path.exists():
         return ["- Journal target board not found; rerun build_journal_target_board.py."]
@@ -448,7 +485,8 @@ gantt
     10000-permutation confirmatory subset        :2026-05-06, 2d
     GSE103322 full replication supplement        :2026-05-06, 3d
     External beta review by 2-3 groups           :2026-05-06, 7d
-    Journal metric CAS warning audit             :2026-05-08, 1d
+    Open-web journal metric audit                :done, 2026-05-02, 1d
+    Official CAS and warning-list final check    :2026-05-08, 1d
     Presubmission inquiry package refresh        :2026-05-09, 2d
 ```"""
 
@@ -461,6 +499,7 @@ def build_report(
 ) -> str:
     score = score_gates(gates)
     preflight_status = clean_preflight_status(root)
+    journal_audit_status = journal_metric_audit_status(root)
     hard_blockers = _count_gap_rows(gap_rows, "blocking")
     administrative = _count_gap_rows(gap_rows, "administrative")
     author_metadata = _count_gap_rows(gap_rows, "author_metadata")
@@ -493,6 +532,7 @@ def build_report(
             f"- Scientific/method hardening index: `{score['scientific_percent']}%`",
             f"- Submission infrastructure index: `{score['submission_infrastructure_percent']}%`",
             f"- Clean-export reproduction preflight: `{preflight_status}`",
+            f"- Journal metric audit: `{journal_audit_status}`",
             "- Score boundary: these are internal readiness indices, not acceptance probabilities.",
             "",
             "## Direct Answer",
@@ -504,6 +544,11 @@ def build_report(
             "public clean-clone reproduction check. A local clean-export preflight "
             "has passed when this report shows `local_clean_export_pass`, but it "
             "does not replace the final public-GitHub clone test.",
+            "",
+            "The journal-metric audit now anchors the target board to publisher "
+            "metric pages, while keeping CAS-zone and warning-journal status as "
+            "official submission-day checks. This strengthens journal selection "
+            "discipline but does not remove the GitHub/Zenodo/author-metadata blockers.",
             "",
             "For a realistic 20-50 IF route, the current package is approximately "
             "one release/metadata cycle away from being submit-ready. For a Nature "
@@ -541,6 +586,8 @@ def build_report(
             f"- `{SUPPLEMENT_PLAN_PATH.as_posix()}`",
             f"- `{REPORT_PATH.as_posix()}`",
             f"- `{CLEAN_PREFLIGHT_REPORT_PATH.as_posix()}`",
+            f"- `{JOURNAL_METRIC_AUDIT_PATH.as_posix()}`",
+            f"- `{JOURNAL_METRIC_AUDIT_REPORT_PATH.as_posix()}`",
             "",
             "## Boundary",
             "",

@@ -10,6 +10,8 @@ The core scientific blockers have been substantially reduced after Round 2, espe
 
 The IF 20-50 distance report now gives the most direct status: overall readiness index `78.0%`, scientific/method hardening index `95.1%`, and submission infrastructure index `44.5%`. A local clean-export reproduction preflight passes, but final public-GitHub clean-clone reproduction is still required after release URL and DOI insertion. These are internal readiness indices, not acceptance probabilities.
 
+The journal metric audit is now generated as a separate evidence file. Publisher JIF values are checked against official metric pages, while CAS zone and warning-list status remain final submission-day checks through the official CAS partition platform or the institutional library.
+
 ## Fast Decision Board
 
 | Area | Status | Direct Meaning | Next Required Action |
@@ -28,6 +30,7 @@ The IF 20-50 distance report now gives the most direct status: overall readiness
 | Zenodo DOI | Red | Correctly held, not minted | Mint only after final freeze |
 | Release metadata | Red/Yellow | Placeholder audit separates GitHub URL, Zenodo DOI, and author-owned fields | Fill only after real public URL, DOI, and author information exist |
 | Clean-export preflight | Green/Yellow | Git-tracked HEAD can run a lightweight clean-export demo and core tests locally | Rerun from public GitHub clone after URL/tag/DOI insertion |
+| Journal metric audit | Green/Yellow | Publisher JIF values are anchored to official metric pages; CAS/warning status is not officially verified yet | Recheck selected journal in official CAS/warning sources on submission day |
 | Submission | Red/Yellow | Not ready to submit | Clear the red and yellow submission blockers first |
 
 ## Gantt View
@@ -56,6 +59,7 @@ gantt
     Public GitHub remote/tag/release URL         :2026-05-11, 1d
     Zenodo DOI minting                           :2026-05-12, 1d
     Final clean-clone submission preflight       :2026-05-13, 2d
+    Official CAS and warning-list final check    :2026-05-13, 1d
 ```
 
 ## What Can Be Claimed Now
@@ -94,6 +98,7 @@ gantt
 - `release/RELEASE_METADATA_PLACEHOLDER_REPORT.md`
 - `release/clean_clone_preflight/CLEAN_CLONE_PREFLIGHT_REPORT.md`
 - `manuscript/IF20_50_DISTANCE_REPORT.md`
+- `manuscript/journal_metric_audit/JOURNAL_METRIC_AUDIT_REPORT.md`
 - `benchmarks/results/BENCHMARK_RESULT_CONTRACT_REPORT.md`
 - `benchmarks/results/simulation/sheaf_ground_truth_recovery.csv`
 - `manuscript/NATURE_METHODS_GO_NO_GO_REPORT.md`

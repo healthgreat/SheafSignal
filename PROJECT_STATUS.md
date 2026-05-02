@@ -75,6 +75,7 @@ Can ligand-receptor communication be reframed as sheaf-valued flow over a cell-t
 - Python environment locking is implemented by `scripts/build_environment_lock.py`; the current decision is `ENVIRONMENT_LOCK_PASS` with 216 exact locked requirements and zero warnings under `D:\BioSoft\python\Python311\python.exe`.
 - Release metadata placeholder auditing is implemented by `scripts/check_release_metadata_placeholders.py`; the current decision is `RELEASE_METADATA_BLOCKED_EXTERNAL_IDENTIFIERS`, separating pending GitHub URL, Zenodo DOI, and author-owned fields from code/scientific blockers.
 - IF 20-50 distance reporting is implemented by `scripts/build_if20_50_gap_report.py`; the current decision is `IF20_50_SCIENTIFICALLY_HARDENED_BUT_RELEASE_BLOCKED`, with overall readiness 78.0%, scientific/method hardening 95.1%, and submission infrastructure 44.5%.
+- Journal metric auditing is implemented by `scripts/build_journal_metric_audit.py`; publisher JIF values are tied to official metric pages, while CAS zone and warning-list status remain final official checks on the submission day.
 - Local clean-export reproduction preflight is implemented by `scripts/run_clean_clone_preflight.py`; the current decision is `CLEAN_CLONE_PREFLIGHT_PASS_LOCAL_EXPORT` for commit `9ccf5f3`, covering core pytest, CLI demo, expected output checks, and release audit from a Git-tracked export.
 - Method-reporting and reviewer-risk auditing is implemented under `manuscript/method_reporting/`; it checks algorithm primitives, simulation recovery, public dataset manifest completeness, comparator scope, sparse-cell claim gating, Visium sensitivity, figure traceability, references, and release archives.
 - A manuscript-wide claim safety audit is now generated as `manuscript/CLAIM_SAFETY_AUDIT.tsv` and `manuscript/CLAIM_SAFETY_AUDIT_REPORT.md`, scanning all manuscript-facing files for unsupported clinical, therapeutic, guaranteed-publication, broad-superiority, and full-pretrained-NicheNet claims.
@@ -185,6 +186,8 @@ Can ligand-receptor communication be reframed as sheaf-valued flow over a cell-t
 - `release/GIT_RELEASE_READINESS_REPORT.md`
 - `release/RELEASE_METADATA_PLACEHOLDER_REPORT.md`
 - `manuscript/IF20_50_DISTANCE_REPORT.md`
+- `manuscript/journal_metric_audit/JOURNAL_METRIC_AUDIT.tsv`
+- `manuscript/journal_metric_audit/JOURNAL_METRIC_AUDIT_REPORT.md`
 - `release/clean_clone_preflight/CLEAN_CLONE_PREFLIGHT_REPORT.md`
 - `scripts/build_zenodo_deposition_package.py`
 - `scripts/finalize_zenodo_doi.py`

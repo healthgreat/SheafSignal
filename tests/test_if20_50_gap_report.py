@@ -6,6 +6,7 @@ from scripts.build_if20_50_gap_report import (
     build_report,
     build_supplementation_plan,
     clean_preflight_status,
+    journal_metric_audit_status,
     score_gates,
 )
 
@@ -92,6 +93,7 @@ def test_report_contains_gantt_and_boundary(tmp_path):
     assert "```mermaid" in report
     assert "not acceptance probabilities" in report
     assert "Zenodo DOI" in report
+    assert "Journal metric audit" in report
 
 
 def test_clean_preflight_status_reads_pass_report(tmp_path):
@@ -103,3 +105,17 @@ def test_clean_preflight_status_reads_pass_report(tmp_path):
     )
 
     assert clean_preflight_status(tmp_path) == "local_clean_export_pass"
+
+
+def test_journal_metric_audit_status_reads_final_check_boundary(tmp_path):
+    report = tmp_path / "manuscript" / "journal_metric_audit" / "JOURNAL_METRIC_AUDIT_REPORT.md"
+    report.parent.mkdir(parents=True, exist_ok=True)
+    report.write_text(
+        "- Decision: `JOURNAL_METRIC_AUDIT_IF_VERIFIED_CAS_WARNING_NEEDS_FINAL_CHECK`\n",
+        encoding="utf-8",
+    )
+
+    assert (
+        journal_metric_audit_status(tmp_path)
+        == "publisher_if_verified_cas_warning_final_check_required"
+    )
