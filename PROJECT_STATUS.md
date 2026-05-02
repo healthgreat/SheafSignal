@@ -74,10 +74,10 @@ Can ligand-receptor communication be reframed as sheaf-valued flow over a cell-t
 - Zenodo API upload automation is implemented in `scripts/upload_zenodo_deposition.py`; it supports dry-run, draft upload, and explicit publish/finalization while refusing unsafe `TBD` metadata for publication.
 - Python environment locking is implemented by `scripts/build_environment_lock.py`; the current decision is `ENVIRONMENT_LOCK_PASS` with 216 exact locked requirements and zero warnings under `D:\BioSoft\python\Python311\python.exe`.
 - Release metadata placeholder auditing is implemented by `scripts/check_release_metadata_placeholders.py`; the current decision is `RELEASE_METADATA_BLOCKED_EXTERNAL_IDENTIFIERS`, separating pending GitHub URL, Zenodo DOI, and author-owned fields from code/scientific blockers.
-- IF 20-50 distance reporting is implemented by `scripts/build_if20_50_gap_report.py`; the current decision is `IF20_50_SCIENTIFICALLY_HARDENED_BUT_RELEASE_BLOCKED`, with overall readiness 78.0%, scientific/method hardening 95.1%, and submission infrastructure 44.5%.
+- IF 20-50 distance reporting is implemented by `scripts/build_if20_50_gap_report.py`; the current decision is `IF20_50_SCIENTIFICALLY_HARDENED_BUT_RELEASE_BLOCKED`, with overall readiness 79.3%, scientific/method hardening 97.0%, and submission infrastructure 44.5%.
 - Journal metric auditing is implemented by `scripts/build_journal_metric_audit.py`; publisher JIF values are tied to official metric pages, while CAS zone and warning-list status remain final official checks on the submission day.
 - External beta-review packet generation is implemented by `scripts/build_external_beta_review_packet.py`; the current decision is `BETA_REVIEW_PACKET_READY_LOCAL_EXTERNAL_REVIEWS_PENDING`, meaning the handoff package is ready but no independent returned reviews are filed yet.
-- Confirmatory 10,000-permutation subset gating is implemented by `scripts/build_confirmatory_permutation_subset.py`; the current decision is `CONFIRMATORY_10000_READY_NOT_RUN`, meaning the target tests and WSL command plan are fixed but the long confirmatory execution is still pending.
+- Confirmatory 10,000-permutation subset gating is implemented by `scripts/build_confirmatory_permutation_subset.py`; the current decision is `CONFIRMATORY_10000_COMPLETED`, meaning the pre-specified GSE154778 confirmatory tests have been executed at 10,000-permutation resolution and remain bounded to statistical-strengthening evidence.
 - GSE103322 replication supplement gating is implemented by `scripts/build_gse103322_replication_supplement.py`; the current decision is `GSE103322_REPLICATION_SUPPLEMENT_READY`, with 5,902 cells, 103 samples, 21 patients, and 1,000 sample-stratified permutations in the supplement rerun.
 - Local clean-export reproduction preflight is implemented by `scripts/run_clean_clone_preflight.py`; the current decision is `CLEAN_CLONE_PREFLIGHT_PASS_LOCAL_EXPORT` for commit `9ccf5f3`, covering core pytest, CLI demo, expected output checks, and release audit from a Git-tracked export.
 - Method-reporting and reviewer-risk auditing is implemented under `manuscript/method_reporting/`; it checks algorithm primitives, simulation recovery, public dataset manifest completeness, comparator scope, sparse-cell claim gating, Visium sensitivity, figure traceability, references, and release archives.
@@ -201,6 +201,10 @@ Can ligand-receptor communication be reframed as sheaf-valued flow over a cell-t
 - `benchmarks/results/confirmatory_10000/confirmatory_permutation_readiness.tsv`
 - `benchmarks/results/confirmatory_10000/run_confirmatory_10000_commands.sh`
 - `benchmarks/results/confirmatory_10000/CONFIRMATORY_PERMUTATION_STATUS.md`
+- `benchmarks/results/confirmatory_10000/gse154778_pdac_scrna/results/global_permutation_pvalues.csv`
+- `benchmarks/results/confirmatory_10000/gse154778_pdac_scrna/results/frustration_permutation_pvalues.csv`
+- `benchmarks/results/confirmatory_10000/gse154778_pdac_scrna/results/sheaf_energy_permutation_pvalues.csv`
+- `benchmarks/results/confirmatory_10000/pooled_fdr/POOLED_FDR_AUDIT_REPORT.md`
 - `benchmarks/results/gse103322_hnsc_scrna/replication/gse103322_replication_summary.tsv`
 - `benchmarks/results/gse103322_hnsc_scrna/replication/gse103322_replication_readiness.tsv`
 - `benchmarks/results/gse103322_hnsc_scrna/replication/gse103322_claim_boundary.tsv`

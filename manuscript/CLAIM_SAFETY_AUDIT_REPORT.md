@@ -4,7 +4,7 @@ Decision: `CLAIM_SAFETY_PASS_WITH_BOUNDARY_NOTES`
 
 - Blocking positive claims: 0
 - Lines needing author review: 0
-- Safe boundary statements detected: 228
+- Safe boundary statements detected: 232
 
 ## Interpretation
 

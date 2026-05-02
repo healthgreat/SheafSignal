@@ -26,6 +26,10 @@ REPORT_PATH = OUTPUT_DIR / "CONFIRMATORY_PERMUTATION_STATUS.md"
 TARGET_N_PERMUTATIONS = 10000
 CONFIRMATORY_DATASET = "gse154778_pdac_scrna"
 CONFIRMATORY_RESULT_ROOT = OUTPUT_DIR / CONFIRMATORY_DATASET / "results"
+CONFIRMATORY_SUMMARY_PATH = OUTPUT_DIR / "public_tme_sheafsignal_summary.csv"
+CLAIM_GATING_PATH = Path(
+    "benchmarks/results/gse154778_pdac_scrna/qc/claim_gating_by_cell_type.csv"
+)
 
 TARGET_TESTS = [
     {
@@ -209,6 +213,14 @@ def classify_decision(rows: list[dict[str, object]]) -> str:
 
 
 def build_readiness_rows(decision: str, rows: list[dict[str, object]]) -> list[dict[str, object]]:
+    confirmatory_action = (
+        "No rerun is needed for the current 10,000-permutation statistical gate."
+        if decision == "CONFIRMATORY_10000_COMPLETED"
+        else (
+            "Run the command file before final high-confidence 20-50 IF submission "
+            "if stronger p-value resolution is needed."
+        )
+    )
     return [
         {
             "check_id": "baseline_1000_exists",
@@ -222,10 +234,7 @@ def build_readiness_rows(decision: str, rows: list[dict[str, object]]) -> list[d
             "check_id": "confirmatory_10000_completed",
             "status": "pass" if decision == "CONFIRMATORY_10000_COMPLETED" else "pending",
             "evidence": decision,
-            "required_action": (
-                "Run the command file before final high-confidence 20-50 IF submission "
-                "if stronger p-value resolution is needed."
-            ),
+            "required_action": confirmatory_action,
         },
         {
             "check_id": "claim_promotion_gate",
@@ -258,15 +267,87 @@ def build_commands() -> str:
     )
 
 
-def build_report(decision: str, rows: list[dict[str, object]]) -> str:
+def _format_value(value: object) -> str:
+    if pd.isna(value):
+        return "NA"
+    return str(value)
+
+
+def _pooled_top_source_boundary(root: Path) -> list[str]:
+    summary = _read_optional_csv(root / CONFIRMATORY_SUMMARY_PATH)
+    if summary.empty:
+        return [
+            "No confirmatory public summary table was available, so pooled top-source "
+            "boundary checks could not be rendered in this report."
+        ]
+    dataset = summary.loc[summary["dataset_id"].astype(str) == CONFIRMATORY_DATASET]
+    if dataset.empty:
+        return [
+            "No GSE154778 row was found in the confirmatory public summary table."
+        ]
+
+    row = dataset.iloc[0]
+    top_cell_type = str(row.get("top_frustration_cell_type", "NA"))
+    top_score = _format_value(row.get("top_frustration_score", pd.NA))
+    boundary_lines = [
+        (
+            f"The pooled confirmatory summary ranks `{top_cell_type}` highest by raw "
+            f"node frustration score (`{top_score}`). This pooled ranking is not "
+            "automatically a manuscript claim."
+        )
+    ]
+
+    claim_gate = _read_optional_csv(root / CLAIM_GATING_PATH)
+    if not claim_gate.empty and "cell_type" in claim_gate.columns:
+        top_claim = claim_gate.loc[claim_gate["cell_type"].astype(str) == top_cell_type]
+        if not top_claim.empty:
+            top_claim_row = top_claim.iloc[0]
+            boundary_lines.append(
+                (
+                    f"Claim gate for `{top_cell_type}`: "
+                    f"`{top_claim_row.get('claim_gate', 'NA')}`; manuscript use: "
+                    f"`{top_claim_row.get('manuscript_use', 'NA')}`; reason: "
+                    f"{top_claim_row.get('claim_gate_reason', 'NA')}."
+                )
+            )
+        myeloid_claim = claim_gate.loc[claim_gate["cell_type"].astype(str) == "Myeloid"]
+        if not myeloid_claim.empty:
+            myeloid_row = myeloid_claim.iloc[0]
+            boundary_lines.append(
+                (
+                    "Myeloid remains bounded by the frozen claim gate as "
+                    f"`{myeloid_row.get('claim_gate', 'NA')}` / "
+                    f"`{myeloid_row.get('manuscript_use', 'NA')}`; this supports "
+                    "a lesion-stratified computational hypothesis, not a main "
+                    "biological-driver claim."
+                )
+            )
+    else:
+        boundary_lines.append(
+            "The claim-gating table was not found; do not interpret pooled top-source "
+            "rankings without the frozen GSE154778 claim gate."
+        )
+    return boundary_lines
+
+
+def build_report(decision: str, rows: list[dict[str, object]], root: Path) -> str:
     target_lines = [
         (
             f"- `{row['test_id']}`: current p={row['current_p_value']}, "
             f"family FDR={row['current_family_fdr']}, current n={row['current_n_permutations']}, "
+            f"confirmatory p={_format_value(row['confirmatory_p_value'])}, "
+            f"confirmatory FDR={_format_value(row['confirmatory_fdr'])}, "
+            f"confirmatory n={row['confirmatory_n_permutations']}, "
             f"confirmatory status `{row['confirmatory_result_status']}`."
         )
         for row in rows
     ]
+    role = (
+        "completed_statistical_strengthening_not_mechanism_validation"
+        if decision == "CONFIRMATORY_10000_COMPLETED"
+        else "pre-specified_confirmatory_subset_local_ready"
+    )
+    top_source_boundary_lines = _pooled_top_source_boundary(root)
     return "\n".join(
         [
             "# Confirmatory 10,000-Permutation Subset Status",
@@ -274,11 +355,15 @@ def build_report(decision: str, rows: list[dict[str, object]]) -> str:
             f"- Decision: `{decision}`",
             f"- Target dataset: `{CONFIRMATORY_DATASET}`",
             f"- Target permutations: `{TARGET_N_PERMUTATIONS}`",
-            "- Current role: `pre-specified_confirmatory_subset_local_ready`",
+            f"- Current role: `{role}`",
             "",
             "## Target Tests",
             "",
             *target_lines,
+            "",
+            "## Pooled Top-Source Boundary",
+            "",
+            *[f"- {line}" for line in top_source_boundary_lines],
             "",
             "## Interpretation Boundary",
             "",
@@ -305,7 +390,7 @@ def build_outputs(root: Path) -> dict[str, object]:
     _write_tsv_atomic(root / SUBSET_PATH, rows)
     _write_tsv_atomic(root / READINESS_PATH, build_readiness_rows(decision, rows))
     _write_text_atomic(root / COMMANDS_PATH, build_commands())
-    _write_text_atomic(root / REPORT_PATH, build_report(decision, rows))
+    _write_text_atomic(root / REPORT_PATH, build_report(decision, rows, root))
     return {
         "decision": decision,
         "n_targets": len(rows),

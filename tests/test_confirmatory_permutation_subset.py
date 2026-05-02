@@ -88,6 +88,89 @@ def _write_round2_fixture(root: Path) -> None:
     ).to_csv(result_root / "sheaf_energy_permutation_pvalues.csv", index=False)
 
 
+def _write_confirmatory_fixture(root: Path) -> None:
+    result_root = (
+        root
+        / "benchmarks"
+        / "results"
+        / "confirmatory_10000"
+        / CONFIRMATORY_DATASET
+        / "results"
+    )
+    result_root.mkdir(parents=True, exist_ok=True)
+    pd.DataFrame(
+        [
+            {
+                "metric": "curl_ratio",
+                "empirical_p": 0.0001,
+                "fdr": 0.0004,
+                "n_permutations": 10000,
+            }
+        ]
+    ).to_csv(result_root / "global_permutation_pvalues.csv", index=False)
+    pd.DataFrame(
+        [
+            {
+                "cell_type": "Myeloid",
+                "observed_frustration_score": 0.2,
+                "frustration_empirical_p": 0.0001,
+                "frustration_fdr": 0.0002,
+                "n_permutations": 10000,
+            }
+        ]
+    ).to_csv(result_root / "frustration_permutation_pvalues.csv", index=False)
+    pd.DataFrame(
+        [
+            {
+                "edge_id": "Myeloid->Tumor/Epithelial",
+                "sheaf_energy_empirical_p": 0.0001,
+                "sheaf_energy_fdr": 0.0006,
+                "curl_empirical_p": 0.7,
+                "curl_fdr": 0.8,
+                "n_permutations": 10000,
+            },
+            {
+                "edge_id": "Myeloid->CAF/Fibroblast",
+                "sheaf_energy_empirical_p": 0.8,
+                "sheaf_energy_fdr": 0.8,
+                "curl_empirical_p": 0.0001,
+                "curl_fdr": 0.0002,
+                "n_permutations": 10000,
+            },
+        ]
+    ).to_csv(result_root / "sheaf_energy_permutation_pvalues.csv", index=False)
+
+    summary_path = root / "benchmarks/results/confirmatory_10000/public_tme_sheafsignal_summary.csv"
+    pd.DataFrame(
+        [
+            {
+                "dataset_id": CONFIRMATORY_DATASET,
+                "top_frustration_cell_type": "CAF/Fibroblast",
+                "top_frustration_score": 0.43,
+            }
+        ]
+    ).to_csv(summary_path, index=False)
+
+    claim_path = root / "benchmarks/results/gse154778_pdac_scrna/qc/claim_gating_by_cell_type.csv"
+    claim_path.parent.mkdir(parents=True, exist_ok=True)
+    pd.DataFrame(
+        [
+            {
+                "cell_type": "CAF/Fibroblast",
+                "claim_gate": "qc_warning_only",
+                "manuscript_use": "supplement_qc_only",
+                "claim_gate_reason": "sparse lesion support",
+            },
+            {
+                "cell_type": "Myeloid",
+                "claim_gate": "supplement_only",
+                "manuscript_use": "supplement_context",
+                "claim_gate_reason": "hypothesis only",
+            },
+        ]
+    ).to_csv(claim_path, index=False)
+
+
 def test_confirmatory_decision_ready_not_run():
     rows = [
         {
@@ -124,3 +207,21 @@ def test_build_outputs_writes_subset_and_status(tmp_path: Path):
     assert set(subset["label"]).issuperset({"curl_ratio", "Myeloid"})
     assert subset["current_n_permutations"].min() == 1000
     assert subset["confirmatory_result_status"].eq("ready_not_run").all()
+
+
+def test_build_outputs_records_completed_boundary_for_pooled_top_source(tmp_path: Path):
+    _write_round2_fixture(tmp_path)
+    _write_confirmatory_fixture(tmp_path)
+
+    summary = build_outputs(tmp_path)
+
+    assert summary["decision"] == "CONFIRMATORY_10000_COMPLETED"
+    subset = pd.read_csv(tmp_path / SUBSET_PATH, sep="\t")
+    assert subset["confirmatory_n_permutations"].min() == 10000
+    assert subset["confirmatory_result_status"].eq("completed_10000").all()
+
+    report = (tmp_path / REPORT_PATH).read_text(encoding="utf-8")
+    assert "completed_statistical_strengthening_not_mechanism_validation" in report
+    assert "pooled confirmatory summary ranks `CAF/Fibroblast`" in report
+    assert "qc_warning_only" in report
+    assert "Myeloid remains bounded" in report

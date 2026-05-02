@@ -1,4 +1,4 @@
 check_id	status	evidence	required_action
 baseline_1000_exists	pass	4 target tests with current n_permutations >= 1000	Keep 1000-permutation Round2 outputs as baseline evidence.
-confirmatory_10000_completed	pending	CONFIRMATORY_10000_READY_NOT_RUN	Run the command file before final high-confidence 20-50 IF submission if stronger p-value resolution is needed.
+confirmatory_10000_completed	pass	CONFIRMATORY_10000_COMPLETED	No rerun is needed for the current 10,000-permutation statistical gate.
 claim_promotion_gate	pass_with_boundary	No row allows biological driver or clinical claims without extra evidence.	Keep Myeloid supplement-only unless independent review and stronger validation pass.

@@ -1,0 +1,7 @@
+dataset_id,tool,status,comparison_level,edge_score_table,aligned_edge_table,notes,n_edges,spearman_sheaf_energy_vs_tool_score,sender_rank_spearman,receiver_rank_spearman,top_lr_jaccard,high_sheaf_low_tool_edges,high_tool_low_sheaf_edges,concordant_high_edges,unaligned_edges
+gse154778_pdac_scrna,LRProductBaseline,completed,cell_type_edge,benchmarks\results\confirmatory_10000\gse154778_pdac_scrna\comparators\lr_product_baseline_edges.csv,benchmarks\results\confirmatory_10000\gse154778_pdac_scrna\comparators\sheafsignal_vs_lr_product_baseline.csv,Internal conventional CCC baseline: ligand expression x receptor expression edge strength aligned against SheafSignal sheaf_energy.,12,0.3356643356643357,0.39999999999999997,0.39999999999999997,0.7777777777777778,1,0,2,0
+gse154778_pdac_scrna,CellChat,not_run_requires_external_tool,cell_type_edge,,,Comparator adapter placeholder for publication benchmark.,,,,,,,,,
+gse154778_pdac_scrna,CellPhoneDB,not_run_requires_external_tool,cell_type_edge,,,Comparator adapter placeholder for publication benchmark.,,,,,,,,,
+gse154778_pdac_scrna,NicheNet,not_run_requires_external_tool,cell_type_edge,,,Comparator adapter placeholder for publication benchmark.,,,,,,,,,
+gse154778_pdac_scrna,LIANA,not_run_requires_external_tool,cell_type_edge,,,Comparator adapter placeholder for publication benchmark.,,,,,,,,,
+gse154778_pdac_scrna,niche-DE,not_run_requires_external_tool,cell_type_edge,,,Comparator adapter placeholder for publication benchmark.,,,,,,,,,

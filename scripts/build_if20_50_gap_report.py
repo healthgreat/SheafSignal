@@ -396,8 +396,31 @@ def build_gap_matrix(
     return rows
 
 
-def build_supplementation_plan() -> list[dict[str, str]]:
-    return [*MANDATORY_SUPPLEMENT_ROWS, *OPTIONAL_STRENGTHENING_ROWS]
+def build_supplementation_plan(
+    confirmatory_status: str = "unknown",
+    gse103322_status: str = "unknown",
+) -> list[dict[str, str]]:
+    rows = [dict(row) for row in [*MANDATORY_SUPPLEMENT_ROWS, *OPTIONAL_STRENGTHENING_ROWS]]
+    for row in rows:
+        if row["priority"] == "S1" and confirmatory_status == "completed_10000":
+            row["action"] = (
+                "Keep the completed pre-specified 10,000-permutation GSE154778 "
+                "confirmatory subset as statistical-strengthening evidence, without "
+                "promoting computational signals into biological mechanisms."
+            )
+            row["why_it_matters"] = (
+                "The higher-resolution confirmatory subset has been executed, reducing "
+                "reviewer concern that the key p-values and FDR values are only "
+                "1000-permutation resolution."
+            )
+            row["expected_effect"] = (
+                "Improves statistical defensibility; still does not create causal, "
+                "clinical, therapeutic, or mechanism evidence."
+            )
+            row["estimated_effort"] = "done"
+        if row["priority"] == "S2" and gse103322_status == "supplement_ready":
+            row["estimated_effort"] = "done"
+    return rows
 
 
 def clean_preflight_status(root: Path) -> str:
@@ -536,7 +559,7 @@ gantt
 
     section Optional IF 20-50 Strengthening
     10000-permutation subset pre-specification   :done, 2026-05-02, 1d
-    10000-permutation confirmatory execution     :2026-05-06, 2d
+    10000-permutation confirmatory execution     :done, 2026-05-02, 1d
     GSE103322 exploratory replication gate       :done, 2026-05-02, 1d
     GSE103322 1000-permutation supplement rerun  :done, 2026-05-02, 1d
     External beta review packet                  :done, 2026-05-02, 1d
@@ -596,6 +619,36 @@ def build_report(
             "biological source claims until a 1000-permutation, sample-stratified "
             "supplement rerun is completed."
         )
+    if confirmatory_status == "completed_10000":
+        confirmatory_sentence = (
+            "The 10,000-permutation confirmatory subset is now both pre-specified "
+            "and executed for the smallest GSE154778 manuscript-relevant tests. "
+            "This improves p-value and FDR resolution for the statistical evidence, "
+            "but it still must not be used to turn computational Myeloid, curl-like, "
+            "or edge-level signals into validated biological mechanisms."
+        )
+        stretch_route_sentence = (
+            "For a realistic 20-50 IF route, the current package is approximately "
+            "one release/metadata cycle away from being submit-ready. For a Nature "
+            "Methods or Nature Biotechnology stretch route, the core "
+            "package is defensible on local scientific/statistical hardening, but "
+            "would still benefit most from returned external beta reviews and a "
+            "final public clean-clone reproduction after GitHub/Zenodo release."
+        )
+    else:
+        confirmatory_sentence = (
+            "The 10,000-permutation confirmatory subset is now pre-specified and "
+            "has a fixed command plan. It is still not executed in the current state; "
+            "therefore it should be described as a ready confirmatory gate, not as "
+            "completed statistical evidence."
+        )
+        stretch_route_sentence = (
+            "For a realistic 20-50 IF route, the current package is approximately "
+            "one release/metadata cycle away from being submit-ready. For a Nature "
+            "Methods or Nature Biotechnology stretch route, the core "
+            "package is defensible but would still benefit from external beta review "
+            "and a small 10,000-permutation confirmatory subset."
+        )
 
     return "\n".join(
         [
@@ -632,20 +685,14 @@ def build_report(
             "external validation until independent reviewers or AI systems return "
             "written critiques that are filed in the response matrix.",
             "",
-            "The 10,000-permutation confirmatory subset is now pre-specified and "
-            "has a fixed command plan. It is still not executed in the current state; "
-            "therefore it should be described as a ready confirmatory gate, not as "
-            "completed statistical evidence.",
+            confirmatory_sentence,
             "",
             gse103322_sentence,
             "",
-            "For a realistic 20-50 IF route, the current package is approximately "
-            "one release/metadata cycle away from being submit-ready. For a Nature "
-            "Methods or Nature Biotechnology stretch route, the core package is "
-            "defensible but would still benefit from external beta review and a "
-            "small 10,000-permutation confirmatory subset. The GSE103322 HNSCC "
-            "supplement-grade replication gate is now complete, but it remains "
-            "outside primary comparator-completeness claims.",
+            stretch_route_sentence,
+            "",
+            "The GSE103322 HNSCC supplement-grade replication gate is now complete, "
+            "but it remains outside primary comparator-completeness claims.",
             "",
             "## Current Gap Counts",
             "",
@@ -706,7 +753,9 @@ def build_outputs(root: Path) -> dict[str, object]:
         git_audit,
         placeholder_audit,
     )
-    supplement_rows = build_supplementation_plan()
+    confirmatory_status = confirmatory_permutation_status(root)
+    gse103322_status = gse103322_replication_status(root)
+    supplement_rows = build_supplementation_plan(confirmatory_status, gse103322_status)
     _write_tsv_atomic(root / GAP_MATRIX_PATH, gap_rows)
     _write_tsv_atomic(root / SUPPLEMENT_PLAN_PATH, supplement_rows)
     _write_text_atomic(root / REPORT_PATH, build_report(root, gates, gap_rows, supplement_rows))

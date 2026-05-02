@@ -1,6 +1,6 @@
 # SheafSignal Status Dashboard
 
-Timestamp: 2026-05-02 19:05:00
+Timestamp: 2026-05-02 21:10:00
 
 ## One-Line Status
 
@@ -8,13 +8,13 @@ SheafSignal is now a 20-50 IF manuscript-hardening candidate, not a submission-r
 
 The core scientific blockers have been substantially reduced after Round 2, especially formal sheaf implementation, full GSE154778 reannotation, sample-stratified permutation, claim gating, simulation baseline hardening, manuscript claim-language synchronization, Visium hotspot-only scope gating, primary scRNA comparator-scope locking, Python environment locking, and a local Git freeze commit. The project should still stay in `NO_GO` for submission until the public GitHub remote/tag/release URL and Zenodo DOI are fixed.
 
-The IF 20-50 distance report now gives the most direct status: overall readiness index `78.0%`, scientific/method hardening index `95.1%`, and submission infrastructure index `44.5%`. A local clean-export reproduction preflight passes, but final public-GitHub clean-clone reproduction is still required after release URL and DOI insertion. These are internal readiness indices, not acceptance probabilities.
+The IF 20-50 distance report now gives the most direct status: overall readiness index `79.3%`, scientific/method hardening index `97.0%`, and submission infrastructure index `44.5%`. A local clean-export reproduction preflight passes, but final public-GitHub clean-clone reproduction is still required after release URL and DOI insertion. These are internal readiness indices, not acceptance probabilities.
 
 The journal metric audit is now generated as a separate evidence file. Publisher JIF values are checked against official metric pages, while CAS zone and warning-list status remain final submission-day checks through the official CAS partition platform or the institutional library.
 
 An external beta-review packet is now generated for other AI systems or computational biology readers. This makes S3 review handoff local-ready, but it is not equivalent to completed external review until returned critiques are filed and resolved.
 
-The 10,000-permutation confirmatory subset is now pre-specified for the smallest GSE154778 manuscript-relevant tests. It has a fixed command plan, but the 10,000-permutation execution itself remains pending and should not be described as completed evidence.
+The 10,000-permutation confirmatory subset is now pre-specified and executed for the smallest GSE154778 manuscript-relevant tests. It strengthens p-value and FDR resolution, but it still does not convert computational Myeloid, curl-like, or edge-level signals into validated biological mechanisms.
 
 GSE103322 is now upgraded to a supplement-grade HNSCC workflow replication gate with 5,902 cells, 103 samples, 21 patients, and 1,000 sample-stratified permutations. It supports workflow generality and descriptive graph-component stability, but it remains outside primary comparator-completeness claims.
 
@@ -26,7 +26,7 @@ GSE103322 is now upgraded to a supplement-grade HNSCC workflow replication gate 
 | Hodge target | Green | Primary Hodge now decomposes `sheaf_residual` | Keep communication-flow Hodge as secondary diagnostic |
 | GSE154778 reannotation | Green | Full `scanpy_full_v1` annotation covers 14,926 cells / 16 samples | Preserve this frozen annotation in provenance |
 | GSE154778 Myeloid claim | Yellow | Robust enough for supplement hypothesis, not main biological claim | Do not promote to main text unless stronger validation appears |
-| GSE154778 statistics | Green/Yellow | 1000 sample-stratified permutations are done | Keep confirmatory claims tied to predefined FDR families |
+| GSE154778 statistics | Green | 1000 sample-stratified Round2 permutations and the 10000-permutation confirmatory subset are done | Keep confirmatory claims tied to predefined FDR families and biological claims bounded by G04 |
 | Simulation benchmark | Green | Ground-truth benchmark now beats LR-flow, pathway-gradient, Hodge-only, centrality, and graph-smoothness baselines | Use expanded recovery table in method validation |
 | Comparator scope | Green | Primary scRNA comparator scope is complete and locked; broad superiority remains forbidden | Preserve primary-scope boundary |
 | Visium interpretation | Green | Visium is now explicitly restricted to hotspot-only spot-level demonstration | Preserve hotspot-only boundary unless deconvolution/histology is added |
@@ -38,7 +38,7 @@ GSE103322 is now upgraded to a supplement-grade HNSCC workflow replication gate 
 | Clean-export preflight | Green/Yellow | Git-tracked HEAD can run a lightweight clean-export demo and core tests locally | Rerun from public GitHub clone after URL/tag/DOI insertion |
 | Journal metric audit | Green/Yellow | Publisher JIF values are anchored to official metric pages; CAS/warning status is not officially verified yet | Recheck selected journal in official CAS/warning sources on submission day |
 | External beta review packet | Green/Yellow | Reviewer packet, evidence index, AI review prompt, and response form are generated locally | Send to 2-3 independent reviewers or AI systems and file returned critiques |
-| 10,000 permutation subset | Green/Yellow | Confirmatory target tests and run command are pre-specified; execution not yet run | Run in WSL with tmux/nohup if final reviewers require higher p-value resolution |
+| 10,000 permutation subset | Green | Confirmatory target tests are pre-specified and executed | Use as statistical-strengthening evidence only, not mechanism validation |
 | GSE103322 replication | Green/Yellow | Independent HNSCC workflow replication now has 1000 sample-stratified permutations | Keep as supplement-grade generality evidence, not primary comparator-completeness evidence |
 | Submission | Red/Yellow | Not ready to submit | Clear the red and yellow submission blockers first |
 
@@ -66,6 +66,7 @@ gantt
     section Release Preparation
     Local Git freeze commit                      :done, 2026-05-02, 1d
     10000-permutation subset pre-specification    :done, 2026-05-02, 1d
+    10000-permutation confirmatory execution      :done, 2026-05-02, 1d
     GSE103322 exploratory replication gate        :done, 2026-05-02, 1d
     GSE103322 1000-permutation rerun             :done, 2026-05-02, 1d
     Public GitHub remote/tag/release URL         :2026-05-11, 1d

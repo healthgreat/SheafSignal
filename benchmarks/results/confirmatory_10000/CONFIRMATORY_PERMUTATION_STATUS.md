@@ -1,16 +1,22 @@
 # Confirmatory 10,000-Permutation Subset Status
 
-- Decision: `CONFIRMATORY_10000_READY_NOT_RUN`
+- Decision: `CONFIRMATORY_10000_COMPLETED`
 - Target dataset: `gse154778_pdac_scrna`
 - Target permutations: `10000`
-- Current role: `pre-specified_confirmatory_subset_local_ready`
+- Current role: `completed_statistical_strengthening_not_mechanism_validation`
 
 ## Target Tests
 
-- `global_metrics:curl_ratio`: current p=0.0009990009990009, family FDR=0.0039960039960036, current n=1000, confirmatory status `ready_not_run`.
-- `node_frustration:Myeloid`: current p=0.0009990009990009, family FDR=0.0019980019980018, current n=1000, confirmatory status `ready_not_run`.
-- `edge_sheaf_energy:Myeloid->Tumor/Epithelial`: current p=0.0009990009990009, family FDR=0.0059940059940053, current n=1000, confirmatory status `ready_not_run`.
-- `edge_curl:Myeloid->CAF/Fibroblast`: current p=0.0009990009990009, family FDR=0.0019980019980018, current n=1000, confirmatory status `ready_not_run`.
+- `global_metrics:curl_ratio`: current p=0.0009990009990009, family FDR=0.0039960039960036, current n=1000, confirmatory p=9.999000099990002e-05, confirmatory FDR=0.0003999600039996, confirmatory n=10000, confirmatory status `completed_10000`.
+- `node_frustration:Myeloid`: current p=0.0009990009990009, family FDR=0.0019980019980018, current n=1000, confirmatory p=9.999000099990002e-05, confirmatory FDR=0.0001999800019998, confirmatory n=10000, confirmatory status `completed_10000`.
+- `edge_sheaf_energy:Myeloid->Tumor/Epithelial`: current p=0.0009990009990009, family FDR=0.0059940059940053, current n=1000, confirmatory p=9.999000099990002e-05, confirmatory FDR=0.0005999400059994, confirmatory n=10000, confirmatory status `completed_10000`.
+- `edge_curl:Myeloid->CAF/Fibroblast`: current p=0.0009990009990009, family FDR=0.0019980019980018, current n=1000, confirmatory p=9.999000099990002e-05, confirmatory FDR=0.0001999800019998, confirmatory n=10000, confirmatory status `completed_10000`.
+
+## Pooled Top-Source Boundary
+
+- The pooled confirmatory summary ranks `CAF/Fibroblast` highest by raw node frustration score (`0.4305969571078318`). This pooled ranking is not automatically a manuscript claim.
+- Claim gate for `CAF/Fibroblast`: `qc_warning_only`; manuscript use: `supplement_qc_only`; reason: we pre-specified minimum cell/sample support and excluded underpowered categories from biological claims.
+- Myeloid remains bounded by the frozen claim gate as `supplement_only` / `supplement_context`; this supports a lesion-stratified computational hypothesis, not a main biological-driver claim.
 
 ## Interpretation Boundary
 
