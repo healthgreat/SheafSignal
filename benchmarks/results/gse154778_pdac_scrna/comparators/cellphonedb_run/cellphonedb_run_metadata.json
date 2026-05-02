@@ -1,0 +1,28 @@
+{
+  "tool": "CellPhoneDB",
+  "status": "completed_external_run_pending_import",
+  "cellphonedb_executable": "",
+  "execution_mode": "python_api",
+  "command_path": "benchmarks\\results\\gse154778_pdac_scrna\\comparators\\cellphonedb_run\\cellphonedb_command.txt",
+  "meta_path": "benchmarks\\results\\gse154778_pdac_scrna\\comparators\\cellphonedb_run\\cellphonedb_meta.tsv",
+  "counts_path": "benchmarks\\results\\gse154778_pdac_scrna\\comparators\\cellphonedb_run\\cellphonedb_counts.tsv",
+  "output_dir": "benchmarks\\results\\gse154778_pdac_scrna\\comparators\\cellphonedb_run",
+  "cpdb_database": "data\\external\\cellphonedb_database\\cellphonedb.zip",
+  "iterations": 1000,
+  "threshold": 0.1,
+  "threads": 4,
+  "debug_seed": 42,
+  "max_cells": null,
+  "api_fallback": true,
+  "score_interactions": true,
+  "api_result_keys": [
+    "CellSign_active_interactions",
+    "CellSign_active_interactions_deconvoluted",
+    "deconvoluted",
+    "deconvoluted_percents",
+    "interaction_scores",
+    "means",
+    "pvalues",
+    "significant_means"
+  ]
+}

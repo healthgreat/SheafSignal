@@ -1,0 +1,7 @@
+ligand,receptor,weight,annotation
+VEGFA,KDR,1.0,VEGF angiogenic signaling
+VEGFA,FLT1,0.8,VEGF decoy or angiogenic signaling
+TGFB1,TGFBR1,0.9,TGF beta signaling
+CXCL12,CXCR4,0.9,Chemokine signaling
+ANGPT2,TEK,0.7,Angiopoietin signaling
+MMP2,ITGAV,0.5,Matrix remodeling receptor axis

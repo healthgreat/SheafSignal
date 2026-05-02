@@ -1,0 +1,13 @@
+sender,receiver,edge_id,vertex_stalk,edge_stalk,restriction_sender,restriction_receiver,coboundary_orientation
+CAF/Fibroblast,T/NK,CAF/Fibroblast->T/NK,R_pathway_state,R_communication_observation,-1.0,1.0,receiver_minus_sender
+Tumor/Epithelial,CAF/Fibroblast,Tumor/Epithelial->CAF/Fibroblast,R_pathway_state,R_communication_observation,-1.0,1.0,receiver_minus_sender
+CAF/Fibroblast,Myeloid,CAF/Fibroblast->Myeloid,R_pathway_state,R_communication_observation,-1.0,1.0,receiver_minus_sender
+Myeloid,T/NK,Myeloid->T/NK,R_pathway_state,R_communication_observation,-1.0,1.0,receiver_minus_sender
+Tumor/Epithelial,Myeloid,Tumor/Epithelial->Myeloid,R_pathway_state,R_communication_observation,-1.0,1.0,receiver_minus_sender
+Tumor/Epithelial,T/NK,Tumor/Epithelial->T/NK,R_pathway_state,R_communication_observation,-1.0,1.0,receiver_minus_sender
+CAF/Fibroblast,Tumor/Epithelial,CAF/Fibroblast->Tumor/Epithelial,R_pathway_state,R_communication_observation,-1.0,1.0,receiver_minus_sender
+Myeloid,Tumor/Epithelial,Myeloid->Tumor/Epithelial,R_pathway_state,R_communication_observation,-1.0,1.0,receiver_minus_sender
+T/NK,CAF/Fibroblast,T/NK->CAF/Fibroblast,R_pathway_state,R_communication_observation,-1.0,1.0,receiver_minus_sender
+T/NK,Tumor/Epithelial,T/NK->Tumor/Epithelial,R_pathway_state,R_communication_observation,-1.0,1.0,receiver_minus_sender
+Myeloid,CAF/Fibroblast,Myeloid->CAF/Fibroblast,R_pathway_state,R_communication_observation,-1.0,1.0,receiver_minus_sender
+T/NK,Myeloid,T/NK->Myeloid,R_pathway_state,R_communication_observation,-1.0,1.0,receiver_minus_sender

@@ -1,0 +1,13 @@
+cell_id,cell_type
+CAF_1,CAF
+CAF_2,CAF
+CAF_3,CAF
+Endo_1,Endothelial
+Endo_2,Endothelial
+Endo_3,Endothelial
+Tumor_1,Tumor
+Tumor_2,Tumor
+Tumor_3,Tumor
+Mac_1,Macrophage
+Mac_2,Macrophage
+Mac_3,Macrophage

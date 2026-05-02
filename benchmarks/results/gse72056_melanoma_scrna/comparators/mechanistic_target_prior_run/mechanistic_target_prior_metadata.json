@@ -1,0 +1,14 @@
+{
+  "claim_boundary": "Curated ligand-target prior baseline; useful as a mechanistic comparator but not a substitute for a full nichenetr/NicheNet package run.",
+  "dataset_id": "gse72056_melanoma_scrna",
+  "ligand_target_prior_path": "metadata\\tme_ligand_target_prior.csv",
+  "lr_db_path": "metadata\\tme_ligand_receptor.csv",
+  "min_target_genes": 1,
+  "n_lr_pairs": 14,
+  "n_prior_rows": 37,
+  "n_profile_genes": 52,
+  "n_profiles": 7,
+  "n_raw_scored_rows": 546,
+  "processed_dir": "data\\processed\\gse72056_melanoma_scrna",
+  "tool": "MechanisticTargetPrior"
+}

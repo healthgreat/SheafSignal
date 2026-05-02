@@ -1,0 +1,126 @@
+blocker_id	severity	status	evidence	required_action
+checklist::Zenodo DOI minted	blocking	blocking_pending	Upload release/archives/sheafsignal_zenodo_upload.zip and record DOI.	Upload release/archives/sheafsignal_zenodo_upload.zip and record DOI.
+zenodo_doi::data_availability_statement	blocking	pending	release/DATA_AVAILABILITY_STATEMENT_DRAFT.md	Insert the minted DOI into the data availability statement.
+zenodo_doi::dataset_manifest	blocking	pending	gse72056_melanoma_scrna;gse154778_pdac_scrna;gse176078_brca_scrna;gse103322_hnsc_scrna;tenx_breast_visium	Mint Zenodo DOI and replace PENDING_ZENODO_RELEASE in metadata/datasets.tsv.
+author_metadata::affiliations	pending	tbd_by_authors	manuscript\submission_metadata\AFFILIATIONS_TEMPLATE.tsv	Fill all affiliations.
+author_metadata::authors	pending	tbd_by_authors	manuscript\submission_metadata\AUTHOR_METADATA_TEMPLATE.tsv	Fill all author names, emails, ORCIDs when available, corresponding author status, and conflict statements.
+author_metadata::competing_interests	pending	tbd_by_authors	manuscript\submission_metadata\COMPETING_INTERESTS_TEMPLATE.md	Replace TBD with final competing interests statement.
+author_metadata::credit_roles	pending	tbd_by_authors	manuscript\submission_metadata\AUTHOR_CONTRIBUTIONS_CREDIT_TEMPLATE.tsv	Assign authors to CRediT roles.
+author_metadata::ethics_data_use	pending	tbd_by_authors	manuscript\submission_metadata\ETHICS_AND_DATA_USE_STATEMENT.md	Confirm final ethics/data-use wording with authors or institution.
+author_metadata::submission_system_checklist	pending	tbd_by_authors	manuscript\submission_metadata\SUBMISSION_SYSTEM_METADATA_CHECKLIST.tsv	Complete submission-system metadata checklist.
+checklist::Conflict of interest and author contributions	pending	tbd_by_authors	Authors must fill journal submission metadata.	Authors must fill journal submission metadata.
+checklist::GitHub repository public release	pending	pending	Use release/archives/sheafsignal_github_release.zip or tracked repository contents.	Use release/archives/sheafsignal_github_release.zip or tracked repository contents.
+checklist::Nature Methods formatting checked	pending	pending_submission_day_check	Check current official author instructions before upload.	Check current official author instructions before upload.
+benchmark_result_contracts::tables_and_links	pass	pass	No benchmark result contract failures detected.	Resolve failed benchmark result contract checks before submission.
+checklist::All tests pass	pass	complete_current_run	Run python -m pytest before final submission.	Run python -m pytest before final submission.
+checklist::No overclaiming	pass	required	Use 05_claim_evidence_map.tsv and 08_claim_boundaries_and_limitations.md.	Use 05_claim_evidence_map.tsv and 08_claim_boundaries_and_limitations.md.
+checklist::Release audit passes	pass	complete_current_run	Run python scripts/release_audit.py before final submission.	Run python scripts/release_audit.py before final submission.
+claim_safety_audit::manuscript_wide	pass	pass	No blocking positive claims detected.	Resolve blocking or author-review claim safety rows before submission.
+forbidden_positive_claims::manuscript_draft	pass	pass	No forbidden positive claim patterns detected.	Remove or rewrite any positive clinical, guaranteed-publication, or broad-superiority claims.
+format_audit::nature_methods	pass	pass	all local format checks pass	Resolve Nature Methods format audit issues.
+main_figure_quality::pdfs_and_source_boundaries	pass	pass	All main figure PDFs passed automated quality checks.	Regenerate figures or fix source-map boundaries before submission.
+method_reporting::local_readiness	pass	pass	No method-reporting failures detected.	Resolve failed method-reporting checks before submission.
+reference_gap_report::placeholders	pass	pass	manuscript/references/SCI_REFERENCE_GAP_REPORT.md	Resolve all [REF: ...] placeholders before journal formatting.
+required_file::benchmarks/results/BENCHMARK_RESULT_CONTRACT_AUDIT.tsv	pass	pass	benchmarks/results/BENCHMARK_RESULT_CONTRACT_AUDIT.tsv	Create or regenerate this required submission file.
+required_file::benchmarks/results/BENCHMARK_RESULT_CONTRACT_REPORT.md	pass	pass	benchmarks/results/BENCHMARK_RESULT_CONTRACT_REPORT.md	Create or regenerate this required submission file.
+required_file::benchmarks/results/gse154778_pdac_scrna/reannotation/GSE154778_REANNOTATION_READINESS_REPORT.md	pass	pass	benchmarks/results/gse154778_pdac_scrna/reannotation/GSE154778_REANNOTATION_READINESS_REPORT.md	Create or regenerate this required submission file.
+required_file::benchmarks/results/gse154778_pdac_scrna/reannotation/reannotation_readiness.csv	pass	pass	benchmarks/results/gse154778_pdac_scrna/reannotation/reannotation_readiness.csv	Create or regenerate this required submission file.
+required_file::benchmarks/results/sensitivity/SENSITIVITY_PANEL_REPORT.md	pass	pass	benchmarks/results/sensitivity/SENSITIVITY_PANEL_REPORT.md	Create or regenerate this required submission file.
+required_file::benchmarks/results/sensitivity/sensitivity_panel.csv	pass	pass	benchmarks/results/sensitivity/sensitivity_panel.csv	Create or regenerate this required submission file.
+required_file::manuscript/CLAIM_SAFETY_AUDIT.tsv	pass	pass	manuscript/CLAIM_SAFETY_AUDIT.tsv	Create or regenerate this required submission file.
+required_file::manuscript/CLAIM_SAFETY_AUDIT_REPORT.md	pass	pass	manuscript/CLAIM_SAFETY_AUDIT_REPORT.md	Create or regenerate this required submission file.
+required_file::manuscript/NATURE_METHODS_FORMAT_AUDIT.tsv	pass	pass	manuscript/NATURE_METHODS_FORMAT_AUDIT.tsv	Create or regenerate this required submission file.
+required_file::manuscript/NATURE_METHODS_FORMAT_AUDIT_REPORT.md	pass	pass	manuscript/NATURE_METHODS_FORMAT_AUDIT_REPORT.md	Create or regenerate this required submission file.
+required_file::manuscript/SCI_AUTHOR_TODO.md	pass	pass	manuscript/SCI_AUTHOR_TODO.md	Create or regenerate this required submission file.
+required_file::manuscript/SCI_COVER_LETTER_NatureMethods.md	pass	pass	manuscript/SCI_COVER_LETTER_NatureMethods.md	Create or regenerate this required submission file.
+required_file::manuscript/SCI_MANUSCRIPT_V1.md	pass	pass	manuscript/SCI_MANUSCRIPT_V1.md	Create or regenerate this required submission file.
+required_file::manuscript/SCI_MANUSCRIPT_V1_claim_tracked.md	pass	pass	manuscript/SCI_MANUSCRIPT_V1_claim_tracked.md	Create or regenerate this required submission file.
+required_file::manuscript/SCI_MANUSCRIPT_V2_CHANGELOG.tsv	pass	pass	manuscript/SCI_MANUSCRIPT_V2_CHANGELOG.tsv	Create or regenerate this required submission file.
+required_file::manuscript/SCI_MANUSCRIPT_V2_EDITORIAL_AUDIT.tsv	pass	pass	manuscript/SCI_MANUSCRIPT_V2_EDITORIAL_AUDIT.tsv	Create or regenerate this required submission file.
+required_file::manuscript/SCI_MANUSCRIPT_V2_POLISHED.md	pass	pass	manuscript/SCI_MANUSCRIPT_V2_POLISHED.md	Create or regenerate this required submission file.
+required_file::manuscript/SCI_MANUSCRIPT_V2_POLISHED_claim_tracked.md	pass	pass	manuscript/SCI_MANUSCRIPT_V2_POLISHED_claim_tracked.md	Create or regenerate this required submission file.
+required_file::manuscript/SCI_TITLE_ABSTRACT_KEYWORDS.md	pass	pass	manuscript/SCI_TITLE_ABSTRACT_KEYWORDS.md	Create or regenerate this required submission file.
+required_file::manuscript/claim_hardening/CLAIM_HARDENING_AUDIT.tsv	pass	pass	manuscript/claim_hardening/CLAIM_HARDENING_AUDIT.tsv	Create or regenerate this required submission file.
+required_file::manuscript/claim_hardening/CLAIM_HARDENING_REPORT.md	pass	pass	manuscript/claim_hardening/CLAIM_HARDENING_REPORT.md	Create or regenerate this required submission file.
+required_file::manuscript/figure_legends/00_figure_legend_inventory.tsv	pass	pass	manuscript/figure_legends/00_figure_legend_inventory.tsv	Create or regenerate this required submission file.
+required_file::manuscript/figure_legends/01_main_figure_legends.md	pass	pass	manuscript/figure_legends/01_main_figure_legends.md	Create or regenerate this required submission file.
+required_file::manuscript/figure_legends/02_supplementary_figure_legends.md	pass	pass	manuscript/figure_legends/02_supplementary_figure_legends.md	Create or regenerate this required submission file.
+required_file::manuscript/figure_legends/03_figure_source_map.tsv	pass	pass	manuscript/figure_legends/03_figure_source_map.tsv	Create or regenerate this required submission file.
+required_file::manuscript/figure_legends/04_figure_claim_boundary_checklist.tsv	pass	pass	manuscript/figure_legends/04_figure_claim_boundary_checklist.tsv	Create or regenerate this required submission file.
+required_file::manuscript/figure_quality/MAIN_FIGURE_QUALITY_AUDIT.tsv	pass	pass	manuscript/figure_quality/MAIN_FIGURE_QUALITY_AUDIT.tsv	Create or regenerate this required submission file.
+required_file::manuscript/figure_quality/MAIN_FIGURE_QUALITY_REPORT.md	pass	pass	manuscript/figure_quality/MAIN_FIGURE_QUALITY_REPORT.md	Create or regenerate this required submission file.
+required_file::manuscript/method_reporting/METHOD_REPORTING_AUDIT.tsv	pass	pass	manuscript/method_reporting/METHOD_REPORTING_AUDIT.tsv	Create or regenerate this required submission file.
+required_file::manuscript/method_reporting/METHOD_REPORTING_REPORT.md	pass	pass	manuscript/method_reporting/METHOD_REPORTING_REPORT.md	Create or regenerate this required submission file.
+required_file::manuscript/method_reporting/REVIEWER_RISK_REGISTER.tsv	pass	pass	manuscript/method_reporting/REVIEWER_RISK_REGISTER.tsv	Create or regenerate this required submission file.
+required_file::manuscript/method_reporting/REVIEWER_RISK_REPORT.md	pass	pass	manuscript/method_reporting/REVIEWER_RISK_REPORT.md	Create or regenerate this required submission file.
+required_file::manuscript/nature_methods_package/00_title_page.md	pass	pass	manuscript/nature_methods_package/00_title_page.md	Create or regenerate this required submission file.
+required_file::manuscript/nature_methods_package/01_abstract.md	pass	pass	manuscript/nature_methods_package/01_abstract.md	Create or regenerate this required submission file.
+required_file::manuscript/nature_methods_package/02_cover_letter_draft.md	pass	pass	manuscript/nature_methods_package/02_cover_letter_draft.md	Create or regenerate this required submission file.
+required_file::manuscript/nature_methods_package/03_main_text_skeleton.md	pass	pass	manuscript/nature_methods_package/03_main_text_skeleton.md	Create or regenerate this required submission file.
+required_file::manuscript/nature_methods_package/04_methods_skeleton.md	pass	pass	manuscript/nature_methods_package/04_methods_skeleton.md	Create or regenerate this required submission file.
+required_file::manuscript/nature_methods_package/05_claim_evidence_map.tsv	pass	pass	manuscript/nature_methods_package/05_claim_evidence_map.tsv	Create or regenerate this required submission file.
+required_file::manuscript/nature_methods_package/06_figure_plan.tsv	pass	pass	manuscript/nature_methods_package/06_figure_plan.tsv	Create or regenerate this required submission file.
+required_file::manuscript/nature_methods_package/07_submission_checklist.tsv	pass	pass	manuscript/nature_methods_package/07_submission_checklist.tsv	Create or regenerate this required submission file.
+required_file::manuscript/nature_methods_package/08_claim_boundaries_and_limitations.md	pass	pass	manuscript/nature_methods_package/08_claim_boundaries_and_limitations.md	Create or regenerate this required submission file.
+required_file::manuscript/nature_methods_package/09_full_manuscript_draft.md	pass	pass	manuscript/nature_methods_package/09_full_manuscript_draft.md	Create or regenerate this required submission file.
+required_file::manuscript/nature_methods_package/10_supplementary_information_draft.md	pass	pass	manuscript/nature_methods_package/10_supplementary_information_draft.md	Create or regenerate this required submission file.
+required_file::manuscript/novelty_overlap/SHEAFSIGNAL_NOVELTY_OVERLAP_REPORT.md	pass	pass	manuscript/novelty_overlap/SHEAFSIGNAL_NOVELTY_OVERLAP_REPORT.md	Create or regenerate this required submission file.
+required_file::manuscript/novelty_overlap/SHEAFSIGNAL_NOVELTY_OVERLAP_TABLE.tsv	pass	pass	manuscript/novelty_overlap/SHEAFSIGNAL_NOVELTY_OVERLAP_TABLE.tsv	Create or regenerate this required submission file.
+required_file::manuscript/presubmission_inquiry/00_one_page_editor_summary.md	pass	pass	manuscript/presubmission_inquiry/00_one_page_editor_summary.md	Create or regenerate this required submission file.
+required_file::manuscript/presubmission_inquiry/01_presubmission_inquiry_letter.md	pass	pass	manuscript/presubmission_inquiry/01_presubmission_inquiry_letter.md	Create or regenerate this required submission file.
+required_file::manuscript/presubmission_inquiry/02_editorial_triage_risk_audit.tsv	pass	pass	manuscript/presubmission_inquiry/02_editorial_triage_risk_audit.tsv	Create or regenerate this required submission file.
+required_file::manuscript/presubmission_inquiry/03_novelty_evidence_matrix.tsv	pass	pass	manuscript/presubmission_inquiry/03_novelty_evidence_matrix.tsv	Create or regenerate this required submission file.
+required_file::manuscript/presubmission_inquiry/04_editor_claim_boundary_note.md	pass	pass	manuscript/presubmission_inquiry/04_editor_claim_boundary_note.md	Create or regenerate this required submission file.
+required_file::manuscript/provenance/SUBMISSION_PROVENANCE_AUDIT.tsv	pass	pass	manuscript/provenance/SUBMISSION_PROVENANCE_AUDIT.tsv	Create or regenerate this required submission file.
+required_file::manuscript/provenance/SUBMISSION_PROVENANCE_REPORT.md	pass	pass	manuscript/provenance/SUBMISSION_PROVENANCE_REPORT.md	Create or regenerate this required submission file.
+required_file::manuscript/references/SCI_MANUSCRIPT_V1_referenced.md	pass	pass	manuscript/references/SCI_MANUSCRIPT_V1_referenced.md	Create or regenerate this required submission file.
+required_file::manuscript/references/SCI_REFERENCES.bib	pass	pass	manuscript/references/SCI_REFERENCES.bib	Create or regenerate this required submission file.
+required_file::manuscript/references/SCI_REFERENCES.md	pass	pass	manuscript/references/SCI_REFERENCES.md	Create or regenerate this required submission file.
+required_file::manuscript/references/SCI_REFERENCES_VERIFIED.tsv	pass	pass	manuscript/references/SCI_REFERENCES_VERIFIED.tsv	Create or regenerate this required submission file.
+required_file::manuscript/references/SCI_REFERENCE_GAP_REPORT.md	pass	pass	manuscript/references/SCI_REFERENCE_GAP_REPORT.md	Create or regenerate this required submission file.
+required_file::manuscript/references/SCI_REFERENCE_PLACEHOLDER_MAP.tsv	pass	pass	manuscript/references/SCI_REFERENCE_PLACEHOLDER_MAP.tsv	Create or regenerate this required submission file.
+required_file::manuscript/response_transfer/00_decision_tree.md	pass	pass	manuscript/response_transfer/00_decision_tree.md	Create or regenerate this required submission file.
+required_file::manuscript/response_transfer/01_editorial_rejection_response_template.md	pass	pass	manuscript/response_transfer/01_editorial_rejection_response_template.md	Create or regenerate this required submission file.
+required_file::manuscript/response_transfer/02_reviewer_response_skeleton.md	pass	pass	manuscript/response_transfer/02_reviewer_response_skeleton.md	Create or regenerate this required submission file.
+required_file::manuscript/response_transfer/03_transfer_package_by_journal.tsv	pass	pass	manuscript/response_transfer/03_transfer_package_by_journal.tsv	Create or regenerate this required submission file.
+required_file::manuscript/response_transfer/04_target_specific_rewrite_actions.tsv	pass	pass	manuscript/response_transfer/04_target_specific_rewrite_actions.tsv	Create or regenerate this required submission file.
+required_file::manuscript/response_transfer/05_do_not_claim_checklist.md	pass	pass	manuscript/response_transfer/05_do_not_claim_checklist.md	Create or regenerate this required submission file.
+required_file::manuscript/submission_metadata/AFFILIATIONS_TEMPLATE.tsv	pass	pass	manuscript/submission_metadata/AFFILIATIONS_TEMPLATE.tsv	Create or regenerate this required submission file.
+required_file::manuscript/submission_metadata/AUTHOR_CONTRIBUTIONS_CREDIT_TEMPLATE.tsv	pass	pass	manuscript/submission_metadata/AUTHOR_CONTRIBUTIONS_CREDIT_TEMPLATE.tsv	Create or regenerate this required submission file.
+required_file::manuscript/submission_metadata/AUTHOR_METADATA_TEMPLATE.tsv	pass	pass	manuscript/submission_metadata/AUTHOR_METADATA_TEMPLATE.tsv	Create or regenerate this required submission file.
+required_file::manuscript/submission_metadata/COMPETING_INTERESTS_TEMPLATE.md	pass	pass	manuscript/submission_metadata/COMPETING_INTERESTS_TEMPLATE.md	Create or regenerate this required submission file.
+required_file::manuscript/submission_metadata/ETHICS_AND_DATA_USE_STATEMENT.md	pass	pass	manuscript/submission_metadata/ETHICS_AND_DATA_USE_STATEMENT.md	Create or regenerate this required submission file.
+required_file::manuscript/submission_metadata/SUBMISSION_SYSTEM_METADATA_CHECKLIST.tsv	pass	pass	manuscript/submission_metadata/SUBMISSION_SYSTEM_METADATA_CHECKLIST.tsv	Create or regenerate this required submission file.
+required_file::manuscript/submission_upload_package/DOCX_LAYOUT_CHECK.tsv	pass	pass	manuscript/submission_upload_package/DOCX_LAYOUT_CHECK.tsv	Create or regenerate this required submission file.
+required_file::manuscript/submission_upload_package/DOCX_TEXT_EXTRACTION_CHECK.md	pass	pass	manuscript/submission_upload_package/DOCX_TEXT_EXTRACTION_CHECK.md	Create or regenerate this required submission file.
+required_file::manuscript/submission_upload_package/README.md	pass	pass	manuscript/submission_upload_package/README.md	Create or regenerate this required submission file.
+required_file::manuscript/submission_upload_package/SheafSignal_cover_letter_NatureMethods.docx	pass	pass	manuscript/submission_upload_package/SheafSignal_cover_letter_NatureMethods.docx	Create or regenerate this required submission file.
+required_file::manuscript/submission_upload_package/SheafSignal_main_manuscript_v2.docx	pass	pass	manuscript/submission_upload_package/SheafSignal_main_manuscript_v2.docx	Create or regenerate this required submission file.
+required_file::manuscript/submission_upload_package/SheafSignal_supplementary_information.docx	pass	pass	manuscript/submission_upload_package/SheafSignal_supplementary_information.docx	Create or regenerate this required submission file.
+required_file::manuscript/submission_upload_package/main_figure_upload_manifest.tsv	pass	pass	manuscript/submission_upload_package/main_figure_upload_manifest.tsv	Create or regenerate this required submission file.
+required_file::manuscript/submission_upload_package/main_figures/publication_figure1_sheafsignal_concept.pdf	pass	pass	manuscript/submission_upload_package/main_figures/publication_figure1_sheafsignal_concept.pdf	Create or regenerate this required submission file.
+required_file::manuscript/submission_upload_package/main_figures/publication_figure2_component_recovery.pdf	pass	pass	manuscript/submission_upload_package/main_figures/publication_figure2_component_recovery.pdf	Create or regenerate this required submission file.
+required_file::manuscript/submission_upload_package/main_figures/publication_figure3_tme_summary.pdf	pass	pass	manuscript/submission_upload_package/main_figures/publication_figure3_tme_summary.pdf	Create or regenerate this required submission file.
+required_file::manuscript/submission_upload_package/main_figures/publication_figure4_gse154778_claim_gating.pdf	pass	pass	manuscript/submission_upload_package/main_figures/publication_figure4_gse154778_claim_gating.pdf	Create or regenerate this required submission file.
+required_file::manuscript/submission_upload_package/main_figures/publication_figure5_comparator_alignment.pdf	pass	pass	manuscript/submission_upload_package/main_figures/publication_figure5_comparator_alignment.pdf	Create or regenerate this required submission file.
+required_file::manuscript/submission_upload_package/submission_upload_manifest.tsv	pass	pass	manuscript/submission_upload_package/submission_upload_manifest.tsv	Create or regenerate this required submission file.
+required_file::manuscript/submission_upload_package/submission_upload_preflight_checklist.tsv	pass	pass	manuscript/submission_upload_package/submission_upload_preflight_checklist.tsv	Create or regenerate this required submission file.
+required_file::manuscript/supplementary_quality/SUPPLEMENTARY_ARTIFACT_AUDIT.tsv	pass	pass	manuscript/supplementary_quality/SUPPLEMENTARY_ARTIFACT_AUDIT.tsv	Create or regenerate this required submission file.
+required_file::manuscript/supplementary_quality/SUPPLEMENTARY_ARTIFACT_REPORT.md	pass	pass	manuscript/supplementary_quality/SUPPLEMENTARY_ARTIFACT_REPORT.md	Create or regenerate this required submission file.
+required_file::release/DATA_AVAILABILITY_STATEMENT_DRAFT.md	pass	pass	release/DATA_AVAILABILITY_STATEMENT_DRAFT.md	Create or regenerate this required submission file.
+required_file::release/GITHUB_RELEASE_INSTRUCTIONS.md	pass	pass	release/GITHUB_RELEASE_INSTRUCTIONS.md	Create or regenerate this required submission file.
+required_file::release/REPRODUCIBILITY_RELEASE_SUMMARY.md	pass	pass	release/REPRODUCIBILITY_RELEASE_SUMMARY.md	Create or regenerate this required submission file.
+required_file::release/ZENODO_DEPOSITION_INSTRUCTIONS.md	pass	pass	release/ZENODO_DEPOSITION_INSTRUCTIONS.md	Create or regenerate this required submission file.
+required_file::release/archive_manifest.tsv	pass	pass	release/archive_manifest.tsv	Create or regenerate this required submission file.
+required_file::release/github_release_manifest.tsv	pass	pass	release/github_release_manifest.tsv	Create or regenerate this required submission file.
+required_file::release/github_sha256sums.txt	pass	pass	release/github_sha256sums.txt	Create or regenerate this required submission file.
+required_file::release/zenodo_deposition_metadata.json	pass	pass	release/zenodo_deposition_metadata.json	Create or regenerate this required submission file.
+required_file::release/zenodo_sha256sums.txt	pass	pass	release/zenodo_sha256sums.txt	Create or regenerate this required submission file.
+required_file::release/zenodo_upload_manifest.tsv	pass	pass	release/zenodo_upload_manifest.tsv	Create or regenerate this required submission file.
+submission_provenance::local_traceability	pass	pass	No local submission provenance failures detected.	Resolve local provenance failures before submission.
+supergrok_hardening::cellchat_cellphonedb	pass	pass	CellChat and CellPhoneDB completed for all target scRNA-seq datasets.	Run and import CellChat and CellPhoneDB for GSE72056, GSE154778, and GSE176078 or formally downgrade manuscript scope.
+supergrok_hardening::claim_language	pass	pass	Claim hardening audit has no blocking risky claims.	Run check_manuscript_claim_hardening.py and downgrade risky biological/mechanistic claims.
+supergrok_hardening::gse154778_reannotation	pass	pass	GSE154778 reannotation readiness checks pass.	Complete independent GSE154778 Scanpy/Seurat-style reannotation or downgrade Myeloid claim.
+supergrok_hardening::novelty_overlap	pass	pass	Novelty overlap table covers required comparison classes.	Complete formal novelty/overlap matrix with CCC, graph signal, Hodge and sheaf method comparisons.
+supergrok_hardening::sensitivity_statistics	pass	pass	Sensitivity panel has no pending rows.	Complete sensitivity panel, permutation/FDR reporting, and bootstrap CI summaries.
+supplementary_artifacts::manifest_readability	pass	pass	97 supplementary artifacts passed readability checks.	Regenerate or remove failing supplementary manifest entries before submission.

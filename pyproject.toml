@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sheafsignal"
+version = "0.1.0"
+description = "Sheaf and Hodge based cell-cell communication consistency analysis."
+readme = "README.md"
+requires-python = ">=3.9"
+license = {file = "LICENSE"}
+dependencies = [
+    "numpy>=1.23",
+    "pandas>=1.5",
+    "matplotlib>=3.6",
+    "scipy>=1.9",
+    "h5py>=3.8",
+]
+keywords = [
+    "single-cell RNA-seq",
+    "spatial transcriptomics",
+    "cell-cell communication",
+    "sheaf theory",
+    "Hodge decomposition",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7",
+    "black>=24",
+    "PyMuPDF>=1.24",
+    "python-docx>=1.1",
+    "ruff>=0.4",
+]
+
+[project.scripts]
+sheafsignal = "sheafsignal.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/TBD/SheafSignal"
+Repository = "https://github.com/TBD/SheafSignal"
+Issues = "https://github.com/TBD/SheafSignal/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]

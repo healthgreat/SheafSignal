@@ -1,0 +1,4 @@
+expression: "examples/demo_expression.csv"
+metadata: "examples/demo_metadata.csv"
+lr_db: "examples/demo_ligand_receptor.csv"
+gene_set: "examples/demo_pathway_genes.txt"

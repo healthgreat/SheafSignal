@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run tests
+        run: |
+          pytest -q
+
+      - name: Run demo pipeline
+        run: |
+          sheafsignal run \
+            --expression examples/demo_expression.csv \
+            --metadata examples/demo_metadata.csv \
+            --lr-db examples/demo_ligand_receptor.csv \
+            --gene-set examples/demo_pathway_genes.txt \
+            --project-dir .
+
+      - name: Validate public dataset manifest
+        run: |
+          python scripts/download_public_datasets.py --validate-only
+          python scripts/download_public_datasets.py --dry-run
+
+      - name: Run publication workflow smoke test
+        run: |
+          python scripts/prepare_public_datasets.py --include-demo
+          python scripts/run_tme_benchmark.py --include-demo
+          python scripts/make_publication_figures.py

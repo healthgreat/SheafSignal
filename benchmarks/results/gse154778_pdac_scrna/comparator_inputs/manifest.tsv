@@ -1,0 +1,7 @@
+dataset_id	file	path	purpose
+gse154778_pdac_scrna	cell_type_profiles.csv	benchmarks\results\gse154778_pdac_scrna\comparator_inputs\cell_type_profiles.csv	cell-type profile expression for external CCC tools
+gse154778_pdac_scrna	ligand_receptor_pairs.csv	benchmarks\results\gse154778_pdac_scrna\comparator_inputs\ligand_receptor_pairs.csv	ligand-receptor database
+gse154778_pdac_scrna	cell_type_counts.csv	benchmarks\results\gse154778_pdac_scrna\comparator_inputs\cell_type_counts.csv	cell-type count context
+gse154778_pdac_scrna	sheafsignal_edge_template.csv	benchmarks\results\gse154778_pdac_scrna\comparator_inputs\sheafsignal_edge_template.csv	SheafSignal edge metrics for alignment
+gse154778_pdac_scrna	external_comparator_template.csv	benchmarks\results\gse154778_pdac_scrna\comparator_inputs\external_comparator_template.csv	expected external comparator schema
+gse154778_pdac_scrna	README.md	benchmarks\results\gse154778_pdac_scrna\comparator_inputs\README.md	usage notes

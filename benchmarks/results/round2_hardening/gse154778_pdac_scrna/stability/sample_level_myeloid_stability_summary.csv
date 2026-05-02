@@ -1,0 +1,4 @@
+lesion_type,n_completed_samples,n_myeloid_adequate_samples,myeloid_top_frequency_completed,myeloid_top_frequency_adequate,median_myeloid_frustration_completed,median_myeloid_frustration_adequate,sample_note
+Metastatic,6,5,0.8333333333333334,0.8,0.7618749847782484,0.9373109581400232,sample-level pseudobulk robustness under the current frozen annotation version; sparse sample-cell-type profiles are flagged
+Primary,9,6,0.7777777777777778,0.6666666666666666,0.38246391699475546,0.34276974055427945,sample-level pseudobulk robustness under the current frozen annotation version; sparse sample-cell-type profiles are flagged
+all,15,11,0.8,0.7272727272727273,0.40750322569965836,0.38246391699475546,sample-level pseudobulk robustness under the current frozen annotation version; sparse sample-cell-type profiles are flagged

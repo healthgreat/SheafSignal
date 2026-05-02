@@ -1,0 +1,7 @@
+cell_type,n_spots,total_frustration_score,mean_frustration_score,median_frustration_score,p95_frustration_score,top_hotspot_spot_id,qc_note
+Tumor/Epithelial,3495,0.8699380698802283,0.00024890931899291223,0.0001444036725577,0.0008084673208524195,GGTAAATGTGCGTTAC-1,"marker-dominant Visium spot programs; use as spatial hotspot QC context, not as single-cell-level cell type proof"
+CAF/Fibroblast,172,0.07115425158379036,0.0004136875092080835,0.00024540831358205,0.0013820549797827787,ATATCTCCCTCGTTAA-1,"marker-dominant Visium spot programs; use as spatial hotspot QC context, not as single-cell-level cell type proof"
+Myeloid,114,0.04786195302444873,0.0004198416931969187,0.0002552579381438,0.0012449321513497997,TCGCTTTAAACGTTTG-1,"marker-dominant Visium spot programs; use as spatial hotspot QC context, not as single-cell-level cell type proof"
+B/Plasma,10,0.0087789889717525,0.0008778988971752499,0.00046586330173565,0.0025242592316551834,CCCGGTGTATCGGAAT-1,"marker-dominant Visium spot programs; use as spatial hotspot QC context, not as single-cell-level cell type proof"
+Endothelial,6,0.0016356905180250258,0.0002726150863375043,0.000303897702865,0.0004716443165258,GGACGTCCATAGTTGG-1,"marker-dominant Visium spot programs; use as spatial hotspot QC context, not as single-cell-level cell type proof"
+T/NK,1,0.0006310460216308,0.0006310460216308,0.0006310460216308,0.0006310460216308,CGCAATTACTTTCGGT-1,"marker-dominant Visium spot programs; use as spatial hotspot QC context, not as single-cell-level cell type proof"

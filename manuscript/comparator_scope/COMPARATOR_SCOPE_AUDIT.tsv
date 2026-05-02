@@ -1,0 +1,21 @@
+check_id	status	dataset_id	tool	relative_path	line_no	evidence	required_action
+primary_scrna_comparator_completion	pass	gse72056_melanoma_scrna	LRProductBaseline	benchmarks/results/tool_comparison.csv		completed in primary scRNA scope	
+primary_scrna_comparator_completion	pass	gse72056_melanoma_scrna	LIANA	benchmarks/results/tool_comparison.csv		completed in primary scRNA scope	
+primary_scrna_comparator_completion	pass	gse72056_melanoma_scrna	MechanisticTargetPrior	benchmarks/results/tool_comparison.csv		completed in primary scRNA scope	
+primary_scrna_comparator_completion	pass	gse72056_melanoma_scrna	NicheNet	benchmarks/results/tool_comparison.csv		completed in primary scRNA scope	
+primary_scrna_comparator_completion	pass	gse72056_melanoma_scrna	CellPhoneDB	benchmarks/results/tool_comparison.csv		completed in primary scRNA scope	
+primary_scrna_comparator_completion	pass	gse72056_melanoma_scrna	CellChat	benchmarks/results/tool_comparison.csv		completed in primary scRNA scope	
+primary_scrna_comparator_completion	pass	gse154778_pdac_scrna	LRProductBaseline	benchmarks/results/tool_comparison.csv		completed in primary scRNA scope	
+primary_scrna_comparator_completion	pass	gse154778_pdac_scrna	LIANA	benchmarks/results/tool_comparison.csv		completed in primary scRNA scope	
+primary_scrna_comparator_completion	pass	gse154778_pdac_scrna	MechanisticTargetPrior	benchmarks/results/tool_comparison.csv		completed in primary scRNA scope	
+primary_scrna_comparator_completion	pass	gse154778_pdac_scrna	NicheNet	benchmarks/results/tool_comparison.csv		completed in primary scRNA scope	
+primary_scrna_comparator_completion	pass	gse154778_pdac_scrna	CellPhoneDB	benchmarks/results/tool_comparison.csv		completed in primary scRNA scope	
+primary_scrna_comparator_completion	pass	gse154778_pdac_scrna	CellChat	benchmarks/results/tool_comparison.csv		completed in primary scRNA scope	
+primary_scrna_comparator_completion	pass	gse176078_brca_scrna	LRProductBaseline	benchmarks/results/tool_comparison.csv		completed in primary scRNA scope	
+primary_scrna_comparator_completion	pass	gse176078_brca_scrna	LIANA	benchmarks/results/tool_comparison.csv		completed in primary scRNA scope	
+primary_scrna_comparator_completion	pass	gse176078_brca_scrna	MechanisticTargetPrior	benchmarks/results/tool_comparison.csv		completed in primary scRNA scope	
+primary_scrna_comparator_completion	pass	gse176078_brca_scrna	NicheNet	benchmarks/results/tool_comparison.csv		completed in primary scRNA scope	
+primary_scrna_comparator_completion	pass	gse176078_brca_scrna	CellPhoneDB	benchmarks/results/tool_comparison.csv		completed in primary scRNA scope	
+primary_scrna_comparator_completion	pass	gse176078_brca_scrna	CellChat	benchmarks/results/tool_comparison.csv		completed in primary scRNA scope	
+out_of_scope_pending_comparators	pass	outside_primary_scrna_scope		benchmarks/results/tool_comparison.csv		15 pending rows are outside the primary scRNA comparator scope	Do not claim comparator completeness for demo, Visium, GSE103322, or niche-DE.
+text_scope::comparator_claim_scan	pass					No stale comparator-pending or positive broad-superiority claims detected.	

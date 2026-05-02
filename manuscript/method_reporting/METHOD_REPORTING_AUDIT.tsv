@@ -1,0 +1,17 @@
+check_id	domain	status	evidence	required_action
+algorithm_primitives_reported	method_definition	pass	all required SheafSignal primitives found	Define every reported SheafSignal metric in manuscript-facing text.
+simulation_ground_truth_recovery_present	simulation	pass	component_recovery.csv covers gradient/curl/harmonic/mixed	Regenerate component recovery benchmark.
+public_dataset_manifest_complete	data_availability	pass	public_benchmark_rows=5	Fill accession, URL, checksum, terms, and prepared paths for every public benchmark.
+zenodo_doi_external_release	data_availability	pending_external	PENDING_ZENODO_RELEASE present	Mint Zenodo DOI and run finalize_zenodo_doi.py before submission.
+public_tme_benchmarks_completed	benchmark	pass	completed_public_benchmarks=5	Run public TME benchmarks until PDAC, melanoma, breast scRNA-seq, and Visium are complete.
+external_comparator_coverage_bounded	comparator	pass	LIANA=3;LRProductBaseline=5;MechanisticTargetPrior=3;NicheNet=3	Keep comparator language bounded; add CellChat/CellPhoneDB/niche-DE only if full outputs are generated.
+gse154778_claim_gate_no_unvalidated_main_source	claim_boundary	pass	main_claim_cell_types=	Do not promote GSE154778 cell types to main biological source claims until annotation and expression-mode permutation/FDR gates agree.
+visium_spatial_k_sensitivity	spatial_qc	pass	min_spearman=0.9309;min_top50_overlap=0.8600	Keep Visium claims limited to hotspot localization unless annotation is strengthened.
+main_figures_quality_and_boundaries	figures	pass	MAIN_FIGURE_QUALITY_AUDIT.tsv	Run check_main_figure_quality.py and fix any failing figure.
+supplementary_artifacts_manifest_readable	supplement	pass	supplementary_artifacts=84	Run check_supplementary_artifacts.py and fix any failing supplementary item.
+benchmark_result_contracts_valid	benchmark	pass	benchmark_contract_checks=9	Run check_benchmark_result_contracts.py and resolve failed result-table checks.
+submission_provenance_traceable	provenance	pass	provenance_rows=28	Run check_submission_provenance.py and resolve local provenance failures.
+claim_safety_no_blocking_positive_claims	claim_boundary	pass	CLAIM_SAFETY_AUDIT_REPORT.md	Resolve all blocking positive claims before submission.
+reference_placeholders_resolved	references	pass	SCI_REFERENCE_GAP_REPORT.md	Resolve manuscript reference placeholders.
+release_archives_checksum_tracked	reproducibility	pass	github;zenodo	Rebuild release archives and archive_manifest.tsv.
+submission_upload_package_present	submission_package	pass	manuscript/submission_upload_package/SheafSignal_main_manuscript_v2.docx;manuscript/submission_upload_package/SheafSignal_cover_letter_NatureMethods.docx;manuscript/submission_upload_package/SheafSignal_supplementary_information.docx;manuscript/submission_upload_package/submission_upload_preflight_checklist.tsv	Run build_submission_upload_package.py.

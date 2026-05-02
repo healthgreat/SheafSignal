@@ -1,0 +1,7 @@
+dataset_id,modality,disease,status,input_mode,n_edges,n_cell_types,total_sheaf_energy,gradient_ratio,curl_ratio,harmonic_ratio,top_frustration_cell_type,top_frustration_score
+demo_synthetic,scRNA-seq-like table,synthetic,completed,expression_with_permutation,12,4,2.018181113096708,0.9997949834380956,0.0002050165619049,1.4730151178157667e-31,Tumor,0.3865440940378697
+gse72056_melanoma_scrna,scRNA-seq,tumor microenvironment,completed,expression_with_permutation,42,7,47.71643189801832,0.9787186564689476,0.0212813435310529,2.8937987964864115e-31,CAF/Fibroblast,0.4062776141864387
+gse154778_pdac_scrna,scRNA-seq,PDAC tumor microenvironment,completed,expression_with_permutation,42,7,38.11041321359824,0.9856874507151318,0.0143125492848692,2.7625509790075228e-31,CAF/Fibroblast,0.3087873987811106
+gse176078_brca_scrna,scRNA-seq,breast cancer tumor microenvironment,completed,expression_with_permutation,56,8,45.43062344897291,0.979959581019442,0.0200404189805584,9.156962390841902e-32,Endothelial,0.288859940632362
+gse103322_hnsc_scrna,scRNA-seq,head and neck squamous cell carcinoma tumor microenvironment,completed,expression_with_permutation,56,8,56.8692857283983,0.962836929206744,0.0371630707932562,7.27450066660978e-32,Endothelial,0.2492096172482693
+tenx_breast_visium,Visium spatial transcriptomics,invasive lobular carcinoma tumor microenvironment,completed,expression_with_permutation,30,6,39.28563276256064,0.9746290193127678,0.0253709806872327,4.875391012280682e-32,Endothelial,0.4135963399299865

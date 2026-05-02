@@ -1,0 +1,16 @@
+{
+  "mode": "dry_run",
+  "base_url": "https://zenodo.org",
+  "archive_path": "release/archives/sheafsignal_zenodo_upload.zip",
+  "metadata_path": "release/zenodo_deposition_metadata.json",
+  "archive_size_bytes": 28475920,
+  "metadata_tbd_issues": [
+    "metadata.creators[0].name is TBD",
+    "metadata.related_identifiers contains GitHub TBD URL"
+  ],
+  "deposition_id": "NA",
+  "reserved_doi": "NA",
+  "published_doi": "NA",
+  "html_link": "NA",
+  "finalized_local_metadata": false
+}

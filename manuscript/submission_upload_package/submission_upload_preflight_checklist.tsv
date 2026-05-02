@@ -1,0 +1,18 @@
+check_id	status	evidence	required_action
+main_manuscript_docx_exists	pass	manuscript/submission_upload_package/SheafSignal_main_manuscript_v2.docx	Regenerate upload package.
+cover_letter_docx_exists	pass	manuscript/submission_upload_package/SheafSignal_cover_letter_NatureMethods.docx	Regenerate upload package.
+supplementary_docx_exists	pass	manuscript/submission_upload_package/SheafSignal_supplementary_information.docx	Regenerate upload package.
+docx_text_extraction	pass	DOCX text extraction contains expected boundary strings.	Open DOCX manually and inspect formatting if this fails.
+main_figure_upload_files	pass	manuscript/submission_upload_package/main_figure_upload_manifest.tsv	Run make_publication_figures.py and rebuild the upload package.
+main_figure_quality_audit	pass	manuscript/figure_quality/MAIN_FIGURE_QUALITY_AUDIT.tsv	Run check_main_figure_quality.py before upload.
+supplementary_artifact_audit	pass	manuscript/supplementary_quality/SUPPLEMENTARY_ARTIFACT_AUDIT.tsv	Run check_supplementary_artifacts.py before upload.
+method_reporting_audit	pass	manuscript/method_reporting/METHOD_REPORTING_AUDIT.tsv	Run check_method_reporting_readiness.py before upload.
+benchmark_result_contract_audit	pass	benchmarks/results/BENCHMARK_RESULT_CONTRACT_AUDIT.tsv	Run check_benchmark_result_contracts.py before upload.
+submission_provenance_audit	pass	manuscript/provenance/SUBMISSION_PROVENANCE_AUDIT.tsv	Run check_submission_provenance.py before upload.
+claim_safety	pass	manuscript/CLAIM_SAFETY_AUDIT_REPORT.md	Resolve blocking positive claims.
+nature_methods_format	pass	manuscript/NATURE_METHODS_FORMAT_AUDIT_REPORT.md	Resolve local format issues and check current journal instructions.
+v2_editorial_audit	pass	manuscript/SCI_MANUSCRIPT_V2_EDITORIAL_AUDIT.tsv	Resolve v2 editorial audit failures.
+zenodo_doi	pending	metadata/datasets.tsv	Mint Zenodo DOI and run scripts/finalize_zenodo_doi.py.
+github_public_release	pending	release/archives/sheafsignal_github_release.zip	Publish public GitHub repository or attach release archive.
+author_metadata	tbd_by_authors	manuscript/submission_metadata/	Fill author names, affiliations, CRediT roles and conflicts.
+visual_layout_review	pass	manuscript/submission_upload_package/DOCX_LAYOUT_CHECK.tsv	Perform final manual Word/LibreOffice visual review before upload.

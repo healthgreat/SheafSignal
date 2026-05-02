@@ -1,0 +1,18 @@
+{
+  "title": "SheafSignal: sheaf-valued Hodge analysis of cell-cell communication networks",
+  "upload_type": "software",
+  "description": "A prototype algorithm for quantifying consistency, feedback loops, and frustration in cell-cell communication networks.",
+  "creators": [
+    {
+      "name": "TBD"
+    }
+  ],
+  "license": "MIT",
+  "keywords": [
+    "single-cell RNA-seq",
+    "spatial transcriptomics",
+    "cell-cell communication",
+    "sheaf theory",
+    "Hodge decomposition"
+  ]
+}

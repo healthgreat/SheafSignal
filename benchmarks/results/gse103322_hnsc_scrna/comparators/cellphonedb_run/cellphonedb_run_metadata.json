@@ -1,0 +1,10 @@
+{
+  "tool": "CellPhoneDB",
+  "status": "missing_cellphonedb_executable",
+  "cellphonedb_executable": "",
+  "command_path": "benchmarks\\results\\gse103322_hnsc_scrna\\comparators\\cellphonedb_run\\cellphonedb_command.txt",
+  "output_dir": "benchmarks\\results\\gse103322_hnsc_scrna\\comparators\\cellphonedb_run",
+  "iterations": 1000,
+  "threshold": 0.1,
+  "debug_seed": 42
+}

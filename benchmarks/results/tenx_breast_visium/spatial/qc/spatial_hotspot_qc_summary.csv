@@ -1,0 +1,2 @@
+dataset_id,qc_scope,n_spots,n_marker_programs,reference_k_neighbors,top_hotspot_spot_id,top_hotspot_score,min_spearman_across_k,min_top_50_overlap_across_k,interpretation_warning
+tenx_breast_visium,Visium spatial hotspot QC,3798,6,6,GGTAAATGTGCGTTAC-1,0.003940291142474,0.9309070990437722,0.86,"marker-dominant Visium spot programs; use as spatial hotspot QC context, not as single-cell-level cell type proof"

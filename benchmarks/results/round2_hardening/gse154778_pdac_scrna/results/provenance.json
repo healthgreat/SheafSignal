@@ -1,0 +1,52 @@
+{
+  "annotation_version": "scanpy_full_v1",
+  "argv": [
+    "scripts\\run_tme_benchmark.py",
+    "--dataset-id",
+    "gse154778_pdac_scrna",
+    "--results-dir",
+    "benchmarks\\results\\round2_hardening",
+    "--n-permutations",
+    "1000"
+  ],
+  "inputs": {
+    "expression": {
+      "exists": true,
+      "path": "data\\processed\\gse154778_pdac_scrna_scanpy_full_v1\\expression.csv",
+      "sha256": "dfedff571415dc02f53ef016334b236193655f8d7e595255b3ac909bdd4b6a25",
+      "size_bytes": 3200988
+    },
+    "gene_set": {
+      "exists": true,
+      "path": "metadata\\tme_pathway_genes.txt",
+      "sha256": "54b405024d854b1694e2704e9a5d79b80972496cbafaa62829e41ce15e9834bc",
+      "size_bytes": 145
+    },
+    "ligand_receptor_db": {
+      "exists": true,
+      "path": "metadata\\tme_ligand_receptor.csv",
+      "sha256": "43ef0bd1e23593d4c71df7ecdffddcf6b80c34106b89e3d32a851a882f76a806",
+      "size_bytes": 696
+    },
+    "metadata": {
+      "exists": true,
+      "path": "data\\processed\\gse154778_pdac_scrna_scanpy_full_v1\\metadata.csv",
+      "sha256": "fe328397804eab2f1e6b8cdbd324dbce13124933d6f2f26a3ff79696c5b76465",
+      "size_bytes": 5113176
+    }
+  },
+  "parameters": {
+    "allow_self": false,
+    "cell_type_col": "cell_type",
+    "input_mode": "expression",
+    "min_communication": 0.0,
+    "n_permutations": 1000,
+    "normalize": "cpm_log1p",
+    "permutation_strata_col": "sample_id",
+    "primary_hodge_flow_col": "sheaf_residual",
+    "random_seed": 1,
+    "secondary_hodge_flow_col": "flow_z"
+  },
+  "platform": "Windows-10-10.0.19045-SP0",
+  "python": "3.11.5 (tags/v3.11.5:cce6ba9, Aug 24 2023, 14:38:34) [MSC v.1936 64 bit (AMD64)]"
+}

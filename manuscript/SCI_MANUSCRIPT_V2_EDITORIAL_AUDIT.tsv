@@ -1,0 +1,8 @@
+audit_id	status	evidence	required_action
+references_no_placeholder	pass	unresolved_placeholders=0	Resolve all [REF: ...] placeholders.
+boundary_statement_present	pass	Boundary Statement section	Keep clinical and therapeutic boundaries explicit.
+nichenet_boundary_present	pass	Comparator Results section	State bounded nichenetr-engine scope.
+sparse_category_boundary_present	pass	GSE154778 claim-gated Results section	Keep sparse categories out of main mechanistic claims.
+forbidden_positive_claims_absent	pass	no forbidden positive claim patterns	Rewrite any guarantee, broad-superiority, clinical-utility or therapeutic-guidance wording.
+author_metadata_pending	pending_author_action	Authors: TBD	Authors must fill names, affiliations, CRediT roles and competing interests.
+zenodo_and_github_pending	pending_author_action	Data Availability and Code Availability still require final DOI/URL insertion.	Mint Zenodo DOI and publish GitHub repository before final submission.

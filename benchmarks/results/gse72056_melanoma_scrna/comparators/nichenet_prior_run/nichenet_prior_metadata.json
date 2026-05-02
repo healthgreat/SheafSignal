@@ -1,0 +1,16 @@
+{
+  "dataset_id": "gse72056_melanoma_scrna",
+  "tool": "NicheNet",
+  "nichenetr_version": "2.2.1.1",
+  "processed_dir": "data/processed/gse72056_melanoma_scrna",
+  "lr_db_path": "metadata/tme_ligand_receptor.csv",
+  "ligand_target_prior_path": "metadata/tme_ligand_target_prior.csv",
+  "min_background_genes": 5,
+  "min_geneset_size": 2,
+  "n_profiles": 7,
+  "n_profile_genes": 52,
+  "n_lr_pairs": 14,
+  "n_prior_rows": 37,
+  "n_raw_scored_rows": 245,
+  "claim_boundary": "Official nichenetr scoring engine with project-curated TME prior matrix; not the full pretrained NicheNet model."
+}

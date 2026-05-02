@@ -1,0 +1,2 @@
+h5ad_input,n_cells_after_filter,n_genes_after_filter,n_top_genes,gene_preselection_status,max_pcs,resolution_sweep,primary_cluster_key,scrublet_status,annotation_version,n_samples_after_filter,lesion_types_after_filter,dataset_scale,status
+data\processed\checkpoints\gse154778_pdac_scrna_full_gene.h5ad,14926,2000,2000,variance_top_5000_plus_markers;selected=5005,30,0.2;0.4;0.6;0.8;1.0;1.2,leiden_0_6,completed,scanpy_full_v1,16,Metastatic;Primary,full,completed

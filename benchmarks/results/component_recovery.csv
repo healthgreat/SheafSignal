@@ -1,0 +1,5 @@
+scenario,expected_dominant_component,gradient_ratio,curl_ratio,harmonic_ratio,total_flow_energy,n_pair_edges,n_triangles
+gradient_chain,gradient_ratio,0.9999999999999993,0.0,1.8180778675015506e-31,4.0,4,0
+triangle_curl,curl_ratio,0.0,1.0,0.0,3.0,3,1
+harmonic_ring,harmonic_ratio,0.0,0.0,1.0,5.0,5,0
+mixed,mixed,0.44642857142857095,0.2857142857142857,0.26785714285714274,6.7200000000000015,11,1

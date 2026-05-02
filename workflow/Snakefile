@@ -1,0 +1,74 @@
+configfile: "workflow/config.yaml"
+
+rule all:
+    input:
+        "results/sheaf_energy_by_edge.csv",
+        "results/hodge_decomposition_scores.csv",
+        "figures/communication_curl_network.pdf",
+        "benchmarks/results/component_recovery.csv",
+        "benchmarks/results/tool_comparison.csv",
+        "benchmarks/results/public_tme_sheafsignal_summary.csv",
+        "benchmarks/results/spatial_frustration_hotspots.csv",
+        "manuscript/figure_manifest.tsv"
+
+rule sheafsignal_demo:
+    input:
+        expression=config["expression"],
+        metadata=config["metadata"],
+        lr_db=config["lr_db"],
+        gene_set=config["gene_set"]
+    output:
+        edge="results/sheaf_energy_by_edge.csv",
+        scores="results/hodge_decomposition_scores.csv",
+        figure="figures/communication_curl_network.pdf"
+    shell:
+        """
+        sheafsignal run \
+          --expression {input.expression} \
+          --metadata {input.metadata} \
+          --lr-db {input.lr_db} \
+          --gene-set {input.gene_set} \
+          --project-dir .
+        """
+
+rule validate_dataset_manifest:
+    output:
+        touch("benchmarks/results/.manifest_validated")
+    shell:
+        """
+        python scripts/download_public_datasets.py --validate-only
+        """
+
+rule prepare_public_datasets:
+    input:
+        "benchmarks/results/.manifest_validated"
+    output:
+        "benchmarks/results/public_dataset_preparation_plan.csv"
+    shell:
+        """
+        python scripts/prepare_public_datasets.py --include-demo
+        """
+
+rule tme_benchmark:
+    input:
+        "benchmarks/results/public_dataset_preparation_plan.csv"
+    output:
+        component="benchmarks/results/component_recovery.csv",
+        summary="benchmarks/results/public_tme_sheafsignal_summary.csv",
+        tools="benchmarks/results/tool_comparison.csv",
+        spatial="benchmarks/results/spatial_frustration_hotspots.csv"
+    shell:
+        """
+        python scripts/run_tme_benchmark.py --include-demo
+        """
+
+rule publication_figures:
+    input:
+        "benchmarks/results/component_recovery.csv",
+        "benchmarks/results/public_tme_sheafsignal_summary.csv"
+    output:
+        "manuscript/figure_manifest.tsv"
+    shell:
+        """
+        python scripts/make_publication_figures.py
+        """

@@ -1,0 +1,7 @@
+item	owner	status	required_action
+author_names_and_order	authors	tbd_by_authors	Fill AUTHOR_METADATA_TEMPLATE.tsv and confirm author order.
+affiliations	authors	tbd_by_authors	Fill AFFILIATIONS_TEMPLATE.tsv.
+corresponding_author	authors	tbd_by_authors	Mark corresponding_author=true for at least one author.
+credit_contributions	authors	tbd_by_authors	Fill AUTHOR_CONTRIBUTIONS_CREDIT_TEMPLATE.tsv.
+competing_interests	authors	tbd_by_authors	Replace TBD in COMPETING_INTERESTS_TEMPLATE.md.
+data_and_code_availability	analysis_lead	pending_zenodo_doi	Finalize Zenodo DOI and GitHub public release URL.

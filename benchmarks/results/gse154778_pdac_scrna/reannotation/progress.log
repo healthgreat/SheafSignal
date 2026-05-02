@@ -1,0 +1,18 @@
+start h5ad=data\processed\checkpoints\gse154778_pdac_scrna_full_gene.h5ad
+loaded n_obs=14926 n_vars=22217
+computed raw qc metrics
+scrublet_status=completed
+filtered n_obs=14926 n_vars=22217
+gene_preselection_status=variance_top_5000_plus_markers;selected=5005
+normalized_log1p
+hvg_subset n_obs=14926 n_vars=2000
+pca n_comps=30
+neighbors
+leiden resolution=0.2
+leiden resolution=0.4
+leiden resolution=0.6
+leiden resolution=0.8
+leiden resolution=1.0
+leiden resolution=1.2
+marker_scores
+wrote_h5ad=benchmarks\results\gse154778_pdac_scrna\reannotation\gse154778_scanpy_reannotated.h5ad

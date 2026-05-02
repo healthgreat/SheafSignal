@@ -1,0 +1,4 @@
+lesion_type,n_completed_samples,n_myeloid_adequate_samples,myeloid_top_frequency_completed,myeloid_top_frequency_adequate,median_myeloid_frustration_completed,median_myeloid_frustration_adequate,sample_note
+Metastatic,6,4,0.8333333333333334,0.75,0.769208744045613,0.8940046647050852,sample-level pseudobulk robustness under current coarse marker-based annotations; sparse sample-cell-type profiles are flagged
+Primary,10,7,0.4,0.42857142857142855,0.21743972277768447,0.274062886813759,sample-level pseudobulk robustness under current coarse marker-based annotations; sparse sample-cell-type profiles are flagged
+all,16,11,0.5625,0.5454545454545454,0.30709645413730524,0.34013002146085153,sample-level pseudobulk robustness under current coarse marker-based annotations; sparse sample-cell-type profiles are flagged

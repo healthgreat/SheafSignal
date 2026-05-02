@@ -1,0 +1,15 @@
+cell_type,lesion_type,n_cells
+B/Plasma,Metastatic,15
+B/Plasma,Primary,16
+CAF/Fibroblast,Metastatic,2
+CAF/Fibroblast,Primary,1998
+Endothelial,Metastatic,14
+Endothelial,Primary,108
+Myeloid,Metastatic,497
+Myeloid,Primary,1322
+T/NK,Metastatic,164
+T/NK,Primary,68
+Tumor/Epithelial,Metastatic,6226
+Tumor/Epithelial,Primary,4487
+Unknown,Metastatic,8
+Unknown,Primary,1

@@ -1,0 +1,8 @@
+name: sheafsignal-cellphonedb
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - cellphonedb==5.0.1

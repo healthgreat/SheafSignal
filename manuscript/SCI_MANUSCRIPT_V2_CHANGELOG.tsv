@@ -1,0 +1,6 @@
+change_id	section	change	reason
+V2_001	Whole manuscript	Rewrote v1 from result-list style into a tighter gap-method-validation-boundary narrative.	Improve Nature Methods editorial fit while preserving evidence boundaries.
+V2_002	Abstract	Added explicit distinction between communication intensity and communication inconsistency.	Make the method contribution clear in the first paragraph.
+V2_003	Results	Separated method definition, simulations, public benchmarks, GSE154778 claim gating, comparators and spatial boundaries.	Keep each evidence layer interpretable and auditable.
+V2_004	Discussion	Strengthened limitation language for public-data, coarse annotation, bounded NicheNet and clinical-utility boundaries.	Reduce reviewer risk from overclaiming.
+V2_005	Claim tracker	Added a manuscript-specific claim map with forbidden extensions.	Support high-impact revision discipline and reviewer response.

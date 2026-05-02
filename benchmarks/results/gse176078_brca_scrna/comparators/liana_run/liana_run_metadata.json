@@ -1,0 +1,14 @@
+{
+  "cell_type_col": "cell_type",
+  "dataset_id": "gse176078_brca_scrna",
+  "expr_prop": 0.1,
+  "max_cells": null,
+  "min_cells": 20,
+  "n_cells_used": 100064,
+  "n_genes_used": 53,
+  "n_jobs": 4,
+  "n_perms": 1000,
+  "processed_dir": "data\\processed\\gse176078_brca_scrna",
+  "resource_name": "consensus",
+  "seed": 42
+}

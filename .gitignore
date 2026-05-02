@@ -1,0 +1,90 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+
+# Environments
+.venv/
+venv/
+env/
+.env
+.env.*
+
+# Editors and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Generated run logs
+logs/*.log
+
+# Large or potentially sensitive data
+data/raw/**
+data/processed/**
+data/external/**
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/external/.gitkeep
+*.h5ad
+*.h5
+*.loom
+*.rds
+*.RData
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+*.bam
+*.bai
+*.cram
+*.vcf
+*.vcf.gz
+*.mtx
+*.mtx.gz
+
+# Generated outputs
+results/**
+figures/**
+!results/.gitkeep
+!figures/.gitkeep
+
+# Benchmark scratch outputs; keep curated top-level CSV summaries tracked.
+benchmarks/results/*/results/
+benchmarks/results/*/figures/
+benchmarks/results/*/qc/*.pdf
+benchmarks/results/*/qc/*.png
+benchmarks/results/*/qc/*.svg
+benchmarks/results/*/stability/*.pdf
+benchmarks/results/*/stability/*.png
+benchmarks/results/*/stability/*.svg
+benchmarks/results/*/stratified/*.pdf
+benchmarks/results/*/stratified/*.png
+benchmarks/results/*/stratified/*.svg
+benchmarks/results/*/spatial/qc/*.pdf
+benchmarks/results/*/spatial/qc/*.png
+benchmarks/results/*/spatial/qc/*.svg
+benchmarks/results/*/comparators/cellphonedb_*/cellphonedb_counts.tsv
+benchmarks/results/*_edges.csv
+benchmarks/results/simulation_component_recovery.csv
+
+# Manuscript build products
+manuscript/*.pdf
+manuscript/*.docx
+manuscript/*.aux
+manuscript/*.log
+manuscript/*.out
+manuscript/*.bbl
+manuscript/*.blg
+
+# Local release archives generated from tracked manifests
+release/archives/**
+!release/archives/.gitkeep

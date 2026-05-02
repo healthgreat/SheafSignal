@@ -1,0 +1,10 @@
+check_type,name,present,version_or_path,required_for
+executable,conda,True,D:\BioSoft\conda\miniforge3\condabin\conda.BAT,isolated LIANA environment
+python_package,liana,True,1.7.1,LIANA
+python_package,scanpy,True,1.11.5,LIANA
+python_package,anndata,True,0.12.11,LIANA
+conda_env,sheafsignal-liana,True,D:\BioSoft\conda\envs\sheafsignal-liana,LIANA isolated execution
+conda_env_package,sheafsignal-liana:liana,False,,LIANA isolated execution
+conda_env_package,sheafsignal-liana:scanpy,False,,LIANA isolated execution
+conda_env_package,sheafsignal-liana:anndata,False,,LIANA isolated execution
+conda_env_package,sheafsignal-liana:sheafsignal,False,,LIANA isolated execution

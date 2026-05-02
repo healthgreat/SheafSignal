@@ -1,0 +1,12 @@
+check_id	status	observed	requirement	action
+title_length	pass	59	Nature title target <= 75 characters.	No action.
+abstract_word_count	pass	147	Nature Methods Resource/Analysis abstract <= 150 words.	No action.
+main_text_word_count	pass	1875	Nature Methods Resource/Analysis main text target <= 3000 words.	No action.
+has_results	pass	True	Manuscript contains ## Results.	No action.
+has_discussion	pass	True	Manuscript contains ## Discussion.	No action.
+has_data_availability	pass	True	Manuscript contains ## Data Availability.	No action.
+has_code_availability	pass	True	Manuscript contains ## Code Availability.	No action.
+display_item_count	pass	5	Nature Methods Resource/Analysis display items <= 6.	No action.
+has_author_metadata_template	pass	True	Required local submission-support file exists: manuscript/submission_metadata/AUTHOR_METADATA_TEMPLATE.tsv.	No action.
+has_competing_interests_template	pass	True	Required local submission-support file exists: manuscript/submission_metadata/COMPETING_INTERESTS_TEMPLATE.md.	No action.
+has_reporting_boundary	pass	True	Required local submission-support file exists: manuscript/nature_methods_package/08_claim_boundaries_and_limitations.md.	No action.

@@ -1,0 +1,8 @@
+cell_type,n_cells,n_samples
+B/Plasma,512,15
+CAF/Fibroblast,56,9
+Endothelial,62,7
+Myeloid,119,13
+T/NK,2091,18
+Tumor/Malignant,1257,15
+Unknown,548,19

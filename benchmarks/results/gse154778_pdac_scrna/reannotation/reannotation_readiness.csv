@@ -1,0 +1,8 @@
+check_id,status,evidence,required_action
+python_package::scanpy,pass,scanpy,Install scanpy in the isolated reannotation environment.
+python_package::anndata,pass,anndata,Install anndata in the isolated reannotation environment.
+python_package::scrublet,pass,scrublet,Install scrublet in the isolated reannotation environment.
+python_package::leidenalg,pass,leidenalg,Install leidenalg in the isolated reannotation environment.
+python_package::igraph,pass,igraph,Install igraph in the isolated reannotation environment.
+raw_processed_geo_matrix,pass,data\external\gse154778_pdac_scrna\GSE154778_dgeMtx.csv.gz,Download GSE154778_dgeMtx.csv.gz before full-gene reannotation.
+current_metadata,pass,data\processed\gse154778_pdac_scrna\metadata.csv,Prepare current GSE154778 metadata before reannotation comparison.

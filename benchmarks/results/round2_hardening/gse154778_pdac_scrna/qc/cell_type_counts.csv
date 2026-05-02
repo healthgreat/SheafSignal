@@ -1,0 +1,9 @@
+cell_type,lesion_type,n_cells
+CAF/Fibroblast,Metastatic,2
+CAF/Fibroblast,Primary,2151
+Myeloid,Metastatic,346
+Myeloid,Primary,1253
+T/NK,Metastatic,198
+T/NK,Primary,663
+Tumor/Epithelial,Metastatic,6380
+Tumor/Epithelial,Primary,3933

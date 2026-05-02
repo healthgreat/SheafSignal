@@ -1,0 +1,6 @@
+novelty_axis	claim	evidence_file	allowed_editor_message	boundary
+mathematical_object	CCC is represented as sheaf-valued flow, not only edge intensity.	src/sheafsignal; manuscript/nature_methods_package/09_full_manuscript_draft.md	The contribution changes the object of analysis.	Do not describe as a universal replacement for all CCC tools.
+hodge_decomposition	Gradient, curl and harmonic communication components are quantified.	benchmarks/results/component_recovery.csv	Simulation validates component recovery.	Simulation is not biological validation.
+public_benchmark_breadth	PDAC, melanoma, breast cancer scRNA-seq and Visium spatial cases are benchmarked.	benchmarks/results/public_tme_sheafsignal_summary.csv	Public TME benchmarks support method generality.	Do not claim universal source-cell biology.
+claim_gating	Sparse or unsupported categories are programmatically downgraded.	benchmarks/results/gse154778_pdac_scrna/qc/claim_gating_by_cell_type.csv	Biological interpretation is pre-gated.	Do not rescue sparse categories in the narrative.
+external_comparators	LIANA and bounded nichenetr-engine comparator outputs are aligned.	benchmarks/results/tool_comparison.csv	The method is benchmarkable against external CCC evidence.	Do not claim broad superiority over all CCC tools.

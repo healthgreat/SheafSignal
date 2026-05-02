@@ -1,0 +1,7 @@
+figure	purpose	source	status
+Figure 1	SheafSignal concept and Hodge decomposition	figures/publication_figure1_sheafsignal_concept.pdf	generated
+Figure 2	Simulation component recovery	figures/publication_figure2_component_recovery.pdf	generated
+Figure 3	Public TME benchmark summary	figures/publication_figure3_tme_summary.pdf	generated
+Figure 4	GSE154778 Myeloid claim gating and robustness	figures/publication_figure4_gse154778_claim_gating.pdf	generated
+Figure 5	Comparator alignment with LIANA and bounded nichenetr-engine	figures/publication_figure5_comparator_alignment.pdf	generated
+Supplementary Figure	Visium spatial hotspot sensitivity	benchmarks/results/tenx_breast_visium/spatial/qc	supplement_ready

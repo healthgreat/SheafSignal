@@ -1,0 +1,7 @@
+dataset_id	file	path	purpose
+tenx_breast_visium	cell_type_profiles.csv	benchmarks\results\tenx_breast_visium\comparator_inputs\cell_type_profiles.csv	cell-type profile expression for external CCC tools
+tenx_breast_visium	ligand_receptor_pairs.csv	benchmarks\results\tenx_breast_visium\comparator_inputs\ligand_receptor_pairs.csv	ligand-receptor database
+tenx_breast_visium	cell_type_counts.csv	benchmarks\results\tenx_breast_visium\comparator_inputs\cell_type_counts.csv	cell-type count context
+tenx_breast_visium	sheafsignal_edge_template.csv	benchmarks\results\tenx_breast_visium\comparator_inputs\sheafsignal_edge_template.csv	SheafSignal edge metrics for alignment
+tenx_breast_visium	external_comparator_template.csv	benchmarks\results\tenx_breast_visium\comparator_inputs\external_comparator_template.csv	expected external comparator schema
+tenx_breast_visium	README.md	benchmarks\results\tenx_breast_visium\comparator_inputs\README.md	usage notes

@@ -1,0 +1,10 @@
+check_id	domain	status	evidence	required_action
+component_recovery_schema	simulation	pass	rows=4	Regenerate component_recovery.csv with the expected schema.
+component_recovery_metric_contract	simulation	pass	missing_scenarios=none;numeric_ok=True;ratio_sums_ok=True;dominant_failures=none	Fix simulation recovery outputs before using Figure 2 claims.
+public_tme_summary_schema	public_benchmark	pass	rows=6	Regenerate public_tme_sheafsignal_summary.csv with expected columns.
+public_tme_summary_metric_contract	public_benchmark	pass	public_rows=4;missing_datasets=none;completed=True;numeric_ok=True	Regenerate public TME benchmark summary before manuscript use.
+tool_comparison_schema	comparator	pass	rows=39	Regenerate tool_comparison.csv with expected comparator columns.
+completed_comparator_metric_contract	comparator	pass	completed_rows=20;numeric_ok=True;count_ok=True;missing_files=none	Fix completed comparator rows or their linked edge tables.
+comparator_coverage_contract	comparator	pass	CellChat=3;CellPhoneDB=3;LIANA=3;LRProductBaseline=5;MechanisticTargetPrior=3;NicheNet=3	Keep comparator claims bounded or add missing external comparator runs.
+gse154778_claim_gate_contract	claim_boundary	pass	main_claim_cell_types=;myeloid_downgraded=True	Do not promote any GSE154778 cell type to a main biological source claim until lesion, annotation, and expression-mode permutation/FDR gates agree.
+visium_spatial_sensitivity_contract	spatial_qc	pass	missing_k=none;numeric_ok=True;min_overlap=0.8600;min_spearman=0.9309	Keep spatial claims bounded or regenerate k-neighbor sensitivity analysis.

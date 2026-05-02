@@ -1,0 +1,15 @@
+ligand,receptor,weight,annotation
+VEGFA,KDR,1.0,VEGF angiogenic signaling
+VEGFA,FLT1,0.8,VEGF receptor signaling
+TGFB1,TGFBR1,0.9,TGF beta stromal signaling
+CXCL12,CXCR4,0.9,Chemokine stromal immune signaling
+CCL2,CCR2,0.8,Monocyte recruitment
+CCL5,CCR5,0.8,T cell and myeloid chemokine signaling
+IL6,IL6R,0.7,Inflammatory cytokine signaling
+TNF,TNFRSF1A,0.7,TNF inflammatory signaling
+IFNG,IFNGR1,0.7,Interferon gamma signaling
+CSF1,CSF1R,0.8,Macrophage differentiation signaling
+SPP1,CD44,0.7,Matrix and macrophage associated signaling
+MIF,CD74,0.7,Macrophage inhibitory factor signaling
+COL1A1,ITGA1,0.5,Extracellular matrix receptor interaction
+MMP2,ITGAV,0.5,Matrix remodeling receptor axis

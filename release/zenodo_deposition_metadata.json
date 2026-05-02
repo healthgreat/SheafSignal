@@ -1,0 +1,26 @@
+{
+  "title": "SheafSignal: sheaf-valued Hodge analysis of cell-cell communication networks",
+  "upload_type": "dataset",
+  "description": "Frozen processed benchmark objects and large generated spatial result tables for the SheafSignal methods manuscript. Raw public datasets are not redistributed here; source accessions and checksums are listed in metadata/datasets.tsv. This deposition is intended to pair with the public GitHub source-code release.",
+  "creators": [
+    {
+      "name": "TBD"
+    }
+  ],
+  "license": "cc-by-4.0",
+  "keywords": [
+    "single-cell RNA-seq",
+    "spatial transcriptomics",
+    "cell-cell communication",
+    "sheaf theory",
+    "Hodge decomposition"
+  ],
+  "notes": "Zenodo upload file: release/archives/sheafsignal_zenodo_upload.zip. Archive SHA256: e2ad6b3d705788329a420cfc234326b233ea8547a228751ab35c0f934f3c4ede. Manifest files: 40; manifest total size MB: 106.203.",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/TBD/SheafSignal",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    }
+  ]
+}
