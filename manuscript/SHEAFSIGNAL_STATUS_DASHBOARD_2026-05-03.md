@@ -40,6 +40,8 @@ probabilities.
   metadata, with remaining author confirmations tracked explicitly.
 - Novelty/overlap table has been expanded from 5 to 7 comparison classes,
   adding niche/regression methods and spatial neighborhood/domain methods.
+- Reviewer reproducibility quickstart has been added to separate tracked-file
+  demo checks, public-data checks, release audits, and final DOI/GitHub gates.
 
 ## What Is Blocking Submission
 
@@ -102,6 +104,7 @@ gantt
     Author metadata draft fill                     :done, 2026-05-02, 1d
     GitHub CLI portable install                    :done, 2026-05-02, 1d
     Novelty overlap expansion                      :done, 2026-05-03, 1d
+    Reviewer reproducibility quickstart            :done, 2026-05-03, 1d
 
     section Current Submission Blockers
     Regenerate valid GitHub token or browser auth  :crit, active, 2026-05-03, 1d
@@ -138,7 +141,9 @@ insertion, clean-clone tests, final reports, and submission package regeneration
 - Returned external beta review from 2-3 independent computational biology
   readers.
 - A short user-facing tutorial notebook that reproduces the demo and one public
-  benchmark subset.
+  benchmark subset. Current status: a reviewer quickstart document now covers
+  demo, benchmark smoke-test, public download validation, and clean-export
+  preflight commands.
 - A final novelty table cross-check against graph signal processing, Hodge
   omics, sheaf-theoretic biology, niche/regression, and spatial neighborhood
   methods. Current status: expanded to 7 classes; citation placeholders still
