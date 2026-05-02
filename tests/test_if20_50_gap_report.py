@@ -5,6 +5,7 @@ from scripts.build_if20_50_gap_report import (
     build_gap_matrix,
     build_report,
     build_supplementation_plan,
+    beta_review_packet_status,
     clean_preflight_status,
     journal_metric_audit_status,
     score_gates,
@@ -94,6 +95,7 @@ def test_report_contains_gantt_and_boundary(tmp_path):
     assert "not acceptance probabilities" in report
     assert "Zenodo DOI" in report
     assert "Journal metric audit" in report
+    assert "External beta review packet" in report
 
 
 def test_clean_preflight_status_reads_pass_report(tmp_path):
@@ -119,3 +121,19 @@ def test_journal_metric_audit_status_reads_final_check_boundary(tmp_path):
         journal_metric_audit_status(tmp_path)
         == "publisher_if_verified_cas_warning_final_check_required"
     )
+
+
+def test_beta_review_packet_status_reads_ready_boundary(tmp_path):
+    report = (
+        tmp_path
+        / "external_ai_review_packet"
+        / "beta_review_packet_2026-05-02"
+        / "01_BETA_REVIEW_PACKET_STATUS.md"
+    )
+    report.parent.mkdir(parents=True, exist_ok=True)
+    report.write_text(
+        "- Decision: `BETA_REVIEW_PACKET_READY_LOCAL_EXTERNAL_REVIEWS_PENDING`\n",
+        encoding="utf-8",
+    )
+
+    assert beta_review_packet_status(tmp_path) == "packet_ready_external_reviews_pending"

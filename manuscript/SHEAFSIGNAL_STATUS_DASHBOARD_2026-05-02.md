@@ -12,6 +12,8 @@ The IF 20-50 distance report now gives the most direct status: overall readiness
 
 The journal metric audit is now generated as a separate evidence file. Publisher JIF values are checked against official metric pages, while CAS zone and warning-list status remain final submission-day checks through the official CAS partition platform or the institutional library.
 
+An external beta-review packet is now generated for other AI systems or computational biology readers. This makes S3 review handoff local-ready, but it is not equivalent to completed external review until returned critiques are filed and resolved.
+
 ## Fast Decision Board
 
 | Area | Status | Direct Meaning | Next Required Action |
@@ -31,6 +33,7 @@ The journal metric audit is now generated as a separate evidence file. Publisher
 | Release metadata | Red/Yellow | Placeholder audit separates GitHub URL, Zenodo DOI, and author-owned fields | Fill only after real public URL, DOI, and author information exist |
 | Clean-export preflight | Green/Yellow | Git-tracked HEAD can run a lightweight clean-export demo and core tests locally | Rerun from public GitHub clone after URL/tag/DOI insertion |
 | Journal metric audit | Green/Yellow | Publisher JIF values are anchored to official metric pages; CAS/warning status is not officially verified yet | Recheck selected journal in official CAS/warning sources on submission day |
+| External beta review packet | Green/Yellow | Reviewer packet, evidence index, AI review prompt, and response form are generated locally | Send to 2-3 independent reviewers or AI systems and file returned critiques |
 | Submission | Red/Yellow | Not ready to submit | Clear the red and yellow submission blockers first |
 
 ## Gantt View
@@ -60,6 +63,7 @@ gantt
     Zenodo DOI minting                           :2026-05-12, 1d
     Final clean-clone submission preflight       :2026-05-13, 2d
     Official CAS and warning-list final check    :2026-05-13, 1d
+    External beta review responses               :2026-05-14, 7d
 ```
 
 ## What Can Be Claimed Now
@@ -99,6 +103,7 @@ gantt
 - `release/clean_clone_preflight/CLEAN_CLONE_PREFLIGHT_REPORT.md`
 - `manuscript/IF20_50_DISTANCE_REPORT.md`
 - `manuscript/journal_metric_audit/JOURNAL_METRIC_AUDIT_REPORT.md`
+- `external_ai_review_packet/beta_review_packet_2026-05-02/01_BETA_REVIEW_PACKET_STATUS.md`
 - `benchmarks/results/BENCHMARK_RESULT_CONTRACT_REPORT.md`
 - `benchmarks/results/simulation/sheaf_ground_truth_recovery.csv`
 - `manuscript/NATURE_METHODS_GO_NO_GO_REPORT.md`

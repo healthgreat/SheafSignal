@@ -6,6 +6,7 @@
 - Submission infrastructure index: `44.5%`
 - Clean-export reproduction preflight: `local_clean_export_pass`
 - Journal metric audit: `publisher_if_verified_cas_warning_final_check_required`
+- External beta review packet: `packet_ready_external_reviews_pending`
 - Score boundary: these are internal readiness indices, not acceptance probabilities.
 
 ## Direct Answer
@@ -13,6 +14,8 @@
 SheafSignal is now close to a defensible 20-50 IF methods-manuscript candidate on the scientific/code side, but it is not submission-ready. The main remaining distance is external release and submission metadata: public GitHub URL/tag, real Zenodo DOI, author metadata, and a final public clean-clone reproduction check. A local clean-export preflight has passed when this report shows `local_clean_export_pass`, but it does not replace the final public-GitHub clone test.
 
 The journal-metric audit now anchors the target board to publisher metric pages, while keeping CAS-zone and warning-journal status as official submission-day checks. This strengthens journal selection discipline but does not remove the GitHub/Zenodo/author-metadata blockers.
+
+The external beta-review packet is now a local-ready handoff artifact. That clears the packaging part of S3, but it does not count as completed external validation until independent reviewers or AI systems return written critiques that are filed in the response matrix.
 
 For a realistic 20-50 IF route, the current package is approximately one release/metadata cycle away from being submit-ready. For a Nature Methods or Nature Biotechnology stretch route, the core package is defensible but would benefit from external beta review, a small 10,000-permutation confirmatory subset, and optionally a fuller GSE103322 replication supplement.
 
@@ -34,7 +37,7 @@ For a realistic 20-50 IF route, the current package is approximately one release
 
 - S1. Run a 10,000-permutation confirmatory pass for the smallest set of manuscript-critical GSE154778/global tests. Expected effect: Improves statistical defensibility; not needed for current descriptive edge claims.
 - S2. Complete GSE103322 as an explicit replication supplement with the same primary scRNA comparator scope, or keep it clearly outside main comparator claims. Expected effect: Improves 20-50 IF resilience against dataset-specific-artifact criticism.
-- S3. Invite 2-3 external computational biology readers to run the clean-clone demo and review the novelty/comparator framing before submission. Expected effect: Improves cover-letter confidence and reduces desk-rejection risk from unclear novelty or reproducibility.
+- S3. Send the beta-review packet to 2-3 external computational biology readers or independent AI reviewers, then file responses in the review matrix. Expected effect: Improves cover-letter confidence and reduces desk-rejection risk from unclear novelty or reproducibility.
 - S4. Refresh the journal metric audit on the submission day, covering latest JIF source, CAS zone, and warning-journal status for the chosen target. Expected effect: Prevents stale IF/CAS/warning claims in the final submission plan.
 - S5. Keep Visium hotspot-only unless adding deconvolution or histology/pathology annotation. Expected effect: Prevents overclaiming while preserving spatial workflow demonstration value.
 
@@ -76,7 +79,8 @@ gantt
     section Optional IF 20-50 Strengthening
     10000-permutation confirmatory subset        :2026-05-06, 2d
     GSE103322 full replication supplement        :2026-05-06, 3d
-    External beta review by 2-3 groups           :2026-05-06, 7d
+    External beta review packet                  :done, 2026-05-02, 1d
+    Returned reviews from 2-3 external readers   :2026-05-06, 7d
     Open-web journal metric audit                :done, 2026-05-02, 1d
     Official CAS and warning-list final check    :2026-05-08, 1d
     Presubmission inquiry package refresh        :2026-05-09, 2d
@@ -90,6 +94,7 @@ gantt
 - `release/clean_clone_preflight/CLEAN_CLONE_PREFLIGHT_REPORT.md`
 - `manuscript/journal_metric_audit/JOURNAL_METRIC_AUDIT.tsv`
 - `manuscript/journal_metric_audit/JOURNAL_METRIC_AUDIT_REPORT.md`
+- `external_ai_review_packet/beta_review_packet_2026-05-02/01_BETA_REVIEW_PACKET_STATUS.md`
 
 ## Boundary
 

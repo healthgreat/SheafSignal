@@ -76,6 +76,7 @@ Can ligand-receptor communication be reframed as sheaf-valued flow over a cell-t
 - Release metadata placeholder auditing is implemented by `scripts/check_release_metadata_placeholders.py`; the current decision is `RELEASE_METADATA_BLOCKED_EXTERNAL_IDENTIFIERS`, separating pending GitHub URL, Zenodo DOI, and author-owned fields from code/scientific blockers.
 - IF 20-50 distance reporting is implemented by `scripts/build_if20_50_gap_report.py`; the current decision is `IF20_50_SCIENTIFICALLY_HARDENED_BUT_RELEASE_BLOCKED`, with overall readiness 78.0%, scientific/method hardening 95.1%, and submission infrastructure 44.5%.
 - Journal metric auditing is implemented by `scripts/build_journal_metric_audit.py`; publisher JIF values are tied to official metric pages, while CAS zone and warning-list status remain final official checks on the submission day.
+- External beta-review packet generation is implemented by `scripts/build_external_beta_review_packet.py`; the current decision is `BETA_REVIEW_PACKET_READY_LOCAL_EXTERNAL_REVIEWS_PENDING`, meaning the handoff package is ready but no independent returned reviews are filed yet.
 - Local clean-export reproduction preflight is implemented by `scripts/run_clean_clone_preflight.py`; the current decision is `CLEAN_CLONE_PREFLIGHT_PASS_LOCAL_EXPORT` for commit `9ccf5f3`, covering core pytest, CLI demo, expected output checks, and release audit from a Git-tracked export.
 - Method-reporting and reviewer-risk auditing is implemented under `manuscript/method_reporting/`; it checks algorithm primitives, simulation recovery, public dataset manifest completeness, comparator scope, sparse-cell claim gating, Visium sensitivity, figure traceability, references, and release archives.
 - A manuscript-wide claim safety audit is now generated as `manuscript/CLAIM_SAFETY_AUDIT.tsv` and `manuscript/CLAIM_SAFETY_AUDIT_REPORT.md`, scanning all manuscript-facing files for unsupported clinical, therapeutic, guaranteed-publication, broad-superiority, and full-pretrained-NicheNet claims.
@@ -188,6 +189,12 @@ Can ligand-receptor communication be reframed as sheaf-valued flow over a cell-t
 - `manuscript/IF20_50_DISTANCE_REPORT.md`
 - `manuscript/journal_metric_audit/JOURNAL_METRIC_AUDIT.tsv`
 - `manuscript/journal_metric_audit/JOURNAL_METRIC_AUDIT_REPORT.md`
+- `external_ai_review_packet/beta_review_packet_2026-05-02/00_README_FOR_REVIEWERS.md`
+- `external_ai_review_packet/beta_review_packet_2026-05-02/01_BETA_REVIEW_PACKET_STATUS.md`
+- `external_ai_review_packet/beta_review_packet_2026-05-02/02_EVIDENCE_FILE_INDEX.tsv`
+- `external_ai_review_packet/beta_review_packet_2026-05-02/03_REVIEWER_CHECKLIST.tsv`
+- `external_ai_review_packet/beta_review_packet_2026-05-02/04_AI_REVIEW_PROMPT.md`
+- `external_ai_review_packet/beta_review_packet_2026-05-02/05_REVIEW_FORM_TEMPLATE.md`
 - `release/clean_clone_preflight/CLEAN_CLONE_PREFLIGHT_REPORT.md`
 - `scripts/build_zenodo_deposition_package.py`
 - `scripts/finalize_zenodo_doi.py`

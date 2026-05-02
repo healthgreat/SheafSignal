@@ -29,6 +29,10 @@ JOURNAL_METRIC_AUDIT_PATH = Path("manuscript/journal_metric_audit/JOURNAL_METRIC
 JOURNAL_METRIC_AUDIT_REPORT_PATH = Path(
     "manuscript/journal_metric_audit/JOURNAL_METRIC_AUDIT_REPORT.md"
 )
+BETA_REVIEW_PACKET_STATUS_PATH = Path(
+    "external_ai_review_packet/beta_review_packet_2026-05-02/"
+    "01_BETA_REVIEW_PACKET_STATUS.md"
+)
 
 GAP_MATRIX_PATH = Path("manuscript/IF20_50_GAP_MATRIX.tsv")
 SUPPLEMENT_PLAN_PATH = Path("manuscript/IF20_50_SUPPLEMENTATION_PLAN.tsv")
@@ -142,9 +146,9 @@ OPTIONAL_STRENGTHENING_ROWS = [
     },
     {
         "priority": "S3",
-        "action": "Invite 2-3 external computational biology readers to run the clean-clone demo and review the novelty/comparator framing before submission.",
+        "action": "Send the beta-review packet to 2-3 external computational biology readers or independent AI reviewers, then file responses in the review matrix.",
         "gate_type": "high_impact_strengthening",
-        "why_it_matters": "External beta review is one of the fastest ways to expose remaining reviewer objections before journal submission.",
+        "why_it_matters": "External beta review is one of the fastest ways to expose remaining reviewer objections before journal submission; the packet is now local-ready but reviews have not been returned.",
         "expected_effect": "Improves cover-letter confidence and reduces desk-rejection risk from unclear novelty or reproducibility.",
         "estimated_effort": "medium calendar time",
         "blocking": "no",
@@ -417,6 +421,18 @@ def journal_metric_audit_status(root: Path) -> str:
     return "unknown"
 
 
+def beta_review_packet_status(root: Path) -> str:
+    path = root / BETA_REVIEW_PACKET_STATUS_PATH
+    if not path.exists():
+        return "not_run"
+    text = path.read_text(encoding="utf-8", errors="replace")
+    if "BETA_REVIEW_PACKET_READY_LOCAL_EXTERNAL_REVIEWS_PENDING" in text:
+        return "packet_ready_external_reviews_pending"
+    if "BETA_REVIEW_PACKET_BLOCKED_MISSING_REQUIRED_EVIDENCE" in text:
+        return "blocked_missing_required_evidence"
+    return "unknown"
+
+
 def _count_gap_rows(rows: list[dict[str, object]], risk: str) -> int:
     return sum(1 for row in rows if row.get("if20_50_risk") == risk)
 
@@ -484,7 +500,8 @@ gantt
     section Optional IF 20-50 Strengthening
     10000-permutation confirmatory subset        :2026-05-06, 2d
     GSE103322 full replication supplement        :2026-05-06, 3d
-    External beta review by 2-3 groups           :2026-05-06, 7d
+    External beta review packet                  :done, 2026-05-02, 1d
+    Returned reviews from 2-3 external readers   :2026-05-06, 7d
     Open-web journal metric audit                :done, 2026-05-02, 1d
     Official CAS and warning-list final check    :2026-05-08, 1d
     Presubmission inquiry package refresh        :2026-05-09, 2d
@@ -500,6 +517,7 @@ def build_report(
     score = score_gates(gates)
     preflight_status = clean_preflight_status(root)
     journal_audit_status = journal_metric_audit_status(root)
+    beta_review_status = beta_review_packet_status(root)
     hard_blockers = _count_gap_rows(gap_rows, "blocking")
     administrative = _count_gap_rows(gap_rows, "administrative")
     author_metadata = _count_gap_rows(gap_rows, "author_metadata")
@@ -533,6 +551,7 @@ def build_report(
             f"- Submission infrastructure index: `{score['submission_infrastructure_percent']}%`",
             f"- Clean-export reproduction preflight: `{preflight_status}`",
             f"- Journal metric audit: `{journal_audit_status}`",
+            f"- External beta review packet: `{beta_review_status}`",
             "- Score boundary: these are internal readiness indices, not acceptance probabilities.",
             "",
             "## Direct Answer",
@@ -549,6 +568,11 @@ def build_report(
             "metric pages, while keeping CAS-zone and warning-journal status as "
             "official submission-day checks. This strengthens journal selection "
             "discipline but does not remove the GitHub/Zenodo/author-metadata blockers.",
+            "",
+            "The external beta-review packet is now a local-ready handoff artifact. "
+            "That clears the packaging part of S3, but it does not count as completed "
+            "external validation until independent reviewers or AI systems return "
+            "written critiques that are filed in the response matrix.",
             "",
             "For a realistic 20-50 IF route, the current package is approximately "
             "one release/metadata cycle away from being submit-ready. For a Nature "
@@ -588,6 +612,7 @@ def build_report(
             f"- `{CLEAN_PREFLIGHT_REPORT_PATH.as_posix()}`",
             f"- `{JOURNAL_METRIC_AUDIT_PATH.as_posix()}`",
             f"- `{JOURNAL_METRIC_AUDIT_REPORT_PATH.as_posix()}`",
+            f"- `{BETA_REVIEW_PACKET_STATUS_PATH.as_posix()}`",
             "",
             "## Boundary",
             "",
