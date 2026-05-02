@@ -15,11 +15,11 @@ global circulation.
 
 The evidence package includes controlled recovery of gradient, curl and
 harmonic components; public tumor microenvironment benchmarks across
-gse72056_melanoma_scrna, gse154778_pdac_scrna and gse176078_brca_scrna as scRNA-seq sheaf-energy ranking cases; tenx_breast_visium as a spot-level spatial hotspot workflow demonstration; and comparator analyses using
-LIANA (3 datasets), LRProductBaseline (4 datasets), MechanisticTargetPrior (3 datasets), NicheNet (3 datasets). The manuscript also includes programmatic
+gse72056_melanoma_scrna (scRNA-seq; top source CAF/Fibroblast); gse154778_pdac_scrna (scRNA-seq; top source CAF/Fibroblast); gse176078_brca_scrna (scRNA-seq; top source Endothelial); gse103322_hnsc_scrna (scRNA-seq; top source Endothelial); tenx_breast_visium (Visium spatial transcriptomics; top source Endothelial); and comparator analyses using
+CellChat (3 datasets), CellPhoneDB (3 datasets), LIANA (3 datasets), LRProductBaseline (5 datasets), MechanisticTargetPrior (3 datasets), NicheNet (3 datasets). The manuscript also includes programmatic
 claim gating. For example, in GSE154778 pancreatic cancer, Myeloid is retained
-only as a supplement-level computational hypothesis, while sparse categories
-are restricted to supplementary quality-control context.
+as the only main-text cell-type-level computational signal, while sparse
+categories are restricted to supplementary quality-control context.
 
 We position the study as a reproducible computational methods contribution. We
 do not claim clinical utility, treatment prediction, or broad superiority over

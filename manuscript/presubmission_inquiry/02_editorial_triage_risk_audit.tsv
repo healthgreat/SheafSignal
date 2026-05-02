@@ -1,7 +1,7 @@
 risk_id	editorial_risk	risk_level	current_mitigation	remaining_action
 T1	Perceived as another CCC scoring tool	high	Lead with sheaf-valued flow and Hodge decomposition rather than LR ranking.	Use Figure 1 and abstract to emphasize changed mathematical object.
 T2	Public-data-only biological evidence	medium	Frame as methods benchmark, not clinical or therapeutic discovery.	Keep clinical language out of title, abstract and cover letter.
-T3	Comparator scope requires boundary wording	medium	Primary scRNA-seq scope has LRProductBaseline, LIANA, MechanisticTargetPrior, bounded nichenetr-engine, CellChat and CellPhoneDB outputs.	Do not claim broad superiority or comparator completeness for demo, Visium, GSE103322, or niche-DE.
+T3	Comparator coverage incomplete	low	Primary scRNA comparator scope is locked and includes LRProductBaseline, LIANA, MechanisticTargetPrior, bounded NicheNet/nichenetr-engine, CellPhoneDB and CellChat for GSE72056, GSE154778 and GSE176078.	Do not claim broad superiority or comparator completeness outside the primary scRNA scope.
 T4	Sparse cell-type overinterpretation	low	Programmatic claim gating restricts GSE154778 main claim to Myeloid.	Keep sparse categories in supplement/QC only.
 T5	Reproducibility package incomplete	medium	Release manifests, deterministic archives, checksum files and go/no-go gates exist.	Mint Zenodo DOI and create public GitHub release before submission.
 T6	Format or submission metadata incomplete	medium	Nature Methods format audit is locally ready; metadata templates exist.	Authors must fill names, affiliations, CRediT, COI and ethics wording.

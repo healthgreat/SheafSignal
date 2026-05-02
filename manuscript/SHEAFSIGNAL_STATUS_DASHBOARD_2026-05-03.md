@@ -1,6 +1,6 @@
 # SheafSignal Status Dashboard
 
-Timestamp: 2026-05-03 01:09:28 +08:00
+Timestamp: 2026-05-03 01:15:42 +08:00
 
 ## Direct Status
 
@@ -38,6 +38,8 @@ probabilities.
 - Python environment lock and local clean-export reproduction preflight pass.
 - Author metadata placeholders have been replaced by author-provided draft
   metadata, with remaining author confirmations tracked explicitly.
+- Novelty/overlap table has been expanded from 5 to 7 comparison classes,
+  adding niche/regression methods and spatial neighborhood/domain methods.
 
 ## What Is Blocking Submission
 
@@ -99,6 +101,7 @@ gantt
     Environment lock and local clean-export check  :done, 2026-05-02, 1d
     Author metadata draft fill                     :done, 2026-05-02, 1d
     GitHub CLI portable install                    :done, 2026-05-02, 1d
+    Novelty overlap expansion                      :done, 2026-05-03, 1d
 
     section Current Submission Blockers
     Regenerate valid GitHub token or browser auth  :crit, active, 2026-05-03, 1d
@@ -137,7 +140,9 @@ insertion, clean-clone tests, final reports, and submission package regeneration
 - A short user-facing tutorial notebook that reproduces the demo and one public
   benchmark subset.
 - A final novelty table cross-check against graph signal processing, Hodge
-  omics, and sheaf-theoretic biology papers.
+  omics, sheaf-theoretic biology, niche/regression, and spatial neighborhood
+  methods. Current status: expanded to 7 classes; citation placeholders still
+  require author/literature verification.
 - Optional Visium deconvolution or histology/pathology annotation if the spatial
   story is promoted beyond hotspot demonstration.
 - Optional additional cancer dataset only if it can be processed with the same
@@ -161,3 +166,18 @@ This means the token is invalid, expired, revoked, copied incorrectly, or not a
 GitHub personal access token. The token content was not printed or committed.
 Regenerate a new token, overwrite the same file, and rerun the GitHub login
 step.
+
+## Latest Non-Release Strengthening
+
+On 2026-05-03, the novelty/overlap package was strengthened:
+
+- `manuscript/novelty_overlap/SHEAFSIGNAL_NOVELTY_OVERLAP_TABLE.tsv`
+  now compares 7 method classes.
+- `manuscript/novelty_overlap/SHEAFSIGNAL_NOVELTY_OVERLAP_REPORT.md`
+  now states the safest one-sentence novelty claim.
+- `manuscript/presubmission_inquiry/03_novelty_evidence_matrix.tsv`
+  now reflects the completed primary scRNA comparator scope including
+  CellPhoneDB and CellChat.
+
+This improves reviewer defensibility, but it does not remove the GitHub/Zenodo
+release blockers.

@@ -51,6 +51,26 @@ ROWS = [
         "citation_keys": "cellular_sheaves_hansen_2019",
     },
     {
+        "comparison_class": "niche_regression_or_de_methods",
+        "representative_methods": "niche-DE;neighborhood regression;covariate-adjusted niche models",
+        "primary_object": "gene-expression association with neighborhood or niche covariates",
+        "sheafsignal_difference": "does not test differential expression from niche covariates; it evaluates edge-wise consistency between directed CCC observations and pathway-state transitions",
+        "overlap_risk": "moderate if described as replacing niche differential expression",
+        "safe_claim": "provides a graph-consistency layer complementary to regression-based niche effect models",
+        "required_evidence": "scope boundary that niche-DE is related-method context, not a mandatory CCC comparator",
+        "citation_keys": "niche_de_reference_required",
+    },
+    {
+        "comparison_class": "spatial_neighborhood_or_domain_methods",
+        "representative_methods": "spatial neighborhood enrichment;domain detection;spot-level program mapping",
+        "primary_object": "spatial proximity, tissue domains, or spot-level expression programs",
+        "sheafsignal_difference": "uses optional spatial adjacency only to define local communication neighborhoods and hotspot stability, not histology-validated cell-type sources",
+        "overlap_risk": "moderate if Visium hotspots are interpreted as deconvolved cell-type mechanisms",
+        "safe_claim": "extends sheaf-energy summaries to spatial hotspot demonstrations under explicit spot-level boundaries",
+        "required_evidence": "Visium hotspot-only scope gate unless deconvolution or pathology annotation is added",
+        "citation_keys": "spatial_transcriptomics_methods_reference_required",
+    },
+    {
         "comparison_class": "centrality_or_network_topology",
         "representative_methods": "degree;betweenness;PageRank;network motifs",
         "primary_object": "topological position or motif count",
@@ -82,6 +102,7 @@ def build_novelty_overlap_table(output_dir: Path) -> dict[str, Path]:
         f"- Comparison classes: {len(table)}",
         f"- Rows with citation placeholders requiring author verification: {int(unresolved)}",
         "- Boundary: claim an integrated sheaf/Hodge CCC workflow, not broad first-ever novelty.",
+        "- Reviewer-facing interpretation: SheafSignal is not a replacement for CCC, niche-DE, spatial domain detection, graph centrality, or Hodge methods; it composes CCC-derived observations with a domain-specific sheaf consistency residual.",
         "",
         "## Highest-Risk Overlaps",
         "",
@@ -92,7 +113,22 @@ def build_novelty_overlap_table(output_dir: Path) -> dict[str, Path]:
             f"- `{row['comparison_class']}`: {row['overlap_risk']}. "
             f"Safe claim: {row['safe_claim']}."
         )
-    lines.append("")
+    lines.extend(
+        [
+            "",
+            "## Claims To Avoid",
+            "",
+            "- Do not claim first-ever use of sheaves in biology without a separate formal literature audit.",
+            "- Do not claim Hodge decomposition itself is new.",
+            "- Do not claim SheafSignal replaces CellChat, CellPhoneDB, LIANA, NicheNet, niche-DE, spatial deconvolution, or graph centrality.",
+            "- Do not interpret Visium hotspots as validated cell-type mechanisms without deconvolution or pathology support.",
+            "",
+            "## Safest One-Sentence Novelty Claim",
+            "",
+            "SheafSignal implements a domain-specific sheaf/Hodge workflow that converts CCC-derived ligand-receptor observations and pathway-state transitions into edge- and node-level graph-consistency residuals.",
+            "",
+        ]
+    )
     _write_text_atomic(report_path, "\n".join(lines))
     return {"table": table_path, "report": report_path}
 

@@ -160,9 +160,9 @@ def build_triage_risk_table() -> pd.DataFrame:
         {
             "risk_id": "T3",
             "editorial_risk": "Comparator coverage incomplete",
-            "risk_level": "medium",
-            "current_mitigation": "Full LIANA, LRProductBaseline, MechanisticTargetPrior and bounded nichenetr-engine outputs exist.",
-            "remaining_action": "Do not claim broad superiority; state CellChat/CellPhoneDB/niche-DE pending.",
+            "risk_level": "low",
+            "current_mitigation": "Primary scRNA comparator scope is locked and includes LRProductBaseline, LIANA, MechanisticTargetPrior, bounded NicheNet/nichenetr-engine, CellPhoneDB and CellChat for GSE72056, GSE154778 and GSE176078.",
+            "remaining_action": "Do not claim broad superiority or comparator completeness outside the primary scRNA scope.",
         },
         {
             "risk_id": "T4",
@@ -221,10 +221,17 @@ def build_novelty_evidence_matrix() -> pd.DataFrame:
         },
         {
             "novelty_axis": "external_comparators",
-            "claim": "LIANA and bounded nichenetr-engine comparator outputs are aligned.",
-            "evidence_file": "benchmarks/results/tool_comparison.csv",
-            "allowed_editor_message": "The method is benchmarkable against external CCC evidence.",
-            "boundary": "Do not claim broad superiority over all CCC tools.",
+            "claim": "Primary scRNA comparator outputs include LRProductBaseline, LIANA, MechanisticTargetPrior, bounded NicheNet/nichenetr-engine, CellPhoneDB and CellChat.",
+            "evidence_file": "benchmarks/results/tool_comparison.csv; manuscript/comparator_scope/COMPARATOR_SCOPE_REPORT.md",
+            "allowed_editor_message": "The method is benchmarked against major CCC evidence layers within a locked primary scRNA scope.",
+            "boundary": "Do not claim broad superiority or comparator completeness outside GSE72056, GSE154778 and GSE176078 scRNA-seq.",
+        },
+        {
+            "novelty_axis": "novelty_overlap_boundary",
+            "claim": "The method contributes a domain-specific CCC sheaf residual rather than novelty in Hodge decomposition or graph centrality alone.",
+            "evidence_file": "manuscript/novelty_overlap/SHEAFSIGNAL_NOVELTY_OVERLAP_TABLE.tsv",
+            "allowed_editor_message": "The novelty is the CCC-specific sheaf-valued flow construction and consistency readout.",
+            "boundary": "Do not claim first-ever sheaf biology or replacement of niche-DE/spatial deconvolution methods.",
         },
     ]
     return pd.DataFrame(rows)
