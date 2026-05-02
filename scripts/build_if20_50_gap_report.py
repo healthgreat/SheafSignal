@@ -33,6 +33,9 @@ BETA_REVIEW_PACKET_STATUS_PATH = Path(
     "external_ai_review_packet/beta_review_packet_2026-05-02/"
     "01_BETA_REVIEW_PACKET_STATUS.md"
 )
+CONFIRMATORY_PERMUTATION_STATUS_PATH = Path(
+    "benchmarks/results/confirmatory_10000/CONFIRMATORY_PERMUTATION_STATUS.md"
+)
 
 GAP_MATRIX_PATH = Path("manuscript/IF20_50_GAP_MATRIX.tsv")
 SUPPLEMENT_PLAN_PATH = Path("manuscript/IF20_50_SUPPLEMENTATION_PLAN.tsv")
@@ -128,10 +131,10 @@ MANDATORY_SUPPLEMENT_ROWS = [
 OPTIONAL_STRENGTHENING_ROWS = [
     {
         "priority": "S1",
-        "action": "Run a 10,000-permutation confirmatory pass for the smallest set of manuscript-critical GSE154778/global tests.",
+        "action": "Run the pre-specified 10,000-permutation confirmatory GSE154778 subset if final reviewers require higher p-value resolution.",
         "gate_type": "high_impact_strengthening",
-        "why_it_matters": "Reduces reviewer concern that p-values and FDR are only manuscript-grade but not stress-tested.",
-        "expected_effect": "Improves statistical defensibility; not needed for current descriptive edge claims.",
+        "why_it_matters": "The confirmatory subset is now pre-specified; execution reduces reviewer concern that p-values and FDR are only 1000-permutation resolution.",
+        "expected_effect": "Improves statistical defensibility; still does not promote computational signals into biological mechanisms.",
         "estimated_effort": "medium to long",
         "blocking": "no",
     },
@@ -433,6 +436,22 @@ def beta_review_packet_status(root: Path) -> str:
     return "unknown"
 
 
+def confirmatory_permutation_status(root: Path) -> str:
+    path = root / CONFIRMATORY_PERMUTATION_STATUS_PATH
+    if not path.exists():
+        return "not_run"
+    text = path.read_text(encoding="utf-8", errors="replace")
+    if "CONFIRMATORY_10000_COMPLETED" in text:
+        return "completed_10000"
+    if "CONFIRMATORY_10000_READY_NOT_RUN" in text:
+        return "pre_specified_ready_not_run"
+    if "CONFIRMATORY_10000_PARTIAL_BELOW_TARGET" in text:
+        return "partial_below_target"
+    if "CONFIRMATORY_10000_BLOCKED" in text:
+        return "blocked"
+    return "unknown"
+
+
 def _count_gap_rows(rows: list[dict[str, object]], risk: str) -> int:
     return sum(1 for row in rows if row.get("if20_50_risk") == risk)
 
@@ -498,7 +517,8 @@ gantt
     Public clean-clone reproduction preflight    :crit, 2026-05-05, 1d
 
     section Optional IF 20-50 Strengthening
-    10000-permutation confirmatory subset        :2026-05-06, 2d
+    10000-permutation subset pre-specification   :done, 2026-05-02, 1d
+    10000-permutation confirmatory execution     :2026-05-06, 2d
     GSE103322 full replication supplement        :2026-05-06, 3d
     External beta review packet                  :done, 2026-05-02, 1d
     Returned reviews from 2-3 external readers   :2026-05-06, 7d
@@ -518,6 +538,7 @@ def build_report(
     preflight_status = clean_preflight_status(root)
     journal_audit_status = journal_metric_audit_status(root)
     beta_review_status = beta_review_packet_status(root)
+    confirmatory_status = confirmatory_permutation_status(root)
     hard_blockers = _count_gap_rows(gap_rows, "blocking")
     administrative = _count_gap_rows(gap_rows, "administrative")
     author_metadata = _count_gap_rows(gap_rows, "author_metadata")
@@ -552,6 +573,7 @@ def build_report(
             f"- Clean-export reproduction preflight: `{preflight_status}`",
             f"- Journal metric audit: `{journal_audit_status}`",
             f"- External beta review packet: `{beta_review_status}`",
+            f"- 10,000-permutation confirmatory subset: `{confirmatory_status}`",
             "- Score boundary: these are internal readiness indices, not acceptance probabilities.",
             "",
             "## Direct Answer",
@@ -573,6 +595,11 @@ def build_report(
             "That clears the packaging part of S3, but it does not count as completed "
             "external validation until independent reviewers or AI systems return "
             "written critiques that are filed in the response matrix.",
+            "",
+            "The 10,000-permutation confirmatory subset is now pre-specified and "
+            "has a fixed command plan. It is still not executed in the current state; "
+            "therefore it should be described as a ready confirmatory gate, not as "
+            "completed statistical evidence.",
             "",
             "For a realistic 20-50 IF route, the current package is approximately "
             "one release/metadata cycle away from being submit-ready. For a Nature "
@@ -613,6 +640,7 @@ def build_report(
             f"- `{JOURNAL_METRIC_AUDIT_PATH.as_posix()}`",
             f"- `{JOURNAL_METRIC_AUDIT_REPORT_PATH.as_posix()}`",
             f"- `{BETA_REVIEW_PACKET_STATUS_PATH.as_posix()}`",
+            f"- `{CONFIRMATORY_PERMUTATION_STATUS_PATH.as_posix()}`",
             "",
             "## Boundary",
             "",

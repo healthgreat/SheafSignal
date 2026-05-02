@@ -14,6 +14,8 @@ The journal metric audit is now generated as a separate evidence file. Publisher
 
 An external beta-review packet is now generated for other AI systems or computational biology readers. This makes S3 review handoff local-ready, but it is not equivalent to completed external review until returned critiques are filed and resolved.
 
+The 10,000-permutation confirmatory subset is now pre-specified for the smallest GSE154778 manuscript-relevant tests. It has a fixed command plan, but the 10,000-permutation execution itself remains pending and should not be described as completed evidence.
+
 ## Fast Decision Board
 
 | Area | Status | Direct Meaning | Next Required Action |
@@ -34,6 +36,7 @@ An external beta-review packet is now generated for other AI systems or computat
 | Clean-export preflight | Green/Yellow | Git-tracked HEAD can run a lightweight clean-export demo and core tests locally | Rerun from public GitHub clone after URL/tag/DOI insertion |
 | Journal metric audit | Green/Yellow | Publisher JIF values are anchored to official metric pages; CAS/warning status is not officially verified yet | Recheck selected journal in official CAS/warning sources on submission day |
 | External beta review packet | Green/Yellow | Reviewer packet, evidence index, AI review prompt, and response form are generated locally | Send to 2-3 independent reviewers or AI systems and file returned critiques |
+| 10,000 permutation subset | Green/Yellow | Confirmatory target tests and run command are pre-specified; execution not yet run | Run in WSL with tmux/nohup if final reviewers require higher p-value resolution |
 | Submission | Red/Yellow | Not ready to submit | Clear the red and yellow submission blockers first |
 
 ## Gantt View
@@ -59,6 +62,7 @@ gantt
 
     section Release Preparation
     Local Git freeze commit                      :done, 2026-05-02, 1d
+    10000-permutation subset pre-specification    :done, 2026-05-02, 1d
     Public GitHub remote/tag/release URL         :2026-05-11, 1d
     Zenodo DOI minting                           :2026-05-12, 1d
     Final clean-clone submission preflight       :2026-05-13, 2d
@@ -104,6 +108,7 @@ gantt
 - `manuscript/IF20_50_DISTANCE_REPORT.md`
 - `manuscript/journal_metric_audit/JOURNAL_METRIC_AUDIT_REPORT.md`
 - `external_ai_review_packet/beta_review_packet_2026-05-02/01_BETA_REVIEW_PACKET_STATUS.md`
+- `benchmarks/results/confirmatory_10000/CONFIRMATORY_PERMUTATION_STATUS.md`
 - `benchmarks/results/BENCHMARK_RESULT_CONTRACT_REPORT.md`
 - `benchmarks/results/simulation/sheaf_ground_truth_recovery.csv`
 - `manuscript/NATURE_METHODS_GO_NO_GO_REPORT.md`

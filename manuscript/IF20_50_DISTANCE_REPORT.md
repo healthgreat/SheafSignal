@@ -7,6 +7,7 @@
 - Clean-export reproduction preflight: `local_clean_export_pass`
 - Journal metric audit: `publisher_if_verified_cas_warning_final_check_required`
 - External beta review packet: `packet_ready_external_reviews_pending`
+- 10,000-permutation confirmatory subset: `pre_specified_ready_not_run`
 - Score boundary: these are internal readiness indices, not acceptance probabilities.
 
 ## Direct Answer
@@ -16,6 +17,8 @@ SheafSignal is now close to a defensible 20-50 IF methods-manuscript candidate o
 The journal-metric audit now anchors the target board to publisher metric pages, while keeping CAS-zone and warning-journal status as official submission-day checks. This strengthens journal selection discipline but does not remove the GitHub/Zenodo/author-metadata blockers.
 
 The external beta-review packet is now a local-ready handoff artifact. That clears the packaging part of S3, but it does not count as completed external validation until independent reviewers or AI systems return written critiques that are filed in the response matrix.
+
+The 10,000-permutation confirmatory subset is now pre-specified and has a fixed command plan. It is still not executed in the current state; therefore it should be described as a ready confirmatory gate, not as completed statistical evidence.
 
 For a realistic 20-50 IF route, the current package is approximately one release/metadata cycle away from being submit-ready. For a Nature Methods or Nature Biotechnology stretch route, the core package is defensible but would benefit from external beta review, a small 10,000-permutation confirmatory subset, and optionally a fuller GSE103322 replication supplement.
 
@@ -35,7 +38,7 @@ For a realistic 20-50 IF route, the current package is approximately one release
 
 ## High-Value Optional Strengthening
 
-- S1. Run a 10,000-permutation confirmatory pass for the smallest set of manuscript-critical GSE154778/global tests. Expected effect: Improves statistical defensibility; not needed for current descriptive edge claims.
+- S1. Run the pre-specified 10,000-permutation confirmatory GSE154778 subset if final reviewers require higher p-value resolution. Expected effect: Improves statistical defensibility; still does not promote computational signals into biological mechanisms.
 - S2. Complete GSE103322 as an explicit replication supplement with the same primary scRNA comparator scope, or keep it clearly outside main comparator claims. Expected effect: Improves 20-50 IF resilience against dataset-specific-artifact criticism.
 - S3. Send the beta-review packet to 2-3 external computational biology readers or independent AI reviewers, then file responses in the review matrix. Expected effect: Improves cover-letter confidence and reduces desk-rejection risk from unclear novelty or reproducibility.
 - S4. Refresh the journal metric audit on the submission day, covering latest JIF source, CAS zone, and warning-journal status for the chosen target. Expected effect: Prevents stale IF/CAS/warning claims in the final submission plan.
@@ -77,7 +80,8 @@ gantt
     Public clean-clone reproduction preflight    :crit, 2026-05-05, 1d
 
     section Optional IF 20-50 Strengthening
-    10000-permutation confirmatory subset        :2026-05-06, 2d
+    10000-permutation subset pre-specification   :done, 2026-05-02, 1d
+    10000-permutation confirmatory execution     :2026-05-06, 2d
     GSE103322 full replication supplement        :2026-05-06, 3d
     External beta review packet                  :done, 2026-05-02, 1d
     Returned reviews from 2-3 external readers   :2026-05-06, 7d
@@ -95,6 +99,7 @@ gantt
 - `manuscript/journal_metric_audit/JOURNAL_METRIC_AUDIT.tsv`
 - `manuscript/journal_metric_audit/JOURNAL_METRIC_AUDIT_REPORT.md`
 - `external_ai_review_packet/beta_review_packet_2026-05-02/01_BETA_REVIEW_PACKET_STATUS.md`
+- `benchmarks/results/confirmatory_10000/CONFIRMATORY_PERMUTATION_STATUS.md`
 
 ## Boundary
 

@@ -7,6 +7,7 @@ from scripts.build_if20_50_gap_report import (
     build_supplementation_plan,
     beta_review_packet_status,
     clean_preflight_status,
+    confirmatory_permutation_status,
     journal_metric_audit_status,
     score_gates,
 )
@@ -96,6 +97,7 @@ def test_report_contains_gantt_and_boundary(tmp_path):
     assert "Zenodo DOI" in report
     assert "Journal metric audit" in report
     assert "External beta review packet" in report
+    assert "10,000-permutation confirmatory subset" in report
 
 
 def test_clean_preflight_status_reads_pass_report(tmp_path):
@@ -137,3 +139,13 @@ def test_beta_review_packet_status_reads_ready_boundary(tmp_path):
     )
 
     assert beta_review_packet_status(tmp_path) == "packet_ready_external_reviews_pending"
+
+
+def test_confirmatory_permutation_status_reads_ready_boundary(tmp_path):
+    report = tmp_path / "benchmarks" / "results" / "confirmatory_10000" / (
+        "CONFIRMATORY_PERMUTATION_STATUS.md"
+    )
+    report.parent.mkdir(parents=True, exist_ok=True)
+    report.write_text("- Decision: `CONFIRMATORY_10000_READY_NOT_RUN`\n", encoding="utf-8")
+
+    assert confirmatory_permutation_status(tmp_path) == "pre_specified_ready_not_run"
