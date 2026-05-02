@@ -20,7 +20,7 @@ authors:
     given-names: "Han"
   - family-names: "Miao"
     given-names: "Yi"
-repository-code: "https://github.com/TBD/SheafSignal"
+repository-code: "https://github.com/healthgreat/SheafSignal"
 license: MIT
 keywords:
   - single-cell RNA-seq

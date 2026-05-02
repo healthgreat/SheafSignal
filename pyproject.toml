@@ -57,9 +57,9 @@ dev = [
 sheafsignal = "sheafsignal.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/TBD/SheafSignal"
-Repository = "https://github.com/TBD/SheafSignal"
-Issues = "https://github.com/TBD/SheafSignal/issues"
+Homepage = "https://github.com/healthgreat/SheafSignal"
+Repository = "https://github.com/healthgreat/SheafSignal"
+Issues = "https://github.com/healthgreat/SheafSignal/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]

@@ -1,25 +1,20 @@
 # Release Metadata Placeholder Report
 
 - Decision: `RELEASE_METADATA_BLOCKED_EXTERNAL_IDENTIFIERS`
-- Placeholder hits: `12`
+- Placeholder hits: `7`
 
 ## Severity Counts
 
-- `blocking`: 12
+- `blocking`: 7
 
 ## Blocking External Identifiers
 
-- `CITATION.cff:23` [github_url_pending] repository-code: "https://github.com/TBD/SheafSignal"
-- `pyproject.toml:60` [github_url_pending] Homepage = "https://github.com/TBD/SheafSignal"
-- `pyproject.toml:61` [github_url_pending] Repository = "https://github.com/TBD/SheafSignal"
-- `pyproject.toml:62` [github_url_pending] Issues = "https://github.com/TBD/SheafSignal/issues"
 - `metadata/datasets.tsv:3` [zenodo_doi_pending] gse72056_melanoma_scrna	Single cell RNA-seq analysis of melanoma	scRNA-seq	Homo sapiens	melanoma tumor	tumor microenvironment	GSE72056	https://ftp.ncbi.nlm.nih.gov/geo/series/GSE72nnn/GSE72056/suppl/GSE72056_melanoma_single_cell_revised_v2.txt.gz	NA	data/external/gse72056_melanoma_scrna/GSE72056_melanoma_single_cell_revised_v2.txt.gz	NA	c1417602bec11b18bc421d899a5ceb1fd64dbb1fab5f5f20f1f186e347e7d12b	NA	GEO public processed supplementary file; raw reads may be dbGaP-controlled	downloaded	public_scrna_benchmark	PENDING_ZENODO_RELEASE	data/processed/gse72056_melanoma_scrna/expression.csv	data/processed/gse72056_melanoma_scrna/metadata.csv	Melanoma TME benchmark; GEO record reports 4645 samples and processed TXT file.
 - `metadata/datasets.tsv:4` [zenodo_doi_pending] gse154778_pdac_scrna	Single-cell transcriptomics analysis of pancreatic primary tumor and metastatic biopsy tissues	scRNA-seq	Homo sapiens	pancreatic tumor	PDAC tumor microenvironment	GSE154778	https://ftp.ncbi.nlm.nih.gov/geo/series/GSE154nnn/GSE154778/suppl/GSE154778_dgeMtx.csv.gz	NA	data/external/gse154778_pdac_scrna/GSE154778_dgeMtx.csv.gz	NA	ecfe903e5095dc52244c54d0abeeddf0d7fbb7ec0bbd39de59707efaa09dad08	NA	GEO public processed supplementary file; raw reads available through SRA	downloaded	public_scrna_benchmark	PENDING_ZENODO_RELEASE	data/processed/gse154778_pdac_scrna_scanpy_full_v1/expression.csv	data/processed/gse154778_pdac_scrna_scanpy_full_v1/metadata.csv	PDAC primary and metastatic biopsy benchmark; prepared inputs use full 14926-cell Scanpy reannotation version scanpy_full_v1.
 - `metadata/datasets.tsv:5` [zenodo_doi_pending] gse176078_brca_scrna	A single-cell and spatially resolved atlas of human breast cancers	scRNA-seq	Homo sapiens	breast tumor	breast cancer tumor microenvironment	GSE176078	https://ftp.ncbi.nlm.nih.gov/geo/series/GSE176nnn/GSE176078/suppl/GSE176078_Wu_etal_2021_BRCA_scRNASeq.tar.gz	NA	data/external/gse176078_brca_scrna/GSE176078_Wu_etal_2021_BRCA_scRNASeq.tar.gz	NA	c64894a9d50ec8af645b97e3e2685bde9389da24ef0004e9f66f9114c6474f57	NA	GEO public processed data; raw human reads deposited in EGA controlled access	downloaded	public_scrna_benchmark	PENDING_ZENODO_RELEASE	data/processed/gse176078_brca_scrna/expression.csv	data/processed/gse176078_brca_scrna/metadata.csv	Breast cancer single-cell atlas benchmark with clinical subtypes.
 - `metadata/datasets.tsv:6` [zenodo_doi_pending] gse103322_hnsc_scrna	Single cell RNA-seq analysis of head and neck cancer	scRNA-seq	Homo sapiens	oral cavity tumor	head and neck squamous cell carcinoma tumor microenvironment	GSE103322	https://ftp.ncbi.nlm.nih.gov/geo/series/GSE103nnn/GSE103322/suppl/GSE103322_HNSCC_all_data.txt.gz	NA	data/external/gse103322_hnsc_scrna/GSE103322_HNSCC_all_data.txt.gz	NA	51a5a3bb4f3ff8e326655ec613a10c9f895f9d5c943ce01c815303868b6e3a0b	NA	GEO public processed supplementary file; raw data not provided on GEO record	downloaded	public_scrna_benchmark	PENDING_ZENODO_RELEASE	data/processed/gse103322_hnsc_scrna/expression.csv	data/processed/gse103322_hnsc_scrna/metadata.csv	HNSCC replication benchmark; GEO processed TPM matrix includes author metadata rows and gene-symbol expression rows.
 - `metadata/datasets.tsv:7` [zenodo_doi_pending] tenx_breast_visium	Human Breast Cancer Whole Transcriptome Analysis	Visium spatial transcriptomics	Homo sapiens	breast tumor	invasive lobular carcinoma tumor microenvironment	10x-Human-Breast-Cancer-Visium	https://cf.10xgenomics.com/samples/spatial-exp/1.1.0/V1_Breast_Cancer_Block_A_Section_1/V1_Breast_Cancer_Block_A_Section_1_filtered_feature_bc_matrix.h5	https://cf.10xgenomics.com/samples/spatial-exp/1.1.0/V1_Breast_Cancer_Block_A_Section_1/V1_Breast_Cancer_Block_A_Section_1_spatial.tar.gz	data/external/tenx_breast_visium/V1_Breast_Cancer_Block_A_Section_1_filtered_feature_bc_matrix.h5	data/external/tenx_breast_visium/V1_Breast_Cancer_Block_A_Section_1_spatial.tar.gz	b3cbb6ead60afad848ebcc07a34835613d9d2d79e416ad8300b210d9de584b65	415530a9d31172f63fd358d5d1cefb0798698ef9c0e614f52825894cd45c61bf	10x Genomics public dataset licensed under CC BY 4.0	downloaded	public_spatial_benchmark	PENDING_ZENODO_RELEASE	data/processed/tenx_breast_visium/expression.csv	data/processed/tenx_breast_visium/metadata.csv	Spatial TME case study; requires spot coordinates from spatial tarball.
 - `release/DATA_AVAILABILITY_STATEMENT_DRAFT.md:13` [zenodo_doi_pending] Current DOI status: `PENDING_ZENODO_RELEASE`.
-- `release/zenodo_deposition_metadata.json:26` [github_url_pending] "identifier": "https://github.com/TBD/SheafSignal",
 - `manuscript/NATURE_METHODS_GO_NO_GO_REPORT.md:13` [zenodo_doi_pending] - `zenodo_doi::dataset_manifest`: pending. Action: Mint Zenodo DOI and replace PENDING_ZENODO_RELEASE in metadata/datasets.tsv.
 
 ## Author-Owned Fields

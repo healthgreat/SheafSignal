@@ -3,14 +3,38 @@
   "upload_type": "dataset",
   "description": "Frozen processed benchmark objects and large generated spatial result tables for the SheafSignal methods manuscript. Raw public datasets are not redistributed here; source accessions and checksums are listed in metadata/datasets.tsv. This deposition is intended to pair with the public GitHub source-code release.",
   "creators": [
-    {"name": "Chen, Chongfa", "affiliation": "Pancreas Center, The Affiliated BenQ Hospital of Nanjing Medical University"},
-    {"name": "Wei, Jishu", "affiliation": "Pancreas Center, The First Affiliated Hospital of Nanjing Medical University; Pancreas Institute of Nanjing Medical University"},
-    {"name": "Dai, Shangnan", "affiliation": "Pancreas Center, The First Affiliated Hospital of Nanjing Medical University; Pancreas Institute of Nanjing Medical University"},
-    {"name": "Wang, Guangfu", "affiliation": "Pancreas Center, The First Affiliated Hospital of Nanjing Medical University; Pancreas Institute of Nanjing Medical University"},
-    {"name": "Lu, Zipeng", "affiliation": "Pancreas Center, The First Affiliated Hospital of Nanjing Medical University; Pancreas Institute of Nanjing Medical University"},
-    {"name": "Yin, Lingdi", "affiliation": "Pancreas Center, The First Affiliated Hospital of Nanjing Medical University; Pancreas Institute of Nanjing Medical University"},
-    {"name": "Yan, Han", "affiliation": "Pancreas Center, The Affiliated BenQ Hospital of Nanjing Medical University"},
-    {"name": "Miao, Yi", "affiliation": "Pancreas Center, The Affiliated BenQ Hospital of Nanjing Medical University"}
+    {
+      "name": "Chen, Chongfa",
+      "affiliation": "Pancreas Center, The Affiliated BenQ Hospital of Nanjing Medical University"
+    },
+    {
+      "name": "Wei, Jishu",
+      "affiliation": "Pancreas Center, The First Affiliated Hospital of Nanjing Medical University; Pancreas Institute of Nanjing Medical University"
+    },
+    {
+      "name": "Dai, Shangnan",
+      "affiliation": "Pancreas Center, The First Affiliated Hospital of Nanjing Medical University; Pancreas Institute of Nanjing Medical University"
+    },
+    {
+      "name": "Wang, Guangfu",
+      "affiliation": "Pancreas Center, The First Affiliated Hospital of Nanjing Medical University; Pancreas Institute of Nanjing Medical University"
+    },
+    {
+      "name": "Lu, Zipeng",
+      "affiliation": "Pancreas Center, The First Affiliated Hospital of Nanjing Medical University; Pancreas Institute of Nanjing Medical University"
+    },
+    {
+      "name": "Yin, Lingdi",
+      "affiliation": "Pancreas Center, The First Affiliated Hospital of Nanjing Medical University; Pancreas Institute of Nanjing Medical University"
+    },
+    {
+      "name": "Yan, Han",
+      "affiliation": "Pancreas Center, The Affiliated BenQ Hospital of Nanjing Medical University"
+    },
+    {
+      "name": "Miao, Yi",
+      "affiliation": "Pancreas Center, The Affiliated BenQ Hospital of Nanjing Medical University"
+    }
   ],
   "license": "cc-by-4.0",
   "keywords": [
@@ -23,7 +47,7 @@
   "notes": "Zenodo upload file: release/archives/sheafsignal_zenodo_upload.zip. Archive SHA256: e2ad6b3d705788329a420cfc234326b233ea8547a228751ab35c0f934f3c4ede. Manifest files: 40; manifest total size MB: 106.203.",
   "related_identifiers": [
     {
-      "identifier": "https://github.com/TBD/SheafSignal",
+      "identifier": "https://github.com/healthgreat/SheafSignal",
       "relation": "isSupplementTo",
       "resource_type": "software"
     }

@@ -64,6 +64,10 @@ probabilities.
   `scripts/publish_github_release_after_auth.py`. It refuses to push until the
   local token has both `repo` and `workflow` scopes and writes
   `release/GITHUB_RELEASE_PUBLICATION_REPORT.md`.
+- The real GitHub repository URL has been inserted into `CITATION.cff`,
+  `pyproject.toml`, and `release/zenodo_deposition_metadata.json`; GitHub URL
+  placeholders are now cleared. The remaining release-metadata placeholders are
+  Zenodo DOI placeholders.
 
 ## What Is Blocking Submission
 
@@ -133,6 +137,7 @@ gantt
     Release unblocker matrix and runbook           :done, 2026-05-03, 1d
     External authorization health check            :done, 2026-05-03, 1d
     Guarded GitHub release publisher              :done, 2026-05-03, 1d
+    GitHub URL metadata finalization               :done, 2026-05-03, 1d
 
     section Current Submission Blockers
     Regenerate GitHub token with workflow scope    :crit, active, 2026-05-03, 1d
