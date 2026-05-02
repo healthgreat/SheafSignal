@@ -48,6 +48,8 @@ probabilities.
 - Author confirmation packet and checklist have been added for Han Yan email,
   equal-contribution wording, CRediT, funding, COI, ethics/data-use and
   GitHub/Zenodo release approval.
+- A Chinese 20-50 IF status brief has been added for user-facing handoff:
+  `manuscript/SHEAFSIGNAL_20_50_IF_STATUS_BRIEF_ZH_2026-05-03.md`.
 
 ## What Is Blocking Submission
 
