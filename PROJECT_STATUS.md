@@ -78,6 +78,7 @@ Can ligand-receptor communication be reframed as sheaf-valued flow over a cell-t
 - Journal metric auditing is implemented by `scripts/build_journal_metric_audit.py`; publisher JIF values are tied to official metric pages, while CAS zone and warning-list status remain final official checks on the submission day.
 - External beta-review packet generation is implemented by `scripts/build_external_beta_review_packet.py`; the current decision is `BETA_REVIEW_PACKET_READY_LOCAL_EXTERNAL_REVIEWS_PENDING`, meaning the handoff package is ready but no independent returned reviews are filed yet.
 - Confirmatory 10,000-permutation subset gating is implemented by `scripts/build_confirmatory_permutation_subset.py`; the current decision is `CONFIRMATORY_10000_READY_NOT_RUN`, meaning the target tests and WSL command plan are fixed but the long confirmatory execution is still pending.
+- GSE103322 replication supplement gating is implemented by `scripts/build_gse103322_replication_supplement.py`; the current decision is `GSE103322_REPLICATION_EXPLORATORY_READY_RERUN_RECOMMENDED`, with 5,902 cells, 103 samples, and 21 patients, but only 100 unstratified permutations in the current exploratory run.
 - Local clean-export reproduction preflight is implemented by `scripts/run_clean_clone_preflight.py`; the current decision is `CLEAN_CLONE_PREFLIGHT_PASS_LOCAL_EXPORT` for commit `9ccf5f3`, covering core pytest, CLI demo, expected output checks, and release audit from a Git-tracked export.
 - Method-reporting and reviewer-risk auditing is implemented under `manuscript/method_reporting/`; it checks algorithm primitives, simulation recovery, public dataset manifest completeness, comparator scope, sparse-cell claim gating, Visium sensitivity, figure traceability, references, and release archives.
 - A manuscript-wide claim safety audit is now generated as `manuscript/CLAIM_SAFETY_AUDIT.tsv` and `manuscript/CLAIM_SAFETY_AUDIT_REPORT.md`, scanning all manuscript-facing files for unsupported clinical, therapeutic, guaranteed-publication, broad-superiority, and full-pretrained-NicheNet claims.
@@ -200,6 +201,11 @@ Can ligand-receptor communication be reframed as sheaf-valued flow over a cell-t
 - `benchmarks/results/confirmatory_10000/confirmatory_permutation_readiness.tsv`
 - `benchmarks/results/confirmatory_10000/run_confirmatory_10000_commands.sh`
 - `benchmarks/results/confirmatory_10000/CONFIRMATORY_PERMUTATION_STATUS.md`
+- `benchmarks/results/gse103322_hnsc_scrna/replication/gse103322_replication_summary.tsv`
+- `benchmarks/results/gse103322_hnsc_scrna/replication/gse103322_replication_readiness.tsv`
+- `benchmarks/results/gse103322_hnsc_scrna/replication/gse103322_claim_boundary.tsv`
+- `benchmarks/results/gse103322_hnsc_scrna/replication/run_gse103322_replication_1000_commands.sh`
+- `benchmarks/results/gse103322_hnsc_scrna/replication/GSE103322_REPLICATION_SUPPLEMENT_REPORT.md`
 - `release/clean_clone_preflight/CLEAN_CLONE_PREFLIGHT_REPORT.md`
 - `scripts/build_zenodo_deposition_package.py`
 - `scripts/finalize_zenodo_doi.py`

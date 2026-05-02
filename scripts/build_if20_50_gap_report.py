@@ -36,6 +36,10 @@ BETA_REVIEW_PACKET_STATUS_PATH = Path(
 CONFIRMATORY_PERMUTATION_STATUS_PATH = Path(
     "benchmarks/results/confirmatory_10000/CONFIRMATORY_PERMUTATION_STATUS.md"
 )
+GSE103322_REPLICATION_STATUS_PATH = Path(
+    "benchmarks/results/gse103322_hnsc_scrna/replication/"
+    "GSE103322_REPLICATION_SUPPLEMENT_REPORT.md"
+)
 
 GAP_MATRIX_PATH = Path("manuscript/IF20_50_GAP_MATRIX.tsv")
 SUPPLEMENT_PLAN_PATH = Path("manuscript/IF20_50_SUPPLEMENTATION_PLAN.tsv")
@@ -140,9 +144,9 @@ OPTIONAL_STRENGTHENING_ROWS = [
     },
     {
         "priority": "S2",
-        "action": "Complete GSE103322 as an explicit replication supplement with the same primary scRNA comparator scope, or keep it clearly outside main comparator claims.",
+        "action": "Upgrade GSE103322 from exploratory workflow replication to supplement-grade replication by rerunning with 1000 sample-stratified permutations, or keep it outside main comparator claims.",
         "gate_type": "high_impact_strengthening",
-        "why_it_matters": "An extra independent cancer cohort increases generality without forcing a Myeloid-centered mechanism claim.",
+        "why_it_matters": "An extra independent cancer cohort increases generality without forcing a Myeloid-centered mechanism claim; the current GSE103322 output is exploratory because it used 100 unstratified permutations.",
         "expected_effect": "Improves 20-50 IF resilience against dataset-specific-artifact criticism.",
         "estimated_effort": "medium",
         "blocking": "no",
@@ -452,6 +456,20 @@ def confirmatory_permutation_status(root: Path) -> str:
     return "unknown"
 
 
+def gse103322_replication_status(root: Path) -> str:
+    path = root / GSE103322_REPLICATION_STATUS_PATH
+    if not path.exists():
+        return "not_run"
+    text = path.read_text(encoding="utf-8", errors="replace")
+    if "GSE103322_REPLICATION_SUPPLEMENT_READY" in text:
+        return "supplement_ready"
+    if "GSE103322_REPLICATION_EXPLORATORY_READY_RERUN_RECOMMENDED" in text:
+        return "exploratory_ready_rerun_recommended"
+    if "GSE103322_REPLICATION_BLOCKED" in text:
+        return "blocked"
+    return "unknown"
+
+
 def _count_gap_rows(rows: list[dict[str, object]], risk: str) -> int:
     return sum(1 for row in rows if row.get("if20_50_risk") == risk)
 
@@ -519,7 +537,8 @@ gantt
     section Optional IF 20-50 Strengthening
     10000-permutation subset pre-specification   :done, 2026-05-02, 1d
     10000-permutation confirmatory execution     :2026-05-06, 2d
-    GSE103322 full replication supplement        :2026-05-06, 3d
+    GSE103322 exploratory replication gate       :done, 2026-05-02, 1d
+    GSE103322 1000-permutation supplement rerun  :2026-05-06, 3d
     External beta review packet                  :done, 2026-05-02, 1d
     Returned reviews from 2-3 external readers   :2026-05-06, 7d
     Open-web journal metric audit                :done, 2026-05-02, 1d
@@ -539,6 +558,7 @@ def build_report(
     journal_audit_status = journal_metric_audit_status(root)
     beta_review_status = beta_review_packet_status(root)
     confirmatory_status = confirmatory_permutation_status(root)
+    gse103322_status = gse103322_replication_status(root)
     hard_blockers = _count_gap_rows(gap_rows, "blocking")
     administrative = _count_gap_rows(gap_rows, "administrative")
     author_metadata = _count_gap_rows(gap_rows, "author_metadata")
@@ -574,6 +594,7 @@ def build_report(
             f"- Journal metric audit: `{journal_audit_status}`",
             f"- External beta review packet: `{beta_review_status}`",
             f"- 10,000-permutation confirmatory subset: `{confirmatory_status}`",
+            f"- GSE103322 replication supplement: `{gse103322_status}`",
             "- Score boundary: these are internal readiness indices, not acceptance probabilities.",
             "",
             "## Direct Answer",
@@ -600,6 +621,11 @@ def build_report(
             "has a fixed command plan. It is still not executed in the current state; "
             "therefore it should be described as a ready confirmatory gate, not as "
             "completed statistical evidence.",
+            "",
+            "GSE103322 is now audited as an exploratory independent HNSCC workflow "
+            "replication. It should stay outside main comparator-completeness and "
+            "biological source claims until a 1000-permutation, sample-stratified "
+            "supplement rerun is completed.",
             "",
             "For a realistic 20-50 IF route, the current package is approximately "
             "one release/metadata cycle away from being submit-ready. For a Nature "
@@ -641,6 +667,7 @@ def build_report(
             f"- `{JOURNAL_METRIC_AUDIT_REPORT_PATH.as_posix()}`",
             f"- `{BETA_REVIEW_PACKET_STATUS_PATH.as_posix()}`",
             f"- `{CONFIRMATORY_PERMUTATION_STATUS_PATH.as_posix()}`",
+            f"- `{GSE103322_REPLICATION_STATUS_PATH.as_posix()}`",
             "",
             "## Boundary",
             "",

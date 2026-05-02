@@ -1,0 +1,5 @@
+claim_area	wording	condition
+allowed	GSE103322 provides an independent HNSCC public-data workflow replication showing SheafSignal can run on another TME cohort.	Allowed with current exploratory boundary.
+allowed_after_rerun	After 1000 sample-stratified permutations, GSE103322 may be used as a supplement-grade statistical replication if the gate passes.	Requires min_n_permutations >= 1000 and sample_id strata.
+forbidden	Do not claim Endothelial, Myeloid, or any HNSCC cell type is a validated frustration driver from current GSE103322 outputs.	Current node FDR and comparator scope do not support mechanism claims.
+forbidden	Do not include GSE103322 in primary comparator-completeness claims while CellChat/CellPhoneDB/LIANA/NicheNet scope remains incomplete or exploratory.	Primary comparator scope remains GSE72056/GSE154778/GSE176078.
