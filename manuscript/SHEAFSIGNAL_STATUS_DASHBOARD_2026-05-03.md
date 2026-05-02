@@ -13,9 +13,11 @@ Current readiness snapshot:
 - Scientific/method hardening index: 97.0%.
 - Submission infrastructure index: 44.5%.
 - Final local decision: NO_GO for formal submission.
-- Current live blocker: GitHub CLI is installed, but authentication is still
-  blocked because `D:\secrets\github_token.txt` returns GitHub API `HTTP 401:
-  Bad credentials`.
+- Current live blocker: the public GitHub repository exists at
+  `https://github.com/healthgreat/SheafSignal`, and `origin` is configured, but
+  the push was rejected because the local token has `repo` but not `workflow`
+  scope. GitHub refuses commits that create or update `.github/workflows/ci.yml`
+  without `workflow` scope.
 
 Interpretation boundary: these are internal readiness indices, not acceptance
 probabilities.
@@ -63,7 +65,7 @@ probabilities.
 
 | Blocker | Current status | Why it matters | Owner |
 |---|---|---|---|
-| GitHub public repository | GitHub CLI installed, token invalid, no remote URL | Journals and reviewers need public, citable code | User must regenerate token once; Codex handles login/push/release |
+| GitHub public repository | Public repo created and `origin` configured; branch push blocked by missing token `workflow` scope | Journals and reviewers need public, citable code | User must regenerate token with `repo` + `workflow`; Codex handles push/tag/release |
 | Zenodo DOI | Not minted | Data/code availability needs a permanent DOI | User Zenodo login/token once; Codex handles metadata insertion |
 | Public clean-clone reproduction | Pending | Local clean export is not enough for final reproducibility | Codex after GitHub/Zenodo identifiers are real |
 | Final journal metric/CAS/warning check | Pending submission-day check | IF, CAS zone, and warning status can change | Codex checks again before submission |
@@ -77,7 +79,8 @@ blocked by external release infrastructure.
 Practical distance:
 
 - To a realistic 20-50 IF submission package: one release/metadata cycle away,
-  after a valid GitHub token or browser authorization is completed.
+  after a GitHub token with `repo` + `workflow` scope and a Zenodo DOI are
+  available.
 - To Nature Methods as the primary methods target: technically plausible as a
   stretch submission after GitHub, Zenodo, and clean-clone checks, but still
   high risk.
@@ -127,8 +130,8 @@ gantt
     External authorization health check            :done, 2026-05-03, 1d
 
     section Current Submission Blockers
-    Create public GitHub remote and release tag    :crit, active, 2026-05-03, 1d
-    Public GitHub remote and release tag           :crit, 2026-05-03, 1d
+    Regenerate GitHub token with workflow scope    :crit, active, 2026-05-03, 1d
+    Push branch to public GitHub and tag release   :crit, 2026-05-03, 1d
     Zenodo DOI minting                             :crit, 2026-05-04, 1d
     DOI and GitHub URL metadata insertion          :crit, 2026-05-04, 1d
     Public clean-clone reproduction preflight      :crit, 2026-05-05, 1d
@@ -147,9 +150,10 @@ The user does not need to run bioinformatics code manually. The remaining user
 actions are account/author-confirmation steps that Codex cannot legitimately
 bypass:
 
-1. Regenerate a valid GitHub token or complete GitHub browser authorization for
-   GitHub CLI.
-2. Provide or approve a public GitHub repository name/owner.
+1. Regenerate a GitHub token with both `repo` and `workflow` scopes, or complete
+   GitHub browser authorization for GitHub CLI.
+2. The public GitHub repository is already created:
+   `https://github.com/healthgreat/SheafSignal`.
 3. Complete Zenodo login or provide a local token file path outside the repo.
 4. Confirm Han Yan's email, COI, CRediT, funding, and ethics/data-use wording.
    A dedicated packet is available at
@@ -183,16 +187,26 @@ checks are completed.
 
 ## Live GitHub Authorization Note
 
-The file `D:\secrets\github_token.txt` exists, but GitHub rejects it with:
+The file `D:\secrets\github_token.txt` exists and GitHub API accepts it for
+`healthgreat`, but the token scopes are currently:
 
 ```text
-HTTP 401: Bad credentials
+gist, read:org, repo
 ```
 
-This means the token is invalid, expired, revoked, copied incorrectly, or not a
-GitHub personal access token. The token content was not printed or committed.
-Regenerate a new token, overwrite the same file, and rerun the GitHub login
-step.
+The missing scope is:
+
+```text
+workflow
+```
+
+Without `workflow`, GitHub refuses to push commits that include
+`.github/workflows/ci.yml`. Regenerate the token with `repo` and `workflow`,
+overwrite `D:\secrets\github_token.txt`, and rerun:
+
+```bash
+python scripts/check_external_release_authorization.py
+```
 
 ## Latest Non-Release Strengthening
 

@@ -138,11 +138,32 @@ def probe_github_token(path: Path, timeout: int = 20) -> AuthCheckRow:
         with urllib.request.urlopen(request, timeout=timeout) as response:
             payload = json.loads(response.read().decode("utf-8"))
             login = payload.get("login", "unknown")
+            scopes = response.headers.get("X-OAuth-Scopes", "")
+            scope_set = {scope.strip() for scope in scopes.split(",") if scope.strip()}
+            if "workflow" not in scope_set:
+                return AuthCheckRow(
+                    check_id="github_token_api",
+                    severity="blocking",
+                    status="valid_missing_workflow_scope",
+                    evidence=(
+                        f"GitHub API accepted the token for login={login}; "
+                        f"scopes={scopes or 'none'}; workflow scope is missing. "
+                        "Token content was not printed."
+                    ),
+                    required_action=(
+                        "Regenerate the GitHub token with repo and workflow scopes, "
+                        "then overwrite the local token file."
+                    ),
+                    validation_command="python scripts/check_external_release_authorization.py",
+                )
             return AuthCheckRow(
                 check_id="github_token_api",
                 severity="pass",
                 status="valid",
-                evidence=f"GitHub API accepted the token for login={login}. Token content was not printed.",
+                evidence=(
+                    f"GitHub API accepted the token for login={login}; "
+                    f"scopes={scopes or 'none'}. Token content was not printed."
+                ),
                 required_action="Codex can use this token to authenticate GitHub CLI or push release metadata.",
                 validation_command="python scripts/check_external_release_authorization.py",
             )

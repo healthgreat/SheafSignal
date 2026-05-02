@@ -77,6 +77,45 @@ def _git_has_tag(root: Path, tag: str = "v0.1.0") -> bool:
     return result.returncode == 0
 
 
+def _current_branch(root: Path) -> str:
+    try:
+        result = subprocess.run(
+            ["git", "branch", "--show-current"],
+            cwd=root,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    except OSError:
+        return ""
+    return result.stdout.strip() if result.returncode == 0 else ""
+
+
+def _remote_has_branch(root: Path) -> bool:
+    branch = _current_branch(root)
+    if not branch:
+        return False
+    try:
+        result = subprocess.run(
+            ["git", "ls-remote", "--heads", "origin", branch],
+            cwd=root,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    except OSError:
+        return False
+    return result.returncode == 0 and bool(result.stdout.strip())
+
+
+def _authorization_status(root: Path, check_id: str) -> str:
+    rows = _read_tsv(root / "release/EXTERNAL_RELEASE_AUTHORIZATION_STATUS.tsv")
+    for row in rows:
+        if row.get("check_id") == check_id:
+            return row.get("status", "")
+    return ""
+
+
 def _has_pending_zenodo(root: Path) -> bool:
     manifest = _read_text(root / "metadata/datasets.tsv")
     availability = _read_text(root / "release/DATA_AVAILABILITY_STATEMENT_DRAFT.md")
@@ -117,15 +156,18 @@ def _row(
 
 def build_unblocker_rows(root: Path) -> list[dict[str, str]]:
     remote_url = _git_remote_url(root)
+    remote_has_branch = _remote_has_branch(root) if remote_url else False
     has_release_tag = _git_has_tag(root)
     pending_zenodo = _has_pending_zenodo(root)
     zenodo_status = _final_blocker_status(root, "checklist::Zenodo DOI minted")
+    github_token_status = _authorization_status(root, "github_token_api")
 
-    github_repo_status = (
-        "configured_local_remote_needs_public_verification"
-        if remote_url
-        else "pending_no_origin_remote"
-    )
+    if remote_url and remote_has_branch:
+        github_repo_status = "public_remote_branch_available"
+    elif remote_url:
+        github_repo_status = "origin_configured_push_pending"
+    else:
+        github_repo_status = "pending_no_origin_remote"
     tag_status = "local_tag_exists_needs_public_release" if has_release_tag else "pending"
     zenodo_gate_status = "blocking_pending" if pending_zenodo else "complete_or_needs_audit"
 
@@ -134,10 +176,10 @@ def build_unblocker_rows(root: Path) -> list[dict[str, str]]:
             "G01_github_auth",
             "blocking",
             "user_then_codex",
-            "blocked_external_auth",
+            github_token_status or "blocked_external_auth",
             "GitHub CLI auth status must show logged in; token content must never be printed.",
-            "Regenerate a valid GitHub token or finish browser login, then let Codex validate auth.",
-            "gh auth status --hostname github.com",
+            "Regenerate a GitHub token with repo and workflow scopes or finish browser login, then let Codex validate auth.",
+            "python scripts/check_external_release_authorization.py",
             "Allows Codex to create or push the public repository.",
             "This is an account authorization gate, not a scientific evidence gate.",
         ),
@@ -146,7 +188,8 @@ def build_unblocker_rows(root: Path) -> list[dict[str, str]]:
             "blocking",
             "codex_after_auth",
             github_repo_status,
-            remote_url or "no origin remote configured",
+            remote_url
+            or "no origin remote configured; if a push fails on workflows, token likely lacks workflow scope",
             "Create or connect a public GitHub repository and push the frozen branch.",
             "git remote -v; git ls-remote origin HEAD",
             "Creates the public code URL required by Data and Code Availability.",
@@ -239,6 +282,7 @@ def build_runbook(rows: list[dict[str, str]]) -> str:
         for row in rows
         if row["current_status"].startswith("complete")
         or row["current_status"].startswith("configured")
+        or row["current_status"].startswith("origin_configured")
         or row["current_status"].startswith("local_tag")
     )
     row_lines = "\n".join(
@@ -281,8 +325,8 @@ gantt
     dateFormat  YYYY-MM-DD
 
     section Current Blockers
-    GitHub auth                     :crit, active, 2026-05-03, 1d
-    Public GitHub repo and tag      :crit, 2026-05-03, 1d
+    GitHub token workflow scope     :crit, active, 2026-05-03, 1d
+    Push public GitHub branch/tag   :crit, 2026-05-03, 1d
     Zenodo DOI                      :crit, 2026-05-04, 1d
     Metadata insertion              :crit, 2026-05-04, 1d
     Public clean-clone reproduction :crit, 2026-05-05, 1d

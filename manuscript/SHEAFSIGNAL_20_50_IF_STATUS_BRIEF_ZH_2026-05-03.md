@@ -36,8 +36,8 @@ gantt
     Author confirmation packet                  :done, 2026-05-03, 1d
 
     section 现在卡住的外部事项
-    Valid GitHub token or browser auth          :crit, active, 2026-05-03, 1d
-    Public GitHub remote and release tag        :crit, 2026-05-03, 1d
+    GitHub token with workflow scope            :crit, active, 2026-05-03, 1d
+    Push public GitHub branch and release tag   :crit, 2026-05-03, 1d
     Zenodo DOI                                  :crit, 2026-05-04, 1d
     Insert DOI and GitHub URL into metadata     :crit, 2026-05-04, 1d
     Public clean-clone reproduction             :crit, 2026-05-05, 1d
@@ -67,8 +67,8 @@ gantt
 
 | 缺口 | 是否需要你亲自动手 | 为什么我不能直接越过 |
 |---|---|---|
-| 有效 GitHub 授权 | 需要你重新生成 token 或网页登录一次 | 现在 `D:\secrets\github_token.txt` 被 GitHub 返回 `HTTP 401: Bad credentials` |
-| 公开 GitHub 仓库 | 你授权一次后我来建/推送/打 tag | 公开仓库属于你的账号资产 |
+| GitHub `workflow` 权限 | 需要你重新生成 token，勾选 `repo` 和 `workflow` | 现在 token 能识别账号 `healthgreat`，但缺 `workflow`，GitHub 拒绝推送 `.github/workflows/ci.yml` |
+| 公开 GitHub 仓库 | 已创建，push 还没成功 | `https://github.com/healthgreat/SheafSignal` 已存在，`origin` 已配置 |
 | Zenodo DOI | 需要你登录或提供 Zenodo token | DOI minting 必须绑定你的 Zenodo 账户 |
 | Han Yan 邮箱、COI、CRediT、funding、ethics wording | 需要作者团队确认 | 这些是作者责任内容，不能由算法自动编造 |
 | public clean-clone reproduction | 我来跑 | 但必须等 GitHub/Zenodo 真实存在后才能跑 |
@@ -77,9 +77,9 @@ gantt
 
 最现实的距离不是“再写一点论文”，而是一次 release/metadata cycle：
 
-1. GitHub 授权成功。
-2. 我创建或连接 public repo。
-3. 我 push 当前分支、创建 release tag。
+1. 你重新生成带 `workflow` scope 的 GitHub token。
+2. 我 push 当前分支到已创建的 public repo。
+3. 我创建 release tag。
 4. Zenodo 生成真实 DOI。
 5. 我把 DOI 和 GitHub URL 写回 `metadata/datasets.tsv`、Data Availability、CITATION、release metadata。
 6. 我从 public GitHub 重新 clean clone，重跑 demo/audit。
@@ -116,8 +116,8 @@ gantt
 
 建议下一步顺序：
 
-1. 先解决 GitHub token。
-2. 我完成 public repo、release tag、Zenodo DOI、metadata insertion。
+1. 先解决 GitHub token 的 `workflow` scope。
+2. 我完成 branch push、release tag、Zenodo DOI、metadata insertion。
 3. 我跑 public clean-clone reproduction。
 4. 用最终 GO/NO-GO 报告决定投 Nature Methods presubmission 还是先投更稳的 20-40 IF 期刊。
 

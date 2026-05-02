@@ -100,3 +100,19 @@ def test_harmonize_github_token_downgrades_persistent_login_blocker():
 
     assert by_id["github_cli_auth"].severity == "pending"
     assert by_id["github_cli_auth"].status == "env_token_available_persistent_login_missing"
+
+
+def test_valid_token_missing_workflow_scope_remains_blocking():
+    script = _load_script("check_external_release_authorization")
+    rows = [
+        script.AuthCheckRow(
+            check_id="github_token_api",
+            severity="blocking",
+            status="valid_missing_workflow_scope",
+            evidence="scopes=repo",
+            required_action="add workflow",
+            validation_command="python scripts/check_external_release_authorization.py",
+        )
+    ]
+
+    assert script.classify_decision(rows) == "EXTERNAL_RELEASE_AUTHORIZATION_BLOCKED"

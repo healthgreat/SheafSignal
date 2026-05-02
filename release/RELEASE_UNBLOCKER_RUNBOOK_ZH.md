@@ -5,7 +5,7 @@ Timestamp: 2026-05-03 02:00:00 +08:00
 ## Direct Status
 
 - Blocking or mandatory release gates tracked: `7`.
-- Gates already partly configured: `0`.
+- Gates already partly configured: `1`.
 - Current decision: `RELEASE_NOT_READY_UNTIL_GITHUB_ZENODO_AUTHOR_CONFIRMATION`.
 
 This runbook is for release execution. It does not guarantee acceptance in any
@@ -13,8 +13,8 @@ journal and does not change the evidence boundary of the manuscript.
 
 ## Gate Matrix Summary
 
-- `G01_github_auth`: `blocked_external_auth` -> Regenerate a valid GitHub token or finish browser login, then let Codex validate auth.
-- `G02_public_github_repo`: `pending_no_origin_remote` -> Create or connect a public GitHub repository and push the frozen branch.
+- `G01_github_auth`: `valid_missing_workflow_scope` -> Regenerate a GitHub token with repo and workflow scopes or finish browser login, then let Codex validate auth.
+- `G02_public_github_repo`: `origin_configured_push_pending` -> Create or connect a public GitHub repository and push the frozen branch.
 - `G03_release_tag`: `pending` -> Create an immutable release tag after final audits pass.
 - `G04_zenodo_doi`: `blocking_pending` -> Upload the frozen archive or provide a Zenodo token, then mint a real DOI.
 - `G05_metadata_insertion`: `pending_real_github_url_and_doi` -> Insert public GitHub URL and Zenodo DOI into all release and manuscript metadata.
@@ -42,8 +42,8 @@ gantt
     dateFormat  YYYY-MM-DD
 
     section Current Blockers
-    GitHub auth                     :crit, active, 2026-05-03, 1d
-    Public GitHub repo and tag      :crit, 2026-05-03, 1d
+    GitHub token workflow scope     :crit, active, 2026-05-03, 1d
+    Push public GitHub branch/tag   :crit, 2026-05-03, 1d
     Zenodo DOI                      :crit, 2026-05-04, 1d
     Metadata insertion              :crit, 2026-05-04, 1d
     Public clean-clone reproduction :crit, 2026-05-05, 1d
