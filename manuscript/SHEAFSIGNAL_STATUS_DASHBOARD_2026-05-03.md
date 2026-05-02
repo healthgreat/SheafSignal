@@ -77,6 +77,10 @@ probabilities.
 - Author confirmation preflight now exposes the remaining author-owned blockers:
   `AUTHOR_CONFIRMATION_BLOCKED` with 2 blocking confirmations and 8 pending
   confirmations. This is separated from code/science readiness.
+- A Chinese submission unblocker handoff now converts the live GitHub, Zenodo,
+  author-confirmation, public clean-clone, and submission-day metric gates into
+  user/Codex actions:
+  `release/SUBMISSION_UNBLOCKER_HANDOFF_ZH.md`.
 
 ## What Is Blocking Submission
 
@@ -181,6 +185,9 @@ bypass:
 4. Confirm Han Yan's email, COI, CRediT, funding, and ethics/data-use wording.
    A dedicated packet is available at
    `manuscript/submission_metadata/AUTHOR_CONFIRMATION_PACKET.md`.
+5. Use the live handoff checklist at
+   `release/SUBMISSION_UNBLOCKER_HANDOFF_ZH.md` to unblock only the items that
+   require account or author-team ownership.
 
 Codex can handle the rest: pushing, tagging, release metadata updates, DOI
 insertion, clean-clone tests, final reports, and submission package regeneration.

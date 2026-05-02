@@ -37,6 +37,8 @@ journal is not guaranteed. See:
 - `release/ZENODO_UPLOAD_PREFLIGHT_STATUS.tsv`
 - `release/RELEASE_UNBLOCKER_RUNBOOK_ZH.md`
 - `release/RELEASE_UNBLOCKER_MATRIX.tsv`
+- `release/SUBMISSION_UNBLOCKER_HANDOFF_ZH.md`
+- `release/SUBMISSION_UNBLOCKER_HANDOFF_ZH.tsv`
 - `manuscript/SHEAFSIGNAL_20_50_IF_STATUS_BRIEF_ZH_2026-05-03.md`
 - `manuscript/submission_metadata/AUTHOR_CONFIRMATION_PACKET.md`
 - `manuscript/submission_metadata/AUTHOR_CONFIRMATION_PREFLIGHT_REPORT.md`
@@ -475,6 +477,7 @@ python scripts/build_polished_sci_manuscript_v2.py
 python scripts/build_submission_upload_package.py
 python scripts/check_claim_safety.py --report-only
 python scripts/build_zenodo_deposition_package.py
+python scripts/build_submission_unblocker_handoff.py
 python scripts/check_final_submission_blockers.py --report-only
 python scripts/build_submission_readiness_report.py
 ```
