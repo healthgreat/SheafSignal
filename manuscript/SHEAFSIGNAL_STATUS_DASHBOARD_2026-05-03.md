@@ -50,6 +50,10 @@ probabilities.
   GitHub/Zenodo release approval.
 - A Chinese 20-50 IF status brief has been added for user-facing handoff:
   `manuscript/SHEAFSIGNAL_20_50_IF_STATUS_BRIEF_ZH_2026-05-03.md`.
+- A release unblocker matrix and Chinese runbook now track the GitHub, Zenodo,
+  author-confirmation, and public clean-clone gates:
+  `release/RELEASE_UNBLOCKER_MATRIX.tsv` and
+  `release/RELEASE_UNBLOCKER_RUNBOOK_ZH.md`.
 
 ## What Is Blocking Submission
 
@@ -115,6 +119,7 @@ gantt
     Reviewer reproducibility quickstart            :done, 2026-05-03, 1d
     Nature Methods local official format audit     :done, 2026-05-03, 1d
     Author confirmation packet                     :done, 2026-05-03, 1d
+    Release unblocker matrix and runbook           :done, 2026-05-03, 1d
 
     section Current Submission Blockers
     Regenerate valid GitHub token or browser auth  :crit, active, 2026-05-03, 1d
