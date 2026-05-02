@@ -3,16 +3,16 @@
 - Decision: `CLEAN_CLONE_PREFLIGHT_PASS_LOCAL_EXPORT`
 - Source root: `E:\4实验数据\10新算法\SheafSignal`
 - Git branch: `codex/sheafsignal-hardening-release`
-- Git commit: `9ccf5f3`
+- Git commit: `73cc44d`
 - Python executable: `D:\BioSoft\python\Python311\python.exe`
 - Commands run: `4`
 
 ## Command Results
 
-- `pytest_core_clean_export`: `pass`, returncode `0`, 1.667s
-- `cli_demo_clean_export`: `pass`, returncode `0`, 0.997s
+- `pytest_core_clean_export`: `pass`, returncode `0`, 1.271s
+- `cli_demo_clean_export`: `pass`, returncode `0`, 0.757s
 - `assert_demo_outputs`: `pass`, returncode `0`, 0.0s
-- `release_audit_clean_export`: `pass`, returncode `0`, 24.414s
+- `release_audit_clean_export`: `pass`, returncode `0`, 21.105s
 
 ## Interpretation Boundary
 

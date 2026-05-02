@@ -1,11 +1,11 @@
 step	command	cwd	returncode	elapsed_seconds	stdout_tail	stderr_tail
-pytest_core_clean_export	D:\BioSoft\python\Python311\python.exe -m pytest tests/test_pipeline.py tests/test_formal_sheaf.py tests/test_simulate.py tests/test_sheaf_ground_truth_simulation.py -q	D:\BioSoft\tmp\sheafsignal_clean_export_26tcxo15\clean_export	0	1.667	"..........                                                               [100%]
-10 passed in 1.09s"	
-cli_demo_clean_export	D:\BioSoft\python\Python311\python.exe -m sheafsignal.cli run --expression examples/demo_expression.csv --metadata examples/demo_metadata.csv --lr-db examples/demo_ligand_receptor.csv --gene-set examples/demo_pathway_genes.txt --project-dir D:\BioSoft\tmp\sheafsignal_clean_export_26tcxo15\demo_output --no-plot --n-permutations 5 --random-seed 42	D:\BioSoft\tmp\sheafsignal_clean_export_26tcxo15\clean_export	0	0.997	"SheafSignal finished: 12 edges across 4 cell types
-edge results: D:\BioSoft\tmp\sheafsignal_clean_export_26tcxo15\demo_output\results\sheaf_energy_by_edge.csv
-hodge scores: D:\BioSoft\tmp\sheafsignal_clean_export_26tcxo15\demo_output\results\hodge_decomposition_scores.csv
-edge permutation p-values: D:\BioSoft\tmp\sheafsignal_clean_export_26tcxo15\demo_output\results\sheaf_energy_permutation_pvalues.csv
-node permutation p-values: D:\BioSoft\tmp\sheafsignal_clean_export_26tcxo15\demo_output\results\frustration_permutation_pvalues.csv
-global permutation p-values: D:\BioSoft\tmp\sheafsignal_clean_export_26tcxo15\demo_output\results\global_permutation_pvalues.csv"	
-assert_demo_outputs	internal_output_check	D:\BioSoft\tmp\sheafsignal_clean_export_26tcxo15\demo_output	0	0.0	all expected demo outputs exist	
-release_audit_clean_export	D:\BioSoft\python\Python311\python.exe scripts/release_audit.py --root .	D:\BioSoft\tmp\sheafsignal_clean_export_26tcxo15\clean_export	0	24.414	Release audit passed: no obvious large or sensitive files detected.	
+pytest_core_clean_export	D:\BioSoft\python\Python311\python.exe -m pytest tests/test_pipeline.py tests/test_formal_sheaf.py tests/test_simulate.py tests/test_sheaf_ground_truth_simulation.py -q	D:\BioSoft\tmp\sheafsignal_clean_export_vnbz8xgf\clean_export	0	1.271	"..........                                                               [100%]
+10 passed in 0.86s"	
+cli_demo_clean_export	D:\BioSoft\python\Python311\python.exe -m sheafsignal.cli run --expression examples/demo_expression.csv --metadata examples/demo_metadata.csv --lr-db examples/demo_ligand_receptor.csv --gene-set examples/demo_pathway_genes.txt --project-dir D:\BioSoft\tmp\sheafsignal_clean_export_vnbz8xgf\demo_output --no-plot --n-permutations 5 --random-seed 42	D:\BioSoft\tmp\sheafsignal_clean_export_vnbz8xgf\clean_export	0	0.757	"SheafSignal finished: 12 edges across 4 cell types
+edge results: D:\BioSoft\tmp\sheafsignal_clean_export_vnbz8xgf\demo_output\results\sheaf_energy_by_edge.csv
+hodge scores: D:\BioSoft\tmp\sheafsignal_clean_export_vnbz8xgf\demo_output\results\hodge_decomposition_scores.csv
+edge permutation p-values: D:\BioSoft\tmp\sheafsignal_clean_export_vnbz8xgf\demo_output\results\sheaf_energy_permutation_pvalues.csv
+node permutation p-values: D:\BioSoft\tmp\sheafsignal_clean_export_vnbz8xgf\demo_output\results\frustration_permutation_pvalues.csv
+global permutation p-values: D:\BioSoft\tmp\sheafsignal_clean_export_vnbz8xgf\demo_output\results\global_permutation_pvalues.csv"	
+assert_demo_outputs	internal_output_check	D:\BioSoft\tmp\sheafsignal_clean_export_vnbz8xgf\demo_output	0	0.0	all expected demo outputs exist	
+release_audit_clean_export	D:\BioSoft\python\Python311\python.exe scripts/release_audit.py --root .	D:\BioSoft\tmp\sheafsignal_clean_export_vnbz8xgf\clean_export	0	21.105	Release audit passed: no obvious large or sensitive files detected.	
