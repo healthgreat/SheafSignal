@@ -42,6 +42,8 @@ journal is not guaranteed. See:
 - `release/POST_UNBLOCK_RELEASE_PIPELINE_REPORT.md`
 - `release/POST_UNBLOCK_RELEASE_PIPELINE_PLAN.tsv`
 - `manuscript/SHEAFSIGNAL_20_50_IF_STATUS_BRIEF_ZH_2026-05-03.md`
+- `manuscript/SHEAFSIGNAL_LIVE_GANTT_STATUS.md`
+- `manuscript/SHEAFSIGNAL_LIVE_GANTT_STATUS.tsv`
 - `manuscript/journal_metric_audit/JOURNAL_SUBMISSION_DAY_CHECK_TEMPLATE.tsv`
 - `manuscript/journal_metric_audit/JOURNAL_SUBMISSION_DAY_CHECK_REPORT.md`
 - `manuscript/submission_metadata/AUTHOR_CONFIRMATION_PACKET.md`
@@ -64,6 +66,12 @@ journal is not guaranteed. See:
 - `external_ai_review_packet/EXTERNAL_BETA_REVIEW_TRIAGE_REPORT.md`
 - `external_ai_review_packet/external_beta_review_action_matrix.tsv`
 - `external_ai_review_packet/shareable_review_bundle/SHAREABLE_REVIEW_BUNDLE_REPORT.md`
+
+Regenerate the live Gantt/status dashboard with:
+
+```bash
+python scripts/build_live_gantt_status.py
+```
 
 ## Problem
 
