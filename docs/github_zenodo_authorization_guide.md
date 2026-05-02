@@ -18,8 +18,14 @@ D:\BioSoft\GitHubCLI\gh_2.92.0\bin\gh.exe
 
 This path has been added to the user PATH. Existing Codex/VS Code/PowerShell
 sessions may need to be restarted before `gh` is found by name; until then,
-Codex can call the absolute path above. This repository still has no configured
-GitHub remote.
+Codex can call the absolute path above. The public repository now exists and
+the local `origin` remote is configured:
+
+```text
+https://github.com/healthgreat/SheafSignal
+```
+
+The remaining GitHub blocker is branch push permission for workflow files.
 
 ### Option A: GitHub CLI browser login
 
@@ -45,6 +51,38 @@ Recommended release settings:
 Repository name: SheafSignal
 Visibility: Public
 Release tag: v0.1.0
+```
+
+### Option A2: Local token file
+
+If using a GitHub personal access token saved at:
+
+```text
+D:\secrets\github_token.txt
+```
+
+the token must include both scopes:
+
+```text
+repo
+workflow
+```
+
+The `workflow` scope is required because this repository contains
+`.github/workflows/ci.yml`. Without it, GitHub rejects the branch push even when
+the token can read/write normal repository contents.
+
+Codex can validate the token without printing it:
+
+```bash
+python scripts/check_external_release_authorization.py
+```
+
+After validation passes, Codex can run:
+
+```bash
+python scripts/publish_github_release_after_auth.py --dry-run
+python scripts/publish_github_release_after_auth.py --create-release
 ```
 
 ### Option B: Create an empty GitHub repository manually

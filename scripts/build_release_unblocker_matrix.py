@@ -309,7 +309,8 @@ journal and does not change the evidence boundary of the manuscript.
 ## Execution Order
 
 1. Complete `G01_github_auth`.
-2. Let Codex execute `G02_public_github_repo` and `G03_release_tag`.
+2. Let Codex execute `G02_public_github_repo` and `G03_release_tag` with:
+   `python scripts/publish_github_release_after_auth.py --create-release`.
 3. Complete `G04_zenodo_doi`.
 4. Let Codex execute `G05_metadata_insertion`.
 5. Let Codex execute `G06_public_clean_clone`.

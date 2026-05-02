@@ -29,6 +29,7 @@ journal is not guaranteed. See:
 - `docs/data_and_code_availability_template.md`
 - `release/EXTERNAL_RELEASE_AUTHORIZATION_REPORT.md`
 - `release/EXTERNAL_RELEASE_AUTHORIZATION_STATUS.tsv`
+- `release/GITHUB_RELEASE_PUBLICATION_REPORT.md`
 - `release/RELEASE_UNBLOCKER_RUNBOOK_ZH.md`
 - `release/RELEASE_UNBLOCKER_MATRIX.tsv`
 - `manuscript/SHEAFSIGNAL_20_50_IF_STATUS_BRIEF_ZH_2026-05-03.md`

@@ -60,6 +60,10 @@ probabilities.
   GitHub token, Zenodo token availability, release archive presence, and DOI
   placeholders without printing token contents:
   `release/EXTERNAL_RELEASE_AUTHORIZATION_REPORT.md`.
+- A guarded GitHub release publisher has been added:
+  `scripts/publish_github_release_after_auth.py`. It refuses to push until the
+  local token has both `repo` and `workflow` scopes and writes
+  `release/GITHUB_RELEASE_PUBLICATION_REPORT.md`.
 
 ## What Is Blocking Submission
 
@@ -128,6 +132,7 @@ gantt
     Author confirmation packet                     :done, 2026-05-03, 1d
     Release unblocker matrix and runbook           :done, 2026-05-03, 1d
     External authorization health check            :done, 2026-05-03, 1d
+    Guarded GitHub release publisher              :done, 2026-05-03, 1d
 
     section Current Submission Blockers
     Regenerate GitHub token with workflow scope    :crit, active, 2026-05-03, 1d
