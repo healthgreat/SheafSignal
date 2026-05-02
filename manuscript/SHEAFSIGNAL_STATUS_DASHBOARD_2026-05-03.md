@@ -71,6 +71,9 @@ probabilities.
 - Zenodo deposition metadata now synchronizes with `release/archive_manifest.tsv`:
   archive size, SHA256, file count, uncompressed manifest size, and the public
   GitHub URL are aligned before DOI upload.
+- Zenodo upload preflight now passes with no blocking checks:
+  `ZENODO_UPLOAD_PREFLIGHT_READY_FOR_MANUAL_UPLOAD_DOI_PENDING`. Remaining
+  Zenodo action is manual upload or token-based API upload plus DOI insertion.
 
 ## What Is Blocking Submission
 
@@ -142,6 +145,7 @@ gantt
     Guarded GitHub release publisher              :done, 2026-05-03, 1d
     GitHub URL metadata finalization               :done, 2026-05-03, 1d
     Zenodo metadata/archive sync                   :done, 2026-05-03, 1d
+    Zenodo upload preflight                        :done, 2026-05-03, 1d
 
     section Current Submission Blockers
     Regenerate GitHub token with workflow scope    :crit, active, 2026-05-03, 1d

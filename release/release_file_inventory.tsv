@@ -20,7 +20,7 @@ LICENSE	github	1081	0.001031	131bd9b2ac43993bca4e8329dc8819b9e6848ffa70891678128
 MANIFEST.in	github	122	0.000116	b028987b777b967998da4d0f2282bc8196788a7ea373ea7aa15405a541c417a5	small auxiliary repository file
 Makefile	github	761	0.000726	c069075bffdd6e0c866fe2c7eae0543ba9e8d51c3f2ce894e212f053661146e7	small auxiliary repository file
 PROJECT_STATUS.md	github	32718	0.031202	d448ea35aa1a4fcc3e704dee03c12aa350f065822a4bb40e0834145fa0e3ec81	code, metadata, manifest, or small benchmark result
-README.md	github	27867	0.026576	84cc078e23f3ba5b5a6831378e987c7b8692cd48c4eeb527a56f5fe0a8fbf75c	code, metadata, manifest, or small benchmark result
+README.md	github	27960	0.026665	7a38a135df6b1f684296ee85cccc920199ad872a7137361db1890ed07b329dbe	code, metadata, manifest, or small benchmark result
 benchmarks/README.md	github	1758	0.001677	78435fdfc81ce426e385577f44a22b74f48ead374db26f69a5582f3f56c50986	small auxiliary repository file
 benchmarks/results/BENCHMARK_RESULT_CONTRACT_AUDIT.tsv	github	1611	0.001536	2643ae56595ccc0fcdf66faddd43ab8e5bd9740e471f4458398c39ab9cf000b6	code, metadata, manifest, or small benchmark result
 benchmarks/results/BENCHMARK_RESULT_CONTRACT_REPORT.md	github	397	0.000379	cae8f8697a910172b2a1ed9fab131b375be54fb0b8b0106fe07e02528140aa1e	code, metadata, manifest, or small benchmark result
@@ -394,9 +394,9 @@ manuscript/SCI_MANUSCRIPT_V2_EDITORIAL_AUDIT.tsv	github	981	0.000936	0f197978ca2
 manuscript/SCI_MANUSCRIPT_V2_POLISHED.md	github	17131	0.016337	03580934e55e9cdcb87d2a0aad44eca55ba393085f2e2941994898311534564b	code, metadata, manifest, or small benchmark result
 manuscript/SCI_MANUSCRIPT_V2_POLISHED_claim_tracked.md	github	2637	0.002515	9d440d355e5054b039d4924d8f2ce5fdb102bbaa2dbf14cd847bd2972878007e	code, metadata, manifest, or small benchmark result
 manuscript/SCI_TITLE_ABSTRACT_KEYWORDS.md	github	1580	0.001507	9788980bd61144fb72606529742785b7ddcdc5b9661b9b648c7c18980513fba3	code, metadata, manifest, or small benchmark result
-manuscript/SHEAFSIGNAL_20_50_IF_STATUS_BRIEF_ZH_2026-05-03.md	github	7034	0.006708	b24574cc573eb410ce5187627ecca0f0562b6e4fccc5f11f4632dcaf0d55e000	code, metadata, manifest, or small benchmark result
+manuscript/SHEAFSIGNAL_20_50_IF_STATUS_BRIEF_ZH_2026-05-03.md	github	7189	0.006856	fed0bfdc6b797668b1d539633bb70cffac0aa04ba2750c514f1d7e8e887af7fb	code, metadata, manifest, or small benchmark result
 manuscript/SHEAFSIGNAL_STATUS_DASHBOARD_2026-05-02.md	github	10170	0.009699	4a2092326b6e7a38da80c90dcac5e7844231e658e5fa57e0453ff582df8a8aa9	code, metadata, manifest, or small benchmark result
-manuscript/SHEAFSIGNAL_STATUS_DASHBOARD_2026-05-03.md	github	12029	0.011472	754356e8ead5c86df83d1c2a075e9caa96c9cd0b932e03310ec57072970b491d	code, metadata, manifest, or small benchmark result
+manuscript/SHEAFSIGNAL_STATUS_DASHBOARD_2026-05-03.md	github	12318	0.011747	2fea9046a3106bd5a077bf237ff4ecd896fe9f5d48a16bdff9fc39e4f36ad57f	code, metadata, manifest, or small benchmark result
 manuscript/SHEAFSIGNAL_STATUS_GATES_2026-05-02.tsv	github	4941	0.004712	896676d7e5064910cdf4982f86e095d7ea4ae92ce9aacc5413d89fe3585b1b9a	code, metadata, manifest, or small benchmark result
 manuscript/SUBMISSION_READINESS_REPORT.md	github	10428	0.009945	b126845e510d16fa764bdb7e53a1a7f32fb919eed6f6a13646bba13dd01b116c	code, metadata, manifest, or small benchmark result
 manuscript/SUPERGROK_MAJOR_REVISION_RESPONSE_STATUS_2026-05-01.md	github	6406	0.006109	0a40941c6c8a23a13553228dfc112b8aa5766b00f5a090e3c4e6a91d93a893c6	code, metadata, manifest, or small benchmark result
@@ -531,6 +531,7 @@ scripts/check_release_metadata_placeholders.py	github	8415	0.008025	af802b55fa3d
 scripts/check_submission_provenance.py	github	15102	0.014402	1fd13d3a2e46879b2261d878fe7b667881a573c936926b509359041c6641ca38	code, metadata, manifest, or small benchmark result
 scripts/check_supplementary_artifacts.py	github	14415	0.013747	bdc389cfc9583cc4ce5bf0b466d9b42a864ef8528aaa4ff16f5618a14b99a5fa	code, metadata, manifest, or small benchmark result
 scripts/check_visium_scope_gate.py	github	10127	0.009658	6e8ae13fc84de0f71fa8faff2bf46f41e18f075a51e5d73d84249f5398b35e8f	code, metadata, manifest, or small benchmark result
+scripts/check_zenodo_upload_preflight.py	github	16216	0.015465	f385ce2353b60f56dd9bcfc48575b3d7db130b4cb827962faab4281a8155001b	code, metadata, manifest, or small benchmark result
 scripts/download_public_datasets.py	github	7415	0.007071	87c3826ab72e95faa5d5b8b51203f7603ab5716de0f0d3ba14c491dbb0269ab2	code, metadata, manifest, or small benchmark result
 scripts/export_comparator_inputs.py	github	9036	0.008617	72ef3c1da5ef726a609892ecec4d93c739cfbf2dd2bb61e874a58e8f2a4dca99	code, metadata, manifest, or small benchmark result
 scripts/finalize_github_repository_url.py	github	4136	0.003944	9921a8ac0de909447c9d91867c2a1292c6d1a80c99910b5ed307ddc9533c66df	code, metadata, manifest, or small benchmark result
@@ -639,6 +640,7 @@ tests/test_tme_benchmark_tool_comparison.py	github	3079	0.002936	e87c3a1470e5949
 tests/test_upload_zenodo_deposition.py	github	5616	0.005356	a0cae223e4097111ab3d050b725ed8bd07bde9c151c406f65b21d5d44e8f6cec	code, metadata, manifest, or small benchmark result
 tests/test_visium_scope_gate.py	github	3406	0.003248	9efa6bde25b85c036ea906456657b2bfb37b11215ebb96f8fa9242fa62e190a2	code, metadata, manifest, or small benchmark result
 tests/test_zenodo_deposition_workflow.py	github	5624	0.005363	cebba400c0a90f362d4c60e05f4836f436ad89eae9e520ed1cd850b6ec6f89cc	code, metadata, manifest, or small benchmark result
+tests/test_zenodo_upload_preflight.py	github	3707	0.003535	8243c74907bee0838c9e4bce2b6621de1b2e131f3c80a9d7dc3550194fab7fdf	code, metadata, manifest, or small benchmark result
 workflow/Snakefile	github	2302	0.002195	65be892a93aa8188f6102e90536d68e8129605717dc3f31cc6513d240bda8775	small auxiliary repository file
 workflow/config.yaml	github	169	0.000161	b7538a72b4f422e8b3744678d3902b109a57df1b06ed2af90eb1846ee40f3736	small auxiliary repository file
 benchmarks/results/gse154778_pdac_scrna/comparators/cellchat_run/cellchat_object.rds	zenodo	2690661	2.566014	fe3492ead540b26e3ae0437d834179899a9822a0b9213046f1358d1d878aea5f	large or binary omics-like file

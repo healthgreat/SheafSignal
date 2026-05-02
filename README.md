@@ -33,6 +33,8 @@ journal is not guaranteed. See:
 - `release/GITHUB_URL_FINALIZATION_SUMMARY.md`
 - `release/zenodo_deposition_metadata.json`
 - `release/archive_manifest.tsv`
+- `release/ZENODO_UPLOAD_PREFLIGHT_REPORT.md`
+- `release/ZENODO_UPLOAD_PREFLIGHT_STATUS.tsv`
 - `release/RELEASE_UNBLOCKER_RUNBOOK_ZH.md`
 - `release/RELEASE_UNBLOCKER_MATRIX.tsv`
 - `manuscript/SHEAFSIGNAL_20_50_IF_STATUS_BRIEF_ZH_2026-05-03.md`

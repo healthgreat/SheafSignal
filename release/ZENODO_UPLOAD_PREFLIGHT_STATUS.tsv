@@ -1,0 +1,17 @@
+check_id	severity	status	evidence	required_action
+zenodo_archive_manifest_row	pass	pass	release/archives/sheafsignal_zenodo_upload.zip sha256=c27421a6b6d12c706ee6d8dc1e61cdc86503c09105711f045f6e244f1aecd163	None.
+zenodo_archive_sha256	pass	pass	sha256=c27421a6b6d12c706ee6d8dc1e61cdc86503c09105711f045f6e244f1aecd163	None.
+zenodo_archive_size	pass	pass	size_bytes=110415287; size_mb=105.300	None.
+zenodo_archive_file_count	pass	pass	n_files=45	None.
+zenodo_archive_sensitive_names	pass	pass	No sensitive names detected.	None.
+zenodo_metadata_exists	pass	pass	release\zenodo_deposition_metadata.json	None.
+zenodo_metadata_required_fields	pass	pass	required fields present	None.
+zenodo_metadata_upload_type	pass	pass	dataset	None.
+zenodo_metadata_creators	pass	pass	n_creators=8	None.
+zenodo_metadata_placeholders	pass	pass	No GitHub/archive placeholders.	None.
+zenodo_metadata_sha_matches_archive	pass	pass	c27421a6b6d12c706ee6d8dc1e61cdc86503c09105711f045f6e244f1aecd163	None.
+zenodo_metadata_github_url	pass	pass	https://github.com/healthgreat/SheafSignal	None.
+zenodo_instructions_exist	pass	pass	release\ZENODO_DEPOSITION_INSTRUCTIONS.md	None.
+zenodo_instructions_sha_matches_archive	pass	pass	c27421a6b6d12c706ee6d8dc1e61cdc86503c09105711f045f6e244f1aecd163	None.
+zenodo_doi_placeholders_expected	pending	pending	release/DATA_AVAILABILITY_STATEMENT_DRAFT.md;metadata/datasets.tsv	Mint DOI and run scripts/finalize_zenodo_doi.py after upload.
+zenodo_token_file	pending	pending	D:\secrets\zenodo_token.txt does not exist.	Use manual Zenodo web upload or save a token at this path for API upload.
