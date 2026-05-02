@@ -4,11 +4,12 @@
 - Overall readiness index: `78.0%`
 - Scientific/method hardening index: `95.1%`
 - Submission infrastructure index: `44.5%`
+- Clean-export reproduction preflight: `local_clean_export_pass`
 - Score boundary: these are internal readiness indices, not acceptance probabilities.
 
 ## Direct Answer
 
-SheafSignal is now close to a defensible 20-50 IF methods-manuscript candidate on the scientific/code side, but it is not submission-ready. The main remaining distance is external release and submission metadata: public GitHub URL/tag, real Zenodo DOI, author metadata, and a final clean-clone reproduction check.
+SheafSignal is now close to a defensible 20-50 IF methods-manuscript candidate on the scientific/code side, but it is not submission-ready. The main remaining distance is external release and submission metadata: public GitHub URL/tag, real Zenodo DOI, author metadata, and a final public clean-clone reproduction check. A local clean-export preflight has passed when this report shows `local_clean_export_pass`, but it does not replace the final public-GitHub clone test.
 
 For a realistic 20-50 IF route, the current package is approximately one release/metadata cycle away from being submit-ready. For a Nature Methods or Nature Biotechnology stretch route, the core package is defensible but would benefit from external beta review, a small 10,000-permutation confirmatory subset, and optionally a fuller GSE103322 replication supplement.
 
@@ -24,7 +25,7 @@ For a realistic 20-50 IF route, the current package is approximately one release
 - M1. Create public GitHub remote, push codex/sheafsignal-hardening-release, create immutable release tag, and write the URL into CITATION.cff, pyproject.toml, .zenodo.json, and release metadata. Expected effect: Turns G11 from yellow to green after tag/release URL is verified.
 - M2. Fill author names, affiliations, ORCIDs when available, CRediT roles, competing interests, corresponding author, and final ethics/data-use wording. Expected effect: Clears author-owned placeholder rows and software citation creator fields.
 - M3. Mint Zenodo DOI only after GitHub URL and author metadata are real, then replace PENDING_ZENODO_RELEASE in metadata/datasets.tsv and Data Availability. Expected effect: Turns G12 from red to green and removes the final blocking DOI rows.
-- M4. Run clean-clone or fresh-worktree reproduction after GitHub and DOI insertion: install locked Python environment, run demo workflow, and regenerate manuscript-facing audits. Expected effect: Converts local reproducibility into external reproducibility evidence.
+- M4. Rerun clean-clone reproduction after GitHub and DOI insertion from the public repository: install locked Python environment, run demo workflow, and regenerate manuscript-facing audits. Expected effect: Converts local clean-export reproducibility into public clean-clone reproducibility evidence.
 
 ## High-Value Optional Strengthening
 
@@ -61,12 +62,13 @@ gantt
     Claim-language and Visium hotspot gating     :done, 2026-05-02, 1d
     Python environment lock                      :done, 2026-05-02, 1d
     Local Git freeze commit                      :done, 2026-05-02, 1d
+    Local clean-export reproduction preflight    :done, 2026-05-02, 1d
 
     section Hard Submission Blockers
     Public GitHub remote, tag, release URL       :crit, 2026-05-03, 1d
     Author metadata and CRediT finalization      :crit, 2026-05-03, 1d
     Zenodo DOI minting and metadata insertion    :crit, 2026-05-04, 1d
-    Clean-clone reproduction preflight           :crit, 2026-05-05, 1d
+    Public clean-clone reproduction preflight    :crit, 2026-05-05, 1d
 
     section Optional IF 20-50 Strengthening
     10000-permutation confirmatory subset        :2026-05-06, 2d
@@ -81,6 +83,7 @@ gantt
 - `manuscript/IF20_50_GAP_MATRIX.tsv`
 - `manuscript/IF20_50_SUPPLEMENTATION_PLAN.tsv`
 - `manuscript/IF20_50_DISTANCE_REPORT.md`
+- `release/clean_clone_preflight/CLEAN_CLONE_PREFLIGHT_REPORT.md`
 
 ## Boundary
 

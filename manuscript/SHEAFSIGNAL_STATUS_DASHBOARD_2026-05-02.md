@@ -8,7 +8,7 @@ SheafSignal is now a 20-50 IF manuscript-hardening candidate, not a submission-r
 
 The core scientific blockers have been substantially reduced after Round 2, especially formal sheaf implementation, full GSE154778 reannotation, sample-stratified permutation, claim gating, simulation baseline hardening, manuscript claim-language synchronization, Visium hotspot-only scope gating, primary scRNA comparator-scope locking, Python environment locking, and a local Git freeze commit. The project should still stay in `NO_GO` for submission until the public GitHub remote/tag/release URL and Zenodo DOI are fixed.
 
-The IF 20-50 distance report now gives the most direct status: overall readiness index `78.0%`, scientific/method hardening index `95.1%`, and submission infrastructure index `44.5%`. These are internal readiness indices, not acceptance probabilities.
+The IF 20-50 distance report now gives the most direct status: overall readiness index `78.0%`, scientific/method hardening index `95.1%`, and submission infrastructure index `44.5%`. A local clean-export reproduction preflight passes, but final public-GitHub clean-clone reproduction is still required after release URL and DOI insertion. These are internal readiness indices, not acceptance probabilities.
 
 ## Fast Decision Board
 
@@ -27,6 +27,7 @@ The IF 20-50 distance report now gives the most direct status: overall readiness
 | GitHub release | Yellow | Local freeze commit exists; public remote/tag/release URL still missing | Add GitHub remote, create immutable tag, and write release URL into metadata |
 | Zenodo DOI | Red | Correctly held, not minted | Mint only after final freeze |
 | Release metadata | Red/Yellow | Placeholder audit separates GitHub URL, Zenodo DOI, and author-owned fields | Fill only after real public URL, DOI, and author information exist |
+| Clean-export preflight | Green/Yellow | Git-tracked HEAD can run a lightweight clean-export demo and core tests locally | Rerun from public GitHub clone after URL/tag/DOI insertion |
 | Submission | Red/Yellow | Not ready to submit | Clear the red and yellow submission blockers first |
 
 ## Gantt View
@@ -91,6 +92,7 @@ gantt
 - `envs/ENVIRONMENT_LOCK_REPORT.md`
 - `release/GIT_RELEASE_READINESS_REPORT.md`
 - `release/RELEASE_METADATA_PLACEHOLDER_REPORT.md`
+- `release/clean_clone_preflight/CLEAN_CLONE_PREFLIGHT_REPORT.md`
 - `manuscript/IF20_50_DISTANCE_REPORT.md`
 - `benchmarks/results/BENCHMARK_RESULT_CONTRACT_REPORT.md`
 - `benchmarks/results/simulation/sheaf_ground_truth_recovery.csv`

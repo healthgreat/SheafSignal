@@ -5,6 +5,7 @@ from scripts.build_if20_50_gap_report import (
     build_gap_matrix,
     build_report,
     build_supplementation_plan,
+    clean_preflight_status,
     score_gates,
 )
 
@@ -91,3 +92,14 @@ def test_report_contains_gantt_and_boundary(tmp_path):
     assert "```mermaid" in report
     assert "not acceptance probabilities" in report
     assert "Zenodo DOI" in report
+
+
+def test_clean_preflight_status_reads_pass_report(tmp_path):
+    report = tmp_path / "release" / "clean_clone_preflight" / "CLEAN_CLONE_PREFLIGHT_REPORT.md"
+    report.parent.mkdir(parents=True, exist_ok=True)
+    report.write_text(
+        "- Decision: `CLEAN_CLONE_PREFLIGHT_PASS_LOCAL_EXPORT`\n",
+        encoding="utf-8",
+    )
+
+    assert clean_preflight_status(tmp_path) == "local_clean_export_pass"

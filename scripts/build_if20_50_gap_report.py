@@ -22,6 +22,9 @@ FINAL_BLOCKERS_PATH = Path("manuscript/FINAL_SUBMISSION_BLOCKERS.tsv")
 REVIEW_MATRIX_PATH = Path("external_ai_review_packet/round1_review_response_matrix.tsv")
 GIT_READINESS_PATH = Path("release/GIT_RELEASE_READINESS_AUDIT.tsv")
 METADATA_PLACEHOLDER_PATH = Path("release/RELEASE_METADATA_PLACEHOLDER_AUDIT.tsv")
+CLEAN_PREFLIGHT_REPORT_PATH = Path(
+    "release/clean_clone_preflight/CLEAN_CLONE_PREFLIGHT_REPORT.md"
+)
 
 GAP_MATRIX_PATH = Path("manuscript/IF20_50_GAP_MATRIX.tsv")
 SUPPLEMENT_PLAN_PATH = Path("manuscript/IF20_50_SUPPLEMENTATION_PLAN.tsv")
@@ -105,10 +108,10 @@ MANDATORY_SUPPLEMENT_ROWS = [
     },
     {
         "priority": "M4",
-        "action": "Run clean-clone or fresh-worktree reproduction after GitHub and DOI insertion: install locked Python environment, run demo workflow, and regenerate manuscript-facing audits.",
+        "action": "Rerun clean-clone reproduction after GitHub and DOI insertion from the public repository: install locked Python environment, run demo workflow, and regenerate manuscript-facing audits.",
         "gate_type": "hard_submission_blocker",
-        "why_it_matters": "The local machine state is strong, but reviewers need proof that a fresh clone can reproduce core outputs.",
-        "expected_effect": "Converts local reproducibility into external reproducibility evidence.",
+        "why_it_matters": "The local clean-export preflight is strong, but reviewers need proof that the final public repository clone can reproduce core outputs.",
+        "expected_effect": "Converts local clean-export reproducibility into public clean-clone reproducibility evidence.",
         "estimated_effort": "medium",
         "blocking": "yes",
     },
@@ -382,6 +385,18 @@ def build_supplementation_plan() -> list[dict[str, str]]:
     return [*MANDATORY_SUPPLEMENT_ROWS, *OPTIONAL_STRENGTHENING_ROWS]
 
 
+def clean_preflight_status(root: Path) -> str:
+    path = root / CLEAN_PREFLIGHT_REPORT_PATH
+    if not path.exists():
+        return "not_run"
+    text = path.read_text(encoding="utf-8", errors="replace")
+    if "CLEAN_CLONE_PREFLIGHT_PASS_LOCAL_EXPORT" in text:
+        return "local_clean_export_pass"
+    if "CLEAN_CLONE_PREFLIGHT_FAIL" in text:
+        return "failed"
+    return "unknown"
+
+
 def _count_gap_rows(rows: list[dict[str, object]], risk: str) -> int:
     return sum(1 for row in rows if row.get("if20_50_risk") == risk)
 
@@ -421,12 +436,13 @@ gantt
     Claim-language and Visium hotspot gating     :done, 2026-05-02, 1d
     Python environment lock                      :done, 2026-05-02, 1d
     Local Git freeze commit                      :done, 2026-05-02, 1d
+    Local clean-export reproduction preflight    :done, 2026-05-02, 1d
 
     section Hard Submission Blockers
     Public GitHub remote, tag, release URL       :crit, 2026-05-03, 1d
     Author metadata and CRediT finalization      :crit, 2026-05-03, 1d
     Zenodo DOI minting and metadata insertion    :crit, 2026-05-04, 1d
-    Clean-clone reproduction preflight           :crit, 2026-05-05, 1d
+    Public clean-clone reproduction preflight    :crit, 2026-05-05, 1d
 
     section Optional IF 20-50 Strengthening
     10000-permutation confirmatory subset        :2026-05-06, 2d
@@ -444,6 +460,7 @@ def build_report(
     supplement_rows: list[dict[str, str]],
 ) -> str:
     score = score_gates(gates)
+    preflight_status = clean_preflight_status(root)
     hard_blockers = _count_gap_rows(gap_rows, "blocking")
     administrative = _count_gap_rows(gap_rows, "administrative")
     author_metadata = _count_gap_rows(gap_rows, "author_metadata")
@@ -475,6 +492,7 @@ def build_report(
             f"- Overall readiness index: `{score['overall_percent']}%`",
             f"- Scientific/method hardening index: `{score['scientific_percent']}%`",
             f"- Submission infrastructure index: `{score['submission_infrastructure_percent']}%`",
+            f"- Clean-export reproduction preflight: `{preflight_status}`",
             "- Score boundary: these are internal readiness indices, not acceptance probabilities.",
             "",
             "## Direct Answer",
@@ -483,7 +501,9 @@ def build_report(
             "candidate on the scientific/code side, but it is not submission-ready. "
             "The main remaining distance is external release and submission metadata: "
             "public GitHub URL/tag, real Zenodo DOI, author metadata, and a final "
-            "clean-clone reproduction check.",
+            "public clean-clone reproduction check. A local clean-export preflight "
+            "has passed when this report shows `local_clean_export_pass`, but it "
+            "does not replace the final public-GitHub clone test.",
             "",
             "For a realistic 20-50 IF route, the current package is approximately "
             "one release/metadata cycle away from being submit-ready. For a Nature "
@@ -520,6 +540,7 @@ def build_report(
             f"- `{GAP_MATRIX_PATH.as_posix()}`",
             f"- `{SUPPLEMENT_PLAN_PATH.as_posix()}`",
             f"- `{REPORT_PATH.as_posix()}`",
+            f"- `{CLEAN_PREFLIGHT_REPORT_PATH.as_posix()}`",
             "",
             "## Boundary",
             "",
