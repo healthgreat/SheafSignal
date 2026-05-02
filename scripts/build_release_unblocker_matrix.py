@@ -116,6 +116,16 @@ def _authorization_status(root: Path, check_id: str) -> str:
     return ""
 
 
+def _author_confirmation_decision(root: Path) -> str:
+    report = root / "manuscript/submission_metadata/AUTHOR_CONFIRMATION_PREFLIGHT_REPORT.md"
+    if not report.exists():
+        return "author_confirmation_preflight_missing"
+    for line in report.read_text(encoding="utf-8").splitlines():
+        if line.startswith("- Decision:"):
+            return line.replace("- Decision:", "").strip().strip("`")
+    return "author_confirmation_preflight_unparsed"
+
+
 def _has_pending_zenodo(root: Path) -> bool:
     manifest = _read_text(root / "metadata/datasets.tsv")
     availability = _read_text(root / "release/DATA_AVAILABILITY_STATEMENT_DRAFT.md")
@@ -161,6 +171,7 @@ def build_unblocker_rows(root: Path) -> list[dict[str, str]]:
     pending_zenodo = _has_pending_zenodo(root)
     zenodo_status = _final_blocker_status(root, "checklist::Zenodo DOI minted")
     github_token_status = _authorization_status(root, "github_token_api")
+    author_confirmation_status = _author_confirmation_decision(root)
 
     if remote_url and remote_has_branch:
         github_repo_status = "public_remote_branch_available"
@@ -243,10 +254,10 @@ def build_unblocker_rows(root: Path) -> list[dict[str, str]]:
             "G07_author_confirmation",
             "blocking",
             "authors",
-            "packet_ready_author_confirmation_pending",
+            author_confirmation_status,
             "manuscript/submission_metadata/AUTHOR_CONFIRMATION_PACKET.md",
-            "Confirm corresponding author email, CRediT, funding, COI, ethics/data-use, and release approval.",
-            "manual author confirmation; then rerun python scripts/check_final_submission_blockers.py --report-only",
+            "Confirm corresponding author email, equal-contribution wording, CRediT, funding, COI, ethics/data-use, and release approval.",
+            "python scripts/check_author_confirmation_preflight.py; python scripts/check_final_submission_blockers.py --report-only",
             "Allows final journal upload metadata to be filled honestly.",
             "Author metadata cannot be inferred or fabricated by code.",
         ),

@@ -73,6 +73,7 @@ gantt
 | GitHub URL metadata | 我已完成 | `CITATION.cff`、`pyproject.toml`、Zenodo metadata 已写入真实仓库 URL；release placeholder 从 12 降到 7，剩下都是 Zenodo DOI |
 | Zenodo metadata/archive 同步 | 我已完成 | Zenodo metadata 已对齐 `release/archives/sheafsignal_zenodo_upload.zip` 的 size、SHA256、文件数和 GitHub URL |
 | Zenodo upload preflight | 我已完成 | `ZENODO_UPLOAD_PREFLIGHT_READY_FOR_MANUAL_UPLOAD_DOI_PENDING`；无 blocking，剩下是真正上传/mint DOI |
+| 作者确认 preflight | 我已完成 | `AUTHOR_CONFIRMATION_BLOCKED`；2 个 blocking：Han Yan 邮箱、equal-contribution wording；8 个 pending：CRediT/funding/COI/ethics/release approval 等 |
 | Zenodo DOI | 需要你登录或提供 Zenodo token | DOI minting 必须绑定你的 Zenodo 账户 |
 | Han Yan 邮箱、COI、CRediT、funding、ethics wording | 需要作者团队确认 | 这些是作者责任内容，不能由算法自动编造 |
 | public clean-clone reproduction | 我来跑 | 但必须等 GitHub/Zenodo 真实存在后才能跑 |

@@ -16,8 +16,14 @@ def _load_script(name: str):
 def _write_minimal_package(root: Path) -> None:
     package = root / "manuscript" / "nature_methods_package"
     metadata = root / "manuscript" / "submission_metadata"
+    docs = root / "docs"
+    envs = root / "envs"
+    release = root / "release"
     package.mkdir(parents=True)
     metadata.mkdir(parents=True)
+    docs.mkdir(parents=True)
+    envs.mkdir(parents=True)
+    release.mkdir(parents=True)
     (package / "00_title_page.md").write_text(
         "# SheafSignal maps frustration in cell communication networks\n",
         encoding="utf-8",
@@ -32,6 +38,7 @@ def _write_minimal_package(root: Path) -> None:
         "## Introduction\n\nText.\n\n"
         "## Results\n\nText.\n\n"
         "## Discussion\n\nText.\n\n"
+        "## Methods\n\nText.\n\n"
         "## Data Availability\n\nText.\n\n"
         "## Code Availability\n\nText.\n",
         encoding="utf-8",
@@ -48,6 +55,15 @@ def _write_minimal_package(root: Path) -> None:
     )
     (metadata / "AUTHOR_METADATA_TEMPLATE.tsv").write_text("author\nTBD\n", encoding="utf-8")
     (metadata / "COMPETING_INTERESTS_TEMPLATE.md").write_text("TBD\n", encoding="utf-8")
+    (docs / "reviewer_reproducibility_quickstart.md").write_text(
+        "# Reviewer Reproducibility Quickstart\n",
+        encoding="utf-8",
+    )
+    (envs / "requirements-py311-lock.txt").write_text("pandas==2.3.3\n", encoding="utf-8")
+    (release / "RELEASE_METADATA_PLACEHOLDER_REPORT.md").write_text(
+        "# Release Metadata Placeholder Report\n",
+        encoding="utf-8",
+    )
 
 
 def test_nature_methods_format_audit_passes_minimal_package(tmp_path):

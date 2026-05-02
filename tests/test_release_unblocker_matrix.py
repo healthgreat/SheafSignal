@@ -54,3 +54,32 @@ def test_release_unblocker_writes_matrix_and_runbook(tmp_path):
     assert "RELEASE_NOT_READY_UNTIL_GITHUB_ZENODO_AUTHOR_CONFIRMATION" in runbook
     assert "gantt" in runbook
     assert "does not guarantee acceptance" in runbook
+
+
+def test_release_unblocker_reads_author_confirmation_preflight(tmp_path):
+    script = _load_script("build_release_unblocker_matrix")
+    (tmp_path / "metadata").mkdir()
+    (tmp_path / "release").mkdir()
+    preflight = tmp_path / "manuscript" / "submission_metadata"
+    preflight.mkdir(parents=True)
+    (tmp_path / "metadata" / "datasets.tsv").write_text(
+        "dataset_id\tbenchmark_role\tzenodo_doi\n"
+        "demo\tdemo\tNA\n",
+        encoding="utf-8",
+    )
+    (tmp_path / "release" / "DATA_AVAILABILITY_STATEMENT_DRAFT.md").write_text(
+        "Current DOI status: `https://doi.org/10.5281/zenodo.123`.\n",
+        encoding="utf-8",
+    )
+    (preflight / "AUTHOR_CONFIRMATION_PREFLIGHT_REPORT.md").write_text(
+        "# Author Confirmation Preflight Report\n\n"
+        "- Decision: `AUTHOR_CONFIRMATION_BLOCKED`\n",
+        encoding="utf-8",
+    )
+
+    rows = script.build_unblocker_rows(tmp_path)
+    by_id = {row["gate_id"]: row for row in rows}
+
+    assert by_id["G07_author_confirmation"]["current_status"] == (
+        "AUTHOR_CONFIRMATION_BLOCKED"
+    )

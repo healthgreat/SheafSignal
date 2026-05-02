@@ -39,6 +39,8 @@ journal is not guaranteed. See:
 - `release/RELEASE_UNBLOCKER_MATRIX.tsv`
 - `manuscript/SHEAFSIGNAL_20_50_IF_STATUS_BRIEF_ZH_2026-05-03.md`
 - `manuscript/submission_metadata/AUTHOR_CONFIRMATION_PACKET.md`
+- `manuscript/submission_metadata/AUTHOR_CONFIRMATION_PREFLIGHT_REPORT.md`
+- `manuscript/submission_metadata/AUTHOR_CONFIRMATION_PREFLIGHT_STATUS.tsv`
 - `manuscript/SCI20_50_ACTION_BOARD.md`
 - `manuscript/JOURNAL_TARGETS_20_50.tsv`
 - `manuscript/SUBMISSION_READINESS_REPORT.md`

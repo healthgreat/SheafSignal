@@ -1,0 +1,12 @@
+item	severity	status	current_value	required_confirmation	owner
+Han Yan email	blocking	blocking_author_confirmation	missing_email	Provide final email for corresponding author Han Yan	authors
+equal contribution note	blocking	blocking_author_confirmation	Equal contribution with Yi Miao; user text also contained YM and YH	Confirm exact wording, likely HY and YM rather than YM and YH	authors
+author order	pending	draft_pending_author_confirmation	Chongfa Chen; Jishu Wei; Shangnan Dai; Guangfu Wang; Zipeng Lu; Lingdi Yin; Han Yan; Yi Miao	Confirm final author order and degrees	authors
+affiliations	pending	draft_pending_author_confirmation	A1 BenQ Pancreas Center; A2 First Affiliated Hospital Pancreas Center; A3 Pancreas Institute	Confirm institution names and numbering	authors
+CRediT roles	pending	draft_pending_author_confirmation	See AUTHOR_CONTRIBUTIONS_CREDIT_TEMPLATE.tsv	Approve or correct CRediT assignments	authors
+funding acquisition	pending	needs_author_confirmation	Not reported	Confirm no funding role or provide funding authors/grants	authors
+competing interests	pending	draft_pending_author_confirmation	The authors declare no competing interests	Confirm or provide disclosure	corresponding_authors
+ethics data-use	pending	draft_pending_author_confirmation	Public processed data only; no new human samples; IRB exemption wording to confirm	Confirm institutional/journal wording	corresponding_authors
+public GitHub release	pending	external_release_confirmation	not yet created	Confirm public repository release is allowed	authors
+Zenodo deposition	pending	external_release_confirmation	not yet minted	Confirm Zenodo deposition contents and restrictions	authors
+ORCID IDs	optional	optional_author_metadata	not_provided	Optional: provide ORCID IDs if authors want them included	authors

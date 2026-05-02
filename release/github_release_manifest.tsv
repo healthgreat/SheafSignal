@@ -11,7 +11,7 @@ LICENSE	github	1081	0.001031	131bd9b2ac43993bca4e8329dc8819b9e6848ffa70891678128
 MANIFEST.in	github	122	0.000116	b028987b777b967998da4d0f2282bc8196788a7ea373ea7aa15405a541c417a5	small auxiliary repository file
 Makefile	github	761	0.000726	c069075bffdd6e0c866fe2c7eae0543ba9e8d51c3f2ce894e212f053661146e7	small auxiliary repository file
 PROJECT_STATUS.md	github	32718	0.031202	d448ea35aa1a4fcc3e704dee03c12aa350f065822a4bb40e0834145fa0e3ec81	code, metadata, manifest, or small benchmark result
-README.md	github	27960	0.026665	7a38a135df6b1f684296ee85cccc920199ad872a7137361db1890ed07b329dbe	code, metadata, manifest, or small benchmark result
+README.md	github	28111	0.026809	e62252e2143c49131b630363a714d292c764ce4c50636859858a16efa110ef53	code, metadata, manifest, or small benchmark result
 benchmarks/README.md	github	1758	0.001677	78435fdfc81ce426e385577f44a22b74f48ead374db26f69a5582f3f56c50986	small auxiliary repository file
 benchmarks/results/BENCHMARK_RESULT_CONTRACT_AUDIT.tsv	github	1611	0.001536	2643ae56595ccc0fcdf66faddd43ab8e5bd9740e471f4458398c39ab9cf000b6	code, metadata, manifest, or small benchmark result
 benchmarks/results/BENCHMARK_RESULT_CONTRACT_REPORT.md	github	397	0.000379	cae8f8697a910172b2a1ed9fab131b375be54fb0b8b0106fe07e02528140aa1e	code, metadata, manifest, or small benchmark result
@@ -385,9 +385,9 @@ manuscript/SCI_MANUSCRIPT_V2_EDITORIAL_AUDIT.tsv	github	981	0.000936	0f197978ca2
 manuscript/SCI_MANUSCRIPT_V2_POLISHED.md	github	17131	0.016337	03580934e55e9cdcb87d2a0aad44eca55ba393085f2e2941994898311534564b	code, metadata, manifest, or small benchmark result
 manuscript/SCI_MANUSCRIPT_V2_POLISHED_claim_tracked.md	github	2637	0.002515	9d440d355e5054b039d4924d8f2ce5fdb102bbaa2dbf14cd847bd2972878007e	code, metadata, manifest, or small benchmark result
 manuscript/SCI_TITLE_ABSTRACT_KEYWORDS.md	github	1580	0.001507	9788980bd61144fb72606529742785b7ddcdc5b9661b9b648c7c18980513fba3	code, metadata, manifest, or small benchmark result
-manuscript/SHEAFSIGNAL_20_50_IF_STATUS_BRIEF_ZH_2026-05-03.md	github	7189	0.006856	fed0bfdc6b797668b1d539633bb70cffac0aa04ba2750c514f1d7e8e887af7fb	code, metadata, manifest, or small benchmark result
+manuscript/SHEAFSIGNAL_20_50_IF_STATUS_BRIEF_ZH_2026-05-03.md	github	7391	0.007049	46260f93af96a5f342c48b8e47b6280d5a303ba3069647be9f90465fc97f6310	code, metadata, manifest, or small benchmark result
 manuscript/SHEAFSIGNAL_STATUS_DASHBOARD_2026-05-02.md	github	10170	0.009699	4a2092326b6e7a38da80c90dcac5e7844231e658e5fa57e0453ff582df8a8aa9	code, metadata, manifest, or small benchmark result
-manuscript/SHEAFSIGNAL_STATUS_DASHBOARD_2026-05-03.md	github	12318	0.011747	2fea9046a3106bd5a077bf237ff4ecd896fe9f5d48a16bdff9fc39e4f36ad57f	code, metadata, manifest, or small benchmark result
+manuscript/SHEAFSIGNAL_STATUS_DASHBOARD_2026-05-03.md	github	12684	0.012096	dec9c6d21b625deec598f5764eb92ecbc2c70fe12fefab52072d8a8762673815	code, metadata, manifest, or small benchmark result
 manuscript/SHEAFSIGNAL_STATUS_GATES_2026-05-02.tsv	github	4941	0.004712	896676d7e5064910cdf4982f86e095d7ea4ae92ce9aacc5413d89fe3585b1b9a	code, metadata, manifest, or small benchmark result
 manuscript/SUBMISSION_READINESS_REPORT.md	github	10428	0.009945	b126845e510d16fa764bdb7e53a1a7f32fb919eed6f6a13646bba13dd01b116c	code, metadata, manifest, or small benchmark result
 manuscript/SUPERGROK_MAJOR_REVISION_RESPONSE_STATUS_2026-05-01.md	github	6406	0.006109	0a40941c6c8a23a13553228dfc112b8aa5766b00f5a090e3c4e6a91d93a893c6	code, metadata, manifest, or small benchmark result
@@ -446,6 +446,8 @@ manuscript/reviewer_objection_response_table.tsv	github	4490	0.004282	c004cf27c5
 manuscript/submission_metadata/AFFILIATIONS_TEMPLATE.tsv	github	408	0.000389	436394071c150641447a7239bfa767c492764c09c7bd5e4c11554e1d45cfa5d9	code, metadata, manifest, or small benchmark result
 manuscript/submission_metadata/AUTHOR_CONFIRMATION_CHECKLIST.tsv	github	1701	0.001622	791e3c7acabeecb2e2672ccba86714656938da7fbf1e25f3a8bc51ff81bb85b2	code, metadata, manifest, or small benchmark result
 manuscript/submission_metadata/AUTHOR_CONFIRMATION_PACKET.md	github	3940	0.003757	d1ff5cdd05ffb8eee92f4fc8ea12247fe254d4faf189b9ce1ff99787a4376bf0	code, metadata, manifest, or small benchmark result
+manuscript/submission_metadata/AUTHOR_CONFIRMATION_PREFLIGHT_REPORT.md	github	2010	0.001917	86cd8cde56a49e9d8dc555cd6cf0fcdcc3b052683692a4fb7ff418a6503ca4e4	code, metadata, manifest, or small benchmark result
+manuscript/submission_metadata/AUTHOR_CONFIRMATION_PREFLIGHT_STATUS.tsv	github	1813	0.001729	cb97c100417e3cb59e603fbaeb79c34ad8eb875d9339f0c1cd7a995ecb52018d	code, metadata, manifest, or small benchmark result
 manuscript/submission_metadata/AUTHOR_CONTRIBUTIONS_CREDIT_TEMPLATE.tsv	github	803	0.000766	623a1c479c93e0f327144bc4e8ed998d02eabc7c7dc2928e61470ae5616af0e5	code, metadata, manifest, or small benchmark result
 manuscript/submission_metadata/AUTHOR_METADATA_TEMPLATE.tsv	github	1981	0.001889	5b2e0fea80a6b3c294dc91cf8f91fd1582842c6ba0227c1ee1d2d9b9f40008b1	code, metadata, manifest, or small benchmark result
 manuscript/submission_metadata/COMPETING_INTERESTS_TEMPLATE.md	github	349	0.000333	bb30d23ba4b83675da7ce9268a11a432a15917eda90be6560fd01cfe35f1525f	code, metadata, manifest, or small benchmark result
@@ -498,7 +500,7 @@ scripts/build_polished_sci_manuscript_v2.py	github	33871	0.032302	c4fa8b480c913b
 scripts/build_pooled_fdr_audit.py	github	3895	0.003715	bd3fb831fb1c929c162d51c38b5806fc0258493a3b8b6f03a5db09fee1d1960a	code, metadata, manifest, or small benchmark result
 scripts/build_presubmission_inquiry_package.py	github	13163	0.012553	450c561f11293128b1383d543f9dbc548db7beef7c81fcfb4b24f1d5cb42dab8	code, metadata, manifest, or small benchmark result
 scripts/build_reference_package.py	github	13242	0.012629	a2120a17621752b802e8fc53250d3b1ed65d1b1423e613b68cece918e720d7f0	code, metadata, manifest, or small benchmark result
-scripts/build_release_unblocker_matrix.py	github	13581	0.012952	0416c042e740ffaa7e769a8a0035d3dba710d82912dfaf193d3468af77e31719	code, metadata, manifest, or small benchmark result
+scripts/build_release_unblocker_matrix.py	github	14140	0.013485	93ecbd0af9c5bbe84c7fd645a63a62e4f2b829d989dba616c977316f5bcb7b0f	code, metadata, manifest, or small benchmark result
 scripts/build_reproducibility_release.py	github	8328	0.007942	e2450ebdc88c80d4b63b057beff15892c6aeb3a5dbff429db912db98f6abde49	code, metadata, manifest, or small benchmark result
 scripts/build_response_transfer_package.py	github	21310	0.020323	c15b7fbb74664dfc967ae2a77634e9c7a21c0aa5b05f3d2a13e99efd809381c8	code, metadata, manifest, or small benchmark result
 scripts/build_reviewer_objection_table.py	github	29209	0.027856	3c04eed86661e319705479b0ed4fab7bd19846029d99d7e7548f56d95c73bbe2	code, metadata, manifest, or small benchmark result
@@ -507,6 +509,7 @@ scripts/build_submission_metadata_templates.py	github	7759	0.0074	5925cc0fbc5463
 scripts/build_submission_readiness_report.py	github	10684	0.010189	d85a0103ee7357ac21cd704c54f0506721b4eb7edef2a9f817aeb601a91a43d1	code, metadata, manifest, or small benchmark result
 scripts/build_submission_upload_package.py	github	33864	0.032295	a7450dac7fbc14829327eca83b7ea86e8144bce309038edc02178c5bddda3561	code, metadata, manifest, or small benchmark result
 scripts/build_zenodo_deposition_package.py	github	6940	0.006618	2658267648b09d04d99cb0fbed6eb4dfa208db0af688259dae84f9930349cfb6	code, metadata, manifest, or small benchmark result
+scripts/check_author_confirmation_preflight.py	github	7286	0.006948	43b2565a378bf4eb2565cf1e57419bac74c3e75910e1ba0130c0f537e14a79ab	code, metadata, manifest, or small benchmark result
 scripts/check_benchmark_result_contracts.py	github	17473	0.016664	d3509e15ffd8c910a6d61ede4ef30177bac42067dbea8dfb94afa81b8d5490a4	code, metadata, manifest, or small benchmark result
 scripts/check_claim_safety.py	github	8599	0.008201	490ca52b3dca63c86bed6f254f0ad4fd379536ffb384b943c56856b2218ea8cd	code, metadata, manifest, or small benchmark result
 scripts/check_comparator_scope_gate.py	github	10877	0.010373	7f4c718387ffe1cd3b6001a89c11a7003b7a088bc7840337b100a51473800738	code, metadata, manifest, or small benchmark result
@@ -567,6 +570,7 @@ src/sheafsignal/simulate.py	github	10639	0.010146	608cd930cd11ae005bc33b67936aac
 src/sheafsignal/spatial.py	github	9522	0.009081	bee43bcd96c7141b0def6c58e3f33ef309f0ac62d6c5be272e5e5bd9cb08297d	code, metadata, manifest, or small benchmark result
 src/sheafsignal/stats.py	github	11112	0.010597	294bf66deae7baac4a067b0474be3e386d45e6e1775249000043cad6a2a68bf1	code, metadata, manifest, or small benchmark result
 tests/conftest.py	github	375	0.000358	a299ac90987f73dcca5431d6db0bbb80f949510ebff7818d364d2cf7024b0606	code, metadata, manifest, or small benchmark result
+tests/test_author_confirmation_preflight.py	github	2949	0.002812	b342612dc2a074bc90274c5e255c306c59349b9cddc4182c51e710d2a3944bea	code, metadata, manifest, or small benchmark result
 tests/test_benchmark_result_contracts.py	github	8479	0.008086	1bfc4b0aee71d4b0b68b7d7cfa940c4f8202b5c2a5caa3993ae4e6a1f93a946c	code, metadata, manifest, or small benchmark result
 tests/test_claim_safety.py	github	2449	0.002336	dfebe9c8ffb894f849ae111f10577a0e0d73db8e1dd0c37d0571a66ed1940e0a	code, metadata, manifest, or small benchmark result
 tests/test_clean_clone_preflight.py	github	2078	0.001982	5eff366c3b14ea46fb0d0bff12d63aacdd8baab4f322c1fd4921c15b6f5bb1e9	code, metadata, manifest, or small benchmark result
@@ -614,7 +618,7 @@ tests/test_publication_workflow.py	github	3349	0.003194	2546577e3eec92334623019c
 tests/test_publish_github_release_after_auth.py	github	2133	0.002034	8b40d42fdd05b1c66b53e66522d918f6d21e7e004c96eb46e9d4ec83273e0ad5	code, metadata, manifest, or small benchmark result
 tests/test_reference_package.py	github	2359	0.00225	6d35b77db3f1b554dcf0a6efc80bdeb70d7cec55ff0cfefd80c138875e442536	code, metadata, manifest, or small benchmark result
 tests/test_release_metadata_placeholders.py	github	2151	0.002051	13aa9450389f64fd792f9483c9dcc08267ebe762fadfda824a4337d8cd1205b4	code, metadata, manifest, or small benchmark result
-tests/test_release_unblocker_matrix.py	github	2114	0.002016	8bb4cc595126dd466f1747058da907b885f62f7bb5fe8238480ee1192c67b01c	code, metadata, manifest, or small benchmark result
+tests/test_release_unblocker_matrix.py	github	3194	0.003046	ccda09124764653372669b1c4b9698d1a4cbfaa562bff94326d76c585b242cd9	code, metadata, manifest, or small benchmark result
 tests/test_reproducibility_release.py	github	2139	0.00204	0ede946fa937feff2f4b693a96d18bb18b9d3547c7351ade7feba604cba7dc8f	code, metadata, manifest, or small benchmark result
 tests/test_response_transfer_package.py	github	3985	0.0038	66cacba2c42c88ebfa8131cdc55bfdd3327ad8adb6b6b580ad596b2724044e25	code, metadata, manifest, or small benchmark result
 tests/test_sheaf_ground_truth_simulation.py	github	1637	0.001561	dc70b9a9caf5ed36ac6e15fde544f13d85485e13485defc05518f2a27c498d92	code, metadata, manifest, or small benchmark result

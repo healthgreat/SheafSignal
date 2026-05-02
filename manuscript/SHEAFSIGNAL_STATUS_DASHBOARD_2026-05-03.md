@@ -74,6 +74,9 @@ probabilities.
 - Zenodo upload preflight now passes with no blocking checks:
   `ZENODO_UPLOAD_PREFLIGHT_READY_FOR_MANUAL_UPLOAD_DOI_PENDING`. Remaining
   Zenodo action is manual upload or token-based API upload plus DOI insertion.
+- Author confirmation preflight now exposes the remaining author-owned blockers:
+  `AUTHOR_CONFIRMATION_BLOCKED` with 2 blocking confirmations and 8 pending
+  confirmations. This is separated from code/science readiness.
 
 ## What Is Blocking Submission
 
@@ -146,6 +149,7 @@ gantt
     GitHub URL metadata finalization               :done, 2026-05-03, 1d
     Zenodo metadata/archive sync                   :done, 2026-05-03, 1d
     Zenodo upload preflight                        :done, 2026-05-03, 1d
+    Author confirmation preflight                  :done, 2026-05-03, 1d
 
     section Current Submission Blockers
     Regenerate GitHub token with workflow scope    :crit, active, 2026-05-03, 1d
@@ -153,7 +157,8 @@ gantt
     Zenodo DOI minting                             :crit, 2026-05-04, 1d
     DOI and GitHub URL metadata insertion          :crit, 2026-05-04, 1d
     Public clean-clone reproduction preflight      :crit, 2026-05-05, 1d
-    Final submission package regeneration          :crit, 2026-05-05, 1d
+    Resolve author confirmation blockers          :crit, 2026-05-05, 2d
+    Final submission package regeneration          :crit, 2026-05-07, 1d
 
     section High-Value Strengthening
     External beta review return collection         :2026-05-06, 7d
