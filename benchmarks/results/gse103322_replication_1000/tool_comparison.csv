@@ -1,0 +1,7 @@
+dataset_id,tool,status,comparison_level,edge_score_table,aligned_edge_table,notes,n_edges,spearman_sheaf_energy_vs_tool_score,sender_rank_spearman,receiver_rank_spearman,top_lr_jaccard,high_sheaf_low_tool_edges,high_tool_low_sheaf_edges,concordant_high_edges,unaligned_edges
+gse103322_hnsc_scrna,LRProductBaseline,completed,cell_type_edge,benchmarks\results\gse103322_replication_1000\gse103322_hnsc_scrna\comparators\lr_product_baseline_edges.csv,benchmarks\results\gse103322_replication_1000\gse103322_hnsc_scrna\comparators\sheafsignal_vs_lr_product_baseline.csv,Internal conventional CCC baseline: ligand expression x receptor expression edge strength aligned against SheafSignal sheaf_energy.,56,0.24265208475734792,0.4047619047619048,0.8095238095238096,0.9,3,1,8,0
+gse103322_hnsc_scrna,CellChat,not_run_requires_external_tool,cell_type_edge,,,Comparator adapter placeholder for publication benchmark.,,,,,,,,,
+gse103322_hnsc_scrna,CellPhoneDB,not_run_requires_external_tool,cell_type_edge,,,Comparator adapter placeholder for publication benchmark.,,,,,,,,,
+gse103322_hnsc_scrna,NicheNet,not_run_requires_external_tool,cell_type_edge,,,Comparator adapter placeholder for publication benchmark.,,,,,,,,,
+gse103322_hnsc_scrna,LIANA,not_run_requires_external_tool,cell_type_edge,,,Comparator adapter placeholder for publication benchmark.,,,,,,,,,
+gse103322_hnsc_scrna,niche-DE,not_run_requires_external_tool,cell_type_edge,,,Comparator adapter placeholder for publication benchmark.,,,,,,,,,

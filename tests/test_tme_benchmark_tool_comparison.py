@@ -64,3 +64,37 @@ def test_select_permutation_strata_uses_sample_id_for_multisample_metadata(tmp_p
 
     assert strata_col == "sample_id"
     assert design == "sample_stratified"
+
+
+def test_write_spatial_hotspots_respects_dataset_filter(tmp_path):
+    script = _load_script("run_tme_benchmark")
+    results_dir = tmp_path / "benchmarks" / "results"
+    manifest = pd.DataFrame(
+        [
+            {
+                "dataset_id": "tenx_breast_visium",
+                "benchmark_role": "public_spatial_benchmark",
+                "prepared_expression": "missing_expression.csv",
+                "prepared_metadata": "missing_metadata.csv",
+            }
+        ]
+    )
+
+    output = script.write_spatial_hotspots(
+        manifest,
+        results_dir,
+        dataset_ids={"gse103322_hnsc_scrna"},
+    )
+
+    table = pd.read_csv(output)
+    assert table.empty
+    assert list(table.columns) == [
+        "dataset_id",
+        "status",
+        "spot_id",
+        "x",
+        "y",
+        "frustration_score",
+        "notes",
+    ]
+    assert not (results_dir / "tenx_breast_visium").exists()

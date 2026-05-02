@@ -6,7 +6,7 @@
 - Has local commit: `True`
 - Configured remotes: `0`
 - Exact tag on HEAD: `none`
-- Non-ignored file count: `563`
+- Non-ignored file count: `578`
 - Oversized file threshold: `20 MB`
 - Oversized file count: `0`
 

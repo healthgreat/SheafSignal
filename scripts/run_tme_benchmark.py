@@ -260,9 +260,25 @@ def _preserve_existing_external_comparators(table: pd.DataFrame, output: Path) -
     return pd.concat(frames, ignore_index=True).reindex(columns=columns)
 
 
-def write_spatial_hotspots(manifest: pd.DataFrame, results_dir: Path) -> Path:
+def write_spatial_hotspots(
+    manifest: pd.DataFrame,
+    results_dir: Path,
+    dataset_ids: set[str] | None = None,
+) -> Path:
+    results_dir.mkdir(parents=True, exist_ok=True)
+    columns = [
+        "dataset_id",
+        "status",
+        "spot_id",
+        "x",
+        "y",
+        "frustration_score",
+        "notes",
+    ]
     rows = []
     spatial_rows = manifest.loc[manifest["benchmark_role"] == "public_spatial_benchmark"]
+    if dataset_ids is not None:
+        spatial_rows = spatial_rows.loc[spatial_rows["dataset_id"].astype(str).isin(dataset_ids)]
     for row in spatial_rows.to_dict(orient="records"):
         dataset_id = str(row["dataset_id"])
         expression = Path(str(row["prepared_expression"]))
@@ -292,7 +308,7 @@ def write_spatial_hotspots(manifest: pd.DataFrame, results_dir: Path) -> Path:
         )
         rows.extend(pd.read_csv(hotspot_path).to_dict(orient="records"))
     output = results_dir / "spatial_frustration_hotspots.csv"
-    pd.DataFrame(rows).to_csv(output, index=False)
+    pd.DataFrame(rows, columns=columns if not rows else None).to_csv(output, index=False)
     return output
 
 
@@ -334,7 +350,8 @@ def main(argv: list[str] | None = None) -> int:
     summary_path = results_dir / "public_tme_sheafsignal_summary.csv"
     summary.to_csv(summary_path, index=False)
     tool_path = write_tool_comparison(summary, results_dir)
-    spatial_path = write_spatial_hotspots(manifest, results_dir)
+    spatial_dataset_ids = set(run_rows["dataset_id"].astype(str).tolist()) if args.dataset_id else None
+    spatial_path = write_spatial_hotspots(manifest, results_dir, dataset_ids=spatial_dataset_ids)
 
     print(f"wrote {component_path.resolve()}")
     print(f"wrote {summary_path.resolve()}")

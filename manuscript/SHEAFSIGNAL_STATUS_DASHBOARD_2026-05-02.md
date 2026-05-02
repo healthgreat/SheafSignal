@@ -16,7 +16,7 @@ An external beta-review packet is now generated for other AI systems or computat
 
 The 10,000-permutation confirmatory subset is now pre-specified for the smallest GSE154778 manuscript-relevant tests. It has a fixed command plan, but the 10,000-permutation execution itself remains pending and should not be described as completed evidence.
 
-GSE103322 is now audited as an exploratory HNSCC workflow replication with 5,902 cells, 103 samples, and 21 patients. It is useful for generality framing, but not yet supplement-grade statistical replication because the current run used 100 unstratified permutations.
+GSE103322 is now upgraded to a supplement-grade HNSCC workflow replication gate with 5,902 cells, 103 samples, 21 patients, and 1,000 sample-stratified permutations. It supports workflow generality and descriptive graph-component stability, but it remains outside primary comparator-completeness claims.
 
 ## Fast Decision Board
 
@@ -39,7 +39,7 @@ GSE103322 is now audited as an exploratory HNSCC workflow replication with 5,902
 | Journal metric audit | Green/Yellow | Publisher JIF values are anchored to official metric pages; CAS/warning status is not officially verified yet | Recheck selected journal in official CAS/warning sources on submission day |
 | External beta review packet | Green/Yellow | Reviewer packet, evidence index, AI review prompt, and response form are generated locally | Send to 2-3 independent reviewers or AI systems and file returned critiques |
 | 10,000 permutation subset | Green/Yellow | Confirmatory target tests and run command are pre-specified; execution not yet run | Run in WSL with tmux/nohup if final reviewers require higher p-value resolution |
-| GSE103322 replication | Yellow | Independent HNSCC workflow replication is audited, but current 100 unstratified permutations are exploratory | Rerun with 1000 sample-stratified permutations before supplement-grade claims |
+| GSE103322 replication | Green/Yellow | Independent HNSCC workflow replication now has 1000 sample-stratified permutations | Keep as supplement-grade generality evidence, not primary comparator-completeness evidence |
 | Submission | Red/Yellow | Not ready to submit | Clear the red and yellow submission blockers first |
 
 ## Gantt View
@@ -67,6 +67,7 @@ gantt
     Local Git freeze commit                      :done, 2026-05-02, 1d
     10000-permutation subset pre-specification    :done, 2026-05-02, 1d
     GSE103322 exploratory replication gate        :done, 2026-05-02, 1d
+    GSE103322 1000-permutation rerun             :done, 2026-05-02, 1d
     Public GitHub remote/tag/release URL         :2026-05-11, 1d
     Zenodo DOI minting                           :2026-05-12, 1d
     Final clean-clone submission preflight       :2026-05-13, 2d

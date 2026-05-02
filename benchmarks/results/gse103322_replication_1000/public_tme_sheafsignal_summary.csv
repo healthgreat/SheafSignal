@@ -1,0 +1,2 @@
+dataset_id,modality,disease,status,input_mode,n_edges,n_cell_types,total_sheaf_energy,gradient_ratio,curl_ratio,harmonic_ratio,top_frustration_cell_type,top_frustration_score,n_permutations,permutation_strata_col,permutation_design
+gse103322_hnsc_scrna,scRNA-seq,head and neck squamous cell carcinoma tumor microenvironment,completed,expression_with_permutation,56,8,56.8692857283983,0.9874679098293236,0.0125320901706762,7.100666412634341e-32,Endothelial,0.2492096172482693,1000,sample_id,sample_stratified

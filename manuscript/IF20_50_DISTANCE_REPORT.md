@@ -8,7 +8,7 @@
 - Journal metric audit: `publisher_if_verified_cas_warning_final_check_required`
 - External beta review packet: `packet_ready_external_reviews_pending`
 - 10,000-permutation confirmatory subset: `pre_specified_ready_not_run`
-- GSE103322 replication supplement: `exploratory_ready_rerun_recommended`
+- GSE103322 replication supplement: `supplement_ready`
 - Score boundary: these are internal readiness indices, not acceptance probabilities.
 
 ## Direct Answer
@@ -21,9 +21,9 @@ The external beta-review packet is now a local-ready handoff artifact. That clea
 
 The 10,000-permutation confirmatory subset is now pre-specified and has a fixed command plan. It is still not executed in the current state; therefore it should be described as a ready confirmatory gate, not as completed statistical evidence.
 
-GSE103322 is now audited as an exploratory independent HNSCC workflow replication. It should stay outside main comparator-completeness and biological source claims until a 1000-permutation, sample-stratified supplement rerun is completed.
+GSE103322 has now completed a 1000-permutation, sample-stratified HNSCC replication rerun and can be used as supplement-grade workflow generality evidence. It still should not be used for primary comparator-completeness claims unless full external comparator imports are completed for this dataset.
 
-For a realistic 20-50 IF route, the current package is approximately one release/metadata cycle away from being submit-ready. For a Nature Methods or Nature Biotechnology stretch route, the core package is defensible but would benefit from external beta review, a small 10,000-permutation confirmatory subset, and optionally a fuller GSE103322 replication supplement.
+For a realistic 20-50 IF route, the current package is approximately one release/metadata cycle away from being submit-ready. For a Nature Methods or Nature Biotechnology stretch route, the core package is defensible but would still benefit from external beta review and a small 10,000-permutation confirmatory subset. The GSE103322 HNSCC supplement-grade replication gate is now complete, but it remains outside primary comparator-completeness claims.
 
 ## Current Gap Counts
 
@@ -42,7 +42,7 @@ For a realistic 20-50 IF route, the current package is approximately one release
 ## High-Value Optional Strengthening
 
 - S1. Run the pre-specified 10,000-permutation confirmatory GSE154778 subset if final reviewers require higher p-value resolution. Expected effect: Improves statistical defensibility; still does not promote computational signals into biological mechanisms.
-- S2. Upgrade GSE103322 from exploratory workflow replication to supplement-grade replication by rerunning with 1000 sample-stratified permutations, or keep it outside main comparator claims. Expected effect: Improves 20-50 IF resilience against dataset-specific-artifact criticism.
+- S2. Keep GSE103322 as a supplement-grade HNSCC replication after the 1000 sample-stratified rerun, while keeping it outside primary comparator-completeness claims. Expected effect: Improves 20-50 IF resilience against dataset-specific-artifact criticism.
 - S3. Send the beta-review packet to 2-3 external computational biology readers or independent AI reviewers, then file responses in the review matrix. Expected effect: Improves cover-letter confidence and reduces desk-rejection risk from unclear novelty or reproducibility.
 - S4. Refresh the journal metric audit on the submission day, covering latest JIF source, CAS zone, and warning-journal status for the chosen target. Expected effect: Prevents stale IF/CAS/warning claims in the final submission plan.
 - S5. Keep Visium hotspot-only unless adding deconvolution or histology/pathology annotation. Expected effect: Prevents overclaiming while preserving spatial workflow demonstration value.
@@ -86,7 +86,7 @@ gantt
     10000-permutation subset pre-specification   :done, 2026-05-02, 1d
     10000-permutation confirmatory execution     :2026-05-06, 2d
     GSE103322 exploratory replication gate       :done, 2026-05-02, 1d
-    GSE103322 1000-permutation supplement rerun  :2026-05-06, 3d
+    GSE103322 1000-permutation supplement rerun  :done, 2026-05-02, 1d
     External beta review packet                  :done, 2026-05-02, 1d
     Returned reviews from 2-3 external readers   :2026-05-06, 7d
     Open-web journal metric audit                :done, 2026-05-02, 1d

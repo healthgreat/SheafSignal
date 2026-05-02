@@ -1,6 +1,6 @@
 check_id	status	evidence	required_action
 benchmark_completed	pass	completed	Run SheafSignal benchmark before using GSE103322 as replication.
 metadata_support	pass	n_cells=5902; n_samples=103; n_patients=21	Keep author-derived annotation and sample support visible.
-permutation_grade	warn	min_n_permutations=100; strata=missing_or_unstratified	Rerun with 1000 sample-stratified permutations before treating GSE103322 as supplement-grade statistical replication.
+permutation_grade	pass	min_n_permutations=1000; strata=sample_id_stratified	No rerun needed for the current supplement-grade statistical gate.
 comparator_boundary	pass_with_boundary	LRProductBaseline Spearman=0.24265208475734792; CellChat status=missing_dependency	Keep GSE103322 outside primary comparator-completeness claims unless full CellChat/CellPhoneDB/LIANA/NicheNet imports are completed.
-decision	pass_with_boundary	GSE103322_REPLICATION_EXPLORATORY_READY_RERUN_RECOMMENDED	Use current GSE103322 only as exploratory generality check until rerun.
+decision	pass	GSE103322_REPLICATION_SUPPLEMENT_READY	Use GSE103322 as supplement-grade workflow generality evidence while keeping primary comparator-completeness claims restricted to the primary scRNA datasets.

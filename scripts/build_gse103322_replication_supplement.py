@@ -19,6 +19,10 @@ import pandas as pd
 
 DATASET_ID = "gse103322_hnsc_scrna"
 RESULT_ROOT = Path("benchmarks/results") / DATASET_ID
+RERUN_RESULTS_ROOT = Path("benchmarks/results/gse103322_replication_1000") / DATASET_ID
+RERUN_PUBLIC_SUMMARY_PATH = Path(
+    "benchmarks/results/gse103322_replication_1000/public_tme_sheafsignal_summary.csv"
+)
 PROCESSED_ROOT = Path("data/processed") / DATASET_ID
 OUTPUT_DIR = RESULT_ROOT / "replication"
 
@@ -121,14 +125,37 @@ def _lr_spearman(alignment: pd.DataFrame) -> float | None:
     return float(corr)
 
 
+def _active_result_paths(root: Path) -> dict[str, Path | str]:
+    if (root / RERUN_RESULTS_ROOT / "results/global_permutation_pvalues.csv").exists() and (
+        root / RERUN_RESULTS_ROOT / "results/frustration_permutation_pvalues.csv"
+    ).exists():
+        active_root = RERUN_RESULTS_ROOT
+        public_summary = RERUN_PUBLIC_SUMMARY_PATH
+        source = "gse103322_replication_1000"
+    else:
+        active_root = RESULT_ROOT
+        public_summary = PUBLIC_SUMMARY_PATH
+        source = "benchmarks_results_current"
+    return {
+        "source": source,
+        "result_root": active_root,
+        "public_summary": public_summary,
+        "global_permutation": active_root / "results/global_permutation_pvalues.csv",
+        "node_permutation": active_root / "results/frustration_permutation_pvalues.csv",
+        "edge": active_root / "results/sheaf_energy_by_edge.csv",
+        "lr_alignment": active_root / "comparators/sheafsignal_vs_lr_product_baseline.csv",
+    }
+
+
 def build_summary(root: Path) -> list[dict[str, object]]:
-    public = _read_optional_csv(root / PUBLIC_SUMMARY_PATH)
+    paths = _active_result_paths(root)
+    public = _read_optional_csv(root / Path(str(paths["public_summary"])))
     metadata = _read_optional_csv(root / METADATA_PATH)
     annotation = _read_optional_csv(root / ANNOTATION_SUMMARY_PATH)
-    global_perm = _read_optional_csv(root / GLOBAL_PERMUTATION_PATH)
-    node_perm = _read_optional_csv(root / NODE_PERMUTATION_PATH)
-    edges = _read_optional_csv(root / EDGE_PATH)
-    lr_alignment = _read_optional_csv(root / LR_ALIGNMENT_PATH)
+    global_perm = _read_optional_csv(root / Path(str(paths["global_permutation"])))
+    node_perm = _read_optional_csv(root / Path(str(paths["node_permutation"])))
+    edges = _read_optional_csv(root / Path(str(paths["edge"])))
+    lr_alignment = _read_optional_csv(root / Path(str(paths["lr_alignment"])))
 
     public_row = public.loc[public.get("dataset_id", pd.Series(dtype=str)).astype(str) == DATASET_ID]
     if public_row.empty:
@@ -149,6 +176,7 @@ def build_summary(root: Path) -> list[dict[str, object]]:
     rows = [
         {
             "dataset_id": DATASET_ID,
+            "result_source": paths["source"],
             "benchmark_status": public_values.get("status", "missing_public_summary"),
             "n_cells": int(len(metadata)) if not metadata.empty else 0,
             "n_samples": int(metadata["sample_id"].nunique()) if "sample_id" in metadata.columns else 0,
@@ -194,6 +222,21 @@ def classify_decision(summary: dict[str, object]) -> str:
 def build_readiness_rows(summary: dict[str, object], decision: str) -> list[dict[str, object]]:
     min_perm = int(summary.get("min_n_permutations", 0) or 0)
     strata = str(summary.get("permutation_strata_status", ""))
+    supplement_ready = decision == "GSE103322_REPLICATION_SUPPLEMENT_READY"
+    permutation_action = (
+        "No rerun needed for the current supplement-grade statistical gate."
+        if supplement_ready
+        else (
+            "Rerun with 1000 sample-stratified permutations before treating GSE103322 "
+            "as supplement-grade statistical replication."
+        )
+    )
+    decision_action = (
+        "Use GSE103322 as supplement-grade workflow generality evidence while keeping "
+        "primary comparator-completeness claims restricted to the primary scRNA datasets."
+        if supplement_ready
+        else "Use current GSE103322 only as exploratory generality check until rerun."
+    )
     return [
         {
             "check_id": "benchmark_completed",
@@ -214,10 +257,7 @@ def build_readiness_rows(summary: dict[str, object], decision: str) -> list[dict
             "check_id": "permutation_grade",
             "status": "pass" if min_perm >= 1000 and strata == "sample_id_stratified" else "warn",
             "evidence": f"min_n_permutations={min_perm}; strata={strata}",
-            "required_action": (
-                "Rerun with 1000 sample-stratified permutations before treating GSE103322 "
-                "as supplement-grade statistical replication."
-            ),
+            "required_action": permutation_action,
         },
         {
             "check_id": "comparator_boundary",
@@ -235,7 +275,7 @@ def build_readiness_rows(summary: dict[str, object], decision: str) -> list[dict
             "check_id": "decision",
             "status": "pass_with_boundary" if "EXPLORATORY_READY" in decision else "pass",
             "evidence": decision,
-            "required_action": "Use current GSE103322 only as exploratory generality check until rerun.",
+            "required_action": decision_action,
         },
     ]
 
@@ -300,12 +340,28 @@ def build_commands() -> str:
 
 
 def build_report(summary: dict[str, object], decision: str) -> str:
+    if decision == "GSE103322_REPLICATION_SUPPLEMENT_READY":
+        interpretation = (
+            "GSE103322 can now be used as a supplement-grade HNSCC public-data "
+            "replication for workflow generality and descriptive graph-component "
+            "stability. It still must remain outside primary comparator-completeness "
+            "claims unless full external comparator imports are completed for this dataset."
+        )
+    else:
+        interpretation = (
+            "GSE103322 is useful as an independent HNSCC public-data workflow replication, "
+            "but the current outputs are exploratory. The existing permutation tables use "
+            "100 permutations and are not sample-stratified, even though metadata contains "
+            "sample and patient identifiers. Therefore GSE103322 should not be used for "
+            "main-text biological source claims or primary comparator-completeness claims."
+        )
     return "\n".join(
         [
             "# GSE103322 Replication Supplement Report",
             "",
             f"- Decision: `{decision}`",
             f"- Dataset: `{DATASET_ID}`",
+            f"- Result source: `{summary.get('result_source')}`",
             f"- Cells / samples / patients: `{summary.get('n_cells')}` / "
             f"`{summary.get('n_samples')}` / `{summary.get('n_patients')}`",
             f"- Cell types: `{summary.get('n_cell_types')}`",
@@ -321,18 +377,14 @@ def build_report(summary: dict[str, object], decision: str) -> str:
             "",
             "## Interpretation",
             "",
-            "GSE103322 is useful as an independent HNSCC public-data workflow replication, "
-            "but the current outputs are exploratory. The existing permutation tables use "
-            "100 permutations and are not sample-stratified, even though metadata contains "
-            "sample and patient identifiers. Therefore GSE103322 should not be used for "
-            "main-text biological source claims or primary comparator-completeness claims.",
+            interpretation,
             "",
             "## Required Upgrade For Supplement-Grade Replication",
             "",
-            f"Run `{COMMANDS_PATH.as_posix()}` to regenerate a 1000-permutation, "
-            "sample-stratified GSE103322 supplement candidate. Keep the primary comparator "
+            "If the decision is already `GSE103322_REPLICATION_SUPPLEMENT_READY`, no rerun is "
+            "needed for the current supplement-grade statistical gate. Keep the primary comparator "
             "claim restricted to GSE72056/GSE154778/GSE176078 unless full external comparator "
-            "imports are completed for GSE103322.",
+            f"imports are completed for GSE103322. Otherwise run `{COMMANDS_PATH.as_posix()}`.",
             "",
         ]
     )

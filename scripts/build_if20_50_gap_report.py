@@ -144,9 +144,9 @@ OPTIONAL_STRENGTHENING_ROWS = [
     },
     {
         "priority": "S2",
-        "action": "Upgrade GSE103322 from exploratory workflow replication to supplement-grade replication by rerunning with 1000 sample-stratified permutations, or keep it outside main comparator claims.",
+        "action": "Keep GSE103322 as a supplement-grade HNSCC replication after the 1000 sample-stratified rerun, while keeping it outside primary comparator-completeness claims.",
         "gate_type": "high_impact_strengthening",
-        "why_it_matters": "An extra independent cancer cohort increases generality without forcing a Myeloid-centered mechanism claim; the current GSE103322 output is exploratory because it used 100 unstratified permutations.",
+        "why_it_matters": "An extra independent cancer cohort increases generality without forcing a Myeloid-centered mechanism claim.",
         "expected_effect": "Improves 20-50 IF resilience against dataset-specific-artifact criticism.",
         "estimated_effort": "medium",
         "blocking": "no",
@@ -538,7 +538,7 @@ gantt
     10000-permutation subset pre-specification   :done, 2026-05-02, 1d
     10000-permutation confirmatory execution     :2026-05-06, 2d
     GSE103322 exploratory replication gate       :done, 2026-05-02, 1d
-    GSE103322 1000-permutation supplement rerun  :2026-05-06, 3d
+    GSE103322 1000-permutation supplement rerun  :done, 2026-05-02, 1d
     External beta review packet                  :done, 2026-05-02, 1d
     Returned reviews from 2-3 external readers   :2026-05-06, 7d
     Open-web journal metric audit                :done, 2026-05-02, 1d
@@ -581,6 +581,21 @@ def build_report(
         f"{row['priority']}. {row['action']} Expected effect: {row['expected_effect']}"
         for row in optional
     ]
+    if gse103322_status == "supplement_ready":
+        gse103322_sentence = (
+            "GSE103322 has now completed a 1000-permutation, sample-stratified "
+            "HNSCC replication rerun and can be used as supplement-grade workflow "
+            "generality evidence. It still should not be used for primary "
+            "comparator-completeness claims unless full external comparator imports "
+            "are completed for this dataset."
+        )
+    else:
+        gse103322_sentence = (
+            "GSE103322 is now audited as an exploratory independent HNSCC workflow "
+            "replication. It should stay outside main comparator-completeness and "
+            "biological source claims until a 1000-permutation, sample-stratified "
+            "supplement rerun is completed."
+        )
 
     return "\n".join(
         [
@@ -622,17 +637,15 @@ def build_report(
             "therefore it should be described as a ready confirmatory gate, not as "
             "completed statistical evidence.",
             "",
-            "GSE103322 is now audited as an exploratory independent HNSCC workflow "
-            "replication. It should stay outside main comparator-completeness and "
-            "biological source claims until a 1000-permutation, sample-stratified "
-            "supplement rerun is completed.",
+            gse103322_sentence,
             "",
             "For a realistic 20-50 IF route, the current package is approximately "
             "one release/metadata cycle away from being submit-ready. For a Nature "
             "Methods or Nature Biotechnology stretch route, the core package is "
-            "defensible but would benefit from external beta review, a small "
-            "10,000-permutation confirmatory subset, and optionally a fuller "
-            "GSE103322 replication supplement.",
+            "defensible but would still benefit from external beta review and a "
+            "small 10,000-permutation confirmatory subset. The GSE103322 HNSCC "
+            "supplement-grade replication gate is now complete, but it remains "
+            "outside primary comparator-completeness claims.",
             "",
             "## Current Gap Counts",
             "",
