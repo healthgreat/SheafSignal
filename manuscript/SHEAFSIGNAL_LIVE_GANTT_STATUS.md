@@ -1,6 +1,6 @@
 # SheafSignal Live Gantt Status
 
-- Timestamp: `2026-05-03 07:50:28`
+- Timestamp: `2026-05-03 07:57:14`
 - Decision: `LIVE_STATUS_EXTERNAL_AND_AUTHOR_GATES_BLOCK_SUBMISSION`
 - IF20-50 decision: `IF20_50_SCIENTIFICALLY_HARDENED_EXTERNAL_RELEASE_BLOCKED`
 - Overall readiness: `79.3%`
@@ -47,6 +47,7 @@ gantt
 | `author_contact_reconciliation` | `AUTHOR_CONTACT_RECONCILIATION_BLOCKED_MISSING_EMAIL` | `authors` | `yes` | Provide Han Yan email and confirm whether extra supplied contacts are authors. |
 | `external_beta_reviews` | `EXTERNAL_BETA_REVIEW_NO_RETURNED_REVIEWS` | `user_or_external_reviewers` | `no` | Send shareable bundle, collect returned reviews, and triage them. |
 | `shareable_review_bundle` | `SHAREABLE_REVIEW_BUNDLE_READY` | `codex` | `no` | Use bundle zip for external AI or human review. |
+| `user_action_now_packet` | `USER_ACTION_PACKET_READY_P0_BLOCKERS_REMAIN` | `user_then_codex` | `no` | Use release/USER_ACTION_NOW_PACKET_ZH.md as the short current unblock list. |
 | `journal_submission_day_check` | `JOURNAL_SUBMISSION_DAY_CHECK_TEMPLATE_READY` | `codex_on_submission_day` | `yes` | Fill latest JIF, CAS zone, warning-list status, verifier, and date before submission. |
 
 ## Short Interpretation

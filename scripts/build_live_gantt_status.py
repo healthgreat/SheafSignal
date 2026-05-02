@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import csv
 import re
+import time
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -30,6 +31,7 @@ SHAREABLE_REVIEW_BUNDLE = Path(
 JOURNAL_SUBMISSION_DAY = Path(
     "manuscript/journal_metric_audit/JOURNAL_SUBMISSION_DAY_CHECK_REPORT.md"
 )
+USER_ACTION_PACKET = Path("release/USER_ACTION_NOW_PACKET_ZH.md")
 OUTPUT_REPORT = Path("manuscript/SHEAFSIGNAL_LIVE_GANTT_STATUS.md")
 OUTPUT_TSV = Path("manuscript/SHEAFSIGNAL_LIVE_GANTT_STATUS.tsv")
 
@@ -92,6 +94,7 @@ def build_status_rows(root: Path) -> list[StatusRow]:
     review_text = _read_text(root / EXTERNAL_REVIEW_TRIAGE)
     bundle_text = _read_text(root / SHAREABLE_REVIEW_BUNDLE)
     journal_text = _read_text(root / JOURNAL_SUBMISSION_DAY)
+    action_packet_text = _read_text(root / USER_ACTION_PACKET)
 
     author_counts = _author_counts(author_rows)
     active_release = _active_release_blockers(release_rows)
@@ -146,6 +149,13 @@ def build_status_rows(root: Path) -> list[StatusRow]:
             "Use bundle zip for external AI or human review.",
         ),
         StatusRow(
+            "user_action_now_packet",
+            _decision(action_packet_text) or "not_run",
+            "user_then_codex",
+            "no",
+            "Use release/USER_ACTION_NOW_PACKET_ZH.md as the short current unblock list.",
+        ),
+        StatusRow(
             "journal_submission_day_check",
             _decision(journal_text) or "not_run",
             "codex_on_submission_day",
@@ -173,14 +183,26 @@ def _write_tsv_atomic(path: Path, rows: list[StatusRow]) -> None:
         writer.writeheader()
         for row in rows:
             writer.writerow(row.__dict__)
-    tmp_path.replace(path)
+    _replace_with_retry(tmp_path, path)
 
 
 def _write_text_atomic(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp_path = path.with_suffix(path.suffix + ".tmp")
     tmp_path.write_text(text, encoding="utf-8")
-    tmp_path.replace(path)
+    _replace_with_retry(tmp_path, path)
+
+
+def _replace_with_retry(tmp_path: Path, final_path: Path, retries: int = 5) -> None:
+    """Replace output atomically, tolerating short Windows reader locks."""
+    for attempt in range(retries):
+        try:
+            tmp_path.replace(final_path)
+            return
+        except PermissionError:
+            if attempt == retries - 1:
+                raise
+            time.sleep(0.2 * (attempt + 1))
 
 
 def _gantt() -> str:
