@@ -33,6 +33,9 @@ BETA_REVIEW_PACKET_STATUS_PATH = Path(
     "external_ai_review_packet/beta_review_packet_2026-05-02/"
     "01_BETA_REVIEW_PACKET_STATUS.md"
 )
+EXTERNAL_BETA_REVIEW_TRIAGE_REPORT_PATH = Path(
+    "external_ai_review_packet/EXTERNAL_BETA_REVIEW_TRIAGE_REPORT.md"
+)
 CONFIRMATORY_PERMUTATION_STATUS_PATH = Path(
     "benchmarks/results/confirmatory_10000/CONFIRMATORY_PERMUTATION_STATUS.md"
 )
@@ -471,6 +474,22 @@ def beta_review_packet_status(root: Path) -> str:
     return "unknown"
 
 
+def external_beta_review_triage_status(root: Path) -> str:
+    path = root / EXTERNAL_BETA_REVIEW_TRIAGE_REPORT_PATH
+    if not path.exists():
+        return "not_run"
+    text = path.read_text(encoding="utf-8", errors="replace")
+    if "EXTERNAL_BETA_REVIEW_NO_RETURNED_REVIEWS" in text:
+        return "no_returned_external_reviews"
+    if "EXTERNAL_BETA_REVIEW_TRIAGED_FATAL_OR_REJECT_CONCERNS" in text:
+        return "returned_reviews_with_fatal_concerns"
+    if "EXTERNAL_BETA_REVIEW_TRIAGED_MAJOR_CONCERNS" in text:
+        return "returned_reviews_with_major_concerns"
+    if "EXTERNAL_BETA_REVIEW_TRIAGED_NO_MAJOR_BLOCKERS" in text:
+        return "returned_reviews_no_major_blockers"
+    return "unknown"
+
+
 def confirmatory_permutation_status(root: Path) -> str:
     path = root / CONFIRMATORY_PERMUTATION_STATUS_PATH
     if not path.exists():
@@ -670,6 +689,7 @@ def build_report(
     preflight_status = clean_preflight_status(root)
     journal_audit_status = journal_metric_audit_status(root)
     beta_review_status = beta_review_packet_status(root)
+    beta_triage_status = external_beta_review_triage_status(root)
     confirmatory_status = confirmatory_permutation_status(root)
     gse103322_status = gse103322_replication_status(root)
     hard_blockers = _count_gap_rows(gap_rows, "blocking")
@@ -768,6 +788,7 @@ def build_report(
             f"- Clean-export reproduction preflight: `{preflight_status}`",
             f"- Journal metric audit: `{journal_audit_status}`",
             f"- External beta review packet: `{beta_review_status}`",
+            f"- External beta review triage: `{beta_triage_status}`",
             f"- 10,000-permutation confirmatory subset: `{confirmatory_status}`",
             f"- GSE103322 replication supplement: `{gse103322_status}`",
             f"- Live release blocking gates: `{active_live_blockers}` of "
@@ -842,6 +863,7 @@ def build_report(
             f"- `{JOURNAL_METRIC_AUDIT_PATH.as_posix()}`",
             f"- `{JOURNAL_METRIC_AUDIT_REPORT_PATH.as_posix()}`",
             f"- `{BETA_REVIEW_PACKET_STATUS_PATH.as_posix()}`",
+            f"- `{EXTERNAL_BETA_REVIEW_TRIAGE_REPORT_PATH.as_posix()}`",
             f"- `{CONFIRMATORY_PERMUTATION_STATUS_PATH.as_posix()}`",
             f"- `{GSE103322_REPLICATION_STATUS_PATH.as_posix()}`",
             "",

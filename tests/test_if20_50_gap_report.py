@@ -10,6 +10,7 @@ from scripts.build_if20_50_gap_report import (
     confirmatory_permutation_status,
     gse103322_replication_status,
     live_release_summary,
+    external_beta_review_triage_status,
     journal_metric_audit_status,
     score_gates,
 )
@@ -99,6 +100,7 @@ def test_report_contains_gantt_and_boundary(tmp_path):
     assert "Zenodo DOI" in report
     assert "Journal metric audit" in report
     assert "External beta review packet" in report
+    assert "External beta review triage" in report
     assert "10,000-permutation confirmatory subset" in report
     assert "GSE103322 replication supplement" in report
     assert "Live Release And Author Gates" in report
@@ -182,6 +184,17 @@ def test_beta_review_packet_status_reads_ready_boundary(tmp_path):
     )
 
     assert beta_review_packet_status(tmp_path) == "packet_ready_external_reviews_pending"
+
+
+def test_external_beta_review_triage_status_reads_no_returned_reviews(tmp_path):
+    report = tmp_path / "external_ai_review_packet" / "EXTERNAL_BETA_REVIEW_TRIAGE_REPORT.md"
+    report.parent.mkdir(parents=True, exist_ok=True)
+    report.write_text(
+        "- Decision: `EXTERNAL_BETA_REVIEW_NO_RETURNED_REVIEWS`\n",
+        encoding="utf-8",
+    )
+
+    assert external_beta_review_triage_status(tmp_path) == "no_returned_external_reviews"
 
 
 def test_confirmatory_permutation_status_reads_ready_boundary(tmp_path):

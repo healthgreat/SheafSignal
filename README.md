@@ -57,6 +57,8 @@ journal is not guaranteed. See:
 - `manuscript/method_reporting/METHOD_REPORTING_REPORT.md`
 - `manuscript/submission_upload_package/`
 - `external_ai_review_packet/ROUND2_HARDENING_STATUS_2026-05-02.md`
+- `external_ai_review_packet/EXTERNAL_BETA_REVIEW_TRIAGE_REPORT.md`
+- `external_ai_review_packet/external_beta_review_action_matrix.tsv`
 
 ## Problem
 
@@ -477,6 +479,7 @@ python scripts/build_formal_sci_manuscript.py
 python scripts/build_reference_package.py
 python scripts/build_polished_sci_manuscript_v2.py
 python scripts/build_submission_upload_package.py
+python scripts/triage_external_beta_reviews.py
 python scripts/check_claim_safety.py --report-only
 python scripts/build_zenodo_deposition_package.py
 python scripts/build_submission_unblocker_handoff.py

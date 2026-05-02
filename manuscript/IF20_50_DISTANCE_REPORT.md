@@ -7,6 +7,7 @@
 - Clean-export reproduction preflight: `local_clean_export_pass`
 - Journal metric audit: `publisher_if_verified_cas_warning_final_check_required`
 - External beta review packet: `internal_ai_reviews_triaged_external_human_pending`
+- External beta review triage: `no_returned_external_reviews`
 - 10,000-permutation confirmatory subset: `completed_10000`
 - GSE103322 replication supplement: `supplement_ready`
 - Live release blocking gates: `7` of `7`
@@ -123,6 +124,7 @@ gantt
 - `manuscript/journal_metric_audit/JOURNAL_METRIC_AUDIT.tsv`
 - `manuscript/journal_metric_audit/JOURNAL_METRIC_AUDIT_REPORT.md`
 - `external_ai_review_packet/beta_review_packet_2026-05-02/01_BETA_REVIEW_PACKET_STATUS.md`
+- `external_ai_review_packet/EXTERNAL_BETA_REVIEW_TRIAGE_REPORT.md`
 - `benchmarks/results/confirmatory_10000/CONFIRMATORY_PERMUTATION_STATUS.md`
 - `benchmarks/results/gse103322_hnsc_scrna/replication/GSE103322_REPLICATION_SUPPLEMENT_REPORT.md`
 

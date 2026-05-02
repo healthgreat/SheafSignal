@@ -85,6 +85,9 @@ probabilities.
   DOI finalization, clean-clone, full-test, release-audit, and IF20-50 refresh
   command chain:
   `release/POST_UNBLOCK_RELEASE_PIPELINE_REPORT.md`.
+- An external beta-review triage workflow now converts returned human or
+  external-AI reviews into a severity/action matrix:
+  `external_ai_review_packet/EXTERNAL_BETA_REVIEW_TRIAGE_REPORT.md`.
 
 ## What Is Blocking Submission
 
@@ -202,6 +205,9 @@ insertion, clean-clone tests, final reports, and submission package regeneration
 
 - Returned external beta review from 2-3 independent computational biology
   readers.
+- Returned reviews can now be dropped into
+  `external_ai_review_packet/returned_reviews/` and triaged with
+  `python scripts/triage_external_beta_reviews.py`.
 - A short user-facing tutorial notebook that reproduces the demo and one public
   benchmark subset. Current status: a reviewer quickstart document now covers
   demo, benchmark smoke-test, public download validation, and clean-export
