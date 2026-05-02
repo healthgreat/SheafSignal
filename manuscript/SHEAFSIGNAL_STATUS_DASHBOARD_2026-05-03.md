@@ -1,6 +1,6 @@
 # SheafSignal Status Dashboard
 
-Timestamp: 2026-05-03 00:27:20 +08:00
+Timestamp: 2026-05-03 01:09:28 +08:00
 
 ## Direct Status
 
@@ -13,6 +13,9 @@ Current readiness snapshot:
 - Scientific/method hardening index: 97.0%.
 - Submission infrastructure index: 44.5%.
 - Final local decision: NO_GO for formal submission.
+- Current live blocker: GitHub CLI is installed, but authentication is still
+  blocked because `D:\secrets\github_token.txt` returns GitHub API `HTTP 401:
+  Bad credentials`.
 
 Interpretation boundary: these are internal readiness indices, not acceptance
 probabilities.
@@ -40,7 +43,7 @@ probabilities.
 
 | Blocker | Current status | Why it matters | Owner |
 |---|---|---|---|
-| GitHub public repository | Not logged in, no remote URL | Journals and reviewers need public, citable code | User browser login once; Codex handles push/release |
+| GitHub public repository | GitHub CLI installed, token invalid, no remote URL | Journals and reviewers need public, citable code | User must regenerate token once; Codex handles login/push/release |
 | Zenodo DOI | Not minted | Data/code availability needs a permanent DOI | User Zenodo login/token once; Codex handles metadata insertion |
 | Public clean-clone reproduction | Pending | Local clean export is not enough for final reproducibility | Codex after GitHub/Zenodo identifiers are real |
 | Final journal metric/CAS/warning check | Pending submission-day check | IF, CAS zone, and warning status can change | Codex checks again before submission |
@@ -53,7 +56,8 @@ blocked by external release infrastructure.
 
 Practical distance:
 
-- To a realistic 20-50 IF submission package: one release/metadata cycle away.
+- To a realistic 20-50 IF submission package: one release/metadata cycle away,
+  after a valid GitHub token or browser authorization is completed.
 - To Nature Methods as the primary methods target: technically plausible as a
   stretch submission after GitHub, Zenodo, and clean-clone checks, but still
   high risk.
@@ -97,7 +101,7 @@ gantt
     GitHub CLI portable install                    :done, 2026-05-02, 1d
 
     section Current Submission Blockers
-    GitHub browser authorization                   :crit, active, 2026-05-03, 1d
+    Regenerate valid GitHub token or browser auth  :crit, active, 2026-05-03, 1d
     Public GitHub remote and release tag           :crit, 2026-05-03, 1d
     Zenodo DOI minting                             :crit, 2026-05-04, 1d
     DOI and GitHub URL metadata insertion          :crit, 2026-05-04, 1d
@@ -117,7 +121,8 @@ The user does not need to run bioinformatics code manually. The remaining user
 actions are account/author-confirmation steps that Codex cannot legitimately
 bypass:
 
-1. Complete GitHub browser authorization for GitHub CLI.
+1. Regenerate a valid GitHub token or complete GitHub browser authorization for
+   GitHub CLI.
 2. Provide or approve a public GitHub repository name/owner.
 3. Complete Zenodo login or provide a local token file path outside the repo.
 4. Confirm Han Yan's email, COI, CRediT, funding, and ethics/data-use wording.
@@ -143,3 +148,16 @@ insertion, clean-clone tests, final reports, and submission package regeneration
 SheafSignal should not be submitted today. It is, however, close to a defensible
 20-50 IF submission package once GitHub, Zenodo, and final clean-clone release
 checks are completed.
+
+## Live GitHub Authorization Note
+
+The file `D:\secrets\github_token.txt` exists, but GitHub rejects it with:
+
+```text
+HTTP 401: Bad credentials
+```
+
+This means the token is invalid, expired, revoked, copied incorrectly, or not a
+GitHub personal access token. The token content was not printed or committed.
+Regenerate a new token, overwrite the same file, and rerun the GitHub login
+step.
