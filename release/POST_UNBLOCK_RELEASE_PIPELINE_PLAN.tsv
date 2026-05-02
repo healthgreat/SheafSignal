@@ -1,0 +1,11 @@
+step_id	phase	command	run_by_default	stop_on_failure	purpose
+preflight_external_auth	preflight	python scripts/check_external_release_authorization.py	yes	yes	Verify GitHub token, Zenodo token/archive, and DOI placeholders.
+preflight_author_confirmation	preflight	python scripts/check_author_confirmation_preflight.py	yes	yes	Verify author-owned submission facts are no longer blocking.
+preflight_zenodo_upload	preflight	python scripts/check_zenodo_upload_preflight.py	yes	yes	Verify Zenodo upload archive and metadata match.
+publish_github_release	external_release	python scripts/publish_github_release_after_auth.py --create-release	yes	yes	Push branch/tag and create a GitHub release after workflow scope is present.
+finalize_zenodo_doi	metadata	python scripts/finalize_zenodo_doi.py --doi <REAL_ZENODO_DOI>	yes_if_doi_provided	yes	Write real Zenodo DOI into dataset manifest and Data Availability.
+rebuild_release_files	metadata	python scripts/build_reproducibility_release.py && python scripts/package_release_archives.py	yes	yes	Rebuild release manifests and archives after DOI insertion.
+final_blocker_report	audit	python scripts/check_release_metadata_placeholders.py && python scripts/check_final_submission_blockers.py --report-only	yes	yes	Confirm DOI/GitHub placeholders and final submission blockers are cleared.
+clean_export_preflight	audit	python scripts/run_clean_clone_preflight.py	yes	yes	Run tracked-HEAD clean-export reproduction check.
+full_test_and_release_audit	audit	python -m pytest -q && python scripts/release_audit.py	yes	yes	Run full local tests and sensitive/large-file release audit.
+refresh_distance_report	reporting	python scripts/build_if20_50_gap_report.py && python scripts/build_submission_unblocker_handoff.py	yes	yes	Refresh final IF20-50 distance and handoff reports.

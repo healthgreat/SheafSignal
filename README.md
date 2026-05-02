@@ -39,6 +39,8 @@ journal is not guaranteed. See:
 - `release/RELEASE_UNBLOCKER_MATRIX.tsv`
 - `release/SUBMISSION_UNBLOCKER_HANDOFF_ZH.md`
 - `release/SUBMISSION_UNBLOCKER_HANDOFF_ZH.tsv`
+- `release/POST_UNBLOCK_RELEASE_PIPELINE_REPORT.md`
+- `release/POST_UNBLOCK_RELEASE_PIPELINE_PLAN.tsv`
 - `manuscript/SHEAFSIGNAL_20_50_IF_STATUS_BRIEF_ZH_2026-05-03.md`
 - `manuscript/submission_metadata/AUTHOR_CONFIRMATION_PACKET.md`
 - `manuscript/submission_metadata/AUTHOR_CONFIRMATION_PREFLIGHT_REPORT.md`
@@ -478,6 +480,7 @@ python scripts/build_submission_upload_package.py
 python scripts/check_claim_safety.py --report-only
 python scripts/build_zenodo_deposition_package.py
 python scripts/build_submission_unblocker_handoff.py
+python scripts/build_post_unblock_release_pipeline.py
 python scripts/check_final_submission_blockers.py --report-only
 python scripts/build_submission_readiness_report.py
 ```

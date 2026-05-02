@@ -81,6 +81,10 @@ probabilities.
   author-confirmation, public clean-clone, and submission-day metric gates into
   user/Codex actions:
   `release/SUBMISSION_UNBLOCKER_HANDOFF_ZH.md`.
+- A guarded post-unblock release pipeline now records the exact GitHub release,
+  DOI finalization, clean-clone, full-test, release-audit, and IF20-50 refresh
+  command chain:
+  `release/POST_UNBLOCK_RELEASE_PIPELINE_REPORT.md`.
 
 ## What Is Blocking Submission
 
@@ -188,6 +192,8 @@ bypass:
 5. Use the live handoff checklist at
    `release/SUBMISSION_UNBLOCKER_HANDOFF_ZH.md` to unblock only the items that
    require account or author-team ownership.
+6. After these gates are cleared, Codex can run the guarded post-unblock
+   release pipeline in `release/POST_UNBLOCK_RELEASE_PIPELINE_REPORT.md`.
 
 Codex can handle the rest: pushing, tagging, release metadata updates, DOI
 insertion, clean-clone tests, final reports, and submission package regeneration.

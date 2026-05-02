@@ -189,6 +189,8 @@ def build_report(actions: list[HandoffAction]) -> str:
         "3. 写回真实 Zenodo DOI 和 GitHub release metadata。",
         "4. 从公开 GitHub clean clone，重跑 tests/audits。",
         "5. 重新生成 final GO/NO-GO、IF20-50 distance report 和投稿包。",
+        "6. 运行 guarded post-unblock release pipeline："
+        "`python scripts/build_post_unblock_release_pipeline.py --doi <REAL_ZENODO_DOI> --execute`。",
         "",
         "## Action Table",
         "",
@@ -206,10 +208,27 @@ def build_report(actions: list[HandoffAction]) -> str:
             "",
             "## 20-50 IF 解释边界",
             "",
-            "这些 P0 blocker 清除后，项目才进入正式 20-50 IF submission package 阶段。"
-            "清除它们会提高可复现性和投稿合规性，但不能保证任何期刊接收。",
-            "",
-        ]
+        "这些 P0 blocker 清除后，项目才进入正式 20-50 IF submission package 阶段。"
+        "清除它们会提高可复现性和投稿合规性，但不能保证任何期刊接收。",
+        "",
+        "## 已准备好的自动化链条",
+        "",
+        "- `release/POST_UNBLOCK_RELEASE_PIPELINE_PLAN.tsv`",
+        "- `release/POST_UNBLOCK_RELEASE_PIPELINE_REPORT.md`",
+        "",
+        "默认命令只生成计划，不执行外部发布：",
+        "",
+        "```bash",
+        "python scripts/build_post_unblock_release_pipeline.py",
+        "```",
+        "",
+        "只有 GitHub、Zenodo、作者确认都解除后，才允许显式执行：",
+        "",
+        "```bash",
+        "python scripts/build_post_unblock_release_pipeline.py --doi <REAL_ZENODO_DOI> --execute",
+        "```",
+        "",
+    ]
     )
     return "\n".join(lines)
 
