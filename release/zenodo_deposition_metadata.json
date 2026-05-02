@@ -44,7 +44,7 @@
     "sheaf theory",
     "Hodge decomposition"
   ],
-  "notes": "Zenodo upload file: release/archives/sheafsignal_zenodo_upload.zip. Archive SHA256: e2ad6b3d705788329a420cfc234326b233ea8547a228751ab35c0f934f3c4ede. Manifest files: 40; manifest total size MB: 106.203.",
+  "notes": "Zenodo upload file: release/archives/sheafsignal_zenodo_upload.zip. Archive size MB: 105.300. Archive SHA256: c27421a6b6d12c706ee6d8dc1e61cdc86503c09105711f045f6e244f1aecd163. Manifest files: 45; uncompressed manifest total size MB: 445.122.",
   "related_identifiers": [
     {
       "identifier": "https://github.com/healthgreat/SheafSignal",

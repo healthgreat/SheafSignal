@@ -71,6 +71,7 @@ gantt
 | 公开 GitHub 仓库 | 已创建，push 还没成功 | `https://github.com/healthgreat/SheafSignal` 已存在，`origin` 已配置 |
 | GitHub 自动发布脚本 | 我已完成 | `scripts/publish_github_release_after_auth.py` 会在 token 权限通过后自动 push、tag、创建 release；现在按预期拒绝执行 |
 | GitHub URL metadata | 我已完成 | `CITATION.cff`、`pyproject.toml`、Zenodo metadata 已写入真实仓库 URL；release placeholder 从 12 降到 7，剩下都是 Zenodo DOI |
+| Zenodo metadata/archive 同步 | 我已完成 | Zenodo metadata 已对齐 `release/archives/sheafsignal_zenodo_upload.zip` 的 size、SHA256、文件数和 GitHub URL |
 | Zenodo DOI | 需要你登录或提供 Zenodo token | DOI minting 必须绑定你的 Zenodo 账户 |
 | Han Yan 邮箱、COI、CRediT、funding、ethics wording | 需要作者团队确认 | 这些是作者责任内容，不能由算法自动编造 |
 | public clean-clone reproduction | 我来跑 | 但必须等 GitHub/Zenodo 真实存在后才能跑 |

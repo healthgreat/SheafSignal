@@ -68,6 +68,9 @@ probabilities.
   `pyproject.toml`, and `release/zenodo_deposition_metadata.json`; GitHub URL
   placeholders are now cleared. The remaining release-metadata placeholders are
   Zenodo DOI placeholders.
+- Zenodo deposition metadata now synchronizes with `release/archive_manifest.tsv`:
+  archive size, SHA256, file count, uncompressed manifest size, and the public
+  GitHub URL are aligned before DOI upload.
 
 ## What Is Blocking Submission
 
@@ -138,6 +141,7 @@ gantt
     External authorization health check            :done, 2026-05-03, 1d
     Guarded GitHub release publisher              :done, 2026-05-03, 1d
     GitHub URL metadata finalization               :done, 2026-05-03, 1d
+    Zenodo metadata/archive sync                   :done, 2026-05-03, 1d
 
     section Current Submission Blockers
     Regenerate GitHub token with workflow scope    :crit, active, 2026-05-03, 1d

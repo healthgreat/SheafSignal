@@ -3,17 +3,17 @@
 ## Upload Target
 
 - Upload archive: `release/archives/sheafsignal_zenodo_upload.zip`
-- Archive size: `27.157 MB`
-- Archive SHA256: `e2ad6b3d705788329a420cfc234326b233ea8547a228751ab35c0f934f3c4ede`
+- Archive size: `105.300 MB`
+- Archive SHA256: `c27421a6b6d12c706ee6d8dc1e61cdc86503c09105711f045f6e244f1aecd163`
 - Deposition metadata JSON: `release/zenodo_deposition_metadata.json`
-- Frozen files represented in `release/zenodo_upload_manifest.tsv`: 40
+- Frozen files represented in `release/zenodo_upload_manifest.tsv`: 45
 
 ## Steps
 
 1. Create a new Zenodo deposition for a dataset.
 2. Use the metadata from `release/zenodo_deposition_metadata.json`.
 3. Upload `release/archives/sheafsignal_zenodo_upload.zip`.
-4. Confirm the archive checksum equals `e2ad6b3d705788329a420cfc234326b233ea8547a228751ab35c0f934f3c4ede`.
+4. Confirm the archive checksum equals `c27421a6b6d12c706ee6d8dc1e61cdc86503c09105711f045f6e244f1aecd163`.
 5. Publish the Zenodo record and copy the DOI.
 6. Run:
 

@@ -10,7 +10,7 @@ objects and large generated spatial benchmark tables.
 ## Current Inventory
 
 - GitHub-target files: 633
-- GitHub-target size MB: 30.596
+- GitHub-target size MB: 30.597
 - Zenodo-target files: 45
 - Zenodo-target size MB: 445.122
 

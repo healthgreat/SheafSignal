@@ -33,6 +33,7 @@ def test_build_zenodo_deposition_metadata_uses_archive_manifest():
             {
                 "archive_target": "zenodo",
                 "archive_path": "release/archives/sheafsignal_zenodo_upload.zip",
+                "size_mb": 9.0,
                 "sha256": "a" * 64,
             }
         ]
@@ -42,18 +43,28 @@ def test_build_zenodo_deposition_metadata_uses_archive_manifest():
         base_metadata=base,
         zenodo_manifest=zenodo_manifest,
         archive_manifest=archive_manifest,
+        github_url="https://github.com/healthgreat/SheafSignal",
     )
 
     assert metadata["upload_type"] == "dataset"
     assert metadata["license"] == "cc-by-4.0"
     assert "a" * 64 in metadata["notes"]
+    assert "Archive size MB: 9.000" in metadata["notes"]
     assert "3.500" in metadata["notes"]
+    assert "uncompressed manifest total size MB" in metadata["notes"]
+    assert metadata["related_identifiers"][0]["identifier"] == (
+        "https://github.com/healthgreat/SheafSignal"
+    )
 
 
 def test_zenodo_deposition_package_writes_json_and_instructions(tmp_path):
     script = _load_script("build_zenodo_deposition_package")
     (tmp_path / ".zenodo.json").write_text(
         json.dumps({"title": "SheafSignal", "creators": [{"name": "TBD"}]}),
+        encoding="utf-8",
+    )
+    (tmp_path / "pyproject.toml").write_text(
+        '[project.urls]\nRepository = "https://github.com/healthgreat/SheafSignal"\n',
         encoding="utf-8",
     )
     release = tmp_path / "release"
@@ -78,6 +89,9 @@ def test_zenodo_deposition_package_writes_json_and_instructions(tmp_path):
     assert paths["instructions"].exists()
     metadata = json.loads(paths["metadata"].read_text(encoding="utf-8"))
     assert metadata["title"] == "SheafSignal"
+    assert metadata["related_identifiers"][0]["identifier"] == (
+        "https://github.com/healthgreat/SheafSignal"
+    )
     assert "release/archives/sheafsignal_zenodo_upload.zip" in paths[
         "instructions"
     ].read_text(encoding="utf-8")

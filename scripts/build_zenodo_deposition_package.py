@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 
 import pandas as pd
@@ -40,11 +41,22 @@ def _write_json_atomic(path: Path, payload: dict) -> None:
     tmp_path.replace(path)
 
 
+def infer_repository_url(root: Path) -> str:
+    pyproject = root / "pyproject.toml"
+    if pyproject.exists():
+        text = pyproject.read_text(encoding="utf-8")
+        match = re.search(r'Repository\s*=\s*"([^"]+)"', text)
+        if match:
+            return match.group(1)
+    return "https://github.com/TBD/SheafSignal"
+
+
 def build_deposition_metadata(
     *,
     base_metadata: dict,
     zenodo_manifest: pd.DataFrame,
     archive_manifest: pd.DataFrame,
+    github_url: str = "https://github.com/TBD/SheafSignal",
 ) -> dict:
     archive_row = {}
     if not archive_manifest.empty:
@@ -82,12 +94,13 @@ def build_deposition_metadata(
         ),
         "notes": (
             f"Zenodo upload file: {archive_row.get('archive_path', 'release/archives/sheafsignal_zenodo_upload.zip')}. "
+            f"Archive size MB: {float(archive_row.get('size_mb', 0.0)):.3f}. "
             f"Archive SHA256: {archive_row.get('sha256', 'PENDING_ARCHIVE_SHA256')}. "
-            f"Manifest files: {n_files}; manifest total size MB: {total_mb:.3f}."
+            f"Manifest files: {n_files}; uncompressed manifest total size MB: {total_mb:.3f}."
         ),
         "related_identifiers": [
             {
-                "identifier": "https://github.com/TBD/SheafSignal",
+                "identifier": github_url,
                 "relation": "isSupplementTo",
                 "resource_type": "software",
             }
@@ -154,6 +167,7 @@ def build_package(root: Path, output_dir: Path) -> dict[str, Path]:
         base_metadata=base_metadata,
         zenodo_manifest=zenodo_manifest,
         archive_manifest=archive_manifest,
+        github_url=infer_repository_url(root),
     )
     metadata_path = output_dir / "zenodo_deposition_metadata.json"
     instructions_path = output_dir / "ZENODO_DEPOSITION_INSTRUCTIONS.md"
