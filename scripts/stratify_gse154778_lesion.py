@@ -12,6 +12,7 @@ import _bootstrap  # noqa: F401
 from bootstrap_gse154778_stability import (
     _setup_matplotlib,
     read_selected_expression,
+    resolve_gse154778_processed_dir,
     run_sheafsignal_on_profiles,
     update_figure_manifest,
 )
@@ -264,7 +265,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     dataset_id = args.dataset_id
-    processed_dir = Path(args.processed_dir or f"data/processed/{dataset_id}")
+    processed_dir = resolve_gse154778_processed_dir(dataset_id, args.processed_dir)
     output_dir = Path(args.output_dir or f"benchmarks/results/{dataset_id}/stratified")
     paths = run_stratified_analysis(
         processed_dir=processed_dir,

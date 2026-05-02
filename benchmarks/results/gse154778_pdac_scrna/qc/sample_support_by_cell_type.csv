@@ -1,15 +1,9 @@
 lesion_type,cell_type,n_cells,n_samples,sample_ids,evidence_tier,support_note
-Metastatic,B/Plasma,13,5,MET02;MET03;MET04;MET05;MET06,unsupported,we pre-specified minimum cell/sample support and excluded underpowered categories from biological claims
-Primary,B/Plasma,10,5,P02;P06;P07;P08;P10,unsupported,we pre-specified minimum cell/sample support and excluded underpowered categories from biological claims
 Metastatic,CAF/Fibroblast,2,2,MET03;MET06,unsupported,we pre-specified minimum cell/sample support and excluded underpowered categories from biological claims
-Primary,CAF/Fibroblast,1897,9,P01;P03;P04;P05;P06;P07;P08;P09;P10,adequate,we pre-specified minimum cell/sample support and excluded underpowered categories from biological claims
-Metastatic,Endothelial,13,3,MET02;MET03;MET05,unsupported,we pre-specified minimum cell/sample support and excluded underpowered categories from biological claims
-Primary,Endothelial,86,8,P01;P03;P05;P06;P07;P08;P09;P10,adequate,we pre-specified minimum cell/sample support and excluded underpowered categories from biological claims
-Metastatic,Myeloid,454,6,MET01;MET02;MET03;MET04;MET05;MET06,adequate,we pre-specified minimum cell/sample support and excluded underpowered categories from biological claims
-Primary,Myeloid,1240,10,P01;P02;P03;P04;P05;P06;P07;P08;P09;P10,adequate,we pre-specified minimum cell/sample support and excluded underpowered categories from biological claims
-Metastatic,T/NK,159,5,MET02;MET03;MET04;MET05;MET06,adequate,we pre-specified minimum cell/sample support and excluded underpowered categories from biological claims
-Primary,T/NK,63,7,P01;P02;P05;P06;P07;P08;P10,adequate,we pre-specified minimum cell/sample support and excluded underpowered categories from biological claims
-Metastatic,Tumor/Epithelial,6166,6,MET01;MET02;MET03;MET04;MET05;MET06,adequate,we pre-specified minimum cell/sample support and excluded underpowered categories from biological claims
-Primary,Tumor/Epithelial,4204,10,P01;P02;P03;P04;P05;P06;P07;P08;P09;P10,adequate,we pre-specified minimum cell/sample support and excluded underpowered categories from biological claims
-Metastatic,Unknown,119,6,MET01;MET02;MET03;MET04;MET05;MET06,adequate,we pre-specified minimum cell/sample support and excluded underpowered categories from biological claims
-Primary,Unknown,500,10,P01;P02;P03;P04;P05;P06;P07;P08;P09;P10,adequate,we pre-specified minimum cell/sample support and excluded underpowered categories from biological claims
+Primary,CAF/Fibroblast,2151,10,P01;P02;P03;P04;P05;P06;P07;P08;P09;P10,adequate,we pre-specified minimum cell/sample support and excluded underpowered categories from biological claims
+Metastatic,Myeloid,346,6,MET01;MET02;MET03;MET04;MET05;MET06,adequate,we pre-specified minimum cell/sample support and excluded underpowered categories from biological claims
+Primary,Myeloid,1253,9,P01;P02;P03;P05;P06;P07;P08;P09;P10,adequate,we pre-specified minimum cell/sample support and excluded underpowered categories from biological claims
+Metastatic,T/NK,198,5,MET02;MET03;MET04;MET05;MET06,adequate,we pre-specified minimum cell/sample support and excluded underpowered categories from biological claims
+Primary,T/NK,663,10,P01;P02;P03;P04;P05;P06;P07;P08;P09;P10,adequate,we pre-specified minimum cell/sample support and excluded underpowered categories from biological claims
+Metastatic,Tumor/Epithelial,6380,6,MET01;MET02;MET03;MET04;MET05;MET06,adequate,we pre-specified minimum cell/sample support and excluded underpowered categories from biological claims
+Primary,Tumor/Epithelial,3933,10,P01;P02;P03;P04;P05;P06;P07;P08;P09;P10,adequate,we pre-specified minimum cell/sample support and excluded underpowered categories from biological claims

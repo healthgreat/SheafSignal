@@ -6,7 +6,7 @@
 - Submission infrastructure index: `44.5%`
 - Clean-export reproduction preflight: `local_clean_export_pass`
 - Journal metric audit: `publisher_if_verified_cas_warning_final_check_required`
-- External beta review packet: `packet_ready_external_reviews_pending`
+- External beta review packet: `internal_ai_reviews_triaged_external_human_pending`
 - 10,000-permutation confirmatory subset: `completed_10000`
 - GSE103322 replication supplement: `supplement_ready`
 - Score boundary: these are internal readiness indices, not acceptance probabilities.
@@ -17,7 +17,7 @@ SheafSignal is now close to a defensible 20-50 IF methods-manuscript candidate o
 
 The journal-metric audit now anchors the target board to publisher metric pages, while keeping CAS-zone and warning-journal status as official submission-day checks. This strengthens journal selection discipline but does not remove the GitHub/Zenodo/author-metadata blockers.
 
-The external beta-review packet is now a local-ready handoff artifact. That clears the packaging part of S3, but it does not count as completed external validation until independent reviewers or AI systems return written critiques that are filed in the response matrix.
+Internal multi-agent AI reviews have now been returned and triaged. This reduces stale-objection risk and documents what has been fixed, but it still does not replace independent external human or computational-biology reviewer feedback.
 
 The 10,000-permutation confirmatory subset is now both pre-specified and executed for the smallest GSE154778 manuscript-relevant tests. This improves p-value and FDR resolution for the statistical evidence, but it still must not be used to turn computational Myeloid, curl-like, or edge-level signals into validated biological mechanisms.
 

@@ -12,6 +12,7 @@ import _bootstrap  # noqa: F401
 from bootstrap_gse154778_stability import (
     _setup_matplotlib,
     read_selected_expression,
+    resolve_gse154778_processed_dir,
     run_sheafsignal_on_profiles,
     update_figure_manifest,
 )
@@ -248,7 +249,7 @@ def main(argv: list[str] | None = None) -> int:
 
     dataset_id = args.dataset_id
     paths = run_sample_level(
-        processed_dir=Path(args.processed_dir or f"data/processed/{dataset_id}"),
+        processed_dir=resolve_gse154778_processed_dir(dataset_id, args.processed_dir),
         raw_path=Path(args.raw_path),
         lr_db_path=Path(args.lr_db),
         gene_set_path=Path(args.gene_set),

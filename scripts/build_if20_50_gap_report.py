@@ -456,6 +456,8 @@ def beta_review_packet_status(root: Path) -> str:
     if not path.exists():
         return "not_run"
     text = path.read_text(encoding="utf-8", errors="replace")
+    if "BETA_REVIEW_PACKET_READY_INTERNAL_AI_REVIEWS_TRIAGED_EXTERNAL_HUMAN_REVIEWS_PENDING" in text:
+        return "internal_ai_reviews_triaged_external_human_pending"
     if "BETA_REVIEW_PACKET_READY_LOCAL_EXTERNAL_REVIEWS_PENDING" in text:
         return "packet_ready_external_reviews_pending"
     if "BETA_REVIEW_PACKET_BLOCKED_MISSING_REQUIRED_EVIDENCE" in text:
@@ -619,6 +621,20 @@ def build_report(
             "biological source claims until a 1000-permutation, sample-stratified "
             "supplement rerun is completed."
         )
+    if beta_review_status == "internal_ai_reviews_triaged_external_human_pending":
+        beta_review_sentence = (
+            "Internal multi-agent AI reviews have now been returned and triaged. "
+            "This reduces stale-objection risk and documents what has been fixed, "
+            "but it still does not replace independent external human or "
+            "computational-biology reviewer feedback."
+        )
+    else:
+        beta_review_sentence = (
+            "The external beta-review packet is now a local-ready handoff artifact. "
+            "That clears the packaging part of S3, but it does not count as completed "
+            "external validation until independent reviewers or AI systems return "
+            "written critiques that are filed in the response matrix."
+        )
     if confirmatory_status == "completed_10000":
         confirmatory_sentence = (
             "The 10,000-permutation confirmatory subset is now both pre-specified "
@@ -680,10 +696,7 @@ def build_report(
             "official submission-day checks. This strengthens journal selection "
             "discipline but does not remove the GitHub/Zenodo/author-metadata blockers.",
             "",
-            "The external beta-review packet is now a local-ready handoff artifact. "
-            "That clears the packaging part of S3, but it does not count as completed "
-            "external validation until independent reviewers or AI systems return "
-            "written critiques that are filed in the response matrix.",
+            beta_review_sentence,
             "",
             confirmatory_sentence,
             "",

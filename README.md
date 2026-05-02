@@ -16,8 +16,9 @@ not for clinical decision making.
 This is currently a 20-50 IF methods-manuscript hardening workspace, not a
 submission-ready package. Round 2 hardening completed full GSE154778
 `scanpy_full_v1` reannotation, sample-stratified 1000-permutation benchmarking,
-and formal sheaf residual outputs, but Zenodo/GitHub release remains on hold
-until scientific and statistical blockers are cleared. Acceptance in any
+the pre-specified GSE154778 10,000-permutation confirmatory subset, and formal
+sheaf residual outputs, but Zenodo/GitHub release remains on hold until public
+release metadata, author-owned fields, and DOI blockers are cleared. Acceptance in any
 journal is not guaranteed. See:
 
 - `docs/publication_strategy.md`
@@ -425,9 +426,10 @@ python scripts/build_reviewer_objection_table.py
 ```
 
 Current status: `LRProductBaseline`, full LIANA, `MechanisticTargetPrior`, and
-bounded NicheNet/nichenetr-engine imports are complete for the three public
-scRNA-seq benchmarks. CellChat, CellPhoneDB, and niche-DE remain pending, so
-broad CCC-tool-superiority claims are still out of scope.
+bounded NicheNet/nichenetr-engine, CellPhoneDB, and CellChat imports are
+complete for the three primary public scRNA-seq benchmarks. Demo data, Visium,
+GSE103322, and niche-DE remain outside the primary comparator-completeness
+claim, so broad CCC-tool-superiority claims are still out of scope.
 
 Build the GitHub/Zenodo reproducibility release manifests:
 
@@ -686,11 +688,11 @@ python scripts/bootstrap_gse154778_stability.py --n-bootstraps 100 --random-seed
 ```
 
 For a quick local smoke test, reduce `--n-bootstraps` to 20. The bootstrap is
-performed over cells while keeping the current coarse marker-based annotations
-fixed; it tests computational stability, not independent biological validity.
-In the current 100-bootstrap run, Myeloid remains the top frustration source in
-100/100 resamples, with median frustration score 0.8741 and a 2.5%-97.5%
-bootstrap interval of 0.8273-0.9154.
+performed over cells while keeping the current frozen annotation version fixed;
+it tests computational stability, not independent biological validity. In the
+current 100-bootstrap run on `scanpy_full_v1`, Myeloid remains the top
+frustration source in 100/100 resamples, with median frustration score 0.9176
+and a 2.5%-97.5% bootstrap interval of 0.9110-0.9241.
 
 Stability outputs are written to:
 
@@ -729,11 +731,12 @@ benchmarks/results/gse154778_pdac_scrna/qc/claim_gating_by_cell_type.csv
 benchmarks/results/gse154778_pdac_scrna/qc/myeloid_claim_readiness_summary.csv
 ```
 
-The current claim gate allows only Myeloid as a GSE154778 main-text candidate.
-CAF/Fibroblast, Endothelial, B/Plasma, and Unknown are QC-warning-only because
-at least one lesion stratum is underpowered. Sample-level analysis shows
-heterogeneity, especially in Primary tumors, so the manuscript wording must not
-claim that Myeloid is top in every sample.
+The current claim gate does not allow any GSE154778 cell type to be promoted as
+a validated main-text biological source. Myeloid remains a supplement-level,
+lesion-stratified computational hypothesis, while pooled CAF/Fibroblast
+frustration is QC-warning-only because metastatic support is underpowered.
+Sample-level analysis shows heterogeneity, especially in Primary tumors, so the
+manuscript wording must not claim that any cell type is top in every sample.
 
 Standard benchmark outputs:
 
@@ -749,9 +752,10 @@ The public scRNA-seq/spatial datasets are manifested but not committed. After
 download and dataset-specific preparation, frozen processed matrices should be
 released on Zenodo and linked back through `metadata/datasets.tsv`.
 
-GSE154778 currently uses coarse marker-based annotation. Publication-grade
-analyses should manually inspect marker expression and, if possible, compare
-against author or third-party annotations.
+GSE154778 currently uses the frozen `scanpy_full_v1` annotation and associated
+claim gates. Publication-grade interpretation should still manually inspect
+marker expression and, if possible, compare against author or third-party
+annotations before any biological mechanism language is strengthened.
 
 Recommended release pattern:
 

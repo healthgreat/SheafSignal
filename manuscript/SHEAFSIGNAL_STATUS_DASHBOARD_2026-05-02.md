@@ -1,6 +1,6 @@
 # SheafSignal Status Dashboard
 
-Timestamp: 2026-05-02 21:10:00
+Timestamp: 2026-05-02 22:10:00
 
 ## One-Line Status
 
@@ -12,7 +12,7 @@ The IF 20-50 distance report now gives the most direct status: overall readiness
 
 The journal metric audit is now generated as a separate evidence file. Publisher JIF values are checked against official metric pages, while CAS zone and warning-list status remain final submission-day checks through the official CAS partition platform or the institutional library.
 
-An external beta-review packet is now generated for other AI systems or computational biology readers. This makes S3 review handoff local-ready, but it is not equivalent to completed external review until returned critiques are filed and resolved.
+An external beta-review packet is now generated for other AI systems or computational biology readers. Internal multi-agent AI reviews have been returned and triaged, but this is not equivalent to completed independent human external review until returned critiques from outside the workspace are filed and resolved.
 
 The 10,000-permutation confirmatory subset is now pre-specified and executed for the smallest GSE154778 manuscript-relevant tests. It strengthens p-value and FDR resolution, but it still does not convert computational Myeloid, curl-like, or edge-level signals into validated biological mechanisms.
 
@@ -40,6 +40,7 @@ GSE103322 is now upgraded to a supplement-grade HNSCC workflow replication gate 
 | External beta review packet | Green/Yellow | Reviewer packet, evidence index, AI review prompt, and response form are generated locally | Send to 2-3 independent reviewers or AI systems and file returned critiques |
 | 10,000 permutation subset | Green | Confirmatory target tests are pre-specified and executed | Use as statistical-strengthening evidence only, not mechanism validation |
 | GSE103322 replication | Green/Yellow | Independent HNSCC workflow replication now has 1000 sample-stratified permutations | Keep as supplement-grade generality evidence, not primary comparator-completeness evidence |
+| Returned AI review triage | Green/Yellow | Internal multi-agent AI reviews are filed and stale findings are separated from open blockers | Still seek independent human or outside-lab review before submission |
 | Submission | Red/Yellow | Not ready to submit | Clear the red and yellow submission blockers first |
 
 ## Gantt View
@@ -69,6 +70,7 @@ gantt
     10000-permutation confirmatory execution      :done, 2026-05-02, 1d
     GSE103322 exploratory replication gate        :done, 2026-05-02, 1d
     GSE103322 1000-permutation rerun             :done, 2026-05-02, 1d
+    Internal AI review triage                    :done, 2026-05-02, 1d
     Public GitHub remote/tag/release URL         :2026-05-11, 1d
     Zenodo DOI minting                           :2026-05-12, 1d
     Final clean-clone submission preflight       :2026-05-13, 2d
@@ -114,6 +116,8 @@ gantt
 - `manuscript/IF20_50_DISTANCE_REPORT.md`
 - `manuscript/journal_metric_audit/JOURNAL_METRIC_AUDIT_REPORT.md`
 - `external_ai_review_packet/beta_review_packet_2026-05-02/01_BETA_REVIEW_PACKET_STATUS.md`
+- `external_ai_review_packet/ROUND3_RETURNED_REVIEW_TRIAGE_2026-05-02.md`
+- `external_ai_review_packet/round3_returned_review_triage.tsv`
 - `benchmarks/results/confirmatory_10000/CONFIRMATORY_PERMUTATION_STATUS.md`
 - `benchmarks/results/gse103322_hnsc_scrna/replication/GSE103322_REPLICATION_SUPPLEMENT_REPORT.md`
 - `benchmarks/results/BENCHMARK_RESULT_CONTRACT_REPORT.md`

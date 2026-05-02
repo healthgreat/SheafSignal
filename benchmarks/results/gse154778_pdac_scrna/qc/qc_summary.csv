@@ -1,2 +1,2 @@
 dataset_id,annotation_method,n_cells,n_cell_types,n_unknown_cells,low_margin_fraction_lt_0_05,top_frustration_cell_type,top_frustration_score,interpretation_warning
-gse154778_pdac_scrna,coarse marker-based annotation,14926,7,9,0.0414712582071553,Myeloid,0.8673340294813238,coarse marker-based annotation; Myeloid top frustration source is a computational hypothesis; Unknown and low-margin cells should not be used as strong biological conclusions
+gse154778_pdac_scrna,frozen Scanpy cluster-level marker annotation,14926,4,0,0.06217338871767386,CAF/Fibroblast,0.4305969571078318,frozen Scanpy cluster-level marker annotation; frustration rankings are a computational hypothesis; Unknown and low-margin cells should not be used as strong biological conclusions

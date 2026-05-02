@@ -43,6 +43,15 @@ def _require(path: Path) -> Path:
     return path
 
 
+def resolve_gse154778_processed_dir(dataset_id: str, explicit: str | None) -> Path:
+    if explicit:
+        return Path(explicit)
+    frozen = Path(f"data/processed/{dataset_id}_scanpy_full_v1")
+    if frozen.exists():
+        return frozen
+    return Path(f"data/processed/{dataset_id}")
+
+
 def read_selected_expression(
     *,
     processed_dir: Path,
@@ -300,7 +309,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     dataset_id = args.dataset_id
-    processed_dir = Path(args.processed_dir or f"data/processed/{dataset_id}")
+    processed_dir = resolve_gse154778_processed_dir(dataset_id, args.processed_dir)
     output_dir = Path(args.output_dir or f"benchmarks/results/{dataset_id}/stability")
     paths = run_bootstrap(
         processed_dir=processed_dir,

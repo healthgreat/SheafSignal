@@ -127,15 +127,16 @@ support, sample support, marker confidence and robustness evidence before any
 cell-type-level result could enter the main narrative.
 
 The earlier profile-level and lesion-stratified QC workflow prioritized
-Myeloid under the coarse marker annotation, but the cell-level
-expression-mode permutation run changed the leading computational source to
-CAF/Fibroblast (frustration score 0.309; empirical p=0.0099; BH-FDR=0.069 with
-100 permutations), while Myeloid was lower ranked (frustration score 0.135;
-empirical p=0.089; BH-FDR=0.208). Because CAF/Fibroblast has sparse metastatic
-support in the lesion-stratified gate and Myeloid is not stable across the
-expression-mode sensitivity run, neither cell type is promoted here as a
-validated pancreatic-cancer mechanism. The GSE154778 case is retained as an
-explicit example of why annotation validation, permutation/FDR hardening and
+Myeloid under annotation-aware support criteria, but the pooled expression-mode
+confirmatory run ranked CAF/Fibroblast highest by raw node frustration score
+(frustration score 0.431; empirical p=0.0118; BH-FDR=0.0157 with 10,000
+sample-stratified permutations), while Myeloid had a lower raw score but a
+stronger deviation from its sample-stratified null distribution (frustration
+score 0.185; empirical p=9.999e-05; BH-FDR=0.0002). Because CAF/Fibroblast has
+sparse metastatic support in the lesion-stratified gate and Myeloid is not the
+pooled top-ranked source, neither cell type is promoted here as a validated
+pancreatic-cancer mechanism. The GSE154778 case is retained as an explicit
+example of why annotation validation, permutation/FDR hardening and
 sample-level support must precede biological source claims.
 
 ### Comparator alignment shows complementarity rather than broad superiority

@@ -380,9 +380,12 @@ Visium, GSE103322, or niche-DE are outside the primary comparator claim scope;
 broad CCC-tool-superiority language is still not allowed.
 
 The current full GSE154778 profile benchmark uses 14,926 cells, 51 selected
-marker/LR/pathway genes, and 7 coarse cell types. The strongest current
-frustration signal is Myeloid, which must be treated as a hypothesis until
-marker annotations are manually reviewed.
+marker/LR/pathway genes, and 4 frozen `scanpy_full_v1` cell-type states. The
+10,000-permutation confirmatory run ranks pooled CAF/Fibroblast highest by raw
+node frustration score, but the claim gate keeps CAF/Fibroblast as
+QC-warning-only because metastatic lesion support is sparse. Myeloid remains a
+lesion-stratified supplement-level computational hypothesis, not a main
+biological source claim.
 
 Annotation QC for the GSE154778 hypothesis is generated with:
 

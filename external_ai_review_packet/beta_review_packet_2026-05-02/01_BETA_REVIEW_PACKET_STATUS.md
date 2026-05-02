@@ -1,7 +1,7 @@
 # Beta Review Packet Status
 
-- Decision: `BETA_REVIEW_PACKET_READY_LOCAL_EXTERNAL_REVIEWS_PENDING`
-- Review status: `packet_ready_but_no_external_reviews_returned`
+- Decision: `BETA_REVIEW_PACKET_READY_INTERNAL_AI_REVIEWS_TRIAGED_EXTERNAL_HUMAN_REVIEWS_PENDING`
+- Review status: `internal_ai_reviews_returned_and_triaged; independent_external_human_reviews_pending`
 - Evidence files indexed: `22`
 - Missing indexed evidence files: `0`
 - IF distance decision: `IF20_50_SCIENTIFICALLY_HARDENED_BUT_RELEASE_BLOCKED`
@@ -13,6 +13,11 @@
 Reviewers should judge whether SheafSignal is defensible as a 20-50 IF methods manuscript
 candidate after the stated claim downgrades. They should not judge it as a final submission
 until GitHub, Zenodo DOI, author metadata, and public clean-clone reproduction are complete.
+
+Internal multi-agent AI reviews have now been returned and triaged in
+`external_ai_review_packet/ROUND3_RETURNED_REVIEW_TRIAGE_2026-05-02.md` and
+`external_ai_review_packet/round3_returned_review_triage.tsv`. These reviews
+do not replace independent human or external computational-biology review.
 
 ## Key Questions
 

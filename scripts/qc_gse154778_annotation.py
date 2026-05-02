@@ -9,6 +9,7 @@ from pathlib import Path
 import pandas as pd
 
 import _bootstrap  # noqa: F401
+from bootstrap_gse154778_stability import resolve_gse154778_processed_dir
 from sheafsignal.adapters import GSE154778_MARKERS
 
 
@@ -32,6 +33,18 @@ def _require(path: Path) -> Path:
     if not path.exists():
         raise FileNotFoundError(f"Required GSE154778 QC input is missing: {path}")
     return path
+
+
+def resolve_gse154778_benchmark_dir(dataset_id: str, explicit: str | None) -> Path:
+    if explicit:
+        return Path(explicit)
+    confirmatory = Path("benchmarks/results/confirmatory_10000") / dataset_id
+    if confirmatory.exists():
+        return confirmatory
+    round2 = Path("benchmarks/results/round2_hardening") / dataset_id
+    if round2.exists():
+        return round2
+    return Path("benchmarks/results") / dataset_id
 
 
 def marker_heatmap_table(profiles: pd.DataFrame) -> pd.DataFrame:
@@ -304,15 +317,17 @@ def run_qc(
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--processed-dir", default="data/processed/gse154778_pdac_scrna")
-    parser.add_argument("--benchmark-dir", default="benchmarks/results/gse154778_pdac_scrna")
+    parser.add_argument("--dataset-id", default="gse154778_pdac_scrna")
+    parser.add_argument("--processed-dir", default=None)
+    parser.add_argument("--benchmark-dir", default=None)
     parser.add_argument("--output-dir", default="benchmarks/results/gse154778_pdac_scrna/qc")
     parser.add_argument("--manifest-out", default="manuscript/figure_manifest.tsv")
     args = parser.parse_args(argv)
+    dataset_id = args.dataset_id
 
     paths = run_qc(
-        processed_dir=Path(args.processed_dir),
-        benchmark_dir=Path(args.benchmark_dir),
+        processed_dir=resolve_gse154778_processed_dir(dataset_id, args.processed_dir),
+        benchmark_dir=resolve_gse154778_benchmark_dir(dataset_id, args.benchmark_dir),
         output_dir=Path(args.output_dir),
         manifest_out=Path(args.manifest_out),
     )

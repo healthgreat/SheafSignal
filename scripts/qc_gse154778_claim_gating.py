@@ -9,7 +9,7 @@ from pathlib import Path
 import pandas as pd
 
 import _bootstrap  # noqa: F401
-from bootstrap_gse154778_stability import update_figure_manifest
+from bootstrap_gse154778_stability import resolve_gse154778_processed_dir, update_figure_manifest
 from sheafsignal.adapters import GSE154778_MARKERS
 
 
@@ -22,6 +22,26 @@ MYELOID_CLAIM_SENTENCE = (
     "computational hypothesis, but it is not promoted as a standalone main "
     "biological claim after expression-mode permutation/FDR hardening."
 )
+
+
+def resolve_permutation_node_path(dataset_id: str, qc_dir: Path) -> Path:
+    confirmatory = (
+        Path("benchmarks/results/confirmatory_10000")
+        / dataset_id
+        / "results"
+        / "frustration_permutation_pvalues.csv"
+    )
+    if confirmatory.exists():
+        return confirmatory
+    round2 = (
+        Path("benchmarks/results/round2_hardening")
+        / dataset_id
+        / "results"
+        / "frustration_permutation_pvalues.csv"
+    )
+    if round2.exists():
+        return round2
+    return qc_dir.parent / "results" / "frustration_permutation_pvalues.csv"
 
 
 def evidence_tier(n_cells: int, n_samples: int) -> str:
@@ -309,6 +329,7 @@ def run_claim_gating(
     stratified_dir: Path,
     stability_dir: Path,
     figure_manifest: Path,
+    dataset_id: str = "gse154778_pdac_scrna",
 ) -> dict[str, Path]:
     metadata = pd.read_csv(processed_dir / "metadata.csv")
     annotation_confidence = pd.read_csv(qc_dir / "annotation_confidence.csv")
@@ -318,7 +339,7 @@ def run_claim_gating(
     bootstrap_summary = pd.read_csv(stability_dir / "bootstrap_frustration_summary.csv")
     sample_level_path = stability_dir / "sample_level_myeloid_stability_summary.csv"
     sample_level_summary = pd.read_csv(sample_level_path) if sample_level_path.exists() else None
-    permutation_path = qc_dir.parent / "results" / "frustration_permutation_pvalues.csv"
+    permutation_path = resolve_permutation_node_path(dataset_id, qc_dir)
     permutation_node_scores = pd.read_csv(permutation_path) if permutation_path.exists() else None
 
     support, gating, readiness = build_claim_gating(
@@ -369,11 +390,12 @@ def main(argv: list[str] | None = None) -> int:
     dataset_id = args.dataset_id
     qc_dir = Path(args.qc_dir or f"benchmarks/results/{dataset_id}/qc")
     paths = run_claim_gating(
-        processed_dir=Path(args.processed_dir or f"data/processed/{dataset_id}"),
+        processed_dir=resolve_gse154778_processed_dir(dataset_id, args.processed_dir),
         qc_dir=qc_dir,
         stratified_dir=Path(args.stratified_dir or f"benchmarks/results/{dataset_id}/stratified"),
         stability_dir=Path(args.stability_dir or f"benchmarks/results/{dataset_id}/stability"),
         figure_manifest=Path(args.figure_manifest),
+        dataset_id=dataset_id,
     )
     for path in paths.values():
         print(f"wrote {path.resolve()}")
