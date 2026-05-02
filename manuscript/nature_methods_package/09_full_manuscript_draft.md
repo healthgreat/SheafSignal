@@ -10,28 +10,21 @@ Correspondence: TBD
 
 ## Abstract
 
-Cell-cell communication methods transform transcriptomes into candidate
-ligand-receptor links, but they usually evaluate those links pairwise rather
-than asking whether the resulting tissue-level communication network is
-self-consistent. We present SheafSignal, a computational framework that models
-cell-cell communication as a sheaf-valued flow over a biological graph and
-uses Hodge decomposition to quantify edge-level frustration, directional
-signal, local curl-like structure and global circulation-like graph components.
-Controlled simulations recovered gradient, curl, harmonic and mixed-flow
-components. In public tumor-microenvironment benchmarks spanning melanoma,
-pancreatic cancer, breast cancer single-cell RNA-seq, head and neck cancer
-single-cell RNA-seq and breast Visium data, SheafSignal identified
-context-specific computational rankings rather than a universal source cell
-type. In pancreatic cancer, expression-mode permutation/FDR hardening showed
-that earlier profile-level Myeloid prioritization is annotation- and
-analysis-mode-dependent rather than a standalone biological claim.
-Comparisons with ligand-
-receptor product scoring, LIANA, bounded nichenetr-engine scoring and a
-mechanistic target-prior baseline showed alignment with existing communication
-evidence while preserving a distinct inconsistency-focused readout.
-SheafSignal provides a reproducible route for studying when inferred
-communication is discordant with pathway-state structure, complementing
-existing intensity-focused cell-cell communication tools.
+Cell-cell communication methods transform transcriptomes into ligand-receptor
+links, but they usually evaluate links pairwise rather than testing whether the
+resulting tissue-level communication network is self-consistent. We present
+SheafSignal, a computational framework that models communication as a
+sheaf-valued flow over a biological graph and uses Hodge decomposition to
+quantify edge-level frustration and graph components. Controlled simulations
+recovered gradient, curl, harmonic and mixed-flow structure. Across public
+tumor-microenvironment single-cell and spatial benchmarks, SheafSignal
+identified context-specific computational rankings rather than a universal
+source cell type. In pancreatic cancer, permutation/FDR hardening showed that
+earlier Myeloid prioritization was annotation- and analysis-mode-dependent.
+Comparisons with LR product scoring, LIANA, bounded nichenetr-engine,
+CellPhoneDB, CellChat and mechanistic target-prior baselines supported
+complementarity. SheafSignal provides a reproducible route for studying
+communication inconsistency.
 
 ## Introduction
 

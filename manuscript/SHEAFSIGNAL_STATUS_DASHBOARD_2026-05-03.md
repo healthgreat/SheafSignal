@@ -42,6 +42,9 @@ probabilities.
   adding niche/regression methods and spatial neighborhood/domain methods.
 - Reviewer reproducibility quickstart has been added to separate tracked-file
   demo checks, public-data checks, release audits, and final DOI/GitHub gates.
+- Nature Methods Article formatting audit has been refreshed against official
+  source pages on 2026-05-03; abstract is now 121 words and local format status
+  is `FORMAT_LOCALLY_READY`.
 
 ## What Is Blocking Submission
 
@@ -105,6 +108,7 @@ gantt
     GitHub CLI portable install                    :done, 2026-05-02, 1d
     Novelty overlap expansion                      :done, 2026-05-03, 1d
     Reviewer reproducibility quickstart            :done, 2026-05-03, 1d
+    Nature Methods local official format audit     :done, 2026-05-03, 1d
 
     section Current Submission Blockers
     Regenerate valid GitHub token or browser auth  :crit, active, 2026-05-03, 1d

@@ -1014,8 +1014,9 @@ def build_go_no_go_report(blockers: pd.DataFrame) -> str:
             "## Interpretation Boundary",
             "",
             "This report checks local readiness. It does not guarantee journal acceptance.",
-            "A final submission still requires author metadata, journal-format checking,",
-            "and the Zenodo DOI if listed as blocking.",
+        "A final submission still requires any listed author confirmations,",
+        "submission-day journal-format recheck if delayed, and the Zenodo DOI",
+        "if listed as blocking.",
             "",
         ]
     )

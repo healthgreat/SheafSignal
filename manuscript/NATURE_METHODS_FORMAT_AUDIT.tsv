@@ -1,12 +1,16 @@
 check_id	status	observed	requirement	action
 title_length	pass	59	Nature title target <= 75 characters.	No action.
-abstract_word_count	pass	147	Nature Methods Resource/Analysis abstract <= 150 words.	No action.
-main_text_word_count	pass	1875	Nature Methods Resource/Analysis main text target <= 3000 words.	No action.
-has_results	pass	True	Manuscript contains ## Results.	No action.
-has_discussion	pass	True	Manuscript contains ## Discussion.	No action.
-has_data_availability	pass	True	Manuscript contains ## Data Availability.	No action.
-has_code_availability	pass	True	Manuscript contains ## Code Availability.	No action.
-display_item_count	pass	5	Nature Methods Resource/Analysis display items <= 6.	No action.
+abstract_word_count	pass	121	Nature Methods Article abstract <= 150 words, unreferenced.	No action.
+main_text_word_count	pass	1920	Nature Methods Article main text target <= 3000 words, excluding abstract, Methods, references and figure legends.	No action.
+has_results	pass	True	Manuscript contains ## Results or equivalent Nature Methods Article section.	No action.
+has_discussion	pass	True	Manuscript contains ## Discussion or equivalent Nature Methods Article section.	No action.
+has_methods	pass	True	Manuscript contains ## Methods or equivalent Nature Methods Article section.	No action.
+has_data_availability	pass	True	Manuscript contains ## Data Availability or equivalent Nature Methods Article section.	No action.
+has_code_availability	pass	True	Manuscript contains ## Code Availability or equivalent Nature Methods Article section.	No action.
+display_item_count	pass	5	Nature Methods Article display items <= 6.	No action.
 has_author_metadata_template	pass	True	Required local submission-support file exists: manuscript/submission_metadata/AUTHOR_METADATA_TEMPLATE.tsv.	No action.
 has_competing_interests_template	pass	True	Required local submission-support file exists: manuscript/submission_metadata/COMPETING_INTERESTS_TEMPLATE.md.	No action.
 has_reporting_boundary	pass	True	Required local submission-support file exists: manuscript/nature_methods_package/08_claim_boundaries_and_limitations.md.	No action.
+has_reviewer_quickstart	pass	True	Required local submission-support file exists: docs/reviewer_reproducibility_quickstart.md.	No action.
+has_environment_lock	pass	True	Required local submission-support file exists: envs/requirements-py311-lock.txt.	No action.
+has_release_audit	pass	True	Required local submission-support file exists: release/RELEASE_METADATA_PLACEHOLDER_REPORT.md.	No action.

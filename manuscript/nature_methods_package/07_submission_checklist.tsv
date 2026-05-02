@@ -3,6 +3,6 @@ Zenodo DOI minted	blocking_pending	Upload release/archives/sheafsignal_zenodo_up
 GitHub repository public release	pending	Use release/archives/sheafsignal_github_release.zip or tracked repository contents.
 All tests pass	complete_current_run	Run python -m pytest before final submission.
 Release audit passes	complete_current_run	Run python scripts/release_audit.py before final submission.
-Nature Methods formatting checked	pending_submission_day_check	Check current official author instructions before upload.
+Nature Methods formatting checked	local_official_check_complete	Official Nature Methods content type, reporting standards and code guidance checked on 2026-05-03; recheck on submission day if delayed.
 No overclaiming	required	Use 05_claim_evidence_map.tsv and 08_claim_boundaries_and_limitations.md.
 Conflict of interest and author contributions	draft_filled_needs_author_confirmation	Author-provided draft metadata has been filled; corresponding authors must confirm before journal upload.

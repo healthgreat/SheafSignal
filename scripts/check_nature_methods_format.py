@@ -20,6 +20,14 @@ TITLE_MAX_CHARS = 75
 ABSTRACT_MAX_WORDS = 150
 MAIN_TEXT_MAX_WORDS = 3000
 DISPLAY_ITEM_MAX = 6
+OFFICIAL_SOURCE_ACCESSED_DATE = "2026-05-03"
+NATURE_METHODS_CONTENT_URL = "https://www.nature.com/nmeth/content"
+NATURE_METHODS_REPORTING_URL = (
+    "https://www.nature.com/nmeth/editorial-policies/reporting-standards"
+)
+NATURE_CODE_GUIDELINES_URL = (
+    "https://media.nature.com/full/nature-cms/documents/GuidelinesCodePublication.pdf"
+)
 
 
 def _read_text(path: Path) -> str:
@@ -105,7 +113,7 @@ def build_format_audit(root: Path) -> pd.DataFrame:
         check_id="abstract_word_count",
         status="pass" if 0 < abstract_words <= ABSTRACT_MAX_WORDS else "format_issue",
         observed=abstract_words,
-        requirement=f"Nature Methods Resource/Analysis abstract <= {ABSTRACT_MAX_WORDS} words.",
+        requirement=f"Nature Methods Article abstract <= {ABSTRACT_MAX_WORDS} words, unreferenced.",
         action="Shorten abstract to <=150 words." if abstract_words > ABSTRACT_MAX_WORDS else "No action.",
     )
 
@@ -121,13 +129,14 @@ def build_format_audit(root: Path) -> pd.DataFrame:
         check_id="main_text_word_count",
         status="pass" if 0 < main_words <= MAIN_TEXT_MAX_WORDS else "format_issue",
         observed=main_words,
-        requirement=f"Nature Methods Resource/Analysis main text target <= {MAIN_TEXT_MAX_WORDS} words.",
+        requirement=f"Nature Methods Article main text target <= {MAIN_TEXT_MAX_WORDS} words, excluding abstract, Methods, references and figure legends.",
         action="Shorten main text." if main_words > MAIN_TEXT_MAX_WORDS else "No action.",
     )
 
     for check_id, phrase, action in [
         ("has_results", "## Results", "Add Results section."),
         ("has_discussion", "## Discussion", "Add Discussion section."),
+        ("has_methods", "## Methods", "Add Methods or Online Methods section."),
         ("has_data_availability", "## Data Availability", "Add a separate Data Availability section."),
         ("has_code_availability", "## Code Availability", "Add a separate Code Availability section."),
     ]:
@@ -137,7 +146,7 @@ def build_format_audit(root: Path) -> pd.DataFrame:
             check_id=check_id,
             status="pass" if present else "format_issue",
             observed=present,
-            requirement=f"Manuscript contains {phrase}.",
+            requirement=f"Manuscript contains {phrase} or equivalent Nature Methods Article section.",
             action="No action." if present else action,
         )
 
@@ -151,7 +160,7 @@ def build_format_audit(root: Path) -> pd.DataFrame:
         check_id="display_item_count",
         status="pass" if 0 < display_items <= DISPLAY_ITEM_MAX else "format_issue",
         observed=display_items,
-        requirement=f"Nature Methods Resource/Analysis display items <= {DISPLAY_ITEM_MAX}.",
+        requirement=f"Nature Methods Article display items <= {DISPLAY_ITEM_MAX}.",
         action="Reduce planned main display items." if display_items > DISPLAY_ITEM_MAX else "No action.",
     )
 
@@ -170,6 +179,21 @@ def build_format_audit(root: Path) -> pd.DataFrame:
             "has_reporting_boundary",
             "manuscript/nature_methods_package/08_claim_boundaries_and_limitations.md",
             "Generate claim-boundary file.",
+        ),
+        (
+            "has_reviewer_quickstart",
+            "docs/reviewer_reproducibility_quickstart.md",
+            "Add reviewer-facing software/test-data reproduction instructions.",
+        ),
+        (
+            "has_environment_lock",
+            "envs/requirements-py311-lock.txt",
+            "Generate pinned Python dependency lock for reproducibility.",
+        ),
+        (
+            "has_release_audit",
+            "release/RELEASE_METADATA_PLACEHOLDER_REPORT.md",
+            "Run release metadata placeholder audit.",
         ),
     ]:
         exists = (root / rel).exists()
@@ -193,6 +217,7 @@ def build_report(audit: pd.DataFrame) -> str:
         "",
         f"Decision: `{decision}`",
         "",
+        f"- Official source check date: `{OFFICIAL_SOURCE_ACCESSED_DATE}`",
         f"- Checks passed: {int((audit['status'] == 'pass').sum())}",
         f"- Format issues: {len(issues)}",
         "",
@@ -212,10 +237,15 @@ def build_report(audit: pd.DataFrame) -> str:
             "",
             "## Source Basis",
             "",
-            "- Nature Methods content-type guidance: Resource/Analysis abstract up to 150 words, main text around 3,000 words, and up to 6 display items.",
-            "- Nature Portfolio formatting guidance: include Methods plus separate Data Availability and Code Availability statements.",
+            f"- Nature Methods content-type guidance ({NATURE_METHODS_CONTENT_URL}): Article is the correct method/tool article type, with abstract up to 150 words, main text around 3,000 words, up to 6 display items, and Introduction/Results/Discussion/Online Methods organization.",
+            f"- Nature Methods reporting standards ({NATURE_METHODS_REPORTING_URL}): research articles require transparent reporting and availability of data, materials, code and protocols; data availability statements must cover the minimum dataset needed to interpret, verify and extend the work.",
+            f"- Nature Portfolio code-publication guidance ({NATURE_CODE_GUIDELINES_URL}): software papers should describe operations, dependencies, test data, reproducible test results, code availability, license, versioned repository, and DOI or unique identifier.",
             "",
-            "This audit is a local pre-submission check and does not guarantee acceptance.",
+            "## Submission-Day Boundary",
+            "",
+            "- This audit is a local pre-submission check and does not guarantee acceptance.",
+            "- Recheck current Nature Methods author instructions on submission day.",
+            "- The current project remains blocked until public GitHub release URL and Zenodo DOI are real.",
         ]
     )
     return "\n".join(lines) + "\n"

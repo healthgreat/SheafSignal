@@ -3,8 +3,8 @@
 Decision: `NO_GO`
 
 - Blocking items: 3
-- Pending non-blocking items: 2
-- Passed checks: 120
+- Pending non-blocking items: 1
+- Passed checks: 121
 
 ## Blocking Items
 
@@ -15,10 +15,10 @@ Decision: `NO_GO`
 ## Pending Items
 
 - `checklist::GitHub repository public release`: pending. Action: Use release/archives/sheafsignal_github_release.zip or tracked repository contents.
-- `checklist::Nature Methods formatting checked`: pending_submission_day_check. Action: Check current official author instructions before upload.
 
 ## Interpretation Boundary
 
 This report checks local readiness. It does not guarantee journal acceptance.
-A final submission still requires author metadata, journal-format checking,
-and the Zenodo DOI if listed as blocking.
+A final submission still requires any listed author confirmations,
+submission-day journal-format recheck if delayed, and the Zenodo DOI
+if listed as blocking.
