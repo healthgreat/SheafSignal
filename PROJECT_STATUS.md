@@ -74,6 +74,7 @@ Can ligand-receptor communication be reframed as sheaf-valued flow over a cell-t
 - Zenodo API upload automation is implemented in `scripts/upload_zenodo_deposition.py`; it supports dry-run, draft upload, and explicit publish/finalization while refusing unsafe `TBD` metadata for publication.
 - Python environment locking is implemented by `scripts/build_environment_lock.py`; the current decision is `ENVIRONMENT_LOCK_PASS` with 216 exact locked requirements and zero warnings under `D:\BioSoft\python\Python311\python.exe`.
 - Release metadata placeholder auditing is implemented by `scripts/check_release_metadata_placeholders.py`; the current decision is `RELEASE_METADATA_BLOCKED_EXTERNAL_IDENTIFIERS`, separating pending GitHub URL, Zenodo DOI, and author-owned fields from code/scientific blockers.
+- IF 20-50 distance reporting is implemented by `scripts/build_if20_50_gap_report.py`; the current decision is `IF20_50_SCIENTIFICALLY_HARDENED_BUT_RELEASE_BLOCKED`, with overall readiness 78.0%, scientific/method hardening 95.1%, and submission infrastructure 44.5%.
 - Method-reporting and reviewer-risk auditing is implemented under `manuscript/method_reporting/`; it checks algorithm primitives, simulation recovery, public dataset manifest completeness, comparator scope, sparse-cell claim gating, Visium sensitivity, figure traceability, references, and release archives.
 - A manuscript-wide claim safety audit is now generated as `manuscript/CLAIM_SAFETY_AUDIT.tsv` and `manuscript/CLAIM_SAFETY_AUDIT_REPORT.md`, scanning all manuscript-facing files for unsupported clinical, therapeutic, guaranteed-publication, broad-superiority, and full-pretrained-NicheNet claims.
 - A formal SCI manuscript v1 is now generated as `manuscript/SCI_MANUSCRIPT_V1.md`, with a claim-tracked companion, title/abstract/keywords file, Nature Methods cover letter draft, and author-side todo list.
@@ -182,6 +183,7 @@ Can ligand-receptor communication be reframed as sheaf-valued flow over a cell-t
 - `release/GITHUB_RELEASE_INSTRUCTIONS.md`
 - `release/GIT_RELEASE_READINESS_REPORT.md`
 - `release/RELEASE_METADATA_PLACEHOLDER_REPORT.md`
+- `manuscript/IF20_50_DISTANCE_REPORT.md`
 - `scripts/build_zenodo_deposition_package.py`
 - `scripts/finalize_zenodo_doi.py`
 - `manuscript/submission_metadata/AUTHOR_METADATA_TEMPLATE.tsv`

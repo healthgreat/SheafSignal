@@ -8,6 +8,8 @@ SheafSignal is now a 20-50 IF manuscript-hardening candidate, not a submission-r
 
 The core scientific blockers have been substantially reduced after Round 2, especially formal sheaf implementation, full GSE154778 reannotation, sample-stratified permutation, claim gating, simulation baseline hardening, manuscript claim-language synchronization, Visium hotspot-only scope gating, primary scRNA comparator-scope locking, Python environment locking, and a local Git freeze commit. The project should still stay in `NO_GO` for submission until the public GitHub remote/tag/release URL and Zenodo DOI are fixed.
 
+The IF 20-50 distance report now gives the most direct status: overall readiness index `78.0%`, scientific/method hardening index `95.1%`, and submission infrastructure index `44.5%`. These are internal readiness indices, not acceptance probabilities.
+
 ## Fast Decision Board
 
 | Area | Status | Direct Meaning | Next Required Action |
@@ -89,6 +91,7 @@ gantt
 - `envs/ENVIRONMENT_LOCK_REPORT.md`
 - `release/GIT_RELEASE_READINESS_REPORT.md`
 - `release/RELEASE_METADATA_PLACEHOLDER_REPORT.md`
+- `manuscript/IF20_50_DISTANCE_REPORT.md`
 - `benchmarks/results/BENCHMARK_RESULT_CONTRACT_REPORT.md`
 - `benchmarks/results/simulation/sheaf_ground_truth_recovery.csv`
 - `manuscript/NATURE_METHODS_GO_NO_GO_REPORT.md`

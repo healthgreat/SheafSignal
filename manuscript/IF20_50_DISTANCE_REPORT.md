@@ -1,0 +1,87 @@
+# SheafSignal IF 20-50 Distance Report
+
+- Decision: `IF20_50_SCIENTIFICALLY_HARDENED_BUT_RELEASE_BLOCKED`
+- Overall readiness index: `78.0%`
+- Scientific/method hardening index: `95.1%`
+- Submission infrastructure index: `44.5%`
+- Score boundary: these are internal readiness indices, not acceptance probabilities.
+
+## Direct Answer
+
+SheafSignal is now close to a defensible 20-50 IF methods-manuscript candidate on the scientific/code side, but it is not submission-ready. The main remaining distance is external release and submission metadata: public GitHub URL/tag, real Zenodo DOI, author metadata, and a final clean-clone reproduction check.
+
+For a realistic 20-50 IF route, the current package is approximately one release/metadata cycle away from being submit-ready. For a Nature Methods or Nature Biotechnology stretch route, the core package is defensible but would benefit from external beta review, a small 10,000-permutation confirmatory subset, and optionally a fuller GSE103322 replication supplement.
+
+## Current Gap Counts
+
+- Blocking gap rows in the matrix: `21`
+- Administrative pending rows: `9`
+- Author-owned metadata rows: `20`
+- Git release warnings: `2`
+
+## Mandatory Before Any 20-50 IF Submission
+
+- M1. Create public GitHub remote, push codex/sheafsignal-hardening-release, create immutable release tag, and write the URL into CITATION.cff, pyproject.toml, .zenodo.json, and release metadata. Expected effect: Turns G11 from yellow to green after tag/release URL is verified.
+- M2. Fill author names, affiliations, ORCIDs when available, CRediT roles, competing interests, corresponding author, and final ethics/data-use wording. Expected effect: Clears author-owned placeholder rows and software citation creator fields.
+- M3. Mint Zenodo DOI only after GitHub URL and author metadata are real, then replace PENDING_ZENODO_RELEASE in metadata/datasets.tsv and Data Availability. Expected effect: Turns G12 from red to green and removes the final blocking DOI rows.
+- M4. Run clean-clone or fresh-worktree reproduction after GitHub and DOI insertion: install locked Python environment, run demo workflow, and regenerate manuscript-facing audits. Expected effect: Converts local reproducibility into external reproducibility evidence.
+
+## High-Value Optional Strengthening
+
+- S1. Run a 10,000-permutation confirmatory pass for the smallest set of manuscript-critical GSE154778/global tests. Expected effect: Improves statistical defensibility; not needed for current descriptive edge claims.
+- S2. Complete GSE103322 as an explicit replication supplement with the same primary scRNA comparator scope, or keep it clearly outside main comparator claims. Expected effect: Improves 20-50 IF resilience against dataset-specific-artifact criticism.
+- S3. Invite 2-3 external computational biology readers to run the clean-clone demo and review the novelty/comparator framing before submission. Expected effect: Improves cover-letter confidence and reduces desk-rejection risk from unclear novelty or reproducibility.
+- S4. Add a journal-day metric audit covering latest JIF source, CAS zone, and warning-journal status for the chosen target. Expected effect: Prevents stale IF/CAS/warning claims in the final submission plan.
+- S5. Keep Visium hotspot-only unless adding deconvolution or histology/pathology annotation. Expected effect: Prevents overclaiming while preserving spatial workflow demonstration value.
+
+## Journal Route Snapshot
+
+- Nature Methods: JIF 32.1, 5-year JIF 51.7, role `primary_methods_target`, fit 5/5.
+- Nature Biotechnology: JIF 41.7, 5-year JIF 59.5, role `stretch_methods_platform_target`, fit 4/5.
+- Molecular Cancer: JIF 33.9, 5-year JIF 35.9, role `cancer_application_route`, fit 3/5.
+- Nature Cancer: JIF 28.5, 5-year JIF 28.6, role `cancer_biology_stretch_route`, fit 3/5.
+- Nature Biomedical Engineering: JIF 26.6, 5-year JIF 30.4, role `engineering_translation_route`, fit 3/5.
+- Nature Machine Intelligence: JIF 23.9, 5-year JIF 31.8, role `computational_algorithm_stretch_route`, fit 2/5.
+- Metric boundary: values are from the local 2024 JIF target board; CAS zone and warning-journal status still require a submission-day audit.
+
+## Gantt Chart
+
+```mermaid
+gantt
+    title SheafSignal 20-50 IF Route: Current Position and Remaining Work
+    dateFormat  YYYY-MM-DD
+
+    section Completed Hardening
+    Formal sheaf implementation                  :done, 2026-05-02, 1d
+    Primary Hodge on sheaf residual              :done, 2026-05-02, 1d
+    Full GSE154778 Scanpy reannotation           :done, 2026-05-02, 1d
+    Sample-stratified statistics and FDR audit   :done, 2026-05-02, 1d
+    Simulation and ablation benchmark            :done, 2026-05-02, 1d
+    Primary scRNA comparator scope gate          :done, 2026-05-02, 1d
+    Claim-language and Visium hotspot gating     :done, 2026-05-02, 1d
+    Python environment lock                      :done, 2026-05-02, 1d
+    Local Git freeze commit                      :done, 2026-05-02, 1d
+
+    section Hard Submission Blockers
+    Public GitHub remote, tag, release URL       :crit, 2026-05-03, 1d
+    Author metadata and CRediT finalization      :crit, 2026-05-03, 1d
+    Zenodo DOI minting and metadata insertion    :crit, 2026-05-04, 1d
+    Clean-clone reproduction preflight           :crit, 2026-05-05, 1d
+
+    section Optional IF 20-50 Strengthening
+    10000-permutation confirmatory subset        :2026-05-06, 2d
+    GSE103322 full replication supplement        :2026-05-06, 3d
+    External beta review by 2-3 groups           :2026-05-06, 7d
+    Journal metric CAS warning audit             :2026-05-08, 1d
+    Presubmission inquiry package refresh        :2026-05-09, 2d
+```
+
+## Files Generated
+
+- `manuscript/IF20_50_GAP_MATRIX.tsv`
+- `manuscript/IF20_50_SUPPLEMENTATION_PLAN.tsv`
+- `manuscript/IF20_50_DISTANCE_REPORT.md`
+
+## Boundary
+
+This report does not guarantee acceptance in any journal. It defines the shortest defensible route to a 20-50 IF submission package and the extra work most likely to reduce reviewer risk.
