@@ -29,6 +29,9 @@ JOURNAL_METRIC_AUDIT_PATH = Path("manuscript/journal_metric_audit/JOURNAL_METRIC
 JOURNAL_METRIC_AUDIT_REPORT_PATH = Path(
     "manuscript/journal_metric_audit/JOURNAL_METRIC_AUDIT_REPORT.md"
 )
+JOURNAL_SUBMISSION_DAY_CHECK_REPORT_PATH = Path(
+    "manuscript/journal_metric_audit/JOURNAL_SUBMISSION_DAY_CHECK_REPORT.md"
+)
 BETA_REVIEW_PACKET_STATUS_PATH = Path(
     "external_ai_review_packet/beta_review_packet_2026-05-02/"
     "01_BETA_REVIEW_PACKET_STATUS.md"
@@ -466,6 +469,24 @@ def journal_metric_audit_status(root: Path) -> str:
     return "unknown"
 
 
+def journal_submission_day_check_status(root: Path) -> str:
+    path = root / JOURNAL_SUBMISSION_DAY_CHECK_REPORT_PATH
+    if not path.exists():
+        return "not_run"
+    text = path.read_text(encoding="utf-8", errors="replace")
+    if "JOURNAL_SUBMISSION_DAY_CHECK_TEMPLATE_READY" in text:
+        return "template_ready"
+    if "JOURNAL_SUBMISSION_DAY_CHECK_READY" in text:
+        return "ready"
+    if "JOURNAL_SUBMISSION_DAY_CHECK_TARGET_BLOCKED" in text:
+        return "target_blocked"
+    if "JOURNAL_SUBMISSION_DAY_CHECK_TARGET_PENDING" in text:
+        return "target_pending"
+    if "JOURNAL_SUBMISSION_DAY_CHECK_APPLIED_NO_TARGET_SELECTED" in text:
+        return "no_target_selected"
+    return "unknown"
+
+
 def beta_review_packet_status(root: Path) -> str:
     path = root / BETA_REVIEW_PACKET_STATUS_PATH
     if not path.exists():
@@ -723,6 +744,7 @@ def build_report(
     author_response_status = author_response_template_status(root)
     preflight_status = clean_preflight_status(root)
     journal_audit_status = journal_metric_audit_status(root)
+    journal_submission_day_status = journal_submission_day_check_status(root)
     beta_review_status = beta_review_packet_status(root)
     beta_triage_status = external_beta_review_triage_status(root)
     review_bundle_status = shareable_review_bundle_status(root)
@@ -823,6 +845,7 @@ def build_report(
             f"- Submission infrastructure index: `{score['submission_infrastructure_percent']}%`",
             f"- Clean-export reproduction preflight: `{preflight_status}`",
             f"- Journal metric audit: `{journal_audit_status}`",
+            f"- Journal submission-day check: `{journal_submission_day_status}`",
             f"- External beta review packet: `{beta_review_status}`",
             f"- External beta review triage: `{beta_triage_status}`",
             f"- Shareable review bundle: `{review_bundle_status}`",
@@ -900,6 +923,7 @@ def build_report(
             f"- `{CLEAN_PREFLIGHT_REPORT_PATH.as_posix()}`",
             f"- `{JOURNAL_METRIC_AUDIT_PATH.as_posix()}`",
             f"- `{JOURNAL_METRIC_AUDIT_REPORT_PATH.as_posix()}`",
+            f"- `{JOURNAL_SUBMISSION_DAY_CHECK_REPORT_PATH.as_posix()}`",
             f"- `{BETA_REVIEW_PACKET_STATUS_PATH.as_posix()}`",
             f"- `{EXTERNAL_BETA_REVIEW_TRIAGE_REPORT_PATH.as_posix()}`",
             f"- `{SHAREABLE_REVIEW_BUNDLE_REPORT_PATH.as_posix()}`",

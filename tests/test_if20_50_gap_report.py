@@ -13,6 +13,7 @@ from scripts.build_if20_50_gap_report import (
     external_beta_review_triage_status,
     shareable_review_bundle_status,
     author_response_template_status,
+    journal_submission_day_check_status,
     journal_metric_audit_status,
     score_gates,
 )
@@ -101,6 +102,7 @@ def test_report_contains_gantt_and_boundary(tmp_path):
     assert "not acceptance probabilities" in report
     assert "Zenodo DOI" in report
     assert "Journal metric audit" in report
+    assert "Journal submission-day check" in report
     assert "External beta review packet" in report
     assert "External beta review triage" in report
     assert "Shareable review bundle" in report
@@ -172,6 +174,22 @@ def test_journal_metric_audit_status_reads_final_check_boundary(tmp_path):
         journal_metric_audit_status(tmp_path)
         == "publisher_if_verified_cas_warning_final_check_required"
     )
+
+
+def test_journal_submission_day_check_status_reads_template_ready(tmp_path):
+    report = (
+        tmp_path
+        / "manuscript"
+        / "journal_metric_audit"
+        / "JOURNAL_SUBMISSION_DAY_CHECK_REPORT.md"
+    )
+    report.parent.mkdir(parents=True, exist_ok=True)
+    report.write_text(
+        "- Decision: `JOURNAL_SUBMISSION_DAY_CHECK_TEMPLATE_READY`\n",
+        encoding="utf-8",
+    )
+
+    assert journal_submission_day_check_status(tmp_path) == "template_ready"
 
 
 def test_beta_review_packet_status_reads_ready_boundary(tmp_path):

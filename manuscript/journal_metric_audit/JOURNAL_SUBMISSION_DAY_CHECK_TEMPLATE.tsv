@@ -1,0 +1,7 @@
+journal	current_route_decision	latest_jif	latest_five_year_jif	official_cas_zone	official_warning_status	verification_date	verifier	source_url_or_note	selected_target	confirmed_for_submission	notes
+Nature Methods	keep_primary	32.1	51.7	fill_official_cas_zone	fill_official_warning_status	YYYY-MM-DD		https://www.nature.com/nature-portfolio/about/journal-metrics	yes_or_no	fill_yes_no	
+Nature Biotechnology	stretch_only	41.7	59.5	fill_official_cas_zone	fill_official_warning_status	YYYY-MM-DD		https://www.nature.com/nbt/journal-impact	yes_or_no	fill_yes_no	
+Molecular Cancer	fallback_if_cancer_story_strengthens	33.9	35.9	fill_official_cas_zone	fill_official_warning_status	YYYY-MM-DD		https://molecular-cancer.biomedcentral.com/	yes_or_no	fill_yes_no	
+Nature Cancer	stretch_only	28.5	28.6	fill_official_cas_zone	fill_official_warning_status	YYYY-MM-DD		https://www.nature.com/natcancer/journal-impact	yes_or_no	fill_yes_no	
+Nature Biomedical Engineering	fallback_only	26.6	30.4	fill_official_cas_zone	fill_official_warning_status	YYYY-MM-DD		https://www.nature.com/natbiomedeng/journal-impact	yes_or_no	fill_yes_no	
+Nature Machine Intelligence	not_recommended_currently	23.9	31.8	fill_official_cas_zone	fill_official_warning_status	YYYY-MM-DD		https://www.nature.com/nature-portfolio/about/journal-metrics	yes_or_no	fill_yes_no	

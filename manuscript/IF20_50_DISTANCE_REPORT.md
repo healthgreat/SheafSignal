@@ -6,6 +6,7 @@
 - Submission infrastructure index: `44.5%`
 - Clean-export reproduction preflight: `local_clean_export_pass`
 - Journal metric audit: `publisher_if_verified_cas_warning_final_check_required`
+- Journal submission-day check: `template_ready`
 - External beta review packet: `internal_ai_reviews_triaged_external_human_pending`
 - External beta review triage: `no_returned_external_reviews`
 - Shareable review bundle: `ready`
@@ -125,6 +126,7 @@ gantt
 - `release/clean_clone_preflight/CLEAN_CLONE_PREFLIGHT_REPORT.md`
 - `manuscript/journal_metric_audit/JOURNAL_METRIC_AUDIT.tsv`
 - `manuscript/journal_metric_audit/JOURNAL_METRIC_AUDIT_REPORT.md`
+- `manuscript/journal_metric_audit/JOURNAL_SUBMISSION_DAY_CHECK_REPORT.md`
 - `external_ai_review_packet/beta_review_packet_2026-05-02/01_BETA_REVIEW_PACKET_STATUS.md`
 - `external_ai_review_packet/EXTERNAL_BETA_REVIEW_TRIAGE_REPORT.md`
 - `external_ai_review_packet/shareable_review_bundle/SHAREABLE_REVIEW_BUNDLE_REPORT.md`

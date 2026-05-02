@@ -92,6 +92,8 @@ probabilities.
   `external_ai_review_packet/EXTERNAL_BETA_REVIEW_TRIAGE_REPORT.md`.
 - A shareable external beta-review bundle is now available for reviewers:
   `external_ai_review_packet/shareable_review_bundle/SHAREABLE_REVIEW_BUNDLE_REPORT.md`.
+- A submission-day journal/CAS/warning-list check template is now available:
+  `manuscript/journal_metric_audit/JOURNAL_SUBMISSION_DAY_CHECK_TEMPLATE.tsv`.
 
 ## What Is Blocking Submission
 
@@ -165,6 +167,7 @@ gantt
     Zenodo metadata/archive sync                   :done, 2026-05-03, 1d
     Zenodo upload preflight                        :done, 2026-05-03, 1d
     Author confirmation preflight                  :done, 2026-05-03, 1d
+    Submission-day journal check template          :done, 2026-05-03, 1d
 
     section Current Submission Blockers
     Regenerate GitHub token with workflow scope    :crit, active, 2026-05-03, 1d
@@ -216,6 +219,9 @@ insertion, clean-clone tests, final reports, and submission package regeneration
   `python scripts/triage_external_beta_reviews.py`.
 - Review materials can be shared from
   `external_ai_review_packet/shareable_review_bundle/sheafsignal_external_beta_review_bundle.zip`.
+- Journal target metrics, CAS zone, and warning-list status can be checked on
+  submission day with
+  `manuscript/journal_metric_audit/JOURNAL_SUBMISSION_DAY_CHECK_TEMPLATE.tsv`.
 - A short user-facing tutorial notebook that reproduces the demo and one public
   benchmark subset. Current status: a reviewer quickstart document now covers
   demo, benchmark smoke-test, public download validation, and clean-export
