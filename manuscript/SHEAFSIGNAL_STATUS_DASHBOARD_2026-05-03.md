@@ -45,6 +45,9 @@ probabilities.
 - Nature Methods Article formatting audit has been refreshed against official
   source pages on 2026-05-03; abstract is now 121 words and local format status
   is `FORMAT_LOCALLY_READY`.
+- Author confirmation packet and checklist have been added for Han Yan email,
+  equal-contribution wording, CRediT, funding, COI, ethics/data-use and
+  GitHub/Zenodo release approval.
 
 ## What Is Blocking Submission
 
@@ -109,6 +112,7 @@ gantt
     Novelty overlap expansion                      :done, 2026-05-03, 1d
     Reviewer reproducibility quickstart            :done, 2026-05-03, 1d
     Nature Methods local official format audit     :done, 2026-05-03, 1d
+    Author confirmation packet                     :done, 2026-05-03, 1d
 
     section Current Submission Blockers
     Regenerate valid GitHub token or browser auth  :crit, active, 2026-05-03, 1d
@@ -136,6 +140,8 @@ bypass:
 2. Provide or approve a public GitHub repository name/owner.
 3. Complete Zenodo login or provide a local token file path outside the repo.
 4. Confirm Han Yan's email, COI, CRediT, funding, and ethics/data-use wording.
+   A dedicated packet is available at
+   `manuscript/submission_metadata/AUTHOR_CONFIRMATION_PACKET.md`.
 
 Codex can handle the rest: pushing, tagging, release metadata updates, DOI
 insertion, clean-clone tests, final reports, and submission package regeneration.
