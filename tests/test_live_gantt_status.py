@@ -52,6 +52,10 @@ def _fixture(root):
         "- Decision: `EXTERNAL_BETA_REVIEW_NO_RETURNED_REVIEWS`\n",
     )
     _write(
+        root / "manuscript" / "submission_metadata" / "AUTHOR_CONTACT_RECONCILIATION_REPORT.md",
+        "- Decision: `AUTHOR_CONTACT_RECONCILIATION_BLOCKED_MISSING_EMAIL`\n",
+    )
+    _write(
         root
         / "external_ai_review_packet"
         / "shareable_review_bundle"
@@ -75,6 +79,7 @@ def test_live_status_rows_detect_blockers(tmp_path):
 
     assert row_map["release_blockers"].status == "1 active"
     assert row_map["author_confirmation"].status == "blocking=1; pending=1"
+    assert row_map["author_contact_reconciliation"].blocking == "yes"
     assert row_map["shareable_review_bundle"].status == "SHAREABLE_REVIEW_BUNDLE_READY"
 
 

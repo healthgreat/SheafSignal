@@ -51,6 +51,8 @@ journal is not guaranteed. See:
 - `manuscript/submission_metadata/AUTHOR_CONFIRMATION_RESPONSE_APPLY_REPORT.md`
 - `manuscript/submission_metadata/AUTHOR_CONFIRMATION_PREFLIGHT_REPORT.md`
 - `manuscript/submission_metadata/AUTHOR_CONFIRMATION_PREFLIGHT_STATUS.tsv`
+- `manuscript/submission_metadata/AUTHOR_CONTACT_RECONCILIATION_REPORT.md`
+- `manuscript/submission_metadata/AUTHOR_CONTACT_RECONCILIATION.tsv`
 - `manuscript/SCI20_50_ACTION_BOARD.md`
 - `manuscript/JOURNAL_TARGETS_20_50.tsv`
 - `manuscript/SUBMISSION_READINESS_REPORT.md`

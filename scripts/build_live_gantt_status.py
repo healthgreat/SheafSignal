@@ -20,6 +20,9 @@ from pathlib import Path
 IF_REPORT = Path("manuscript/IF20_50_DISTANCE_REPORT.md")
 RELEASE_UNBLOCKER = Path("release/RELEASE_UNBLOCKER_MATRIX.tsv")
 AUTHOR_STATUS = Path("manuscript/submission_metadata/AUTHOR_CONFIRMATION_PREFLIGHT_STATUS.tsv")
+AUTHOR_CONTACT_RECONCILIATION = Path(
+    "manuscript/submission_metadata/AUTHOR_CONTACT_RECONCILIATION_REPORT.md"
+)
 EXTERNAL_REVIEW_TRIAGE = Path("external_ai_review_packet/EXTERNAL_BETA_REVIEW_TRIAGE_REPORT.md")
 SHAREABLE_REVIEW_BUNDLE = Path(
     "external_ai_review_packet/shareable_review_bundle/SHAREABLE_REVIEW_BUNDLE_REPORT.md"
@@ -85,6 +88,7 @@ def build_status_rows(root: Path) -> list[StatusRow]:
     if_text = _read_text(root / IF_REPORT)
     release_rows = _read_tsv(root / RELEASE_UNBLOCKER)
     author_rows = _read_tsv(root / AUTHOR_STATUS)
+    contact_text = _read_text(root / AUTHOR_CONTACT_RECONCILIATION)
     review_text = _read_text(root / EXTERNAL_REVIEW_TRIAGE)
     bundle_text = _read_text(root / SHAREABLE_REVIEW_BUNDLE)
     journal_text = _read_text(root / JOURNAL_SUBMISSION_DAY)
@@ -119,6 +123,13 @@ def build_status_rows(root: Path) -> list[StatusRow]:
             "authors",
             "yes" if author_counts["blocking"] or author_counts["pending"] else "no",
             "Fill AUTHOR_CONFIRMATION_RESPONSE_TEMPLATE.tsv and apply it.",
+        ),
+        StatusRow(
+            "author_contact_reconciliation",
+            _decision(contact_text) or "not_run",
+            "authors",
+            "yes" if "BLOCKED" in (_decision(contact_text) or "") else "no",
+            "Provide Han Yan email and confirm whether extra supplied contacts are authors.",
         ),
         StatusRow(
             "external_beta_reviews",
@@ -189,6 +200,7 @@ gantt
     section Current Blocking Work
     GitHub token workflow scope               :crit, active, 2026-05-03, 1d
     Author facts filled and applied           :crit, active, 2026-05-03, 1d
+    Author contact reconciliation             :crit, active, 2026-05-03, 1d
     Zenodo DOI minted                         :crit, active, 2026-05-04, 1d
     Returned external beta reviews            :active, 2026-05-04, 5d
 
