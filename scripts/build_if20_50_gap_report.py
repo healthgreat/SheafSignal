@@ -40,6 +40,12 @@ GSE103322_REPLICATION_STATUS_PATH = Path(
     "benchmarks/results/gse103322_hnsc_scrna/replication/"
     "GSE103322_REPLICATION_SUPPLEMENT_REPORT.md"
 )
+RELEASE_UNBLOCKER_MATRIX_PATH = Path("release/RELEASE_UNBLOCKER_MATRIX.tsv")
+EXTERNAL_AUTH_STATUS_PATH = Path("release/EXTERNAL_RELEASE_AUTHORIZATION_STATUS.tsv")
+ZENODO_PREFLIGHT_STATUS_PATH = Path("release/ZENODO_UPLOAD_PREFLIGHT_STATUS.tsv")
+AUTHOR_PREFLIGHT_STATUS_PATH = Path(
+    "manuscript/submission_metadata/AUTHOR_CONFIRMATION_PREFLIGHT_STATUS.tsv"
+)
 
 GAP_MATRIX_PATH = Path("manuscript/IF20_50_GAP_MATRIX.tsv")
 SUPPLEMENT_PLAN_PATH = Path("manuscript/IF20_50_SUPPLEMENTATION_PLAN.tsv")
@@ -499,6 +505,87 @@ def _count_gap_rows(rows: list[dict[str, object]], risk: str) -> int:
     return sum(1 for row in rows if row.get("if20_50_risk") == risk)
 
 
+def _live_release_rows(root: Path) -> list[dict[str, str]]:
+    path = root / RELEASE_UNBLOCKER_MATRIX_PATH
+    if not path.exists():
+        return []
+    table = pd.read_csv(path, sep="\t").fillna("")
+    rows = []
+    for row in table.to_dict(orient="records"):
+        rows.append(
+            {
+                "gate_id": str(row.get("gate_id", "")),
+                "priority": str(row.get("priority", "")),
+                "owner": str(row.get("owner", "")),
+                "current_status": str(row.get("current_status", "")),
+                "required_action": str(row.get("required_action", "")),
+                "validation_command": str(row.get("validation_command", "")),
+            }
+        )
+    return rows
+
+
+def _status_counts(root: Path, path: Path, status_col: str = "status") -> dict[str, int]:
+    full_path = root / path
+    if not full_path.exists():
+        return {}
+    table = pd.read_csv(full_path, sep="\t").fillna("")
+    if status_col not in table.columns:
+        return {}
+    return {
+        str(status): int(count)
+        for status, count in table[status_col].astype(str).value_counts().sort_index().items()
+    }
+
+
+def live_release_summary(root: Path) -> dict[str, object]:
+    live_rows = _live_release_rows(root)
+    blocking_rows = [row for row in live_rows if row["priority"] == "blocking"]
+    active_blocking_rows = [
+        row
+        for row in blocking_rows
+        if row["current_status"]
+        not in {
+            "pass",
+            "passed",
+            "complete",
+            "completed",
+            "public_remote_branch_available",
+            "ready",
+        }
+    ]
+    return {
+        "rows": live_rows,
+        "blocking_total": len(blocking_rows),
+        "blocking_active": len(active_blocking_rows),
+        "external_auth_counts": _status_counts(root, EXTERNAL_AUTH_STATUS_PATH),
+        "zenodo_preflight_counts": _status_counts(root, ZENODO_PREFLIGHT_STATUS_PATH),
+        "author_preflight_counts": _status_counts(root, AUTHOR_PREFLIGHT_STATUS_PATH, "severity"),
+    }
+
+
+def _format_counts(counts: dict[str, int]) -> str:
+    if not counts:
+        return "not_available"
+    return ", ".join(f"{key}={value}" for key, value in counts.items())
+
+
+def _live_release_lines(summary: dict[str, object]) -> list[str]:
+    rows = summary.get("rows", [])
+    if not rows:
+        return ["- Live release unblocker matrix not found; rerun build_release_unblocker_matrix.py."]
+    lines = [
+        "| Gate | Priority | Owner | Current status | Required action |",
+        "|---|---|---|---|---|",
+    ]
+    for row in rows:
+        lines.append(
+            f"| `{row['gate_id']}` | `{row['priority']}` | `{row['owner']}` | "
+            f"`{row['current_status']}` | {row['required_action']} |"
+        )
+    return lines
+
+
 def _target_summary(root: Path) -> list[str]:
     audit_path = root / JOURNAL_METRIC_AUDIT_PATH
     if audit_path.exists():
@@ -579,6 +666,7 @@ def build_report(
     supplement_rows: list[dict[str, str]],
 ) -> str:
     score = score_gates(gates)
+    live_summary = live_release_summary(root)
     preflight_status = clean_preflight_status(root)
     journal_audit_status = journal_metric_audit_status(root)
     beta_review_status = beta_review_packet_status(root)
@@ -589,10 +677,13 @@ def build_report(
     author_metadata = _count_gap_rows(gap_rows, "author_metadata")
     release_warnings = _count_gap_rows(gap_rows, "release_warning")
 
-    if score["overall_percent"] >= 85 and hard_blockers == 0:
+    active_live_blockers = int(live_summary["blocking_active"])
+    if score["overall_percent"] >= 85 and hard_blockers == 0 and active_live_blockers == 0:
         decision = "IF20_50_SUBMISSION_CANDIDATE_AFTER_FINAL_FORMAT_CHECK"
+    elif score["scientific_percent"] >= 85 and active_live_blockers > 0:
+        decision = "IF20_50_SCIENTIFICALLY_HARDENED_EXTERNAL_RELEASE_BLOCKED"
     elif score["scientific_percent"] >= 85:
-        decision = "IF20_50_SCIENTIFICALLY_HARDENED_BUT_RELEASE_BLOCKED"
+        decision = "IF20_50_SCIENTIFICALLY_HARDENED_LOCAL_BLOCKERS_REMAIN"
     else:
         decision = "IF20_50_MAJOR_HARDENING_STILL_REQUIRED"
 
@@ -679,6 +770,14 @@ def build_report(
             f"- External beta review packet: `{beta_review_status}`",
             f"- 10,000-permutation confirmatory subset: `{confirmatory_status}`",
             f"- GSE103322 replication supplement: `{gse103322_status}`",
+            f"- Live release blocking gates: `{active_live_blockers}` of "
+            f"`{live_summary['blocking_total']}`",
+            "- External authorization statuses: "
+            f"`{_format_counts(live_summary['external_auth_counts'])}`",
+            "- Zenodo preflight statuses: "
+            f"`{_format_counts(live_summary['zenodo_preflight_counts'])}`",
+            "- Author confirmation severities: "
+            f"`{_format_counts(live_summary['author_preflight_counts'])}`",
             "- Score boundary: these are internal readiness indices, not acceptance probabilities.",
             "",
             "## Direct Answer",
@@ -717,6 +816,10 @@ def build_report(
             "## Mandatory Before Any 20-50 IF Submission",
             "",
             *[f"- {line}" for line in mandatory_lines],
+            "",
+            "## Live Release And Author Gates",
+            "",
+            *_live_release_lines(live_summary),
             "",
             "## High-Value Optional Strengthening",
             "",

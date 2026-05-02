@@ -9,6 +9,7 @@ from scripts.build_if20_50_gap_report import (
     clean_preflight_status,
     confirmatory_permutation_status,
     gse103322_replication_status,
+    live_release_summary,
     journal_metric_audit_status,
     score_gates,
 )
@@ -100,6 +101,46 @@ def test_report_contains_gantt_and_boundary(tmp_path):
     assert "External beta review packet" in report
     assert "10,000-permutation confirmatory subset" in report
     assert "GSE103322 replication supplement" in report
+    assert "Live Release And Author Gates" in report
+
+
+def test_live_release_summary_reads_unblocker_and_status_counts(tmp_path):
+    release = tmp_path / "release"
+    author = tmp_path / "manuscript" / "submission_metadata"
+    release.mkdir(parents=True)
+    author.mkdir(parents=True)
+    (release / "RELEASE_UNBLOCKER_MATRIX.tsv").write_text(
+        "gate_id\tpriority\towner\tcurrent_status\trequired_action\tvalidation_command\n"
+        "G01_github_auth\tblocking\tuser_then_codex\tvalid_missing_workflow_scope\t"
+        "Regenerate token\tpython scripts/check_external_release_authorization.py\n"
+        "S01_external_beta_review\tstrengthening\tuser_or_codex_packet\t"
+        "recommended_not_required\tSend review packet\tmanual\n",
+        encoding="utf-8",
+    )
+    (release / "EXTERNAL_RELEASE_AUTHORIZATION_STATUS.tsv").write_text(
+        "check_id\tseverity\tstatus\tevidence\trequired_action\tvalidation_command\n"
+        "github_token_api\tblocking\tvalid_missing_workflow_scope\tx\tx\tx\n",
+        encoding="utf-8",
+    )
+    (release / "ZENODO_UPLOAD_PREFLIGHT_STATUS.tsv").write_text(
+        "check_id\tseverity\tstatus\tevidence\trequired_action\n"
+        "zenodo_archive_sha256\tpass\tpass\tx\tNone\n"
+        "zenodo_token_file\tpending\tpending\tx\tx\n",
+        encoding="utf-8",
+    )
+    (author / "AUTHOR_CONFIRMATION_PREFLIGHT_STATUS.tsv").write_text(
+        "item\tseverity\tstatus\tcurrent_value\trequired_confirmation\towner\n"
+        "Han Yan email\tblocking\tblocking_author_confirmation\tmissing\tx\tauthors\n",
+        encoding="utf-8",
+    )
+
+    summary = live_release_summary(tmp_path)
+
+    assert summary["blocking_total"] == 1
+    assert summary["blocking_active"] == 1
+    assert summary["external_auth_counts"] == {"valid_missing_workflow_scope": 1}
+    assert summary["zenodo_preflight_counts"] == {"pass": 1, "pending": 1}
+    assert summary["author_preflight_counts"] == {"blocking": 1}
 
 
 def test_clean_preflight_status_reads_pass_report(tmp_path):

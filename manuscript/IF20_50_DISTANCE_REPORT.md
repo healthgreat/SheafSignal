@@ -1,6 +1,6 @@
 # SheafSignal IF 20-50 Distance Report
 
-- Decision: `IF20_50_SCIENTIFICALLY_HARDENED_BUT_RELEASE_BLOCKED`
+- Decision: `IF20_50_SCIENTIFICALLY_HARDENED_EXTERNAL_RELEASE_BLOCKED`
 - Overall readiness index: `79.3%`
 - Scientific/method hardening index: `97.0%`
 - Submission infrastructure index: `44.5%`
@@ -9,6 +9,10 @@
 - External beta review packet: `internal_ai_reviews_triaged_external_human_pending`
 - 10,000-permutation confirmatory subset: `completed_10000`
 - GSE103322 replication supplement: `supplement_ready`
+- Live release blocking gates: `7` of `7`
+- External authorization statuses: `configured=1, missing=1, not_logged_in=1, not_tested_missing_token=1, pending=1, present=3, valid_missing_workflow_scope=1`
+- Zenodo preflight statuses: `pass=14, pending=2`
+- Author confirmation severities: `blocking=2, optional=1, pending=8`
 - Score boundary: these are internal readiness indices, not acceptance probabilities.
 
 ## Direct Answer
@@ -29,8 +33,8 @@ The GSE103322 HNSCC supplement-grade replication gate is now complete, but it re
 
 ## Current Gap Counts
 
-- Blocking gap rows in the matrix: `21`
-- Administrative pending rows: `2`
+- Blocking gap rows in the matrix: `16`
+- Administrative pending rows: `1`
 - Author-owned metadata rows: `0`
 - Git release warnings: `2`
 
@@ -40,6 +44,20 @@ The GSE103322 HNSCC supplement-grade replication gate is now complete, but it re
 - M2. Fill author names, affiliations, ORCIDs when available, CRediT roles, competing interests, corresponding author, and final ethics/data-use wording. Expected effect: Clears author-owned placeholder rows and software citation creator fields.
 - M3. Mint Zenodo DOI only after GitHub URL and author metadata are real, then replace PENDING_ZENODO_RELEASE in metadata/datasets.tsv and Data Availability. Expected effect: Turns G12 from red to green and removes the final blocking DOI rows.
 - M4. Rerun clean-clone reproduction after GitHub and DOI insertion from the public repository: install locked Python environment, run demo workflow, and regenerate manuscript-facing audits. Expected effect: Converts local clean-export reproducibility into public clean-clone reproducibility evidence.
+
+## Live Release And Author Gates
+
+| Gate | Priority | Owner | Current status | Required action |
+|---|---|---|---|---|
+| `G01_github_auth` | `blocking` | `user_then_codex` | `valid_missing_workflow_scope` | Regenerate a GitHub token with repo and workflow scopes or finish browser login, then let Codex validate auth. |
+| `G02_public_github_repo` | `blocking` | `codex_after_auth` | `origin_configured_push_pending` | Create or connect a public GitHub repository and push the frozen branch. |
+| `G03_release_tag` | `blocking` | `codex_after_github` | `pending` | Create an immutable release tag after final audits pass. |
+| `G04_zenodo_doi` | `blocking` | `user_then_codex` | `blocking_pending` | Upload the frozen archive or provide a Zenodo token, then mint a real DOI. |
+| `G05_metadata_insertion` | `blocking` | `codex_after_doi` | `pending_real_github_url_and_doi` | Insert public GitHub URL and Zenodo DOI into all release and manuscript metadata. |
+| `G06_public_clean_clone` | `blocking` | `codex_after_public_release` | `pending` | Clone the public repository into a fresh directory and rerun demo plus audits. |
+| `G07_author_confirmation` | `blocking` | `authors` | `AUTHOR_CONFIRMATION_BLOCKED` | Confirm corresponding author email, equal-contribution wording, CRediT, funding, COI, ethics/data-use, and release approval. |
+| `S01_external_beta_review` | `strengthening` | `user_or_codex_packet` | `recommended_not_required_for_local_go` | Send the package to 2-3 independent computational biology readers and triage responses. |
+| `S02_submission_day_metric_check` | `strengthening` | `codex` | `pending_submission_day` | Recheck journal metrics, CAS zone, and warning status on the submission day. |
 
 ## High-Value Optional Strengthening
 
