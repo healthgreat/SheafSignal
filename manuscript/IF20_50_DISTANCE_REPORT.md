@@ -15,6 +15,7 @@
 - External authorization statuses: `configured=1, missing=1, not_logged_in=1, not_tested_missing_token=1, pending=1, present=3, valid_missing_workflow_scope=1`
 - Zenodo preflight statuses: `pass=14, pending=2`
 - Author confirmation severities: `blocking=2, optional=1, pending=8`
+- Author response template: `template_ready`
 - Score boundary: these are internal readiness indices, not acceptance probabilities.
 
 ## Direct Answer

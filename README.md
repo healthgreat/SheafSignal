@@ -43,6 +43,8 @@ journal is not guaranteed. See:
 - `release/POST_UNBLOCK_RELEASE_PIPELINE_PLAN.tsv`
 - `manuscript/SHEAFSIGNAL_20_50_IF_STATUS_BRIEF_ZH_2026-05-03.md`
 - `manuscript/submission_metadata/AUTHOR_CONFIRMATION_PACKET.md`
+- `manuscript/submission_metadata/AUTHOR_CONFIRMATION_RESPONSE_TEMPLATE.tsv`
+- `manuscript/submission_metadata/AUTHOR_CONFIRMATION_RESPONSE_APPLY_REPORT.md`
 - `manuscript/submission_metadata/AUTHOR_CONFIRMATION_PREFLIGHT_REPORT.md`
 - `manuscript/submission_metadata/AUTHOR_CONFIRMATION_PREFLIGHT_STATUS.tsv`
 - `manuscript/SCI20_50_ACTION_BOARD.md`
@@ -467,6 +469,7 @@ Build the 20-50 IF journal action board and submission-readiness report:
 python scripts/build_journal_target_board.py
 python scripts/build_nature_methods_submission_package.py
 python scripts/build_submission_metadata_templates.py
+python scripts/apply_author_confirmation_response.py
 python scripts/build_presubmission_inquiry_package.py
 python scripts/build_response_transfer_package.py
 python scripts/build_figure_legend_package.py

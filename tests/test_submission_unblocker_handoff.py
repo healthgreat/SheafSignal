@@ -62,5 +62,6 @@ def test_handoff_report_contains_no_token_secret_and_outputs(tmp_path):
     assert "Do not paste the token" in report
     assert "SUBMISSION_EXTERNAL_ACTIONS_REQUIRED" in report
     assert "build_post_unblock_release_pipeline.py" in report
+    assert "AUTHOR_CONFIRMATION_RESPONSE_TEMPLATE.tsv" in report
     assert outputs["tsv"].exists()
     assert outputs["report"].exists()

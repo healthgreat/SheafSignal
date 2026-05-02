@@ -52,6 +52,9 @@ ZENODO_PREFLIGHT_STATUS_PATH = Path("release/ZENODO_UPLOAD_PREFLIGHT_STATUS.tsv"
 AUTHOR_PREFLIGHT_STATUS_PATH = Path(
     "manuscript/submission_metadata/AUTHOR_CONFIRMATION_PREFLIGHT_STATUS.tsv"
 )
+AUTHOR_RESPONSE_APPLY_REPORT_PATH = Path(
+    "manuscript/submission_metadata/AUTHOR_CONFIRMATION_RESPONSE_APPLY_REPORT.md"
+)
 
 GAP_MATRIX_PATH = Path("manuscript/IF20_50_GAP_MATRIX.tsv")
 SUPPLEMENT_PLAN_PATH = Path("manuscript/IF20_50_SUPPLEMENTATION_PLAN.tsv")
@@ -598,6 +601,22 @@ def live_release_summary(root: Path) -> dict[str, object]:
     }
 
 
+def author_response_template_status(root: Path) -> str:
+    path = root / AUTHOR_RESPONSE_APPLY_REPORT_PATH
+    if not path.exists():
+        return "not_run"
+    text = path.read_text(encoding="utf-8", errors="replace")
+    if "AUTHOR_CONFIRMATION_RESPONSE_TEMPLATE_READY" in text:
+        return "template_ready"
+    if "AUTHOR_CONFIRMATION_RESPONSE_APPLIED_AUTHOR_BLOCKED" in text:
+        return "author_blocked_after_response"
+    if "AUTHOR_CONFIRMATION_RESPONSE_PARTIAL_APPLIED" in text:
+        return "partial_applied"
+    if "AUTHOR_CONFIRMATION_RESPONSE_APPLIED" in text:
+        return "applied"
+    return "unknown"
+
+
 def _format_counts(counts: dict[str, int]) -> str:
     if not counts:
         return "not_available"
@@ -701,6 +720,7 @@ def build_report(
 ) -> str:
     score = score_gates(gates)
     live_summary = live_release_summary(root)
+    author_response_status = author_response_template_status(root)
     preflight_status = clean_preflight_status(root)
     journal_audit_status = journal_metric_audit_status(root)
     beta_review_status = beta_review_packet_status(root)
@@ -816,6 +836,7 @@ def build_report(
             f"`{_format_counts(live_summary['zenodo_preflight_counts'])}`",
             "- Author confirmation severities: "
             f"`{_format_counts(live_summary['author_preflight_counts'])}`",
+            f"- Author response template: `{author_response_status}`",
             "- Score boundary: these are internal readiness indices, not acceptance probabilities.",
             "",
             "## Direct Answer",

@@ -12,6 +12,7 @@ from scripts.build_if20_50_gap_report import (
     live_release_summary,
     external_beta_review_triage_status,
     shareable_review_bundle_status,
+    author_response_template_status,
     journal_metric_audit_status,
     score_gates,
 )
@@ -103,6 +104,7 @@ def test_report_contains_gantt_and_boundary(tmp_path):
     assert "External beta review packet" in report
     assert "External beta review triage" in report
     assert "Shareable review bundle" in report
+    assert "Author response template" in report
     assert "10,000-permutation confirmatory subset" in report
     assert "GSE103322 replication supplement" in report
     assert "Live Release And Author Gates" in report
@@ -210,6 +212,22 @@ def test_shareable_review_bundle_status_reads_ready_report(tmp_path):
     report.write_text("- Decision: `SHAREABLE_REVIEW_BUNDLE_READY`\n", encoding="utf-8")
 
     assert shareable_review_bundle_status(tmp_path) == "ready"
+
+
+def test_author_response_template_status_reads_template_ready(tmp_path):
+    report = (
+        tmp_path
+        / "manuscript"
+        / "submission_metadata"
+        / "AUTHOR_CONFIRMATION_RESPONSE_APPLY_REPORT.md"
+    )
+    report.parent.mkdir(parents=True, exist_ok=True)
+    report.write_text(
+        "- Decision: `AUTHOR_CONFIRMATION_RESPONSE_TEMPLATE_READY`\n",
+        encoding="utf-8",
+    )
+
+    assert author_response_template_status(tmp_path) == "template_ready"
 
 
 def test_confirmatory_permutation_status_reads_ready_boundary(tmp_path):
