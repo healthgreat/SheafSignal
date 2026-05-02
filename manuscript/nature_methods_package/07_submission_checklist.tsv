@@ -5,4 +5,4 @@ All tests pass	complete_current_run	Run python -m pytest before final submission
 Release audit passes	complete_current_run	Run python scripts/release_audit.py before final submission.
 Nature Methods formatting checked	pending_submission_day_check	Check current official author instructions before upload.
 No overclaiming	required	Use 05_claim_evidence_map.tsv and 08_claim_boundaries_and_limitations.md.
-Conflict of interest and author contributions	tbd_by_authors	Authors must fill journal submission metadata.
+Conflict of interest and author contributions	draft_filled_needs_author_confirmation	Author-provided draft metadata has been filled; corresponding authors must confirm before journal upload.

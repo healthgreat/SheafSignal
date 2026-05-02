@@ -3,8 +3,8 @@
 Decision: `NO_GO`
 
 - Blocking items: 3
-- Pending non-blocking items: 9
-- Passed checks: 113
+- Pending non-blocking items: 2
+- Passed checks: 120
 
 ## Blocking Items
 
@@ -14,13 +14,6 @@ Decision: `NO_GO`
 
 ## Pending Items
 
-- `author_metadata::affiliations`: tbd_by_authors. Action: Fill all affiliations.
-- `author_metadata::authors`: tbd_by_authors. Action: Fill all author names, emails, ORCIDs when available, corresponding author status, and conflict statements.
-- `author_metadata::competing_interests`: tbd_by_authors. Action: Replace TBD with final competing interests statement.
-- `author_metadata::credit_roles`: tbd_by_authors. Action: Assign authors to CRediT roles.
-- `author_metadata::ethics_data_use`: tbd_by_authors. Action: Confirm final ethics/data-use wording with authors or institution.
-- `author_metadata::submission_system_checklist`: tbd_by_authors. Action: Complete submission-system metadata checklist.
-- `checklist::Conflict of interest and author contributions`: tbd_by_authors. Action: Authors must fill journal submission metadata.
 - `checklist::GitHub repository public release`: pending. Action: Use release/archives/sheafsignal_github_release.zip or tracked repository contents.
 - `checklist::Nature Methods formatting checked`: pending_submission_day_check. Action: Check current official author instructions before upload.
 

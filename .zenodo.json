@@ -3,9 +3,14 @@
   "upload_type": "software",
   "description": "A prototype algorithm for quantifying consistency, feedback loops, and frustration in cell-cell communication networks.",
   "creators": [
-    {
-      "name": "TBD"
-    }
+    {"name": "Chen, Chongfa", "affiliation": "Pancreas Center, The Affiliated BenQ Hospital of Nanjing Medical University"},
+    {"name": "Wei, Jishu", "affiliation": "Pancreas Center, The First Affiliated Hospital of Nanjing Medical University; Pancreas Institute of Nanjing Medical University"},
+    {"name": "Dai, Shangnan", "affiliation": "Pancreas Center, The First Affiliated Hospital of Nanjing Medical University; Pancreas Institute of Nanjing Medical University"},
+    {"name": "Wang, Guangfu", "affiliation": "Pancreas Center, The First Affiliated Hospital of Nanjing Medical University; Pancreas Institute of Nanjing Medical University"},
+    {"name": "Lu, Zipeng", "affiliation": "Pancreas Center, The First Affiliated Hospital of Nanjing Medical University; Pancreas Institute of Nanjing Medical University"},
+    {"name": "Yin, Lingdi", "affiliation": "Pancreas Center, The First Affiliated Hospital of Nanjing Medical University; Pancreas Institute of Nanjing Medical University"},
+    {"name": "Yan, Han", "affiliation": "Pancreas Center, The Affiliated BenQ Hospital of Nanjing Medical University"},
+    {"name": "Miao, Yi", "affiliation": "Pancreas Center, The Affiliated BenQ Hospital of Nanjing Medical University"}
   ],
   "license": "MIT",
   "keywords": [

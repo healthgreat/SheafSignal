@@ -24,6 +24,7 @@ journal is not guaranteed. See:
 - `docs/publication_strategy.md`
 - `docs/benchmark_plan.md`
 - `docs/github_release_checklist.md`
+- `docs/github_zenodo_authorization_guide.md`
 - `docs/data_and_code_availability_template.md`
 - `manuscript/SCI20_50_ACTION_BOARD.md`
 - `manuscript/JOURNAL_TARGETS_20_50.tsv`

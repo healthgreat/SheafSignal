@@ -9,6 +9,16 @@ description = "Sheaf and Hodge based cell-cell communication consistency analysi
 readme = "README.md"
 requires-python = ">=3.9"
 license = {file = "LICENSE"}
+authors = [
+    {name = "Chongfa Chen", email = "chenchongfa@stu.njmu.edu.cn"},
+    {name = "Jishu Wei", email = "weijishu@njmu.edu.cn"},
+    {name = "Shangnan Dai", email = "dai_shangnan@126.com"},
+    {name = "Guangfu Wang", email = "Surgeonwgf@hotmail.com"},
+    {name = "Zipeng Lu", email = "surgeonmark@hotmail.com"},
+    {name = "Lingdi Yin", email = "yinlingdi@njmu.edu.cn"},
+    {name = "Han Yan"},
+    {name = "Yi Miao", email = "miaoyi@njmu.edu.cn"},
+]
 dependencies = [
     "numpy>=1.23",
     "pandas>=1.5",

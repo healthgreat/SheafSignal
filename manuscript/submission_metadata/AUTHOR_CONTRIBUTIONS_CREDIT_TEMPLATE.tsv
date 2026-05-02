@@ -1,11 +1,11 @@
 credit_role	assigned_authors	status
-Conceptualization	TBD	tbd_by_authors
-Methodology	TBD	tbd_by_authors
-Software	TBD	tbd_by_authors
-Formal analysis	TBD	tbd_by_authors
-Investigation	TBD	tbd_by_authors
-Data curation	TBD	tbd_by_authors
-Writing - original draft	TBD	tbd_by_authors
-Writing - review and editing	TBD	tbd_by_authors
-Supervision	TBD	tbd_by_authors
-Funding acquisition	TBD	tbd_by_authors
+Conceptualization	Chongfa Chen; Han Yan; Yi Miao	draft_pending_author_confirmation
+Methodology	Chongfa Chen	draft_pending_author_confirmation
+Software	Chongfa Chen	draft_pending_author_confirmation
+Formal analysis	Chongfa Chen	draft_pending_author_confirmation
+Investigation	Jishu Wei; Shangnan Dai; Guangfu Wang; Zipeng Lu; Lingdi Yin	draft_pending_author_confirmation
+Data curation	Chongfa Chen	draft_pending_author_confirmation
+Writing - original draft	Chongfa Chen	draft_pending_author_confirmation
+Writing - review and editing	Jishu Wei; Shangnan Dai; Guangfu Wang; Zipeng Lu; Lingdi Yin; Han Yan; Yi Miao	draft_pending_author_confirmation
+Supervision	Han Yan; Yi Miao	draft_pending_author_confirmation
+Funding acquisition	Not reported	needs_author_confirmation

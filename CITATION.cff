@@ -4,8 +4,22 @@ title: "SheafSignal: sheaf-valued Hodge analysis of cell-cell communication netw
 version: 0.1.0
 date-released: 2026-04-27
 authors:
-  - family-names: "TBD"
-    given-names: "TBD"
+  - family-names: "Chen"
+    given-names: "Chongfa"
+  - family-names: "Wei"
+    given-names: "Jishu"
+  - family-names: "Dai"
+    given-names: "Shangnan"
+  - family-names: "Wang"
+    given-names: "Guangfu"
+  - family-names: "Lu"
+    given-names: "Zipeng"
+  - family-names: "Yin"
+    given-names: "Lingdi"
+  - family-names: "Yan"
+    given-names: "Han"
+  - family-names: "Miao"
+    given-names: "Yi"
 repository-code: "https://github.com/TBD/SheafSignal"
 license: MIT
 keywords:

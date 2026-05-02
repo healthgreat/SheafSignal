@@ -1,11 +1,9 @@
-# Competing Interests Statement Template
+# Competing Interests Statement
 
-TBD.
+Draft pending author confirmation:
 
-Replace this section before submission with one of:
+The authors declare no competing interests.
 
-- The authors declare no competing interests.
-- The following competing interests are declared: ...
-
-This file is author-owned metadata. It must not be inferred from the analysis
-pipeline.
+Before submission, the corresponding authors should confirm whether any author
+has financial, consulting, patent, software licensing, advisory, employment, or
+other relationships that must be disclosed under the target journal policy.
