@@ -1,6 +1,6 @@
 # GitHub And Zenodo Authorization Guide
 
-Timestamp: 2026-05-02 22:51:04 +08:00
+Timestamp: 2026-05-02 23:19:00 +08:00
 
 ## Security Rule
 
@@ -9,13 +9,21 @@ authorization methods below.
 
 ## GitHub Authorization
 
-Current local status: GitHub CLI (`gh`) is not available in this Windows
-session, and this repository has no configured remote yet. The fastest path is
-therefore Option B. Option A remains available after installing GitHub CLI.
+Current local status: GitHub CLI (`gh`) has been installed as a portable
+binary at:
+
+```text
+D:\BioSoft\GitHubCLI\gh_2.92.0\bin\gh.exe
+```
+
+This path has been added to the user PATH. Existing Codex/VS Code/PowerShell
+sessions may need to be restarted before `gh` is found by name; until then,
+Codex can call the absolute path above. This repository still has no configured
+GitHub remote.
 
 ### Option A: GitHub CLI browser login
 
-Install GitHub CLI first if `gh --version` is not found:
+If GitHub CLI must be reinstalled through the system package manager:
 
 ```bash
 winget install --id GitHub.cli
