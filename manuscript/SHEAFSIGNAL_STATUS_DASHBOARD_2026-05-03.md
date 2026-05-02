@@ -54,6 +54,10 @@ probabilities.
   author-confirmation, and public clean-clone gates:
   `release/RELEASE_UNBLOCKER_MATRIX.tsv` and
   `release/RELEASE_UNBLOCKER_RUNBOOK_ZH.md`.
+- External authorization health checks now validate GitHub CLI, the local
+  GitHub token, Zenodo token availability, release archive presence, and DOI
+  placeholders without printing token contents:
+  `release/EXTERNAL_RELEASE_AUTHORIZATION_REPORT.md`.
 
 ## What Is Blocking Submission
 
@@ -120,9 +124,10 @@ gantt
     Nature Methods local official format audit     :done, 2026-05-03, 1d
     Author confirmation packet                     :done, 2026-05-03, 1d
     Release unblocker matrix and runbook           :done, 2026-05-03, 1d
+    External authorization health check            :done, 2026-05-03, 1d
 
     section Current Submission Blockers
-    Regenerate valid GitHub token or browser auth  :crit, active, 2026-05-03, 1d
+    Create public GitHub remote and release tag    :crit, active, 2026-05-03, 1d
     Public GitHub remote and release tag           :crit, 2026-05-03, 1d
     Zenodo DOI minting                             :crit, 2026-05-04, 1d
     DOI and GitHub URL metadata insertion          :crit, 2026-05-04, 1d

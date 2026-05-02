@@ -27,6 +27,8 @@ journal is not guaranteed. See:
 - `docs/github_zenodo_authorization_guide.md`
 - `docs/reviewer_reproducibility_quickstart.md`
 - `docs/data_and_code_availability_template.md`
+- `release/EXTERNAL_RELEASE_AUTHORIZATION_REPORT.md`
+- `release/EXTERNAL_RELEASE_AUTHORIZATION_STATUS.tsv`
 - `release/RELEASE_UNBLOCKER_RUNBOOK_ZH.md`
 - `release/RELEASE_UNBLOCKER_MATRIX.tsv`
 - `manuscript/SHEAFSIGNAL_20_50_IF_STATUS_BRIEF_ZH_2026-05-03.md`
