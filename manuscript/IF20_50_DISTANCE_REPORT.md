@@ -30,8 +30,8 @@ The GSE103322 HNSCC supplement-grade replication gate is now complete, but it re
 ## Current Gap Counts
 
 - Blocking gap rows in the matrix: `21`
-- Administrative pending rows: `9`
-- Author-owned metadata rows: `20`
+- Administrative pending rows: `2`
+- Author-owned metadata rows: `0`
 - Git release warnings: `2`
 
 ## Mandatory Before Any 20-50 IF Submission
