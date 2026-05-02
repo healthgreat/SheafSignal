@@ -88,3 +88,6 @@ manuscript/*.blg
 # Local release archives generated from tracked manifests
 release/archives/**
 !release/archives/.gitkeep
+
+# Generated external-review handoff archives
+external_ai_review_packet/shareable_review_bundle/*.zip

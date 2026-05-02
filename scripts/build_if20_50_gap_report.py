@@ -36,6 +36,9 @@ BETA_REVIEW_PACKET_STATUS_PATH = Path(
 EXTERNAL_BETA_REVIEW_TRIAGE_REPORT_PATH = Path(
     "external_ai_review_packet/EXTERNAL_BETA_REVIEW_TRIAGE_REPORT.md"
 )
+SHAREABLE_REVIEW_BUNDLE_REPORT_PATH = Path(
+    "external_ai_review_packet/shareable_review_bundle/SHAREABLE_REVIEW_BUNDLE_REPORT.md"
+)
 CONFIRMATORY_PERMUTATION_STATUS_PATH = Path(
     "benchmarks/results/confirmatory_10000/CONFIRMATORY_PERMUTATION_STATUS.md"
 )
@@ -490,6 +493,18 @@ def external_beta_review_triage_status(root: Path) -> str:
     return "unknown"
 
 
+def shareable_review_bundle_status(root: Path) -> str:
+    path = root / SHAREABLE_REVIEW_BUNDLE_REPORT_PATH
+    if not path.exists():
+        return "not_run"
+    text = path.read_text(encoding="utf-8", errors="replace")
+    if "SHAREABLE_REVIEW_BUNDLE_READY" in text:
+        return "ready"
+    if "SHAREABLE_REVIEW_BUNDLE_BLOCKED_MISSING_REQUIRED_FILES" in text:
+        return "blocked_missing_required_files"
+    return "unknown"
+
+
 def confirmatory_permutation_status(root: Path) -> str:
     path = root / CONFIRMATORY_PERMUTATION_STATUS_PATH
     if not path.exists():
@@ -690,6 +705,7 @@ def build_report(
     journal_audit_status = journal_metric_audit_status(root)
     beta_review_status = beta_review_packet_status(root)
     beta_triage_status = external_beta_review_triage_status(root)
+    review_bundle_status = shareable_review_bundle_status(root)
     confirmatory_status = confirmatory_permutation_status(root)
     gse103322_status = gse103322_replication_status(root)
     hard_blockers = _count_gap_rows(gap_rows, "blocking")
@@ -789,6 +805,7 @@ def build_report(
             f"- Journal metric audit: `{journal_audit_status}`",
             f"- External beta review packet: `{beta_review_status}`",
             f"- External beta review triage: `{beta_triage_status}`",
+            f"- Shareable review bundle: `{review_bundle_status}`",
             f"- 10,000-permutation confirmatory subset: `{confirmatory_status}`",
             f"- GSE103322 replication supplement: `{gse103322_status}`",
             f"- Live release blocking gates: `{active_live_blockers}` of "
@@ -864,6 +881,7 @@ def build_report(
             f"- `{JOURNAL_METRIC_AUDIT_REPORT_PATH.as_posix()}`",
             f"- `{BETA_REVIEW_PACKET_STATUS_PATH.as_posix()}`",
             f"- `{EXTERNAL_BETA_REVIEW_TRIAGE_REPORT_PATH.as_posix()}`",
+            f"- `{SHAREABLE_REVIEW_BUNDLE_REPORT_PATH.as_posix()}`",
             f"- `{CONFIRMATORY_PERMUTATION_STATUS_PATH.as_posix()}`",
             f"- `{GSE103322_REPLICATION_STATUS_PATH.as_posix()}`",
             "",

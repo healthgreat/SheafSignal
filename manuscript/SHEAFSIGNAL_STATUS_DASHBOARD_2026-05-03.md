@@ -88,6 +88,8 @@ probabilities.
 - An external beta-review triage workflow now converts returned human or
   external-AI reviews into a severity/action matrix:
   `external_ai_review_packet/EXTERNAL_BETA_REVIEW_TRIAGE_REPORT.md`.
+- A shareable external beta-review bundle is now available for reviewers:
+  `external_ai_review_packet/shareable_review_bundle/SHAREABLE_REVIEW_BUNDLE_REPORT.md`.
 
 ## What Is Blocking Submission
 
@@ -208,6 +210,8 @@ insertion, clean-clone tests, final reports, and submission package regeneration
 - Returned reviews can now be dropped into
   `external_ai_review_packet/returned_reviews/` and triaged with
   `python scripts/triage_external_beta_reviews.py`.
+- Review materials can be shared from
+  `external_ai_review_packet/shareable_review_bundle/sheafsignal_external_beta_review_bundle.zip`.
 - A short user-facing tutorial notebook that reproduces the demo and one public
   benchmark subset. Current status: a reviewer quickstart document now covers
   demo, benchmark smoke-test, public download validation, and clean-export
