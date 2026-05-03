@@ -1,8 +1,8 @@
 # SheafSignal 当前最短行动包
 
-- Timestamp: `2026-05-04 02:07:39`
-- Decision: `USER_ACTION_PACKET_READY_P0_BLOCKERS_REMAIN`
-- P0 items: `1`
+- Timestamp: `2026-05-04 02:13:49`
+- Decision: `USER_ACTION_PACKET_READY_NO_P0_BLOCKERS`
+- P0 items: `0`
 - P1 items: `1`
 
 ## 你现在只需要处理什么
@@ -20,7 +20,7 @@
 | Priority | Item | Current status | What you do | What Codex does after | Validation |
 |---|---|---|---|---|---|
 | `DONE` | GitHub token / gh login | `github_token_api=valid; gh=env_token_available_persistent_login_missing` | No user action needed. | Validate token scopes, authenticate GitHub tooling if possible, push the branch, then create the public release/tag after final gates pass. | `python scripts/check_external_release_authorization.py` |
-| `P0` | GitHub token rotation after chat exposure | `github_token_rotation_confirmed=missing` | If D:/secrets/github_token.txt contains a token generated after the chat exposure, enter yes in release/EXTERNAL_INPUT_INTAKE_TEMPLATE.tsv. If not, regenerate a GitHub classic token with repo and workflow scopes, overwrite D:/secrets/github_token.txt, then enter yes. | Use the token for GitHub push/release only after this safety gate passes. | `python scripts/build_external_input_intake.py` |
+| `DONE` | GitHub token rotation after chat exposure | `github_token_rotation_confirmed=pass` | No user action needed. | Use the token for GitHub push/release only after this safety gate passes. | `python scripts/build_external_input_intake.py` |
 | `DONE` | Han Yan email and author contact consistency | `missing_current_author_email=0; extra_supplied_contacts=0` | No user action needed. | Update author metadata templates, rerun contact reconciliation and author preflight, then regenerate submission metadata. | `python scripts/reconcile_author_contacts.py && python scripts/check_author_confirmation_preflight.py` |
 | `DONE` | Author-owned declarations | `blocking=0; pending=0` | No user action needed. | Apply AUTHOR_CONFIRMATION_RESPONSE_TEMPLATE.tsv, update manuscript-facing statements, and rerun final blocker checks. | `python scripts/apply_author_confirmation_response.py --apply && python scripts/check_author_confirmation_preflight.py` |
 | `CODEX_READY` | Zenodo DOI | `token=present; doi_placeholder=pending` | No user action needed; Codex can mint DOI after author release approval. | Insert the real DOI into release metadata, Data Availability, and dataset manifest, then rebuild release archives and audits. | `python scripts/check_release_metadata_placeholders.py` |
