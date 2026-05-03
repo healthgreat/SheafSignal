@@ -20,6 +20,7 @@ DEFAULT_INPUT_DIR = Path("external_ai_review_packet/returned_reviews")
 DEFAULT_TRIAGE = Path("external_ai_review_packet/external_beta_review_triage.tsv")
 DEFAULT_ACTION_MATRIX = Path("external_ai_review_packet/external_beta_review_action_matrix.tsv")
 DEFAULT_REPORT = Path("external_ai_review_packet/EXTERNAL_BETA_REVIEW_TRIAGE_REPORT.md")
+DEFAULT_REVIEWER_METADATA = Path("external_ai_review_packet/external_beta_review_reviewer_metadata.tsv")
 
 SEVERITY_PATTERNS = [
     ("fatal", re.compile(r"\b(fatal|desk rejection|reject|not ready|near-fatal)\b", re.I)),
@@ -29,6 +30,8 @@ SEVERITY_PATTERNS = [
 
 DOMAIN_PATTERNS = [
     ("methods", re.compile(r"\b(sheaf|hodge|algorithm|method|mathematical|novelty)\b", re.I)),
+    ("code_quality", re.compile(r"\b(code|bug|api|cli|test|pytest|ruff|package|import|exception|error handling|stale output|path)\b", re.I)),
+    ("security_privacy", re.compile(r"\b(token|secret|password|credential|privacy|patient|unsafe|leak|raw data|absolute path)\b", re.I)),
     ("single_cell", re.compile(r"\b(scanpy|seurat|annotation|myeloid|gse154778|cell type)\b", re.I)),
     ("statistics", re.compile(r"\b(permutation|fdr|bootstrap|p-value|confidence|power)\b", re.I)),
     ("comparators", re.compile(r"\b(cellchat|cellphonedb|nichenet|liana|comparator)\b", re.I)),
@@ -47,6 +50,17 @@ class ReviewFinding:
     finding: str
     suggested_action: str
     blocks_20_50_if: str
+
+
+@dataclass(frozen=True)
+class ReviewerMetadata:
+    source_file: str
+    reviewer: str
+    reviewer_model_name: str
+    reviewer_model_version: str
+    review_timestamp_with_timezone: str
+    claimed_training_data_cutoff: str
+    external_references_consulted: str
 
 
 def _read_text(path: Path) -> str:
@@ -74,6 +88,10 @@ def _classify_domain(text: str) -> str:
 def _suggest_action(severity: str, domain: str) -> str:
     if domain == "reproducibility":
         return "Check release blockers, GitHub/Zenodo identifiers, and public clean-clone evidence."
+    if domain == "code_quality":
+        return "Map concern to source files, tests, packaging, CLI behavior, and add regression coverage."
+    if domain == "security_privacy":
+        return "Check source/review bundles for credentials, raw data, private paths, and unsafe file inclusion."
     if domain == "claims":
         return "Run claim-safety audit and downgrade unsupported causal/mechanistic wording."
     if domain == "statistics":
@@ -98,6 +116,47 @@ def _reviewer_name(path: Path, text: str) -> str:
             if len(parts) == 2 and parts[1].strip():
                 return parts[1].strip()
     return path.stem
+
+
+def _metadata_key(raw: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "_", raw.lower()).strip("_")
+
+
+def parse_reviewer_metadata(path: Path) -> ReviewerMetadata:
+    text = _read_text(path)
+    values = {
+        "reviewer_model_name": "not_reported",
+        "reviewer_model_version": "not_reported",
+        "review_timestamp_with_timezone": "not_reported",
+        "claimed_training_data_cutoff": "not_reported",
+        "external_references_consulted": "not_reported",
+    }
+    aliases = {
+        "reviewer_model_name": "reviewer_model_name",
+        "model_name": "reviewer_model_name",
+        "reviewer_model_version": "reviewer_model_version",
+        "model_version": "reviewer_model_version",
+        "review_timestamp_with_timezone": "review_timestamp_with_timezone",
+        "review_timestamp": "review_timestamp_with_timezone",
+        "claimed_training_data_cutoff": "claimed_training_data_cutoff",
+        "training_data_cutoff": "claimed_training_data_cutoff",
+        "knowledge_cutoff": "claimed_training_data_cutoff",
+        "external_references_consulted": "external_references_consulted",
+        "references_consulted": "external_references_consulted",
+    }
+    for line in text.splitlines()[:80]:
+        clean = line.strip().lstrip("-*").strip()
+        if ":" not in clean:
+            continue
+        key_raw, value = clean.split(":", 1)
+        key = aliases.get(_metadata_key(key_raw))
+        if key and value.strip():
+            values[key] = value.strip()
+    return ReviewerMetadata(
+        source_file=path.as_posix(),
+        reviewer=_reviewer_name(path, text),
+        **values,
+    )
 
 
 def _candidate_lines(text: str) -> list[str]:
@@ -172,11 +231,33 @@ def collect_review_findings(input_dir: Path) -> list[ReviewFinding]:
         return []
     findings = []
     for path in sorted(input_dir.glob("*")):
-        if path.name.lower() == "readme.md" or path.name.startswith("_"):
+        lowered = path.name.lower()
+        if (
+            lowered == "readme.md"
+            or lowered.endswith("_template.tsv")
+            or path.name.startswith("_")
+        ):
             continue
         if path.is_file() and path.suffix.lower() in {".md", ".txt", ".tsv"}:
             findings.extend(parse_review_file(path))
     return findings
+
+
+def collect_reviewer_metadata(input_dir: Path) -> list[ReviewerMetadata]:
+    if not input_dir.exists():
+        return []
+    rows = []
+    for path in sorted(input_dir.glob("*")):
+        lowered = path.name.lower()
+        if (
+            lowered == "readme.md"
+            or lowered.endswith("_template.tsv")
+            or path.name.startswith("_")
+        ):
+            continue
+        if path.is_file() and path.suffix.lower() in {".md", ".txt"}:
+            rows.append(parse_reviewer_metadata(path))
+    return rows
 
 
 def classify_decision(findings: list[ReviewFinding]) -> str:
@@ -268,6 +349,7 @@ def build_report(findings: list[ReviewFinding], input_dir: Path) -> str:
             "```",
             "",
             "Fatal or major returned-review items should be transferred into the response matrix before a 20-50 IF submission decision.",
+            "Reviewer model metadata is written to `external_ai_review_packet/external_beta_review_reviewer_metadata.tsv` when returned reviews report it.",
             "",
             "## Boundary",
             "",
@@ -281,6 +363,7 @@ def write_outputs(root: Path, findings: list[ReviewFinding], input_dir: Path) ->
     triage_path = root / DEFAULT_TRIAGE
     action_path = root / DEFAULT_ACTION_MATRIX
     report_path = root / DEFAULT_REPORT
+    metadata_path = root / DEFAULT_REVIEWER_METADATA
     rows = [finding.__dict__ for finding in findings]
     _write_tsv_atomic(
         triage_path,
@@ -306,8 +389,29 @@ def write_outputs(root: Path, findings: list[ReviewFinding], input_dir: Path) ->
         display_input_dir = input_dir.relative_to(root)
     except ValueError:
         display_input_dir = input_dir
+    metadata_rows = [
+        row.__dict__ for row in collect_reviewer_metadata(input_dir)
+    ]
+    _write_tsv_atomic(
+        metadata_path,
+        metadata_rows,
+        [
+            "source_file",
+            "reviewer",
+            "reviewer_model_name",
+            "reviewer_model_version",
+            "review_timestamp_with_timezone",
+            "claimed_training_data_cutoff",
+            "external_references_consulted",
+        ],
+    )
     _write_text_atomic(report_path, build_report(findings, display_input_dir))
-    return {"triage": triage_path, "action_matrix": action_path, "report": report_path}
+    return {
+        "triage": triage_path,
+        "action_matrix": action_path,
+        "reviewer_metadata": metadata_path,
+        "report": report_path,
+    }
 
 
 def main(argv: list[str] | None = None) -> int:

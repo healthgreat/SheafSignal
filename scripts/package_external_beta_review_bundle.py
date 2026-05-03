@@ -40,6 +40,7 @@ REQUIRED_FILES = [
     "release/POST_UNBLOCK_RELEASE_PIPELINE_REPORT.md",
     "release/ZENODO_UPLOAD_PREFLIGHT_REPORT.md",
     "release/EXTERNAL_RELEASE_AUTHORIZATION_REPORT.md",
+    "release/USER_MANUAL_ACTIONS_2026-05-04.md",
     "external_ai_review_packet/beta_review_packet_2026-05-02/00_README_FOR_REVIEWERS.md",
     "external_ai_review_packet/beta_review_packet_2026-05-02/01_BETA_REVIEW_PACKET_STATUS.md",
     "external_ai_review_packet/beta_review_packet_2026-05-02/02_EVIDENCE_FILE_INDEX.tsv",
@@ -47,6 +48,7 @@ REQUIRED_FILES = [
     "external_ai_review_packet/beta_review_packet_2026-05-02/04_AI_REVIEW_PROMPT.md",
     "external_ai_review_packet/beta_review_packet_2026-05-02/05_REVIEW_FORM_TEMPLATE.md",
     "external_ai_review_packet/EXTERNAL_AI_REVIEW_ROUTING_2026-05-04.md",
+    "external_ai_review_packet/EXTERNAL_AI_CODE_REVIEW_PROMPT_2026-05-04.md",
     "external_ai_review_packet/EXTERNAL_BETA_REVIEW_TRIAGE_REPORT.md",
     "external_ai_review_packet/external_beta_review_action_matrix.tsv",
 ]
@@ -59,6 +61,8 @@ OPTIONAL_FILES = [
     "external_ai_review_packet/round3_returned_review_triage.tsv",
     "benchmarks/results/BENCHMARK_RESULT_CONTRACT_REPORT.md",
     "benchmarks/results/confirmatory_10000/CONFIRMATORY_PERMUTATION_STATUS.md",
+    "external_ai_review_packet/source_code_review_bundle/SOURCE_CODE_REVIEW_BUNDLE_REPORT.md",
+    "external_ai_review_packet/source_code_review_bundle/SOURCE_CODE_REVIEW_BUNDLE_MANIFEST.tsv",
 ]
 
 
@@ -185,6 +189,9 @@ def build_report(
             "",
             "Send the archive to 2-3 external AI or human reviewers. Use the role-specific",
             "prompts in `external_ai_review_packet/EXTERNAL_AI_REVIEW_ROUTING_2026-05-04.md`.",
+            "For code-level review, also send the source-code archive reported in",
+            "`external_ai_review_packet/source_code_review_bundle/SOURCE_CODE_REVIEW_BUNDLE_REPORT.md`",
+            "with `external_ai_review_packet/EXTERNAL_AI_CODE_REVIEW_PROMPT_2026-05-04.md`.",
             "If using a single generic request, send the archive together with:",
             "`Please judge novelty, reproducibility, statistics, claim boundaries, and journal fit.`",
             "Returned `.md`, `.txt`, or `.tsv` reviews should be placed under",

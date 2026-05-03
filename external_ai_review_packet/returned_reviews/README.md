@@ -7,6 +7,15 @@ Recommended filenames:
 - `reviewer1_methods_novelty.md`
 - `reviewer2_singlecell_spatial_claims.md`
 - `reviewer3_statistics_reproducibility.md`
+- `reviewer4_code_review.md`
+
+Ask each reviewer to report:
+
+- `reviewer_model_name`
+- `reviewer_model_version`
+- `review_timestamp_with_timezone`
+- `claimed_training_data_cutoff`
+- `external_references_consulted`
 
 After adding review files, run:
 

@@ -4,6 +4,7 @@ from scripts.triage_external_beta_reviews import (
     build_action_matrix,
     classify_decision,
     collect_review_findings,
+    collect_reviewer_metadata,
     parse_review_file,
     write_outputs,
 )
@@ -67,6 +68,11 @@ def test_collect_and_write_outputs(tmp_path):
         "Do not place access tokens, private credentials, raw patient data, or non-public clinical material here.\n",
         encoding="utf-8",
     )
+    (input_dir / "REVIEWER_METADATA_TEMPLATE.tsv").write_text(
+        "reviewer_file\treviewer_model_name\n"
+        "reviewer4_code_review.md\tTO_FILL\n",
+        encoding="utf-8",
+    )
     (input_dir / "review.md").write_text(
         "- Major concern: CellChat comparator scope must be described clearly.\n",
         encoding="utf-8",
@@ -80,4 +86,25 @@ def test_collect_and_write_outputs(tmp_path):
     assert matrix[0]["priority"] == "P1"
     assert outputs["triage"].exists()
     assert outputs["action_matrix"].exists()
+    assert outputs["reviewer_metadata"].exists()
     assert outputs["report"].exists()
+
+
+def test_collect_reviewer_metadata_from_markdown(tmp_path):
+    input_dir = tmp_path / "external_ai_review_packet" / "returned_reviews"
+    input_dir.mkdir(parents=True)
+    (input_dir / "reviewer4_code_review.md").write_text(
+        "reviewer_model_name: ExternalAI\n"
+        "reviewer_model_version: v1\n"
+        "review_timestamp_with_timezone: 2026-05-04 08:00 +08:00\n"
+        "claimed_training_data_cutoff: 2026-01\n"
+        "external_references_consulted: none\n"
+        "- Major concern: code path handling must be clearer.\n",
+        encoding="utf-8",
+    )
+
+    rows = collect_reviewer_metadata(input_dir)
+
+    assert len(rows) == 1
+    assert rows[0].reviewer_model_name == "ExternalAI"
+    assert rows[0].claimed_training_data_cutoff == "2026-01"

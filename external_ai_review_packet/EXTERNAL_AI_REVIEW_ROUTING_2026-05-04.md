@@ -1,6 +1,6 @@
 # SheafSignal External AI Review Routing
 
-Generated: 2026-05-04 06:50:00 +08:00
+Generated: 2026-05-04 08:05:00 +08:00
 
 ## Purpose
 
@@ -16,12 +16,26 @@ Send this archive to each external AI reviewer:
 
 `external_ai_review_packet/shareable_review_bundle/sheafsignal_external_beta_review_bundle.zip`
 
+For source-code review, also send:
+
+`external_ai_review_packet/source_code_review_bundle/sheafsignal_source_code_review_bundle.zip`
+
+and use:
+
+`external_ai_review_packet/EXTERNAL_AI_CODE_REVIEW_PROMPT_2026-05-04.md`
+
 Current bundle status:
 
 - Decision: `SHAREABLE_REVIEW_BUNDLE_READY`
-- Included files: `30`
+- Included files: `35`
 - Missing required files: `0`
-- SHA256: `7c771fea7511770ec4261cfb8fd0d45784b8489e8fbbad82c9dcae6712d7ba37`
+- SHA256: see `external_ai_review_packet/shareable_review_bundle/SHAREABLE_REVIEW_BUNDLE_REPORT.md`
+
+Current source-code bundle status:
+
+- Decision: `SOURCE_CODE_REVIEW_BUNDLE_READY`
+- Included files: `193`
+- SHA256: `3f08b5614378167b91c6a853dc640399aaef20e99f6f81beeb1609e24c67f905`
 
 Public references reviewers may use:
 
@@ -46,6 +60,8 @@ Use only evidence in the provided bundle plus the public GitHub/Zenodo links if
 available. Separate direct evidence, reasonable inference, and speculation.
 
 Return your review with these sections:
+0. Reviewer metadata: model name/version, review timestamp/timezone, claimed
+   training-data cutoff, and external references consulted.
 1. Editorial decision: ready / major revision / reject / not ready.
 2. Top 5 fatal or near-fatal methods concerns.
 3. Does the rank-one cellular sheaf framing justify the manuscript's claims?
@@ -72,6 +88,8 @@ Use only evidence in the provided bundle plus the public GitHub/Zenodo links if
 available. Separate direct evidence, reasonable inference, and speculation.
 
 Return your review with these sections:
+0. Reviewer metadata: model name/version, review timestamp/timezone, claimed
+   training-data cutoff, and external references consulted.
 1. Editorial decision: ready / major revision / reject / not ready.
 2. Top 5 fatal or near-fatal biological or single-cell concerns.
 3. Is the GSE154778 Myeloid claim appropriately bounded?
@@ -98,6 +116,8 @@ Use only evidence in the provided bundle plus the public GitHub/Zenodo links if
 available. Separate direct evidence, reasonable inference, and speculation.
 
 Return your review with these sections:
+0. Reviewer metadata: model name/version, review timestamp/timezone, claimed
+   training-data cutoff, and external references consulted.
 1. Editorial decision: ready / major revision / reject / not ready.
 2. Top 5 fatal or near-fatal statistics/reproducibility concerns.
 3. Are permutation/FDR/bootstrap analyses enough for the claims being made?
@@ -118,6 +138,7 @@ Recommended filenames:
 - `reviewer1_methods_novelty.md`
 - `reviewer2_singlecell_spatial_claims.md`
 - `reviewer3_statistics_reproducibility.md`
+- `reviewer4_code_review.md` if a separate code reviewer is used.
 
 After all reviews are saved, run:
 

@@ -91,3 +91,4 @@ release/archives/**
 
 # Generated external-review handoff archives
 external_ai_review_packet/shareable_review_bundle/*.zip
+external_ai_review_packet/source_code_review_bundle/*.zip

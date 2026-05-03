@@ -24,6 +24,7 @@ python scripts/triage_external_beta_reviews.py
 ```
 
 Fatal or major returned-review items should be transferred into the response matrix before a 20-50 IF submission decision.
+Reviewer model metadata is written to `external_ai_review_packet/external_beta_review_reviewer_metadata.tsv` when returned reviews report it.
 
 ## Boundary
 

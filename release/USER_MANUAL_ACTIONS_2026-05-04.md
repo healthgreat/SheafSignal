@@ -26,8 +26,12 @@ All paths below are relative to the SheafSignal project root.
 
 - Review bundle zip:
   `external_ai_review_packet/shareable_review_bundle/sheafsignal_external_beta_review_bundle.zip`
+- Source-code review zip:
+  `external_ai_review_packet/source_code_review_bundle/sheafsignal_source_code_review_bundle.zip`
 - Role-specific reviewer prompts:
   `external_ai_review_packet/EXTERNAL_AI_REVIEW_ROUTING_2026-05-04.md`
+- Code-review prompt:
+  `external_ai_review_packet/EXTERNAL_AI_CODE_REVIEW_PROMPT_2026-05-04.md`
 - Returned review folder:
   `external_ai_review_packet/returned_reviews/`
 
@@ -37,13 +41,16 @@ All paths below are relative to the SheafSignal project root.
 2. Upload the zip package to Reviewer 1 AI and paste the Reviewer 1 prompt.
 3. Upload the same zip package to Reviewer 2 AI and paste the Reviewer 2 prompt.
 4. Optional: upload the same zip package to Reviewer 3 AI and paste the Reviewer 3 prompt.
-5. Save returned reviews into:
+5. For code-level review, upload the source-code review zip to a code-capable AI
+   reviewer and paste the code-review prompt.
+6. Save returned reviews into:
    - `reviewer1_methods_novelty.md`
    - `reviewer2_singlecell_spatial_claims.md`
    - `reviewer3_statistics_reproducibility.md`
-6. Put those files in:
+   - `reviewer4_code_review.md`
+7. Put those files in:
    `external_ai_review_packet/returned_reviews/`
-7. Tell Codex:
+8. Tell Codex:
    `Returned external reviews are saved. Please triage them.`
 
 ### What Codex Will Do After Reviews Return
@@ -163,4 +170,3 @@ gantt
 
 These steps reduce submission risk. They do not guarantee acceptance by Nature
 Methods, Nature Biotechnology, Molecular Cancer, or any 20-50 IF journal.
-
