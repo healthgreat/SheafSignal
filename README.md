@@ -41,6 +41,8 @@ journal is not guaranteed. See:
 - `release/SUBMISSION_UNBLOCKER_HANDOFF_ZH.tsv`
 - `release/USER_ACTION_NOW_PACKET_ZH.md`
 - `release/USER_ACTION_NOW_PACKET.tsv`
+- `release/UNBLOCK_READINESS_REPORT.md`
+- `release/UNBLOCK_READINESS_STATUS.tsv`
 - `release/POST_UNBLOCK_RELEASE_PIPELINE_REPORT.md`
 - `release/POST_UNBLOCK_RELEASE_PIPELINE_PLAN.tsv`
 - `manuscript/SHEAFSIGNAL_20_50_IF_STATUS_BRIEF_ZH_2026-05-03.md`
@@ -75,6 +77,13 @@ Regenerate the live Gantt/status dashboard with:
 
 ```bash
 python scripts/build_live_gantt_status.py
+```
+
+After updating GitHub, Zenodo, or author-owned inputs, run the safe one-command
+unblock readiness check:
+
+```bash
+python scripts/run_unblock_readiness_check.py
 ```
 
 ## Problem

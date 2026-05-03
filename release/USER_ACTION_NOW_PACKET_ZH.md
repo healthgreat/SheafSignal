@@ -1,6 +1,6 @@
 # SheafSignal 当前最短行动包
 
-- Timestamp: `2026-05-03 07:56:50`
+- Timestamp: `2026-05-03 08:01:53`
 - Decision: `USER_ACTION_PACKET_READY_P0_BLOCKERS_REMAIN`
 - P0 items: `4`
 - P1 items: `1`
@@ -24,6 +24,12 @@
 | `P1` | External beta review return | `EXTERNAL_BETA_REVIEW_NO_RETURNED_REVIEWS` | Send the prepared external review bundle to 2-3 independent AI/human reviewers and return their comments. | Triage returned reviews into fixed, downgraded_by_design, or out_of_scope actions before final journal targeting. | `reviewer response matrix update` |
 
 ## 我拿到这些信息后会直接做什么
+
+首先运行一键 readiness 检查：
+
+```bash
+python scripts/run_unblock_readiness_check.py
+```
 
 1. 验证 token scope 和 Zenodo/API 状态，不打印任何 token。
 2. 更新 author metadata、Data Availability、DOI 和 GitHub release 信息。

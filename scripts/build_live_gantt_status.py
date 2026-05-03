@@ -32,6 +32,7 @@ JOURNAL_SUBMISSION_DAY = Path(
     "manuscript/journal_metric_audit/JOURNAL_SUBMISSION_DAY_CHECK_REPORT.md"
 )
 USER_ACTION_PACKET = Path("release/USER_ACTION_NOW_PACKET_ZH.md")
+UNBLOCK_READINESS = Path("release/UNBLOCK_READINESS_REPORT.md")
 OUTPUT_REPORT = Path("manuscript/SHEAFSIGNAL_LIVE_GANTT_STATUS.md")
 OUTPUT_TSV = Path("manuscript/SHEAFSIGNAL_LIVE_GANTT_STATUS.tsv")
 
@@ -95,6 +96,7 @@ def build_status_rows(root: Path) -> list[StatusRow]:
     bundle_text = _read_text(root / SHAREABLE_REVIEW_BUNDLE)
     journal_text = _read_text(root / JOURNAL_SUBMISSION_DAY)
     action_packet_text = _read_text(root / USER_ACTION_PACKET)
+    unblock_readiness_text = _read_text(root / UNBLOCK_READINESS)
 
     author_counts = _author_counts(author_rows)
     active_release = _active_release_blockers(release_rows)
@@ -154,6 +156,13 @@ def build_status_rows(root: Path) -> list[StatusRow]:
             "user_then_codex",
             "no",
             "Use release/USER_ACTION_NOW_PACKET_ZH.md as the short current unblock list.",
+        ),
+        StatusRow(
+            "unblock_readiness_runner",
+            _decision(unblock_readiness_text) or "not_run",
+            "codex",
+            "no",
+            "Run python scripts/run_unblock_readiness_check.py after external inputs are updated.",
         ),
         StatusRow(
             "journal_submission_day_check",
