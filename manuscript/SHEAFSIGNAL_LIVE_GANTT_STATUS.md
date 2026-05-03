@@ -1,6 +1,6 @@
 # SheafSignal Live Gantt Status
 
-- Timestamp: `2026-05-03 08:16:18`
+- Timestamp: `2026-05-03 23:18:30`
 - Decision: `LIVE_STATUS_EXTERNAL_AND_AUTHOR_GATES_BLOCK_SUBMISSION`
 - IF20-50 decision: `IF20_50_SCIENTIFICALLY_HARDENED_EXTERNAL_RELEASE_BLOCKED`
 - Overall readiness: `79.3%`
@@ -21,9 +21,9 @@ gantt
     External review bundle and triage         :done, 2026-05-03, 1d
     Author response workflow                  :done, 2026-05-03, 1d
     Journal submission-day check template     :done, 2026-05-03, 1d
+    GitHub and Zenodo token validation        :done, 2026-05-03, 1d
 
     section Current Blocking Work
-    GitHub token workflow scope               :crit, active, 2026-05-03, 1d
     Author facts filled and applied           :crit, active, 2026-05-03, 1d
     Author contact reconciliation             :crit, active, 2026-05-03, 1d
     Zenodo DOI minted                         :crit, active, 2026-05-04, 1d
@@ -41,8 +41,8 @@ gantt
 | Item | Status | Owner | Blocking | Next action |
 |---|---|---|---|---|
 | `scientific_method_hardening` | `97.0%` | `codex` | `no` | Keep claims bounded; do not promote computational signals to mechanisms. |
-| `submission_infrastructure` | `44.5%` | `user_then_codex` | `yes` | Clear GitHub token, Zenodo DOI, author facts, and public clean-clone gates. |
-| `release_blockers` | `7 active` | `user_then_codex` | `yes` | Regenerate GitHub token with workflow scope; mint Zenodo DOI; rerun release pipeline. |
+| `submission_infrastructure` | `44.5%` | `user_then_codex` | `yes` | Clear author facts, Zenodo DOI, GitHub release, and public clean-clone gates. |
+| `release_blockers` | `6 active` | `user_then_codex` | `yes` | Finish author facts, mint Zenodo DOI, publish GitHub release, and rerun release pipeline. |
 | `author_confirmation` | `blocking=2; pending=8` | `authors` | `yes` | Fill AUTHOR_CONFIRMATION_RESPONSE_TEMPLATE.tsv and apply it. |
 | `author_contact_reconciliation` | `AUTHOR_CONTACT_RECONCILIATION_BLOCKED_MISSING_EMAIL` | `authors` | `yes` | Provide Han Yan email and confirm whether extra supplied contacts are authors. |
 | `external_beta_reviews` | `EXTERNAL_BETA_REVIEW_NO_RETURNED_REVIEWS` | `user_or_external_reviewers` | `no` | Send shareable bundle, collect returned reviews, and triage them. |

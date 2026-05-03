@@ -1,7 +1,7 @@
 item	status	owner	blocking	next_action
 scientific_method_hardening	97.0%	codex	no	Keep claims bounded; do not promote computational signals to mechanisms.
-submission_infrastructure	44.5%	user_then_codex	yes	Clear GitHub token, Zenodo DOI, author facts, and public clean-clone gates.
-release_blockers	7 active	user_then_codex	yes	Regenerate GitHub token with workflow scope; mint Zenodo DOI; rerun release pipeline.
+submission_infrastructure	44.5%	user_then_codex	yes	Clear author facts, Zenodo DOI, GitHub release, and public clean-clone gates.
+release_blockers	6 active	user_then_codex	yes	Finish author facts, mint Zenodo DOI, publish GitHub release, and rerun release pipeline.
 author_confirmation	blocking=2; pending=8	authors	yes	Fill AUTHOR_CONFIRMATION_RESPONSE_TEMPLATE.tsv and apply it.
 author_contact_reconciliation	AUTHOR_CONTACT_RECONCILIATION_BLOCKED_MISSING_EMAIL	authors	yes	Provide Han Yan email and confirm whether extra supplied contacts are authors.
 external_beta_reviews	EXTERNAL_BETA_REVIEW_NO_RETURNED_REVIEWS	user_or_external_reviewers	no	Send shareable bundle, collect returned reviews, and triage them.

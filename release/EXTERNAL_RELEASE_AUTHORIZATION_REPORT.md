@@ -1,14 +1,12 @@
 # External Release Authorization Report
 
-- Decision: `EXTERNAL_RELEASE_AUTHORIZATION_BLOCKED`
-- Passed checks: `4`
-- Pending checks: `2`
-- Blocking checks: `3`
+- Decision: `EXTERNAL_RELEASE_AUTHORIZATION_PARTIAL_METADATA_BLOCKED`
+- Passed checks: `7`
+- Pending checks: `1`
+- Blocking checks: `1`
 
 ## Blocking Checks
 
-- `github_cli_auth`: `not_logged_in`. Action: Run gh auth login or authenticate gh with a valid token.
-- `github_token_api`: `valid_missing_workflow_scope`. Action: Regenerate the GitHub token with repo and workflow scopes, then overwrite the local token file.
 - `zenodo_doi_placeholders`: `pending`. Action: Mint DOI and run scripts/finalize_zenodo_doi.py.
 
 ## Interpretation Boundary

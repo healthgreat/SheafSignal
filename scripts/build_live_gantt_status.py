@@ -83,7 +83,7 @@ def _author_counts(rows: list[dict[str, str]]) -> dict[str, int]:
 
 
 def _active_release_blockers(rows: list[dict[str, str]]) -> list[dict[str, str]]:
-    inactive = {"pass", "ready", "completed", "public_remote_branch_available"}
+    inactive = {"pass", "ready", "completed", "valid", "public_remote_branch_available"}
     return [
         row
         for row in rows
@@ -119,14 +119,14 @@ def build_status_rows(root: Path) -> list[StatusRow]:
             _metric(if_text, "Submission infrastructure index"),
             "user_then_codex",
             "yes" if active_release else "no",
-            "Clear GitHub token, Zenodo DOI, author facts, and public clean-clone gates.",
+            "Clear author facts, Zenodo DOI, GitHub release, and public clean-clone gates.",
         ),
         StatusRow(
             "release_blockers",
             f"{len(active_release)} active",
             "user_then_codex",
             "yes" if active_release else "no",
-            "Regenerate GitHub token with workflow scope; mint Zenodo DOI; rerun release pipeline.",
+            "Finish author facts, mint Zenodo DOI, publish GitHub release, and rerun release pipeline.",
         ),
         StatusRow(
             "author_confirmation",
@@ -247,9 +247,9 @@ gantt
     External review bundle and triage         :done, 2026-05-03, 1d
     Author response workflow                  :done, 2026-05-03, 1d
     Journal submission-day check template     :done, 2026-05-03, 1d
+    GitHub and Zenodo token validation        :done, 2026-05-03, 1d
 
     section Current Blocking Work
-    GitHub token workflow scope               :crit, active, 2026-05-03, 1d
     Author facts filled and applied           :crit, active, 2026-05-03, 1d
     Author contact reconciliation             :crit, active, 2026-05-03, 1d
     Zenodo DOI minted                         :crit, active, 2026-05-04, 1d

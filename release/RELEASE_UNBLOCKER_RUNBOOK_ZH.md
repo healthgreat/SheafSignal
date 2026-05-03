@@ -13,7 +13,7 @@ journal and does not change the evidence boundary of the manuscript.
 
 ## Gate Matrix Summary
 
-- `G01_github_auth`: `valid_missing_workflow_scope` -> Regenerate a GitHub token with repo and workflow scopes or finish browser login, then let Codex validate auth.
+- `G01_github_auth`: `valid` -> Regenerate a GitHub token with repo and workflow scopes or finish browser login, then let Codex validate auth.
 - `G02_public_github_repo`: `origin_configured_push_pending` -> Create or connect a public GitHub repository and push the frozen branch.
 - `G03_release_tag`: `pending` -> Create an immutable release tag after final audits pass.
 - `G04_zenodo_doi`: `blocking_pending` -> Upload the frozen archive or provide a Zenodo token, then mint a real DOI.

@@ -1,15 +1,15 @@
 # External Input Intake Report
 
-- Timestamp: `2026-05-03 08:14:30`
+- Timestamp: `2026-05-03 23:15:02`
 - Decision: `EXTERNAL_INPUT_INTAKE_P0_MISSING`
-- P0 missing/blocking fields: `11`
+- P0 missing/blocking fields: `10`
 
 ## Intake Status
 
 | Field | Priority | Status | Blocking | Evidence | Next action |
 |---|---|---|---|---|---|
 | `github_token_file` | `P0` | `pass` | `no` | D:\secrets\github_token.txt exists_nonempty | Save the required secret file to D:\secrets\github_token.txt. |
-| `zenodo_doi` | `P0` | `missing` | `yes` | doi_valid=False; zenodo_token_file_present=False | Fill a real DOI or save a Zenodo token outside the repository. |
+| `zenodo_doi` | `P0` | `pass` | `no` | doi_valid=False; zenodo_token_file_present=True | Fill a real DOI or save a Zenodo token outside the repository. |
 | `han_yan_email` | `P0` | `missing` | `yes` | email_missing_or_invalid | Provide a valid email address. |
 | `extra_contacts_decision` | `P0` | `missing` | `yes` | value=blank; allowed=expand_author_line,not_authors | Choose one of the allowed values and put details in notes if needed. |
 | `equal_contribution_wording` | `P0` | `missing` | `yes` | blank | Provide an approval value or replacement wording in user_value. |
