@@ -1,7 +1,7 @@
 item	status	owner	blocking	next_action
 scientific_method_hardening	97.0%	codex	no	Keep claims bounded; do not promote computational signals to mechanisms.
-submission_infrastructure	44.5%	user_then_codex	yes	Finish active release-chain blockers shown in release/RELEASE_UNBLOCKER_MATRIX.tsv.
-release_blockers	1 active	user_then_codex	yes	Finish active release-chain blockers shown in release/RELEASE_UNBLOCKER_MATRIX.tsv.
+submission_infrastructure	100.0%	user_then_codex	no	No release-chain blocker remains; proceed with final audits and public clean-clone evidence.
+release_blockers	0 active	user_then_codex	no	No release-chain blocker remains; proceed with final audits and public clean-clone evidence.
 author_confirmation	blocking=0; pending=0	authors	no	No action needed.
 author_contact_reconciliation	AUTHOR_CONTACT_RECONCILIATION_READY	authors	no	No action needed.
 external_beta_reviews	EXTERNAL_BETA_REVIEW_NO_RETURNED_REVIEWS	user_or_external_reviewers	no	Send shareable bundle, collect returned reviews, and triage them.
@@ -9,5 +9,5 @@ shareable_review_bundle	SHAREABLE_REVIEW_BUNDLE_READY	codex	no	Use bundle zip fo
 user_action_now_packet	USER_ACTION_PACKET_READY_NO_P0_BLOCKERS	user_then_codex	no	No P0 user action remains; keep the packet as the short audit trail.
 external_input_intake	EXTERNAL_INPUT_INTAKE_READY	user_then_codex	no	No action needed unless author-owned facts change.
 author_response_from_intake	AUTHOR_RESPONSE_FROM_INTAKE_READY	codex	no	No action needed; canonical author response has been derived from intake.
-unblock_readiness_runner	UNBLOCK_READINESS_BLOCKED_EXTERNAL_INPUTS	codex	no	Run python scripts/run_unblock_readiness_check.py after external inputs are updated.
+unblock_readiness_runner	UNBLOCK_READINESS_READY_FOR_POST_UNBLOCK_PIPELINE	codex	no	Run python scripts/run_unblock_readiness_check.py after external inputs are updated.
 journal_submission_day_check	JOURNAL_SUBMISSION_DAY_CHECK_TEMPLATE_READY	codex_on_submission_day	yes	Fill latest JIF, CAS zone, warning-list status, verifier, and date before submission.

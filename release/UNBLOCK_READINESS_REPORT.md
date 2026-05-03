@@ -1,7 +1,7 @@
 # SheafSignal Unblock Readiness Report
 
-- Timestamp: `2026-05-04 03:07:44`
-- Decision: `UNBLOCK_READINESS_BLOCKED_EXTERNAL_INPUTS`
+- Timestamp: `2026-05-04 03:14:37`
+- Decision: `UNBLOCK_READINESS_READY_FOR_POST_UNBLOCK_PIPELINE`
 
 ## Gate Table
 
@@ -13,7 +13,7 @@
 | `external_input_intake` | `P0_missing=0` | `no` | release/EXTERNAL_INPUT_INTAKE_TEMPLATE.tsv | No action needed unless author-owned facts change. |
 | `author_response_from_intake` | `pending_rows=0` | `no` | manuscript/submission_metadata/AUTHOR_CONFIRMATION_RESPONSE_FROM_INTAKE.tsv | No action needed; canonical author response has been derived from intake. |
 | `short_user_action_packet` | `P0=0` | `no` | release/USER_ACTION_NOW_PACKET_ZH.md | No P0 user action remains; keep the packet as the short audit trail. |
-| `live_gantt_blockers` | `blocking_rows=2` | `yes` | manuscript/SHEAFSIGNAL_LIVE_GANTT_STATUS.md | Resolve release-chain blockers shown in the live Gantt. Submission-day journal metric verification is excluded from this pre-submission unblock count. |
+| `live_gantt_blockers` | `blocking_rows=0` | `no` | manuscript/SHEAFSIGNAL_LIVE_GANTT_STATUS.md | No action needed; live Gantt has no blocking rows. |
 
 ## Safe Refresh Log
 
@@ -55,7 +55,7 @@ report: release/USER_ACTION_NOW_PACKET_ZH.md`
 - `python scripts/build_live_gantt_status.py -> returncode=0; LIVE_GANTT_STATUS_WRITTEN
 Report: manuscript/SHEAFSIGNAL_LIVE_GANTT_STATUS.md
 Rows: 12
-Blocking rows: 3`
+Blocking rows: 1`
 
 ## If Ready
 

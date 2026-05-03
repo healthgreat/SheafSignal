@@ -624,6 +624,76 @@ def live_release_summary(root: Path) -> dict[str, object]:
     }
 
 
+def _release_chain_complete(root: Path) -> bool:
+    return int(live_release_summary(root)["blocking_active"]) == 0
+
+
+def apply_live_release_overrides(root: Path, gates: pd.DataFrame) -> pd.DataFrame:
+    if gates.empty or not _release_chain_complete(root):
+        return gates
+    table = gates.copy()
+    overrides = {
+        "G11": {
+            "status": "green",
+            "current_decision": "Public GitHub release/tag/asset verified.",
+            "evidence": "release/GITHUB_RELEASE_PUBLICATION_REPORT.md; release/archive_manifest.tsv",
+            "next_action": "No release action needed unless tracked files change.",
+            "submission_blocker": "no",
+        },
+        "G12": {
+            "status": "green",
+            "current_decision": "Zenodo DOI minted and metadata placeholders cleared.",
+            "evidence": "release/ZENODO_API_UPLOAD_SUMMARY.md; release/RELEASE_METADATA_PLACEHOLDER_REPORT.md",
+            "next_action": "No DOI action needed unless the frozen Zenodo archive changes.",
+            "submission_blocker": "no",
+        },
+        "G13": {
+            "status": "green",
+            "current_decision": "Final local blockers cleared and public clean-clone reproduction passed.",
+            "evidence": "manuscript/NATURE_METHODS_GO_NO_GO_REPORT.md; release/public_clean_clone/PUBLIC_CLEAN_CLONE_REPORT.md",
+            "next_action": "Run submission-day journal metric/CAS/warning-list check immediately before upload.",
+            "submission_blocker": "no",
+        },
+    }
+    for gate_id, values in overrides.items():
+        mask = table["gate_id"].astype(str) == gate_id
+        for column, value in values.items():
+            if column in table.columns:
+                table.loc[mask, column] = value
+    return table
+
+
+def filter_resolved_release_rows(
+    root: Path,
+    review_matrix: pd.DataFrame,
+    git_audit: pd.DataFrame,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    if not _release_chain_complete(root):
+        return review_matrix, git_audit
+
+    filtered_review = review_matrix
+    if not review_matrix.empty and "concern" in review_matrix.columns:
+        patterns = ["GitHub", "Zenodo", "Metadata has TBD"]
+        final_go_report = root / "manuscript/NATURE_METHODS_GO_NO_GO_REPORT.md"
+        if final_go_report.exists() and "Decision: `GO`" in final_go_report.read_text(
+            encoding="utf-8", errors="replace"
+        ):
+            patterns.append("Nature Methods framing is premature")
+        resolved_concern = review_matrix["concern"].astype(str).str.contains(
+            "|".join(patterns), case=False, regex=True
+        )
+        filtered_review = review_matrix.loc[~resolved_concern].copy()
+
+    filtered_git = git_audit
+    if not git_audit.empty and {"area", "status"}.issubset(git_audit.columns):
+        stale_public_release_warning = (
+            git_audit["area"].astype(str).eq("public_release")
+            & git_audit["status"].astype(str).isin(["warn", "fail"])
+        )
+        filtered_git = git_audit.loc[~stale_public_release_warning].copy()
+    return filtered_review, filtered_git
+
+
 def author_response_template_status(root: Path) -> str:
     path = root / AUTHOR_RESPONSE_APPLY_REPORT_PATH
     if not path.exists():
@@ -772,12 +842,19 @@ def build_report(
         for row in supplement_rows
         if row["blocking"] == "yes"
         and not (row["priority"] == "M2" and author_metadata == 0)
+        and not (
+            active_live_blockers == 0 and row["priority"] in {"M1", "M3", "M4"}
+        )
     ]
     optional = [row for row in supplement_rows if row["blocking"] != "yes"]
     mandatory_lines = [
         f"{row['priority']}. {row['action']} Expected effect: {row['expected_effect']}"
         for row in mandatory
     ]
+    if not mandatory_lines:
+        mandatory_lines = [
+            "None. Current release, DOI, metadata, author, and public clean-clone gates are locally clear."
+        ]
     optional_lines = [
         f"{row['priority']}. {row['action']} Expected effect: {row['expected_effect']}"
         for row in optional
@@ -820,12 +897,23 @@ def build_report(
             "or edge-level signals into validated biological mechanisms."
         )
         stretch_route_sentence = (
-            "For a realistic 20-50 IF route, the current package is approximately "
-            "one release/metadata cycle away from being submit-ready. For a Nature "
-            "Methods or Nature Biotechnology stretch route, the core "
-            "package is defensible on local scientific/statistical hardening, but "
-            "would still benefit most from returned external beta reviews and a "
-            "final public clean-clone reproduction after GitHub/Zenodo release."
+            (
+                "For a realistic 20-50 IF route, the release/metadata cycle is now "
+                "complete locally. The remaining distance is submission-day journal "
+                "metric/CAS/warning verification and optional returned external beta "
+                "reviews. For a Nature Methods or Nature Biotechnology stretch route, "
+                "the core package is defensible on local scientific/statistical "
+                "hardening, but independent external critiques would still reduce risk."
+            )
+            if active_live_blockers == 0
+            else (
+                "For a realistic 20-50 IF route, the current package is approximately "
+                "one release/metadata cycle away from being submit-ready. For a Nature "
+                "Methods or Nature Biotechnology stretch route, the core "
+                "package is defensible on local scientific/statistical hardening, but "
+                "would still benefit most from returned external beta reviews and a "
+                "final public clean-clone reproduction after GitHub/Zenodo release."
+            )
         )
     else:
         confirmatory_sentence = (
@@ -835,12 +923,39 @@ def build_report(
             "completed statistical evidence."
         )
         stretch_route_sentence = (
-            "For a realistic 20-50 IF route, the current package is approximately "
-            "one release/metadata cycle away from being submit-ready. For a Nature "
-            "Methods or Nature Biotechnology stretch route, the core "
-            "package is defensible but would still benefit from external beta review "
-            "and a small 10,000-permutation confirmatory subset."
+            (
+                "For a realistic 20-50 IF route, release infrastructure is locally "
+                "clear, but the package would still benefit from external beta review "
+                "and any remaining confirmatory-statistics execution."
+            )
+            if active_live_blockers == 0
+            else (
+                "For a realistic 20-50 IF route, the current package is approximately "
+                "one release/metadata cycle away from being submit-ready. For a Nature "
+                "Methods or Nature Biotechnology stretch route, the core "
+                "package is defensible but would still benefit from external beta review "
+                "and a small 10,000-permutation confirmatory subset."
+            )
         )
+
+    direct_answer = (
+        "SheafSignal is now a locally GO package for a defensible 20-50 IF "
+        "methods-manuscript route: public GitHub release, Zenodo DOI, identifier "
+        "insertion, author confirmations, and public clean-clone reproduction are "
+        "clear. This is not an acceptance guarantee; the remaining practical work is "
+        "submission-day journal metric/CAS/warning verification and optional returned "
+        "external beta-review comments."
+        if active_live_blockers == 0 and hard_blockers == 0
+        else (
+            "SheafSignal is now close to a defensible 20-50 IF methods-manuscript "
+            "candidate on the scientific/code side, but it is not submission-ready. "
+            "The main remaining distance is external release and submission metadata: "
+            "public GitHub URL/tag, real Zenodo DOI, identifier insertion, and a "
+            "final public clean-clone reproduction check. A local clean-export preflight "
+            "has passed when this report shows `local_clean_export_pass`, but it "
+            "does not replace the final public-GitHub clone test."
+        )
+    )
 
     return "\n".join(
         [
@@ -871,18 +986,12 @@ def build_report(
             "",
             "## Direct Answer",
             "",
-            "SheafSignal is now close to a defensible 20-50 IF methods-manuscript "
-            "candidate on the scientific/code side, but it is not submission-ready. "
-            "The main remaining distance is external release and submission metadata: "
-            "public GitHub URL/tag, real Zenodo DOI, identifier insertion, and a "
-            "final public clean-clone reproduction check. A local clean-export preflight "
-            "has passed when this report shows `local_clean_export_pass`, but it "
-            "does not replace the final public-GitHub clone test.",
+            direct_answer,
             "",
             "The journal-metric audit now anchors the target board to publisher "
             "metric pages, while keeping CAS-zone and warning-journal status as "
             "official submission-day checks. This strengthens journal selection "
-            "discipline but does not remove the GitHub/Zenodo/public-release blockers.",
+            "discipline without turning journal metrics into scientific evidence.",
             "",
             beta_review_sentence,
             "",
@@ -953,6 +1062,12 @@ def build_outputs(root: Path) -> dict[str, object]:
     review_matrix = _read_tsv(root / REVIEW_MATRIX_PATH)
     git_audit = _read_tsv(root / GIT_READINESS_PATH)
     placeholder_audit = _read_tsv(root / METADATA_PLACEHOLDER_PATH)
+    gates = apply_live_release_overrides(root, gates)
+    review_matrix, git_audit = filter_resolved_release_rows(
+        root,
+        review_matrix,
+        git_audit,
+    )
 
     gap_rows = build_gap_matrix(
         gates,

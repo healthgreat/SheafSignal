@@ -4,9 +4,9 @@ Timestamp: 2026-05-03 02:00:00 +08:00
 
 ## Direct Status
 
-- Blocking or mandatory release gates tracked: `1`.
-- Gates already partly configured: `3`.
-- Current decision: `RELEASE_NOT_READY_UNTIL_GITHUB_ZENODO_AUTHOR_CONFIRMATION`.
+- Blocking or mandatory release gates tracked: `0`.
+- Gates already partly configured: `4`.
+- Current decision: `RELEASE_READY_FOR_FINAL_AUDIT`.
 
 This runbook is for release execution. It does not guarantee acceptance in any
 journal and does not change the evidence boundary of the manuscript.
@@ -18,7 +18,7 @@ journal and does not change the evidence boundary of the manuscript.
 - `G03_release_tag`: `completed` -> Create an immutable release tag after final audits pass.
 - `G04_zenodo_doi`: `completed` -> No action needed.
 - `G05_metadata_insertion`: `completed` -> No action needed.
-- `G06_public_clean_clone`: `pending` -> Clone the public repository into a fresh directory and rerun demo plus audits.
+- `G06_public_clean_clone`: `completed` -> No action needed.
 - `G07_author_confirmation`: `AUTHOR_CONFIRMATION_READY` -> No action needed; author-owned declarations are applied.
 - `S01_external_beta_review`: `recommended_not_required_for_local_go` -> Send the package to 2-3 independent computational biology readers and triage responses.
 - `S02_submission_day_metric_check`: `pending_submission_day` -> Recheck journal metrics, CAS zone, and warning status on the submission day.

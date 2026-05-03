@@ -1,0 +1,7 @@
+﻿"step"	"command"	"returncode"	"evidence"
+"git_clone_tag"	"git clone --branch v0.1.0 --depth 1 https://github.com/healthgreat/SheafSignal.git"	"0"	"commit 766ec1e6215ebfc92e18f81e6e82a4da73422a56"
+"pytest"	"python -m pytest -q"	"0"	"305 passed, 1 warning"
+"ruff"	"ruff check scripts tests"	"0"	"All checks passed"
+"release_audit"	"python scripts/release_audit.py"	"0"	"Release audit passed"
+"metadata_placeholders"	"python scripts/check_release_metadata_placeholders.py"	"0"	"RELEASE_METADATA_PLACEHOLDERS_CLEAR"
+"final_blockers"	"python scripts/check_final_submission_blockers.py --report-only"	"0"	"NATURE_METHODS_GO_NO_GO_REPORT regenerated"

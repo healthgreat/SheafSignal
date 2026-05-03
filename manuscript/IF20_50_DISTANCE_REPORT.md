@@ -1,9 +1,9 @@
 # SheafSignal IF 20-50 Distance Report
 
-- Decision: `IF20_50_SCIENTIFICALLY_HARDENED_EXTERNAL_RELEASE_BLOCKED`
-- Overall readiness index: `79.3%`
+- Decision: `IF20_50_SUBMISSION_CANDIDATE_AFTER_FINAL_FORMAT_CHECK`
+- Overall readiness index: `98.0%`
 - Scientific/method hardening index: `97.0%`
-- Submission infrastructure index: `44.5%`
+- Submission infrastructure index: `100.0%`
 - Clean-export reproduction preflight: `local_clean_export_pass`
 - Journal metric audit: `publisher_if_verified_cas_warning_final_check_required`
 - Journal submission-day check: `template_ready`
@@ -12,8 +12,8 @@
 - Shareable review bundle: `ready`
 - 10,000-permutation confirmatory subset: `completed_10000`
 - GSE103322 replication supplement: `supplement_ready`
-- Live release blocking gates: `1` of `7`
-- External authorization statuses: `configured=1, env_token_available_persistent_login_missing=1, pending=1, present=4, valid=2`
+- Live release blocking gates: `0` of `7`
+- External authorization statuses: `cleared=1, configured=1, env_token_available_persistent_login_missing=1, present=4, valid=2`
 - Zenodo preflight statuses: `pass=16`
 - Author confirmation severities: `pass=11`
 - Author response template: `applied`
@@ -21,9 +21,9 @@
 
 ## Direct Answer
 
-SheafSignal is now close to a defensible 20-50 IF methods-manuscript candidate on the scientific/code side, but it is not submission-ready. The main remaining distance is external release and submission metadata: public GitHub URL/tag, real Zenodo DOI, identifier insertion, and a final public clean-clone reproduction check. A local clean-export preflight has passed when this report shows `local_clean_export_pass`, but it does not replace the final public-GitHub clone test.
+SheafSignal is now a locally GO package for a defensible 20-50 IF methods-manuscript route: public GitHub release, Zenodo DOI, identifier insertion, author confirmations, and public clean-clone reproduction are clear. This is not an acceptance guarantee; the remaining practical work is submission-day journal metric/CAS/warning verification and optional returned external beta-review comments.
 
-The journal-metric audit now anchors the target board to publisher metric pages, while keeping CAS-zone and warning-journal status as official submission-day checks. This strengthens journal selection discipline but does not remove the GitHub/Zenodo/public-release blockers.
+The journal-metric audit now anchors the target board to publisher metric pages, while keeping CAS-zone and warning-journal status as official submission-day checks. This strengthens journal selection discipline without turning journal metrics into scientific evidence.
 
 Internal multi-agent AI reviews have now been returned and triaged. This reduces stale-objection risk and documents what has been fixed, but it still does not replace independent external human or computational-biology reviewer feedback.
 
@@ -31,22 +31,20 @@ The 10,000-permutation confirmatory subset is now both pre-specified and execute
 
 GSE103322 has now completed a 1000-permutation, sample-stratified HNSCC replication rerun and can be used as supplement-grade workflow generality evidence. It still should not be used for primary comparator-completeness claims unless full external comparator imports are completed for this dataset.
 
-For a realistic 20-50 IF route, the current package is approximately one release/metadata cycle away from being submit-ready. For a Nature Methods or Nature Biotechnology stretch route, the core package is defensible on local scientific/statistical hardening, but would still benefit most from returned external beta reviews and a final public clean-clone reproduction after GitHub/Zenodo release.
+For a realistic 20-50 IF route, the release/metadata cycle is now complete locally. The remaining distance is submission-day journal metric/CAS/warning verification and optional returned external beta reviews. For a Nature Methods or Nature Biotechnology stretch route, the core package is defensible on local scientific/statistical hardening, but independent external critiques would still reduce risk.
 
 The GSE103322 HNSCC supplement-grade replication gate is now complete, but it remains outside primary comparator-completeness claims.
 
 ## Current Gap Counts
 
-- Blocking gap rows in the matrix: `6`
+- Blocking gap rows in the matrix: `0`
 - Administrative pending rows: `0`
 - Author-owned metadata rows: `0`
-- Git release warnings: `2`
+- Git release warnings: `0`
 
 ## Mandatory Before Any 20-50 IF Submission
 
-- M1. Create public GitHub remote, push codex/sheafsignal-hardening-release, create immutable release tag, and write the URL into CITATION.cff, pyproject.toml, .zenodo.json, and release metadata. Expected effect: Turns G11 from yellow to green after tag/release URL is verified.
-- M3. Mint Zenodo DOI only after GitHub URL and author metadata are real, then replace PENDING_ZENODO_RELEASE in metadata/datasets.tsv and Data Availability. Expected effect: Turns G12 from red to green and removes the final blocking DOI rows.
-- M4. Rerun clean-clone reproduction after GitHub and DOI insertion from the public repository: install locked Python environment, run demo workflow, and regenerate manuscript-facing audits. Expected effect: Converts local clean-export reproducibility into public clean-clone reproducibility evidence.
+- None. Current release, DOI, metadata, author, and public clean-clone gates are locally clear.
 
 ## Live Release And Author Gates
 
@@ -57,7 +55,7 @@ The GSE103322 HNSCC supplement-grade replication gate is now complete, but it re
 | `G03_release_tag` | `blocking` | `codex_after_github` | `completed` | Create an immutable release tag after final audits pass. |
 | `G04_zenodo_doi` | `blocking` | `user_then_codex` | `completed` | No action needed. |
 | `G05_metadata_insertion` | `blocking` | `codex_after_doi` | `completed` | No action needed. |
-| `G06_public_clean_clone` | `blocking` | `codex_after_public_release` | `pending` | Clone the public repository into a fresh directory and rerun demo plus audits. |
+| `G06_public_clean_clone` | `blocking` | `codex_after_public_release` | `completed` | No action needed. |
 | `G07_author_confirmation` | `blocking` | `authors` | `AUTHOR_CONFIRMATION_READY` | No action needed; author-owned declarations are applied. |
 | `S01_external_beta_review` | `strengthening` | `user_or_codex_packet` | `recommended_not_required_for_local_go` | Send the package to 2-3 independent computational biology readers and triage responses. |
 | `S02_submission_day_metric_check` | `strengthening` | `codex` | `pending_submission_day` | Recheck journal metrics, CAS zone, and warning status on the submission day. |

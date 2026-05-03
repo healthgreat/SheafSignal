@@ -1,11 +1,11 @@
 # SheafSignal Live Gantt Status
 
-- Timestamp: `2026-05-04 03:07:44`
-- Decision: `LIVE_STATUS_EXTERNAL_AND_AUTHOR_GATES_BLOCK_SUBMISSION`
-- IF20-50 decision: `IF20_50_SCIENTIFICALLY_HARDENED_EXTERNAL_RELEASE_BLOCKED`
-- Overall readiness: `79.3%`
+- Timestamp: `2026-05-04 03:18:40`
+- Decision: `LIVE_STATUS_READY_FOR_FINAL_GO_NO_GO`
+- IF20-50 decision: `IF20_50_SUBMISSION_CANDIDATE_AFTER_FINAL_FORMAT_CHECK`
+- Overall readiness: `98.0%`
 - Scientific/method readiness: `97.0%`
-- Submission infrastructure readiness: `44.5%`
+- Submission infrastructure readiness: `100.0%`
 
 ## Gantt
 
@@ -31,7 +31,7 @@ gantt
     GitHub release tag                         :done, 2026-05-04, 1d
     Zenodo DOI minted                          :done, 2026-05-04, 1d
     Release metadata identifiers               :done, 2026-05-04, 1d
-    Public clean-clone reproduction            :crit, active, 2026-05-05, 1d
+    Public clean-clone reproduction            :done, 2026-05-05, 1d
     Author confirmation                        :done, 2026-05-04, 1d
     Submission-day journal metric check       :crit, active, 2026-05-06, 1d
     Returned external beta reviews            :active, 2026-05-04, 5d
@@ -45,8 +45,8 @@ gantt
 | Item | Status | Owner | Blocking | Next action |
 |---|---|---|---|---|
 | `scientific_method_hardening` | `97.0%` | `codex` | `no` | Keep claims bounded; do not promote computational signals to mechanisms. |
-| `submission_infrastructure` | `44.5%` | `user_then_codex` | `yes` | Finish active release-chain blockers shown in release/RELEASE_UNBLOCKER_MATRIX.tsv. |
-| `release_blockers` | `1 active` | `user_then_codex` | `yes` | Finish active release-chain blockers shown in release/RELEASE_UNBLOCKER_MATRIX.tsv. |
+| `submission_infrastructure` | `100.0%` | `user_then_codex` | `no` | No release-chain blocker remains; proceed with final audits and public clean-clone evidence. |
+| `release_blockers` | `0 active` | `user_then_codex` | `no` | No release-chain blocker remains; proceed with final audits and public clean-clone evidence. |
 | `author_confirmation` | `blocking=0; pending=0` | `authors` | `no` | No action needed. |
 | `author_contact_reconciliation` | `AUTHOR_CONTACT_RECONCILIATION_READY` | `authors` | `no` | No action needed. |
 | `external_beta_reviews` | `EXTERNAL_BETA_REVIEW_NO_RETURNED_REVIEWS` | `user_or_external_reviewers` | `no` | Send shareable bundle, collect returned reviews, and triage them. |
@@ -54,12 +54,12 @@ gantt
 | `user_action_now_packet` | `USER_ACTION_PACKET_READY_NO_P0_BLOCKERS` | `user_then_codex` | `no` | No P0 user action remains; keep the packet as the short audit trail. |
 | `external_input_intake` | `EXTERNAL_INPUT_INTAKE_READY` | `user_then_codex` | `no` | No action needed unless author-owned facts change. |
 | `author_response_from_intake` | `AUTHOR_RESPONSE_FROM_INTAKE_READY` | `codex` | `no` | No action needed; canonical author response has been derived from intake. |
-| `unblock_readiness_runner` | `UNBLOCK_READINESS_BLOCKED_EXTERNAL_INPUTS` | `codex` | `no` | Run python scripts/run_unblock_readiness_check.py after external inputs are updated. |
+| `unblock_readiness_runner` | `UNBLOCK_READINESS_READY_FOR_POST_UNBLOCK_PIPELINE` | `codex` | `no` | Run python scripts/run_unblock_readiness_check.py after external inputs are updated. |
 | `journal_submission_day_check` | `JOURNAL_SUBMISSION_DAY_CHECK_TEMPLATE_READY` | `codex_on_submission_day` | `yes` | Fill latest JIF, CAS zone, warning-list status, verifier, and date before submission. |
 
 ## Short Interpretation
 
-The scientific and software side is near complete, author-owned declarations are applied, and the real DOI/GitHub identifiers are recorded. Current blocking release-chain rows are: `G06_public_clean_clone`.
+The release-chain blockers are cleared in the live matrix. Remaining checks are final audit refresh, public clean-clone evidence if newly generated outputs changed, returned beta reviews if available, and submission-day journal metrics.
 
 ## Boundary
 
