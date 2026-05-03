@@ -103,6 +103,7 @@ def build_status_rows(root: Path) -> list[StatusRow]:
     intake_text = _read_text(root / EXTERNAL_INPUT_INTAKE)
     response_from_intake_text = _read_text(root / AUTHOR_RESPONSE_FROM_INTAKE)
     unblock_readiness_text = _read_text(root / UNBLOCK_READINESS)
+    contact_decision = _decision(contact_text) or "not_run"
 
     author_counts = _author_counts(author_rows)
     active_release = _active_release_blockers(release_rows)
@@ -137,10 +138,10 @@ def build_status_rows(root: Path) -> list[StatusRow]:
         ),
         StatusRow(
             "author_contact_reconciliation",
-            _decision(contact_text) or "not_run",
+            contact_decision,
             "authors",
-            "yes" if "BLOCKED" in (_decision(contact_text) or "") else "no",
-            "Provide Han Yan email and confirm whether extra supplied contacts are authors.",
+            "yes" if "BLOCKED" in contact_decision else "no",
+            "No action needed." if contact_decision == "AUTHOR_CONTACT_RECONCILIATION_READY" else "Provide Han Yan email and confirm whether extra supplied contacts are authors.",
         ),
         StatusRow(
             "external_beta_reviews",

@@ -1,15 +1,16 @@
 # Author Contact Reconciliation Report
 
-- Timestamp: `2026-05-03 08:01:10`
-- Decision: `AUTHOR_CONTACT_RECONCILIATION_BLOCKED_MISSING_EMAIL`
-- Current manuscript authors with matched or unchanged contact: `7`
-- Current manuscript authors missing supplied email: `1`
+- Timestamp: `2026-05-04 00:47:58`
+- Decision: `AUTHOR_CONTACT_RECONCILIATION_READY`
+- Current manuscript authors with matched or unchanged contact: `3`
+- Current manuscript authors missing supplied email: `0`
 - Email mismatches requiring review: `0`
-- Supplied contacts not in current author line: `16`
+- Supplied contacts not in current author line: `21`
+- Extra contacts documented as non-authors: `21`
 
 ## Blocking Missing Emails
 
-- `Han Yan`: manuscript email `missing_email`, supplied email `not_supplied`
+- none
 
 ## Supplied Contacts Not In Current Author Line
 
@@ -19,16 +20,21 @@
 - `Chunhui Lu`: `luchunhui123@foxmail.com`
 - `Feihu Sun`: `sunfeihu_njmu@outlook.com`
 - `Feng Guo`: `guofeng1978@sohu.com`
+- `Guangfu Wang`: `Surgeonwgf@hotmail.com`
 - `Huijuan Wang`: `13225860995@163.com`
+- `Jishu Wei`: `weijishu@njmu.edu.cn`
 - `Junli Wu`: `junliwu1973@hotmail.com`
 - `Kai Zhang`: `zhangkai@njmu.edu.cn`
 - `Kuirong Jiang`: `jiangkuirong@njmu.edu.cn`
+- `Lingdi Yin`: `yinlingdi@njmu.edu.cn`
 - `Min Tu`: `tumin1215@sina.com`
 - `Nan Lv`: `lvnan_2012@hotmail.com`
 - `Qiang Li`: `liqiang020202@163.com`
+- `Shangnan Dai`: `dai_shangnan@126.com`
 - `Wentao Gao`: `gao11@hotmail.com`
 - `Xu Feng`: `fengxu@njmu.edu.cn`
 - `Zhenyu Li`: `lzy19961216@163.com`
+- `Zipeng Lu`: `surgeonmark@hotmail.com`
 
 ## Boundary
 

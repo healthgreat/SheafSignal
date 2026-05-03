@@ -1,10 +1,10 @@
 field_id	priority	owner	expected_input	current_value	user_value	secret_path	validation_rule	notes
 github_token_file	P0	user	Save GitHub classic token with repo and workflow scopes to secret_path; do not paste token here.	valid_missing_workflow_scope		D:\secrets\github_token.txt	file_exists_nonempty	The token must include repo and workflow scopes; scope validation is done by check_external_release_authorization.py.
 zenodo_doi	P0	user_or_codex_after_zenodo	Real DOI, for example 10.5281/zenodo.1234567, if minted manually.	PENDING_ZENODO_RELEASE			doi_or_zenodo_token	Either fill this DOI or save a Zenodo token to D:/secrets/zenodo_token.txt.
-han_yan_email	P0	authors	Final email for corresponding author Han Yan.	missing_email			email	Required before journal submission metadata can be finalized.
-extra_contacts_decision	P0	authors	Use not_authors, or expand_author_line with final order/affiliation/CRediT in notes.	16 supplied contacts not in current author line			one_of:not_authors|expand_author_line	Do not silently ignore unmatched contact names.
-equal_contribution_wording	P0	authors	Exact wording, for example Han Yan and Yi Miao contributed equally.	ambiguous YM/YH vs HY/YM			nonempty	Needed to remove the equal-contribution blocker.
-author_order_approved	P0	authors	yes if final author order and degrees are approved.	pending			yes	If not approved, put corrections in notes.
+han_yan_email	P0	authors	Final email for corresponding author Han Yan.	missing_email	carrick8862@163.com		email	Required before journal submission metadata can be finalized.
+extra_contacts_decision	P0	authors	Use not_authors, or expand_author_line with final order/affiliation/CRediT in notes.	16 supplied contacts not in current author line	not_authors		one_of:not_authors|expand_author_line	Latest user-provided author line includes only Chongfa Chen, Han Yan, and Yi Miao.
+equal_contribution_wording	P0	authors	Exact wording, for example Han Yan and Yi Miao contributed equally.	ambiguous YM/YH vs HY/YM	No equal-contribution statement		nonempty	Latest user-provided author block does not include an equal-contribution note.
+author_order_approved	P0	authors	yes if final author order and degrees are approved.	pending	yes		yes	Latest author line: Chongfa Chen, MD; Han Yan, MD, PhD; Yi Miao, MD, PhD; all A1.
 credit_roles_approved	P0	authors	yes if CRediT assignments are approved.	pending			yes	If not approved, put corrected roles in notes.
 funding_statement_approved	P0	authors	yes if no funding statement is correct, or put grant details in user_value/notes.	Not reported			nonempty	A real grant statement can be supplied instead of yes.
 competing_interests_approved	P0	corresponding_authors	yes if 'no competing interests' is correct, or put disclosure.	pending			nonempty	Do not infer COI status from silence.

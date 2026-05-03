@@ -1,40 +1,29 @@
 # Author Confirmation Packet
 
-Timestamp: 2026-05-03 01:40:00 +08:00
+Timestamp: 2026-05-04 00:00:00 +08:00
 
 ## Purpose
 
-This packet lists the author-owned information that must be confirmed before
-any journal submission or public release of the SheafSignal manuscript package.
-
-It does not ask authors to approve the scientific conclusions without review.
-It only isolates submission metadata, author declarations and institutional
-wording that Codex cannot legitimately decide alone.
+This packet lists author-owned information that must be confirmed before
+journal submission or public release of the SheafSignal manuscript package.
 
 ## Current Author Line
 
-Chongfa Chen, MD; Jishu Wei, MD, PhD; Shangnan Dai, MD, PhD; Guangfu Wang, MD,
-PhD; Zipeng Lu, MD, PhD; Lingdi Yin, MD, PhD; Han Yan, MD, PhD; Yi Miao, MD,
-PhD, FACS, FRCS, FICS(Hon).
+Chongfa Chen, MD; Han Yan, MD, PhD; Yi Miao, MD, PhD.
 
-## Current Affiliations
+No equal-contribution statement is currently included.
+
+## Current Affiliation
 
 1. Pancreas Center, The Affiliated BenQ Hospital of Nanjing Medical University,
    Nanjing, China.
-2. Pancreas Center, The First Affiliated Hospital of Nanjing Medical University,
-   Nanjing, China.
-3. Pancreas Institute of Nanjing Medical University, Nanjing, China.
 
 ## Corresponding Authors
 
-- Yi Miao, MD, PhD, FACS, FRCS, FICS(Hon), `miaoyi@njmu.edu.cn`.
-- Han Yan, MD, PhD, email missing.
-
-Required correction before submission:
-
-- Provide Han Yan's email.
-- Confirm whether the equal-contribution note should read `HY and YM
-  contributed equally` rather than `YM and YH contributed equally`.
+- Yi Miao, MD, PhD, FACS, FRCS, FICS(Hon), `miaoyi@njmu.edu.cn`,
+  ORCID `https://orcid.org/0000-0003-2542-8663`.
+- Han Yan, MD, PhD, `carrick8862@163.com`,
+  ORCID `https://orcid.org/0000-0002-2041-3115`.
 
 ## CRediT Draft
 
@@ -44,10 +33,11 @@ Required correction before submission:
 | Methodology | Chongfa Chen | yes |
 | Software | Chongfa Chen | yes |
 | Formal analysis | Chongfa Chen | yes |
-| Investigation | Jishu Wei; Shangnan Dai; Guangfu Wang; Zipeng Lu; Lingdi Yin | yes |
+| Investigation | Chongfa Chen; Han Yan; Yi Miao | yes |
 | Data curation | Chongfa Chen | yes |
+| Visualization | Chongfa Chen | yes |
 | Writing - original draft | Chongfa Chen | yes |
-| Writing - review and editing | Jishu Wei; Shangnan Dai; Guangfu Wang; Zipeng Lu; Lingdi Yin; Han Yan; Yi Miao | yes |
+| Writing - review and editing | Han Yan; Yi Miao | yes |
 | Supervision | Han Yan; Yi Miao | yes |
 | Funding acquisition | Not reported | must confirm or fill funder-supported authors |
 
@@ -59,9 +49,8 @@ Current draft:
 The authors declare no competing interests.
 ```
 
-Corresponding authors must confirm whether any author has financial,
-consulting, patent, software licensing, advisory, employment or other
-relationships that must be disclosed under the target journal policy.
+Corresponding authors must confirm whether any disclosure is required under the
+target journal policy.
 
 ## Ethics And Data-Use Draft
 
@@ -79,31 +68,14 @@ Corresponding authors must confirm whether the institution or target journal
 requires a formal IRB exemption sentence for secondary analysis of public
 de-identified data.
 
-## Data And Code Release Confirmation
+## Remaining Author Todo
 
-Before submission, authors should confirm:
-
-- public GitHub release is allowed;
-- Zenodo deposition of code, benchmark summaries and permitted processed
-  objects is allowed;
-- controlled-access raw reads or restricted clinical metadata will not be
-  redistributed;
-- final license remains MIT unless institutional policy requires otherwise.
-
-## Author Todo
-
-Please return the following answers:
-
-1. Han Yan email:
-2. Equal contribution note should be `HY and YM`, `YM and HY`, or another exact
-   wording:
-3. CRediT roles approved: yes/no; if no, provide corrections:
-4. Funding acquisition: not reported / fill funding author(s) and grant(s):
-5. Competing interests statement approved: yes/no; if no, provide disclosure:
-6. Ethics/data-use statement approved: yes/no; if no, provide institutional
-   wording:
-7. Public GitHub + Zenodo release approved: yes/no:
-8. ORCID IDs to include, if any:
+1. CRediT roles approved: yes/no; if no, provide corrections.
+2. Funding acquisition: not reported / fill funding author(s) and grant(s).
+3. Competing interests statement approved: yes/no; if no, provide disclosure.
+4. Ethics/data-use statement approved: yes/no; if no, provide institutional
+   wording.
+5. Public GitHub + Zenodo release approved: yes/no.
 
 ## Boundary
 

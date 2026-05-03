@@ -135,7 +135,7 @@ def build_gate_rows(root: Path) -> list[GateRow]:
             f"blocking={author_blocking}; pending={author_pending}",
             "no" if author_ready else "yes",
             f"missing_author_email={missing_author_email}; extra_contacts={extra_contacts}",
-            "Provide Han Yan email, author-line decision for extra contacts, and declarations.",
+            "Confirm remaining author-owned declarations: CRediT, funding, COI, ethics/data-use, and public release approvals.",
         ),
         GateRow(
             "zenodo_identifier",

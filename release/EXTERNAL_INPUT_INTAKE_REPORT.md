@@ -1,8 +1,8 @@
 # External Input Intake Report
 
-- Timestamp: `2026-05-03 23:15:02`
+- Timestamp: `2026-05-04 00:47:58`
 - Decision: `EXTERNAL_INPUT_INTAKE_P0_MISSING`
-- P0 missing/blocking fields: `10`
+- P0 missing/blocking fields: `6`
 
 ## Intake Status
 
@@ -10,10 +10,10 @@
 |---|---|---|---|---|---|
 | `github_token_file` | `P0` | `pass` | `no` | D:\secrets\github_token.txt exists_nonempty | Save the required secret file to D:\secrets\github_token.txt. |
 | `zenodo_doi` | `P0` | `pass` | `no` | doi_valid=False; zenodo_token_file_present=True | Fill a real DOI or save a Zenodo token outside the repository. |
-| `han_yan_email` | `P0` | `missing` | `yes` | email_missing_or_invalid | Provide a valid email address. |
-| `extra_contacts_decision` | `P0` | `missing` | `yes` | value=blank; allowed=expand_author_line,not_authors | Choose one of the allowed values and put details in notes if needed. |
-| `equal_contribution_wording` | `P0` | `missing` | `yes` | blank | Provide an approval value or replacement wording in user_value. |
-| `author_order_approved` | `P0` | `missing` | `yes` | value=blank | Enter yes/approved/confirmed, or document corrections before approval. |
+| `han_yan_email` | `P0` | `pass` | `no` | email_valid | Provide a valid email address. |
+| `extra_contacts_decision` | `P0` | `pass` | `no` | value=not_authors; allowed=expand_author_line,not_authors | Choose one of the allowed values and put details in notes if needed. |
+| `equal_contribution_wording` | `P0` | `pass` | `no` | nonempty | Provide an approval value or replacement wording in user_value. |
+| `author_order_approved` | `P0` | `pass` | `no` | value=yes | Enter yes/approved/confirmed, or document corrections before approval. |
 | `credit_roles_approved` | `P0` | `missing` | `yes` | value=blank | Enter yes/approved/confirmed, or document corrections before approval. |
 | `funding_statement_approved` | `P0` | `missing` | `yes` | blank | Provide an approval value or replacement wording in user_value. |
 | `competing_interests_approved` | `P0` | `missing` | `yes` | blank | Provide an approval value or replacement wording in user_value. |

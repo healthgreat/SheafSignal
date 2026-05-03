@@ -1,21 +1,18 @@
 # Author Confirmation Preflight Report
 
-- Decision: `AUTHOR_CONFIRMATION_BLOCKED`
-- Blocking author confirmations: `2`
-- Pending author confirmations: `8`
-- Optional author metadata items: `1`
-- Passed confirmations: `0`
+- Decision: `AUTHOR_CONFIRMATION_PENDING`
+- Blocking author confirmations: `0`
+- Pending author confirmations: `6`
+- Optional author metadata items: `0`
+- Passed confirmations: `5`
 - Review-needed rows: `0`
 
 ## Blocking Author Confirmations
 
-- `Han Yan email`: `missing_email` -> Provide final email for corresponding author Han Yan
-- `equal contribution note`: `Equal contribution with Yi Miao; user text also contained YM and YH` -> Confirm exact wording, likely HY and YM rather than YM and YH
+- none
 
 ## Pending Author Confirmations
 
-- `author order`: `draft_pending_author_confirmation` -> Confirm final author order and degrees
-- `affiliations`: `draft_pending_author_confirmation` -> Confirm institution names and numbering
 - `CRediT roles`: `draft_pending_author_confirmation` -> Approve or correct CRediT assignments
 - `funding acquisition`: `needs_author_confirmation` -> Confirm no funding role or provide funding authors/grants
 - `competing interests`: `draft_pending_author_confirmation` -> Confirm or provide disclosure
@@ -25,7 +22,7 @@
 
 ## Optional Metadata
 
-- `ORCID IDs`: Optional: provide ORCID IDs if authors want them included
+- none
 
 ## Minimal Author Reply Needed
 

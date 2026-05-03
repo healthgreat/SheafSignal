@@ -31,6 +31,20 @@ def test_reconcile_contacts_detects_extra_supplied_contacts():
     assert row_map["Extra Person"].action_needed == "confirm_not_author_or_update_author_line"
 
 
+def test_reconcile_contacts_honors_not_authors_decision():
+    author_rows = [{"given_names": "Chongfa", "family_names": "Chen", "email": "a@example.org"}]
+    contact_rows = [
+        {"name": "Chongfa Chen", "email": "a@example.org"},
+        {"name": "Extra Person", "email": "extra@example.org"},
+    ]
+    intake_rows = [{"field_id": "extra_contacts_decision", "user_value": "not_authors"}]
+
+    rows = reconcile_contacts(author_rows, contact_rows, intake_rows)
+    row_map = {row.name: row for row in rows}
+
+    assert row_map["Extra Person"].action_needed == "documented_non_author_contact"
+
+
 def test_build_outputs_writes_contact_reconciliation(tmp_path):
     metadata = tmp_path / "manuscript" / "submission_metadata" / "AUTHOR_METADATA_TEMPLATE.tsv"
     contacts = (

@@ -1,12 +1,12 @@
 item	current_value	required_confirmation	status	owner
-Han Yan email	missing_email	Provide final email for corresponding author Han Yan	blocking_author_confirmation	authors
-equal contribution note	Equal contribution with Yi Miao; user text also contained YM and YH	Confirm exact wording, likely HY and YM rather than YM and YH	blocking_author_confirmation	authors
-author order	Chongfa Chen; Jishu Wei; Shangnan Dai; Guangfu Wang; Zipeng Lu; Lingdi Yin; Han Yan; Yi Miao	Confirm final author order and degrees	draft_pending_author_confirmation	authors
-affiliations	A1 BenQ Pancreas Center; A2 First Affiliated Hospital Pancreas Center; A3 Pancreas Institute	Confirm institution names and numbering	draft_pending_author_confirmation	authors
+Han Yan email	carrick8862@163.com	Provide final email for corresponding author Han Yan	confirmed	authors
+equal contribution note	No equal-contribution statement	Confirm exact wording or absence of equal-contribution statement	confirmed	authors
+author order	Chongfa Chen, MD; Han Yan, MD, PhD; Yi Miao, MD, PhD	Confirm final author order and degrees	confirmed	authors
+affiliations	A1 Pancreas Center, The Affiliated BenQ Hospital of Nanjing Medical University, Nanjing, China	Confirm institution names and numbering	confirmed	authors
 CRediT roles	See AUTHOR_CONTRIBUTIONS_CREDIT_TEMPLATE.tsv	Approve or correct CRediT assignments	draft_pending_author_confirmation	authors
 funding acquisition	Not reported	Confirm no funding role or provide funding authors/grants	needs_author_confirmation	authors
 competing interests	The authors declare no competing interests	Confirm or provide disclosure	draft_pending_author_confirmation	corresponding_authors
 ethics data-use	Public processed data only; no new human samples; IRB exemption wording to confirm	Confirm institutional/journal wording	draft_pending_author_confirmation	corresponding_authors
 public GitHub release	not yet created	Confirm public repository release is allowed	external_release_confirmation	authors
 Zenodo deposition	not yet minted	Confirm Zenodo deposition contents and restrictions	external_release_confirmation	authors
-ORCID IDs	not_provided	Optional: provide ORCID IDs if authors want them included	optional_author_metadata	authors
+ORCID IDs	Provided by user on 2026-05-04.	Optional: provide ORCID IDs if authors want them included	confirmed	authors

@@ -104,37 +104,44 @@ def build_action_rows(root: Path) -> list[ActionRow]:
     missing_contact = _count_contact(contact_rows, "blocking_missing_email")
     extra_contacts = _count_contact(contact_rows, "confirm_not_author_or_update_author_line")
     review_decision = _review_decision(review_text)
+    github_done = github_token.get("status") in {"valid", "valid_with_required_scopes"}
+    author_contacts_done = missing_contact == 0 and extra_contacts == 0
+    author_declarations_done = blocking_author == 0 and pending_author == 0
+    zenodo_ready_for_codex = zenodo_token.get("status") in {"present", "valid"} and zenodo_doi.get(
+        "status"
+    ) == "pending"
+    zenodo_done = zenodo_doi.get("status") in {"pass", "ready", "completed"}
 
     rows = [
         ActionRow(
-            "P0",
+            "DONE" if github_done else "P0",
             "GitHub token / gh login",
             f"github_token_api={github_token.get('status', 'missing')}; gh={github_cli.get('status', 'missing')}",
-            "Create or update a GitHub classic token with repo and workflow scopes, save it to D:/secrets/github_token.txt, and do not paste it into chat.",
+            "No user action needed." if github_done else "Create or update a GitHub classic token with repo and workflow scopes, save it to D:/secrets/github_token.txt, and do not paste it into chat.",
             "Validate token scopes, authenticate GitHub tooling if possible, push the branch, then create the public release/tag after final gates pass.",
             "python scripts/check_external_release_authorization.py",
         ),
         ActionRow(
-            "P0",
+            "DONE" if author_contacts_done else "P0",
             "Han Yan email and author contact consistency",
             f"missing_current_author_email={missing_contact}; extra_supplied_contacts={extra_contacts}",
-            "Provide Han Yan email. Confirm whether the 16 supplied contacts not in the current author line are non-authors or should be added with author order/affiliations/CRediT.",
+            "No user action needed." if author_contacts_done else "Provide Han Yan email. Confirm whether supplied contacts not in the current author line are non-authors or should be added with author order/affiliations/CRediT.",
             "Update author metadata templates, rerun contact reconciliation and author preflight, then regenerate submission metadata.",
             "python scripts/reconcile_author_contacts.py && python scripts/check_author_confirmation_preflight.py",
         ),
         ActionRow(
-            "P0",
+            "DONE" if author_declarations_done else "P0",
             "Author-owned declarations",
             f"blocking={blocking_author}; pending={pending_author}",
-            "Confirm final author order, equal-contribution wording, CRediT, funding, competing interests, ethics/data-use wording, and GitHub/Zenodo public-release approval.",
+            "No user action needed." if author_declarations_done else "Confirm CRediT, funding, competing interests, ethics/data-use wording, and GitHub/Zenodo public-release approval.",
             "Apply AUTHOR_CONFIRMATION_RESPONSE_TEMPLATE.tsv, update manuscript-facing statements, and rerun final blocker checks.",
             "python scripts/apply_author_confirmation_response.py --apply && python scripts/check_author_confirmation_preflight.py",
         ),
         ActionRow(
-            "P0",
+            "DONE" if zenodo_done else ("CODEX_READY" if zenodo_ready_for_codex else "P0"),
             "Zenodo DOI",
             f"token={zenodo_token.get('status', 'missing')}; doi_placeholder={zenodo_doi.get('status', 'missing')}",
-            "Either manually upload release/archives/sheafsignal_zenodo_upload.zip to Zenodo and give Codex the DOI, or save a Zenodo API token to D:/secrets/zenodo_token.txt.",
+            "No user action needed; Codex can mint DOI after author release approval." if zenodo_ready_for_codex else "Either manually upload release/archives/sheafsignal_zenodo_upload.zip to Zenodo and give Codex the DOI, or save a Zenodo API token to D:/secrets/zenodo_token.txt.",
             "Insert the real DOI into release metadata, Data Availability, and dataset manifest, then rebuild release archives and audits.",
             "python scripts/check_release_metadata_placeholders.py",
         ),

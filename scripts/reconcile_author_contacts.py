@@ -18,6 +18,7 @@ from pathlib import Path
 
 DEFAULT_AUTHOR_METADATA = Path("manuscript/submission_metadata/AUTHOR_METADATA_TEMPLATE.tsv")
 DEFAULT_CONTACTS = Path("manuscript/submission_metadata/USER_PROVIDED_AUTHOR_EMAILS_2026-05-03.tsv")
+DEFAULT_INTAKE = Path("release/EXTERNAL_INPUT_INTAKE_TEMPLATE.tsv")
 DEFAULT_OUT_TSV = Path("manuscript/submission_metadata/AUTHOR_CONTACT_RECONCILIATION.tsv")
 DEFAULT_OUT_REPORT = Path("manuscript/submission_metadata/AUTHOR_CONTACT_RECONCILIATION_REPORT.md")
 
@@ -71,11 +72,21 @@ def _contact_map(contact_rows: list[dict[str, str]]) -> dict[str, str]:
     }
 
 
+def _extra_contacts_decision(intake_rows: list[dict[str, str]]) -> str:
+    for row in intake_rows:
+        if str(row.get("field_id", "")).strip() == "extra_contacts_decision":
+            return str(row.get("user_value", "")).strip()
+    return ""
+
+
 def reconcile_contacts(
-    author_rows: list[dict[str, str]], contact_rows: list[dict[str, str]]
+    author_rows: list[dict[str, str]],
+    contact_rows: list[dict[str, str]],
+    intake_rows: list[dict[str, str]] | None = None,
 ) -> list[ContactRow]:
     contacts = _contact_map(contact_rows)
     current_names = {_author_name(row) for row in author_rows}
+    extra_decision = _extra_contacts_decision(intake_rows or [])
     rows: list[ContactRow] = []
     for author in author_rows:
         name = _author_name(author)
@@ -101,13 +112,18 @@ def reconcile_contacts(
 
     for name, email in sorted(contacts.items()):
         if name not in current_names:
+            action = (
+                "documented_non_author_contact"
+                if extra_decision == "not_authors"
+                else "confirm_not_author_or_update_author_line"
+            )
             rows.append(
                 ContactRow(
                     name=name,
                     manuscript_status="not_in_current_author_line",
                     manuscript_email="not_applicable",
                     supplied_email=email,
-                    action_needed="confirm_not_author_or_update_author_line",
+                    action_needed=action,
                 )
             )
     return rows
@@ -137,6 +153,9 @@ def build_report(rows: list[ContactRow]) -> str:
     extras = [row for row in rows if row.manuscript_status == "not_in_current_author_line"]
     mismatches = [row for row in rows if row.action_needed == "review_email_mismatch"]
     matched = [row for row in rows if row.action_needed == "no_contact_mismatch_detected"]
+    documented_non_authors = [
+        row for row in rows if row.action_needed == "documented_non_author_contact"
+    ]
     lines = [
         "# Author Contact Reconciliation Report",
         "",
@@ -146,6 +165,7 @@ def build_report(rows: list[ContactRow]) -> str:
         f"- Current manuscript authors missing supplied email: `{len(missing)}`",
         f"- Email mismatches requiring review: `{len(mismatches)}`",
         f"- Supplied contacts not in current author line: `{len(extras)}`",
+        f"- Extra contacts documented as non-authors: `{len(documented_non_authors)}`",
         "",
         "## Blocking Missing Emails",
         "",
@@ -181,11 +201,16 @@ def build_outputs(
     root: Path,
     author_metadata: Path = DEFAULT_AUTHOR_METADATA,
     contacts: Path = DEFAULT_CONTACTS,
+    intake: Path = DEFAULT_INTAKE,
     out_tsv: Path = DEFAULT_OUT_TSV,
     out_report: Path = DEFAULT_OUT_REPORT,
 ) -> dict[str, object]:
     root = root.resolve()
-    rows = reconcile_contacts(_read_tsv(root / author_metadata), _read_tsv(root / contacts))
+    rows = reconcile_contacts(
+        _read_tsv(root / author_metadata),
+        _read_tsv(root / contacts),
+        _read_tsv(root / intake),
+    )
     _write_tsv_atomic(root / out_tsv, rows)
     _write_text_atomic(root / out_report, build_report(rows))
     return {
@@ -193,6 +218,9 @@ def build_outputs(
         "rows": len(rows),
         "blocking_missing_email": sum(row.action_needed == "blocking_missing_email" for row in rows),
         "extra_contacts": sum(row.manuscript_status == "not_in_current_author_line" for row in rows),
+        "documented_non_author_contacts": sum(
+            row.action_needed == "documented_non_author_contact" for row in rows
+        ),
         "tsv": out_tsv.as_posix(),
         "report": out_report.as_posix(),
     }
@@ -203,6 +231,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--root", default=".")
     parser.add_argument("--author-metadata", default=str(DEFAULT_AUTHOR_METADATA))
     parser.add_argument("--contacts", default=str(DEFAULT_CONTACTS))
+    parser.add_argument("--intake", default=str(DEFAULT_INTAKE))
     parser.add_argument("--out-tsv", default=str(DEFAULT_OUT_TSV))
     parser.add_argument("--out-report", default=str(DEFAULT_OUT_REPORT))
     args = parser.parse_args(argv)
@@ -211,6 +240,7 @@ def main(argv: list[str] | None = None) -> int:
         Path(args.root),
         Path(args.author_metadata),
         Path(args.contacts),
+        Path(args.intake),
         Path(args.out_tsv),
         Path(args.out_report),
     )
