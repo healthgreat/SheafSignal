@@ -14,4 +14,4 @@ zenodo_metadata_github_url	pass	pass	https://github.com/healthgreat/SheafSignal	
 zenodo_instructions_exist	pass	pass	release\ZENODO_DEPOSITION_INSTRUCTIONS.md	None.
 zenodo_instructions_sha_matches_archive	pass	pass	c27421a6b6d12c706ee6d8dc1e61cdc86503c09105711f045f6e244f1aecd163	None.
 zenodo_doi_placeholders_expected	pending	pending	release/DATA_AVAILABILITY_STATEMENT_DRAFT.md;metadata/datasets.tsv	Mint DOI and run scripts/finalize_zenodo_doi.py after upload.
-zenodo_token_file	pending	pending	D:\secrets\zenodo_token.txt does not exist.	Use manual Zenodo web upload or save a token at this path for API upload.
+zenodo_token_file	pass	pass	D:\secrets\zenodo_token.txt exists; size=60 bytes. Token content was not printed.	None.

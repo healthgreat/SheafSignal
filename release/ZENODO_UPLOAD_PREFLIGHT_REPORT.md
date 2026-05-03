@@ -1,8 +1,8 @@
 # Zenodo Upload Preflight Report
 
-- Decision: `ZENODO_UPLOAD_PREFLIGHT_READY_FOR_MANUAL_UPLOAD_DOI_PENDING`
-- Passed checks: `14`
-- Pending checks: `2`
+- Decision: `ZENODO_UPLOAD_PREFLIGHT_READY_FOR_API_UPLOAD_DOI_PENDING`
+- Passed checks: `15`
+- Pending checks: `1`
 - Blocking checks: `0`
 
 ## Blocking Checks
@@ -12,7 +12,6 @@
 ## Pending Checks
 
 - `zenodo_doi_placeholders_expected`: release/DATA_AVAILABILITY_STATEMENT_DRAFT.md;metadata/datasets.tsv. Action: Mint DOI and run scripts/finalize_zenodo_doi.py after upload.
-- `zenodo_token_file`: D:\secrets\zenodo_token.txt does not exist.. Action: Use manual Zenodo web upload or save a token at this path for API upload.
 
 ## Next Commands
 
