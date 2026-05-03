@@ -71,6 +71,13 @@ def _fixture(root):
         "- Decision: `EXTERNAL_INPUT_INTAKE_P0_MISSING`\n",
     )
     _write(
+        root
+        / "manuscript"
+        / "submission_metadata"
+        / "AUTHOR_CONFIRMATION_FROM_INTAKE_REPORT.md",
+        "- Decision: `AUTHOR_RESPONSE_FROM_INTAKE_PARTIAL`\n",
+    )
+    _write(
         root / "release" / "UNBLOCK_READINESS_REPORT.md",
         "- Decision: `UNBLOCK_READINESS_BLOCKED_EXTERNAL_INPUTS`\n",
     )
@@ -95,6 +102,7 @@ def test_live_status_rows_detect_blockers(tmp_path):
     assert row_map["shareable_review_bundle"].status == "SHAREABLE_REVIEW_BUNDLE_READY"
     assert row_map["user_action_now_packet"].status == "USER_ACTION_PACKET_READY_P0_BLOCKERS_REMAIN"
     assert row_map["external_input_intake"].status == "EXTERNAL_INPUT_INTAKE_P0_MISSING"
+    assert row_map["author_response_from_intake"].status == "AUTHOR_RESPONSE_FROM_INTAKE_PARTIAL"
     assert row_map["unblock_readiness_runner"].blocking == "no"
 
 

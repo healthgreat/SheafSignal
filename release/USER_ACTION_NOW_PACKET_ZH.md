@@ -1,6 +1,6 @@
 # SheafSignal 当前最短行动包
 
-- Timestamp: `2026-05-03 08:07:02`
+- Timestamp: `2026-05-03 08:14:31`
 - Decision: `USER_ACTION_PACKET_READY_P0_BLOCKERS_REMAIN`
 - P0 items: `4`
 - P1 items: `1`
@@ -31,6 +31,7 @@
 
 ```bash
 python scripts/build_external_input_intake.py
+python scripts/apply_external_input_intake.py
 python scripts/run_unblock_readiness_check.py
 ```
 

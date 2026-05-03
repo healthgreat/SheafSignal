@@ -31,6 +31,12 @@ def _fixture(root):
     author_dir.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(
         [
+            {"item": "Han Yan email", "confirmed": "fill_yes_no_or_skip"},
+            {"item": "ORCID IDs", "confirmed": "fill_yes_no_or_skip"},
+        ]
+    ).to_csv(author_dir / "AUTHOR_CONFIRMATION_RESPONSE_FROM_INTAKE.tsv", sep="\t", index=False)
+    pd.DataFrame(
+        [
             {"item": "Han Yan email", "severity": "blocking"},
             {"item": "CRediT", "severity": "pending"},
         ]
@@ -64,6 +70,7 @@ def test_build_gate_rows_detects_unblock_blockers(tmp_path):
     )
     assert row_map["short_user_action_packet"].status == "P0=1"
     assert row_map["external_input_intake"].status == "P0_missing=1"
+    assert row_map["author_response_from_intake"].status == "pending_rows=1"
 
 
 def test_classify_decision_blocks_on_external_inputs(tmp_path):

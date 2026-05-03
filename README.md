@@ -44,6 +44,8 @@ journal is not guaranteed. See:
 - `release/EXTERNAL_INPUT_INTAKE_TEMPLATE.tsv`
 - `release/EXTERNAL_INPUT_INTAKE_REPORT.md`
 - `release/EXTERNAL_INPUT_INTAKE_STATUS.tsv`
+- `manuscript/submission_metadata/AUTHOR_CONFIRMATION_RESPONSE_FROM_INTAKE.tsv`
+- `manuscript/submission_metadata/AUTHOR_CONFIRMATION_FROM_INTAKE_REPORT.md`
 - `release/UNBLOCK_READINESS_REPORT.md`
 - `release/UNBLOCK_READINESS_STATUS.tsv`
 - `release/POST_UNBLOCK_RELEASE_PIPELINE_REPORT.md`
@@ -87,6 +89,7 @@ unblock readiness check:
 
 ```bash
 python scripts/build_external_input_intake.py
+python scripts/apply_external_input_intake.py
 python scripts/run_unblock_readiness_check.py
 ```
 

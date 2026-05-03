@@ -197,6 +197,7 @@ def build_report(rows: list[ActionRow]) -> str:
             "",
             "```bash",
             "python scripts/build_external_input_intake.py",
+            "python scripts/apply_external_input_intake.py",
             "python scripts/run_unblock_readiness_check.py",
             "```",
             "",

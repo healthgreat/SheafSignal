@@ -33,6 +33,9 @@ JOURNAL_SUBMISSION_DAY = Path(
 )
 USER_ACTION_PACKET = Path("release/USER_ACTION_NOW_PACKET_ZH.md")
 EXTERNAL_INPUT_INTAKE = Path("release/EXTERNAL_INPUT_INTAKE_REPORT.md")
+AUTHOR_RESPONSE_FROM_INTAKE = Path(
+    "manuscript/submission_metadata/AUTHOR_CONFIRMATION_FROM_INTAKE_REPORT.md"
+)
 UNBLOCK_READINESS = Path("release/UNBLOCK_READINESS_REPORT.md")
 OUTPUT_REPORT = Path("manuscript/SHEAFSIGNAL_LIVE_GANTT_STATUS.md")
 OUTPUT_TSV = Path("manuscript/SHEAFSIGNAL_LIVE_GANTT_STATUS.tsv")
@@ -98,6 +101,7 @@ def build_status_rows(root: Path) -> list[StatusRow]:
     journal_text = _read_text(root / JOURNAL_SUBMISSION_DAY)
     action_packet_text = _read_text(root / USER_ACTION_PACKET)
     intake_text = _read_text(root / EXTERNAL_INPUT_INTAKE)
+    response_from_intake_text = _read_text(root / AUTHOR_RESPONSE_FROM_INTAKE)
     unblock_readiness_text = _read_text(root / UNBLOCK_READINESS)
 
     author_counts = _author_counts(author_rows)
@@ -165,6 +169,13 @@ def build_status_rows(root: Path) -> list[StatusRow]:
             "user_then_codex",
             "no",
             "Fill release/EXTERNAL_INPUT_INTAKE_TEMPLATE.tsv without storing token values.",
+        ),
+        StatusRow(
+            "author_response_from_intake",
+            _decision(response_from_intake_text) or "not_run",
+            "codex",
+            "no",
+            "Derived from intake; overwrite canonical author response only after review.",
         ),
         StatusRow(
             "unblock_readiness_runner",
