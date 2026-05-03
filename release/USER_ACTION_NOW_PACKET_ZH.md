@@ -1,11 +1,13 @@
 # SheafSignal 当前最短行动包
 
-- Timestamp: `2026-05-03 08:01:53`
+- Timestamp: `2026-05-03 08:07:02`
 - Decision: `USER_ACTION_PACKET_READY_P0_BLOCKERS_REMAIN`
 - P0 items: `4`
 - P1 items: `1`
 
 ## 你现在只需要处理什么
+
+推荐先填写统一入口：`release/EXTERNAL_INPUT_INTAKE_TEMPLATE.tsv`。
 
 1. 重新生成 GitHub token：必须包含 `repo` 和 `workflow` scopes，保存到 `D:/secrets/github_token.txt`。
 2. 提供 Han Yan email，并确认额外 16 个联系人是否不是作者；如果是作者，需要给出最终 author order、affiliation 和 CRediT。
@@ -28,6 +30,7 @@
 首先运行一键 readiness 检查：
 
 ```bash
+python scripts/build_external_input_intake.py
 python scripts/run_unblock_readiness_check.py
 ```
 

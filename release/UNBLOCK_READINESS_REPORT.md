@@ -1,6 +1,6 @@
 # SheafSignal Unblock Readiness Report
 
-- Timestamp: `2026-05-03 08:02:11`
+- Timestamp: `2026-05-03 08:08:43`
 - Decision: `UNBLOCK_READINESS_BLOCKED_EXTERNAL_INPUTS`
 
 ## Gate Table
@@ -10,6 +10,7 @@
 | `github_publication_auth` | `valid_missing_workflow_scope` | `yes` | gh=not_logged_in | Regenerate GitHub token with repo and workflow scopes, then save it to D:/secrets/github_token.txt. |
 | `author_confirmation` | `blocking=2; pending=8` | `yes` | missing_author_email=1; extra_contacts=16 | Provide Han Yan email, author-line decision for extra contacts, and declarations. |
 | `zenodo_identifier` | `token=missing; doi=pending` | `yes` | release archive exists; DOI placeholder still blocks final metadata unless real DOI is supplied | Provide a real Zenodo DOI or save a Zenodo API token to D:/secrets/zenodo_token.txt. |
+| `external_input_intake` | `P0_missing=11` | `yes` | release/EXTERNAL_INPUT_INTAKE_TEMPLATE.tsv | Fill the consolidated intake template, then rerun this check. |
 | `short_user_action_packet` | `P0=4` | `yes` | release/USER_ACTION_NOW_PACKET_ZH.md | Clear the P0 rows in the action packet. |
 | `live_gantt_blockers` | `blocking_rows=5` | `yes` | manuscript/SHEAFSIGNAL_LIVE_GANTT_STATUS.md | Rerun this check after user-owned facts and tokens are updated. |
 

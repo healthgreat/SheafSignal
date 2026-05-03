@@ -41,6 +41,9 @@ journal is not guaranteed. See:
 - `release/SUBMISSION_UNBLOCKER_HANDOFF_ZH.tsv`
 - `release/USER_ACTION_NOW_PACKET_ZH.md`
 - `release/USER_ACTION_NOW_PACKET.tsv`
+- `release/EXTERNAL_INPUT_INTAKE_TEMPLATE.tsv`
+- `release/EXTERNAL_INPUT_INTAKE_REPORT.md`
+- `release/EXTERNAL_INPUT_INTAKE_STATUS.tsv`
 - `release/UNBLOCK_READINESS_REPORT.md`
 - `release/UNBLOCK_READINESS_STATUS.tsv`
 - `release/POST_UNBLOCK_RELEASE_PIPELINE_REPORT.md`
@@ -83,6 +86,7 @@ After updating GitHub, Zenodo, or author-owned inputs, run the safe one-command
 unblock readiness check:
 
 ```bash
+python scripts/build_external_input_intake.py
 python scripts/run_unblock_readiness_check.py
 ```
 

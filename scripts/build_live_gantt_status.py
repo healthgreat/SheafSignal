@@ -32,6 +32,7 @@ JOURNAL_SUBMISSION_DAY = Path(
     "manuscript/journal_metric_audit/JOURNAL_SUBMISSION_DAY_CHECK_REPORT.md"
 )
 USER_ACTION_PACKET = Path("release/USER_ACTION_NOW_PACKET_ZH.md")
+EXTERNAL_INPUT_INTAKE = Path("release/EXTERNAL_INPUT_INTAKE_REPORT.md")
 UNBLOCK_READINESS = Path("release/UNBLOCK_READINESS_REPORT.md")
 OUTPUT_REPORT = Path("manuscript/SHEAFSIGNAL_LIVE_GANTT_STATUS.md")
 OUTPUT_TSV = Path("manuscript/SHEAFSIGNAL_LIVE_GANTT_STATUS.tsv")
@@ -96,6 +97,7 @@ def build_status_rows(root: Path) -> list[StatusRow]:
     bundle_text = _read_text(root / SHAREABLE_REVIEW_BUNDLE)
     journal_text = _read_text(root / JOURNAL_SUBMISSION_DAY)
     action_packet_text = _read_text(root / USER_ACTION_PACKET)
+    intake_text = _read_text(root / EXTERNAL_INPUT_INTAKE)
     unblock_readiness_text = _read_text(root / UNBLOCK_READINESS)
 
     author_counts = _author_counts(author_rows)
@@ -156,6 +158,13 @@ def build_status_rows(root: Path) -> list[StatusRow]:
             "user_then_codex",
             "no",
             "Use release/USER_ACTION_NOW_PACKET_ZH.md as the short current unblock list.",
+        ),
+        StatusRow(
+            "external_input_intake",
+            _decision(intake_text) or "not_run",
+            "user_then_codex",
+            "no",
+            "Fill release/EXTERNAL_INPUT_INTAKE_TEMPLATE.tsv without storing token values.",
         ),
         StatusRow(
             "unblock_readiness_runner",

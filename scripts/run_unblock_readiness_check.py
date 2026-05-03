@@ -24,6 +24,7 @@ EXTERNAL_AUTH = Path("release/EXTERNAL_RELEASE_AUTHORIZATION_STATUS.tsv")
 AUTHOR_PREFLIGHT = Path("manuscript/submission_metadata/AUTHOR_CONFIRMATION_PREFLIGHT_STATUS.tsv")
 AUTHOR_CONTACTS = Path("manuscript/submission_metadata/AUTHOR_CONTACT_RECONCILIATION.tsv")
 USER_ACTION_PACKET = Path("release/USER_ACTION_NOW_PACKET.tsv")
+EXTERNAL_INPUT_INTAKE = Path("release/EXTERNAL_INPUT_INTAKE_STATUS.tsv")
 LIVE_GANTT = Path("manuscript/SHEAFSIGNAL_LIVE_GANTT_STATUS.tsv")
 OUTPUT_TSV = Path("release/UNBLOCK_READINESS_STATUS.tsv")
 OUTPUT_REPORT = Path("release/UNBLOCK_READINESS_REPORT.md")
@@ -31,6 +32,7 @@ OUTPUT_REPORT = Path("release/UNBLOCK_READINESS_REPORT.md")
 
 SAFE_REFRESH_COMMANDS = [
     ["python", "scripts/check_external_release_authorization.py"],
+    ["python", "scripts/build_external_input_intake.py"],
     ["python", "scripts/reconcile_author_contacts.py"],
     ["python", "scripts/check_author_confirmation_preflight.py"],
     ["python", "scripts/build_user_action_now_packet.py"],
@@ -87,6 +89,7 @@ def build_gate_rows(root: Path) -> list[GateRow]:
     author = _read_tsv(root / AUTHOR_PREFLIGHT)
     contacts = _read_tsv(root / AUTHOR_CONTACTS)
     action = _read_tsv(root / USER_ACTION_PACKET)
+    intake = _read_tsv(root / EXTERNAL_INPUT_INTAKE)
     gantt = _read_tsv(root / LIVE_GANTT)
 
     github_token = _row_by(external, "check_id", "github_token_api")
@@ -94,6 +97,7 @@ def build_gate_rows(root: Path) -> list[GateRow]:
     zenodo_token = _row_by(external, "check_id", "zenodo_token_file")
     zenodo_doi = _row_by(external, "check_id", "zenodo_doi_placeholders")
     action_p0 = _count(action, "priority", "P0")
+    intake_p0 = _count(intake, "blocking", "yes")
     live_blocking = _count(gantt, "blocking", "yes")
     author_blocking = _count(author, "severity", "blocking")
     author_pending = _count(author, "severity", "pending")
@@ -128,6 +132,13 @@ def build_gate_rows(root: Path) -> list[GateRow]:
             "no" if zenodo_ready else "yes",
             "release archive exists; DOI placeholder still blocks final metadata unless real DOI is supplied",
             "Provide a real Zenodo DOI or save a Zenodo API token to D:/secrets/zenodo_token.txt.",
+        ),
+        GateRow(
+            "external_input_intake",
+            f"P0_missing={intake_p0}",
+            "yes" if intake_p0 else "no",
+            "release/EXTERNAL_INPUT_INTAKE_TEMPLATE.tsv",
+            "Fill the consolidated intake template, then rerun this check.",
         ),
         GateRow(
             "short_user_action_packet",

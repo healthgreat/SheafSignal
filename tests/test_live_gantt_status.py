@@ -67,6 +67,10 @@ def _fixture(root):
         "- Decision: `USER_ACTION_PACKET_READY_P0_BLOCKERS_REMAIN`\n",
     )
     _write(
+        root / "release" / "EXTERNAL_INPUT_INTAKE_REPORT.md",
+        "- Decision: `EXTERNAL_INPUT_INTAKE_P0_MISSING`\n",
+    )
+    _write(
         root / "release" / "UNBLOCK_READINESS_REPORT.md",
         "- Decision: `UNBLOCK_READINESS_BLOCKED_EXTERNAL_INPUTS`\n",
     )
@@ -90,6 +94,7 @@ def test_live_status_rows_detect_blockers(tmp_path):
     assert row_map["author_contact_reconciliation"].blocking == "yes"
     assert row_map["shareable_review_bundle"].status == "SHAREABLE_REVIEW_BUNDLE_READY"
     assert row_map["user_action_now_packet"].status == "USER_ACTION_PACKET_READY_P0_BLOCKERS_REMAIN"
+    assert row_map["external_input_intake"].status == "EXTERNAL_INPUT_INTAKE_P0_MISSING"
     assert row_map["unblock_readiness_runner"].blocking == "no"
 
 

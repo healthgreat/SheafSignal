@@ -20,6 +20,12 @@ def _fixture(root):
             {"priority": "P1", "item": "External review"},
         ]
     ).to_csv(release / "USER_ACTION_NOW_PACKET.tsv", sep="\t", index=False)
+    pd.DataFrame(
+        [
+            {"field_id": "han_yan_email", "blocking": "yes"},
+            {"field_id": "external_beta_review_return_path", "blocking": "no"},
+        ]
+    ).to_csv(release / "EXTERNAL_INPUT_INTAKE_STATUS.tsv", sep="\t", index=False)
 
     author_dir = root / "manuscript" / "submission_metadata"
     author_dir.mkdir(parents=True, exist_ok=True)
@@ -57,6 +63,7 @@ def test_build_gate_rows_detects_unblock_blockers(tmp_path):
         "missing_author_email=1; extra_contacts=1"
     )
     assert row_map["short_user_action_packet"].status == "P0=1"
+    assert row_map["external_input_intake"].status == "P0_missing=1"
 
 
 def test_classify_decision_blocks_on_external_inputs(tmp_path):
