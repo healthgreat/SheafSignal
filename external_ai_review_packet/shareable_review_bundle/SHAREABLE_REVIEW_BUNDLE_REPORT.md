@@ -2,8 +2,8 @@
 
 - Decision: `SHAREABLE_REVIEW_BUNDLE_READY`
 - Archive: `external_ai_review_packet/shareable_review_bundle/sheafsignal_external_beta_review_bundle.zip`
-- Archive SHA256: `7c771fea7511770ec4261cfb8fd0d45784b8489e8fbbad82c9dcae6712d7ba37`
-- Included files: `30`
+- Archive SHA256: `169d6f5d70d2e34f79e563608d43e1ba89a6fd27d0e5509580dca48042e28982`
+- Included files: `31`
 - Missing required files: `0`
 
 ## Missing Required Files
@@ -12,7 +12,9 @@
 
 ## Reviewer Instructions
 
-Send the archive to an external AI or human reviewer together with the request:
+Send the archive to 2-3 external AI or human reviewers. Use the role-specific
+prompts in `external_ai_review_packet/EXTERNAL_AI_REVIEW_ROUTING_2026-05-04.md`.
+If using a single generic request, send the archive together with:
 `Please judge novelty, reproducibility, statistics, claim boundaries, and journal fit.`
 Returned `.md`, `.txt`, or `.tsv` reviews should be placed under
 `external_ai_review_packet/returned_reviews/` and triaged with:

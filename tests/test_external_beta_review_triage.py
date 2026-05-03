@@ -63,6 +63,10 @@ def test_decision_prioritizes_fatal_then_major():
 def test_collect_and_write_outputs(tmp_path):
     input_dir = tmp_path / "external_ai_review_packet" / "returned_reviews"
     input_dir.mkdir(parents=True)
+    (input_dir / "README.md").write_text(
+        "Do not place access tokens, private credentials, raw patient data, or non-public clinical material here.\n",
+        encoding="utf-8",
+    )
     (input_dir / "review.md").write_text(
         "- Major concern: CellChat comparator scope must be described clearly.\n",
         encoding="utf-8",

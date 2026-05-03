@@ -46,6 +46,7 @@ REQUIRED_FILES = [
     "external_ai_review_packet/beta_review_packet_2026-05-02/03_REVIEWER_CHECKLIST.tsv",
     "external_ai_review_packet/beta_review_packet_2026-05-02/04_AI_REVIEW_PROMPT.md",
     "external_ai_review_packet/beta_review_packet_2026-05-02/05_REVIEW_FORM_TEMPLATE.md",
+    "external_ai_review_packet/EXTERNAL_AI_REVIEW_ROUTING_2026-05-04.md",
     "external_ai_review_packet/EXTERNAL_BETA_REVIEW_TRIAGE_REPORT.md",
     "external_ai_review_packet/external_beta_review_action_matrix.tsv",
 ]
@@ -182,7 +183,9 @@ def build_report(
             "",
             "## Reviewer Instructions",
             "",
-            "Send the archive to an external AI or human reviewer together with the request:",
+            "Send the archive to 2-3 external AI or human reviewers. Use the role-specific",
+            "prompts in `external_ai_review_packet/EXTERNAL_AI_REVIEW_ROUTING_2026-05-04.md`.",
+            "If using a single generic request, send the archive together with:",
             "`Please judge novelty, reproducibility, statistics, claim boundaries, and journal fit.`",
             "Returned `.md`, `.txt`, or `.tsv` reviews should be placed under",
             "`external_ai_review_packet/returned_reviews/` and triaged with:",

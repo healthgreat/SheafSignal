@@ -172,6 +172,8 @@ def collect_review_findings(input_dir: Path) -> list[ReviewFinding]:
         return []
     findings = []
     for path in sorted(input_dir.glob("*")):
+        if path.name.lower() == "readme.md" or path.name.startswith("_"):
+            continue
         if path.is_file() and path.suffix.lower() in {".md", ".txt", ".tsv"}:
             findings.extend(parse_review_file(path))
     return findings
