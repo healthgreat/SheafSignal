@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import re
 from pathlib import Path
 
 import pandas as pd
@@ -184,17 +185,38 @@ objects and large generated spatial benchmark tables.
 
 ## Claim Boundary
 
-No DOI has been minted by this script. The manuscript can state that the
-release package is Zenodo-ready after these manifests are generated, but it
-should not cite a Zenodo DOI until an actual deposition is created and the DOI
-is inserted into `metadata/datasets.tsv` or the manuscript data availability
-statement.
+This script does not mint a DOI. If a real DOI has already been inserted into
+`metadata/datasets.tsv` or the manuscript data availability statement, it is
+preserved when release manifests are regenerated.
 """
     output.write_text(text, encoding="utf-8")
 
 
-def write_data_availability(output: Path) -> None:
-    text = """# Data And Code Availability Statement Draft
+def _current_zenodo_doi(root: Path) -> str:
+    candidates = [
+        root / "release/ZENODO_API_UPLOAD_SUMMARY.json",
+        root / "metadata/datasets.tsv",
+        root / "release/DATA_AVAILABILITY_STATEMENT_DRAFT.md",
+    ]
+    pattern = re.compile(r"10\.5281/zenodo\.\d+")
+    for path in candidates:
+        if not path.exists():
+            continue
+        match = pattern.search(path.read_text(encoding="utf-8", errors="replace"))
+        if match:
+            return match.group(0)
+    return "PENDING_ZENODO_RELEASE"
+
+
+def write_data_availability(output: Path, root: Path) -> None:
+    doi = _current_zenodo_doi(root)
+    doi_line = (
+        f"Current DOI status: `https://doi.org/{doi}`.\n\n"
+        f"Frozen processed benchmark objects are available at https://doi.org/{doi}."
+        if doi != "PENDING_ZENODO_RELEASE"
+        else "Current DOI status: `PENDING_ZENODO_RELEASE`."
+    )
+    text = f"""# Data And Code Availability Statement Draft
 
 All source code, tests, benchmark scripts, dataset manifests, and small summary
 tables are intended for public release on GitHub. Raw public datasets remain
@@ -206,7 +228,7 @@ should be deposited on Zenodo before submission. The Zenodo record must include
 the files listed in `release/zenodo_upload_manifest.tsv` and checksums from
 `release/zenodo_sha256sums.txt`.
 
-Current DOI status: `PENDING_ZENODO_RELEASE`.
+{doi_line}
 """
     output.write_text(text, encoding="utf-8")
 
@@ -249,7 +271,7 @@ def main(argv: list[str] | None = None) -> int:
         github_manifest=github_manifest.relative_to(root),
         zenodo_manifest=zenodo_manifest.relative_to(root),
     )
-    write_data_availability(data_statement)
+    write_data_availability(data_statement, root)
 
     print(f"wrote {inventory_path}")
     print(f"wrote {github_manifest}")

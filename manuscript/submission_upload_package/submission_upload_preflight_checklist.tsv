@@ -12,7 +12,7 @@ submission_provenance_audit	pass	manuscript/provenance/SUBMISSION_PROVENANCE_AUD
 claim_safety	pass	manuscript/CLAIM_SAFETY_AUDIT_REPORT.md	Resolve blocking positive claims.
 nature_methods_format	pass	manuscript/NATURE_METHODS_FORMAT_AUDIT_REPORT.md	Resolve local format issues and check current journal instructions.
 v2_editorial_audit	pass	manuscript/SCI_MANUSCRIPT_V2_EDITORIAL_AUDIT.tsv	Resolve v2 editorial audit failures.
-zenodo_doi	pending	metadata/datasets.tsv	Mint Zenodo DOI and run scripts/finalize_zenodo_doi.py.
-github_public_release	pending	release/archives/sheafsignal_github_release.zip	Publish public GitHub repository or attach release archive.
-author_metadata	tbd_by_authors	manuscript/submission_metadata/	Fill author names, affiliations, CRediT roles and conflicts.
+zenodo_doi	pass	https://doi.org/10.5281/zenodo.20011640	Zenodo DOI minted and written to release metadata.
+github_public_release	pass	https://github.com/healthgreat/SheafSignal/releases/tag/v0.1.0	Public GitHub release created.
+author_metadata	pass	manuscript/submission_metadata/	Author metadata and declarations confirmed on 2026-05-04.
 visual_layout_review	pass	manuscript/submission_upload_package/DOCX_LAYOUT_CHECK.tsv	Perform final manual Word/LibreOffice visual review before upload.

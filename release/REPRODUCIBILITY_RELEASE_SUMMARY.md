@@ -9,10 +9,10 @@ objects and large generated spatial benchmark tables.
 
 ## Current Inventory
 
-- GitHub-target files: 639
-- GitHub-target size MB: 30.632
-- Zenodo-target files: 45
-- Zenodo-target size MB: 445.122
+- GitHub-target files: 679
+- GitHub-target size MB: 30.846
+- Zenodo-target files: 46
+- Zenodo-target size MB: 445.177
 
 ## Generated Files
 
@@ -25,8 +25,6 @@ objects and large generated spatial benchmark tables.
 
 ## Claim Boundary
 
-No DOI has been minted by this script. The manuscript can state that the
-release package is Zenodo-ready after these manifests are generated, but it
-should not cite a Zenodo DOI until an actual deposition is created and the DOI
-is inserted into `metadata/datasets.tsv` or the manuscript data availability
-statement.
+This script does not mint a DOI. If a real DOI has already been inserted into
+`metadata/datasets.tsv` or the manuscript data availability statement, it is
+preserved when release manifests are regenerated.

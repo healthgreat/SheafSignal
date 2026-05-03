@@ -48,6 +48,35 @@ def test_submission_provenance_marks_external_pending(tmp_path):
     assert row["status"] == "pending_external"
 
 
+def test_submission_provenance_marks_completed_zenodo_and_github_external_rows(tmp_path):
+    script = _load_script()
+    (tmp_path / "metadata").mkdir()
+    (tmp_path / "release" / "archives").mkdir(parents=True)
+    (tmp_path / "release").mkdir(exist_ok=True)
+    (tmp_path / "metadata" / "datasets.tsv").write_text(
+        "dataset_id\tzenodo_doi\nx\t10.5281/zenodo.123\n",
+        encoding="utf-8",
+    )
+    (tmp_path / "release" / "ZENODO_API_UPLOAD_SUMMARY.json").write_text(
+        '{"published_doi": "10.5281/zenodo.123"}\n',
+        encoding="utf-8",
+    )
+    (tmp_path / "release" / "GITHUB_RELEASE_PUBLICATION_REPORT.md").write_text(
+        "GITHUB_RELEASE_PUBLISHED\n"
+        "https://github.com/healthgreat/SheafSignal/releases/tag/v0.1.0\n",
+        encoding="utf-8",
+    )
+    (tmp_path / "release" / "archives" / "sheafsignal_zenodo_upload.zip").write_bytes(b"zip")
+    (tmp_path / "release" / "archives" / "sheafsignal_github_release.zip").write_bytes(b"zip")
+    (tmp_path / "release" / "github_release_manifest.tsv").write_text("path\n", encoding="utf-8")
+
+    rows = script._static_rows(tmp_path)
+    row_map = {row["artifact_id"]: row for row in rows}
+
+    assert row_map["zenodo_doi"]["status"] == "pass"
+    assert row_map["github_public_release"]["status"] == "pass"
+
+
 def test_submission_provenance_upload_manifest_rows_detect_missing_source(tmp_path):
     script = _load_script()
     package = tmp_path / "manuscript" / "submission_upload_package"

@@ -27,6 +27,17 @@ class FakeZenodoClient:
             "metadata": {"prereserve_doi": {"doi": "10.5281/zenodo.123"}},
         }
 
+    def get_deposition(self, deposition_id):
+        self.calls.append(("get", deposition_id))
+        return {
+            "id": deposition_id,
+            "links": {
+                "bucket": "https://zenodo.org/api/files/existing-bucket",
+                "html": f"https://zenodo.org/deposit/{deposition_id}",
+            },
+            "metadata": {"prereserve_doi": {"doi": f"10.5281/zenodo.{deposition_id}"}},
+        }
+
     def update_metadata(self, deposition_id, metadata):
         self.calls.append(("metadata", deposition_id, metadata["title"]))
         return {
@@ -172,3 +183,35 @@ def test_publish_requires_explicit_confirmation(tmp_path):
         assert script.PUBLISH_CONFIRMATION in str(exc)
     else:
         raise AssertionError("publish without confirmation should fail")
+
+
+def test_existing_deposition_reuses_draft_without_creating_new_record(tmp_path):
+    script = _load_script()
+    archive = tmp_path / "upload.zip"
+    metadata_path = tmp_path / "metadata.json"
+    summary_json = tmp_path / "summary.json"
+    summary_md = tmp_path / "summary.md"
+    archive.write_bytes(b"zip")
+    _write_metadata(metadata_path)
+    client = FakeZenodoClient()
+
+    summary = script.run_upload_workflow(
+        root=tmp_path,
+        client=client,
+        base_url="https://zenodo.org",
+        archive_path=archive,
+        metadata_path=metadata_path,
+        summary_json_path=summary_json,
+        summary_md_path=summary_md,
+        publish=False,
+        confirm_publish=None,
+        allow_tbd_metadata=False,
+        dry_run=False,
+        finalize_local=False,
+        existing_deposition_id=456,
+    )
+
+    assert summary["deposition_id"] == 456
+    assert summary["reused_existing_deposition"] is True
+    assert ("get", 456) in client.calls
+    assert "create" not in client.calls

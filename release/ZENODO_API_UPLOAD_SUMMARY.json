@@ -1,16 +1,15 @@
 {
-  "mode": "dry_run",
+  "mode": "publish_new_version",
   "base_url": "https://zenodo.org",
   "archive_path": "release/archives/sheafsignal_zenodo_upload.zip",
-  "metadata_path": "release/zenodo_deposition_metadata.json",
-  "archive_size_bytes": 28475920,
-  "metadata_tbd_issues": [
-    "metadata.creators[0].name is TBD",
-    "metadata.related_identifiers contains GitHub TBD URL"
-  ],
-  "deposition_id": "NA",
-  "reserved_doi": "NA",
-  "published_doi": "NA",
-  "html_link": "NA",
-  "finalized_local_metadata": false
+  "archive_size_bytes": 110469837,
+  "archive_sha256": "431efce0a63e82157fd93e69e86848c376475a858dc1eddf1b32fd4dcb389edb",
+  "previous_deposition_id": 20011640,
+  "previous_doi": "10.5281/zenodo.20011640",
+  "deposition_id": 20012189,
+  "published_doi": "10.5281/zenodo.20012189",
+  "concept_doi": "10.5281/zenodo.20011639",
+  "html_link": "https://zenodo.org/records/20012189",
+  "uploaded_file": "sheafsignal_zenodo_upload.zip",
+  "finalized_local_metadata": true
 }

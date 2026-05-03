@@ -93,6 +93,11 @@ def _active_release_blockers(rows: list[dict[str, str]]) -> list[dict[str, str]]
     ]
 
 
+def _gate_done(status: str) -> bool:
+    inactive = {"pass", "ready", "completed", "valid", "public_remote_branch_available"}
+    return status in inactive or status.endswith("_READY")
+
+
 def build_status_rows(root: Path) -> list[StatusRow]:
     if_text = _read_text(root / IF_REPORT)
     release_rows = _read_tsv(root / RELEASE_UNBLOCKER)
@@ -111,6 +116,11 @@ def build_status_rows(root: Path) -> list[StatusRow]:
 
     author_counts = _author_counts(author_rows)
     active_release = _active_release_blockers(release_rows)
+    release_next = (
+        "No release-chain blocker remains; proceed with final audits and public clean-clone evidence."
+        if not active_release
+        else "Finish active release-chain blockers shown in release/RELEASE_UNBLOCKER_MATRIX.tsv."
+    )
     rows = [
         StatusRow(
             "scientific_method_hardening",
@@ -124,14 +134,14 @@ def build_status_rows(root: Path) -> list[StatusRow]:
             _metric(if_text, "Submission infrastructure index"),
             "user_then_codex",
             "yes" if active_release else "no",
-            "Mint Zenodo DOI, publish GitHub release, insert identifiers, and run public clean-clone.",
+            release_next,
         ),
         StatusRow(
             "release_blockers",
             f"{len(active_release)} active",
             "user_then_codex",
             "yes" if active_release else "no",
-            "Finish GitHub public branch/release tag, Zenodo DOI, metadata insertion, and clean-clone reproduction.",
+            release_next,
         ),
         StatusRow(
             "author_confirmation",
@@ -255,7 +265,13 @@ def _replace_with_retry(tmp_path: Path, final_path: Path, retries: int = 5) -> N
             time.sleep(0.2 * (attempt + 1))
 
 
-def _gantt() -> str:
+def _gantt(release_rows: list[dict[str, str]]) -> str:
+    by_gate = {row.get("gate_id", ""): row.get("current_status", "") for row in release_rows}
+
+    def line(label: str, gate_id: str, start: str) -> str:
+        state = "done" if _gate_done(by_gate.get(gate_id, "")) else "crit, active"
+        return f"    {label:<43}:{state}, {start}, 1d"
+
     return """```mermaid
 gantt
     title SheafSignal Live 20-50 IF Route
@@ -272,22 +288,34 @@ gantt
     Author facts filled and applied           :done, 2026-05-04, 1d
     Author contact reconciliation             :done, 2026-05-04, 1d
 
-    section Current Blocking Work
-    GitHub token rotation confirmation        :crit, active, 2026-05-04, 1d
-    Public GitHub branch / release tag        :crit, active, 2026-05-04, 1d
-    Zenodo DOI minted                         :crit, active, 2026-05-04, 1d
-    Release metadata identifiers inserted     :crit, active, 2026-05-04, 1d
-    Public clean-clone reproduction           :crit, active, 2026-05-05, 1d
+    section Release Chain
+{github_auth}
+{public_repo}
+{release_tag}
+{zenodo_doi}
+{metadata}
+{clean_clone}
+{author_confirmation}
     Submission-day journal metric check       :crit, active, 2026-05-06, 1d
     Returned external beta reviews            :active, 2026-05-04, 5d
 
     section After Unblock
     Final GO/NO-GO refresh                    :2026-05-06, 1d
-```"""
+```""".format(
+        github_auth=line("GitHub token rotation / auth", "G01_github_auth", "2026-05-04"),
+        public_repo=line("Public GitHub branch", "G02_public_github_repo", "2026-05-04"),
+        release_tag=line("GitHub release tag", "G03_release_tag", "2026-05-04"),
+        zenodo_doi=line("Zenodo DOI minted", "G04_zenodo_doi", "2026-05-04"),
+        metadata=line("Release metadata identifiers", "G05_metadata_insertion", "2026-05-04"),
+        clean_clone=line("Public clean-clone reproduction", "G06_public_clean_clone", "2026-05-05"),
+        author_confirmation=line("Author confirmation", "G07_author_confirmation", "2026-05-04"),
+    )
 
 
 def build_report(root: Path, rows: list[StatusRow]) -> str:
     if_text = _read_text(root / IF_REPORT)
+    release_rows = _read_tsv(root / RELEASE_UNBLOCKER)
+    active_release = _active_release_blockers(release_rows)
     decision = classify_decision(rows, if_text)
     table_lines = [
         "| Item | Status | Owner | Blocking | Next action |",
@@ -310,7 +338,7 @@ def build_report(root: Path, rows: list[StatusRow]) -> str:
             "",
             "## Gantt",
             "",
-            _gantt(),
+            _gantt(release_rows),
             "",
             "## Live Status Table",
             "",
@@ -318,7 +346,13 @@ def build_report(root: Path, rows: list[StatusRow]) -> str:
             "",
             "## Short Interpretation",
             "",
-            "The scientific and software side is near complete, and author-owned declarations are now applied. Submission is still blocked by the public release chain: GitHub public branch/tag, Zenodo DOI, identifier insertion, public clean-clone reproduction, and submission-day journal metric verification.",
+            (
+                "The scientific and software side is near complete, author-owned declarations are applied, and the real DOI/GitHub identifiers are recorded. Current blocking release-chain rows are: "
+                + ", ".join(f"`{row.get('gate_id')}`" for row in active_release)
+                + "."
+                if active_release
+                else "The release-chain blockers are cleared in the live matrix. Remaining checks are final audit refresh, public clean-clone evidence if newly generated outputs changed, returned beta reviews if available, and submission-day journal metrics."
+            ),
             "",
             "## Boundary",
             "",

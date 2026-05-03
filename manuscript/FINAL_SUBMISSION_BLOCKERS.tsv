@@ -1,8 +1,4 @@
 blocker_id	severity	status	evidence	required_action
-checklist::Zenodo DOI minted	blocking	blocking_pending	Upload release/archives/sheafsignal_zenodo_upload.zip and record DOI.	Upload release/archives/sheafsignal_zenodo_upload.zip and record DOI.
-zenodo_doi::data_availability_statement	blocking	pending	release/DATA_AVAILABILITY_STATEMENT_DRAFT.md	Insert the minted DOI into the data availability statement.
-zenodo_doi::dataset_manifest	blocking	pending	gse72056_melanoma_scrna;gse154778_pdac_scrna;gse176078_brca_scrna;gse103322_hnsc_scrna;tenx_breast_visium	Mint Zenodo DOI and replace PENDING_ZENODO_RELEASE in metadata/datasets.tsv.
-checklist::GitHub repository public release	pending	pending	Use release/archives/sheafsignal_github_release.zip or tracked repository contents.	Use release/archives/sheafsignal_github_release.zip or tracked repository contents.
 author_metadata::affiliations	pass	pass	manuscript\submission_metadata\AFFILIATIONS_TEMPLATE.tsv	Fill all affiliations.
 author_metadata::authors	pass	pass	manuscript\submission_metadata\AUTHOR_METADATA_TEMPLATE.tsv	Fill all author names, emails, ORCIDs when available, corresponding author status, and conflict statements.
 author_metadata::competing_interests	pass	pass	manuscript\submission_metadata\COMPETING_INTERESTS_TEMPLATE.md	Replace TBD with final competing interests statement.
@@ -11,10 +7,12 @@ author_metadata::ethics_data_use	pass	pass	manuscript\submission_metadata\ETHICS
 author_metadata::submission_system_checklist	pass	pass	manuscript\submission_metadata\SUBMISSION_SYSTEM_METADATA_CHECKLIST.tsv	Complete submission-system metadata checklist.
 benchmark_result_contracts::tables_and_links	pass	pass	No benchmark result contract failures detected.	Resolve failed benchmark result contract checks before submission.
 checklist::All tests pass	pass	complete_current_run	Run python -m pytest before final submission.	Run python -m pytest before final submission.
-checklist::Conflict of interest and author contributions	pass	draft_filled_needs_author_confirmation	Author-provided draft metadata has been filled; corresponding authors must confirm before journal upload.	Author-provided draft metadata has been filled; corresponding authors must confirm before journal upload.
+checklist::Conflict of interest and author contributions	pass	confirmed	Author-provided metadata, CRediT roles, competing interests, and ethics/data-use wording confirmed on 2026-05-04.	Author-provided metadata, CRediT roles, competing interests, and ethics/data-use wording confirmed on 2026-05-04.
+checklist::GitHub repository public release	pass	complete	https://github.com/healthgreat/SheafSignal/releases/tag/v0.1.0	https://github.com/healthgreat/SheafSignal/releases/tag/v0.1.0
 checklist::Nature Methods formatting checked	pass	local_official_check_complete	Official Nature Methods content type, reporting standards and code guidance checked on 2026-05-03; recheck on submission day if delayed.	Official Nature Methods content type, reporting standards and code guidance checked on 2026-05-03; recheck on submission day if delayed.
 checklist::No overclaiming	pass	required	Use 05_claim_evidence_map.tsv and 08_claim_boundaries_and_limitations.md.	Use 05_claim_evidence_map.tsv and 08_claim_boundaries_and_limitations.md.
 checklist::Release audit passes	pass	complete_current_run	Run python scripts/release_audit.py before final submission.	Run python scripts/release_audit.py before final submission.
+checklist::Zenodo DOI minted	pass	complete_after_doi	https://doi.org/10.5281/zenodo.20012189	https://doi.org/10.5281/zenodo.20012189
 claim_safety_audit::manuscript_wide	pass	pass	No blocking positive claims detected.	Resolve blocking or author-review claim safety rows before submission.
 forbidden_positive_claims::manuscript_draft	pass	pass	No forbidden positive claim patterns detected.	Remove or rewrite any positive clinical, guaranteed-publication, or broad-superiority claims.
 format_audit::nature_methods	pass	pass	all local format checks pass	Resolve Nature Methods format audit issues.
@@ -124,3 +122,5 @@ supergrok_hardening::gse154778_reannotation	pass	pass	GSE154778 reannotation rea
 supergrok_hardening::novelty_overlap	pass	pass	Novelty overlap table covers required comparison classes.	Complete formal novelty/overlap matrix with CCC, graph signal, Hodge and sheaf method comparisons.
 supergrok_hardening::sensitivity_statistics	pass	pass	Sensitivity panel has no pending rows.	Complete sensitivity panel, permutation/FDR reporting, and bootstrap CI summaries.
 supplementary_artifacts::manifest_readability	pass	pass	97 supplementary artifacts passed readability checks.	Regenerate or remove failing supplementary manifest entries before submission.
+zenodo_doi::data_availability_statement	pass	pass	release/DATA_AVAILABILITY_STATEMENT_DRAFT.md	Insert the minted DOI into the data availability statement.
+zenodo_doi::dataset_manifest	pass	pass	all public benchmark rows have DOI values	Mint Zenodo DOI and replace PENDING_ZENODO_RELEASE in metadata/datasets.tsv.

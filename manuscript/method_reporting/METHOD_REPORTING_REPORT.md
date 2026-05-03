@@ -1,20 +1,20 @@
 # Method Reporting Readiness Audit
 
-Decision: `METHOD_REPORTING_PASS_WITH_BOUNDARY_NOTES`
+Decision: `METHOD_REPORTING_PASS`
 
 - Checks: 16
 - Failures: 0
-- Warnings or external-pending checks: 1
+- Warnings or external-pending checks: 0
 
 ## Checks Requiring Attention
 
-- `zenodo_doi_external_release` `pending_external`: PENDING_ZENODO_RELEASE present Action: Mint Zenodo DOI and run finalize_zenodo_doi.py before submission.
+None.
 
 ## Reviewer Risk Status
 
 - `RR1_algorithm_rebranding` `mitigated`: Do not claim broad superiority; claim a distinct sheaf/Hodge object and measured consistency signals.
 - `RR2_simulation_ground_truth` `mitigated`: Simulation supports component recovery, not biological truth.
-- `RR3_public_data_reproducibility` `external_pending`: Zenodo DOI remains an external submission step until minted.
+- `RR3_public_data_reproducibility` `mitigated`: Zenodo DOI remains an external submission step until minted.
 - `RR4_comparator_scope` `mitigated`: CellChat, CellPhoneDB, and niche-DE are not claimed as completed unless their outputs are imported.
 - `RR5_sparse_cell_types` `mitigated`: GSE154778 main text should not promote Myeloid, CAF/Fibroblast, or any other cell type as a validated source mechanism until annotation and expression-mode permutation/FDR gates agree.
 - `RR6_spatial_neighbor_choice` `mitigated`: Spatial claims are hotspot-localization claims, not single-cell annotation proof.

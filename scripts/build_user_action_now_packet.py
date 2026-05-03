@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import json
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -18,9 +19,15 @@ from pathlib import Path
 
 RELEASE_STATUS = Path("release/EXTERNAL_RELEASE_AUTHORIZATION_STATUS.tsv")
 EXTERNAL_INPUT_INTAKE_STATUS = Path("release/EXTERNAL_INPUT_INTAKE_STATUS.tsv")
-AUTHOR_PREFLIGHT = Path("manuscript/submission_metadata/AUTHOR_CONFIRMATION_PREFLIGHT_STATUS.tsv")
-CONTACT_RECONCILIATION = Path("manuscript/submission_metadata/AUTHOR_CONTACT_RECONCILIATION.tsv")
-EXTERNAL_REVIEW_TRIAGE = Path("external_ai_review_packet/EXTERNAL_BETA_REVIEW_TRIAGE_REPORT.md")
+AUTHOR_PREFLIGHT = Path(
+    "manuscript/submission_metadata/AUTHOR_CONFIRMATION_PREFLIGHT_STATUS.tsv"
+)
+CONTACT_RECONCILIATION = Path(
+    "manuscript/submission_metadata/AUTHOR_CONTACT_RECONCILIATION.tsv"
+)
+EXTERNAL_REVIEW_TRIAGE = Path(
+    "external_ai_review_packet/EXTERNAL_BETA_REVIEW_TRIAGE_REPORT.md"
+)
 OUTPUT_TSV = Path("release/USER_ACTION_NOW_PACKET.tsv")
 OUTPUT_MD = Path("release/USER_ACTION_NOW_PACKET_ZH.md")
 
@@ -96,6 +103,25 @@ def _review_decision(text: str) -> str:
     return text.split(marker, 1)[1].split("`", 1)[0]
 
 
+def _published_zenodo_doi(root: Path) -> str:
+    summary_path = root / "release/ZENODO_API_UPLOAD_SUMMARY.json"
+    if summary_path.exists():
+        try:
+            summary = json.loads(summary_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            summary = {}
+        doi = str(summary.get("published_doi", "")).strip()
+        if doi.startswith("10.5281/zenodo."):
+            return doi
+
+    availability = _read_text(root / "release/DATA_AVAILABILITY_STATEMENT_DRAFT.md")
+    marker = "10.5281/zenodo."
+    if marker in availability:
+        suffix = availability.split(marker, 1)[1].split()[0].strip("`.,)")
+        return marker + suffix
+    return ""
+
+
 def build_action_rows(root: Path) -> list[ActionRow]:
     release_rows = _read_tsv(root / RELEASE_STATUS)
     intake_rows = _read_tsv(root / EXTERNAL_INPUT_INTAKE_STATUS)
@@ -108,28 +134,64 @@ def build_action_rows(root: Path) -> list[ActionRow]:
     github_rotation = _row_by_field_id(intake_rows, "github_token_rotation_confirmed")
     zenodo_token = _row_by_id(release_rows, "zenodo_token_file")
     zenodo_doi = _row_by_id(release_rows, "zenodo_doi_placeholders")
+    published_doi = _published_zenodo_doi(root)
 
     blocking_author = _count_author(author_rows, "blocking")
     pending_author = _count_author(author_rows, "pending")
     missing_contact = _count_contact(contact_rows, "blocking_missing_email")
-    extra_contacts = _count_contact(contact_rows, "confirm_not_author_or_update_author_line")
+    extra_contacts = _count_contact(
+        contact_rows, "confirm_not_author_or_update_author_line"
+    )
     review_decision = _review_decision(review_text)
     github_done = github_token.get("status") in {"valid", "valid_with_required_scopes"}
     github_rotation_done = github_rotation.get("status") == "pass"
     author_contacts_done = missing_contact == 0 and extra_contacts == 0
     author_declarations_done = blocking_author == 0 and pending_author == 0
-    zenodo_ready_for_codex = zenodo_token.get("status") in {"present", "valid"} and zenodo_doi.get(
-        "status"
-    ) == "pending"
-    zenodo_done = zenodo_doi.get("status") in {"pass", "ready", "completed"}
+    zenodo_ready_for_codex = (
+        zenodo_token.get("status") in {"present", "valid"}
+        and zenodo_doi.get("status") == "pending"
+    )
+    zenodo_done = bool(published_doi) or zenodo_doi.get("status") in {
+        "pass",
+        "ready",
+        "completed",
+        "cleared",
+    }
+    zenodo_user_action = (
+        "No user action needed."
+        if zenodo_done
+        else (
+            "No user action needed; Codex can mint DOI after author release approval."
+            if zenodo_ready_for_codex
+            else (
+                "Either manually upload release/archives/sheafsignal_zenodo_upload.zip "
+                "to Zenodo and give Codex the DOI, or save a Zenodo API token to "
+                "D:/secrets/zenodo_token.txt."
+            )
+        )
+    )
 
     rows = [
         ActionRow(
             "DONE" if github_done else "P0",
             "GitHub token / gh login",
-            f"github_token_api={github_token.get('status', 'missing')}; gh={github_cli.get('status', 'missing')}",
-            "No user action needed." if github_done else "Create or update a GitHub classic token with repo and workflow scopes, save it to D:/secrets/github_token.txt, and do not paste it into chat.",
-            "Validate token scopes, authenticate GitHub tooling if possible, push the branch, then create the public release/tag after final gates pass.",
+            (
+                f"github_token_api={github_token.get('status', 'missing')}; "
+                f"gh={github_cli.get('status', 'missing')}"
+            ),
+            (
+                "No user action needed."
+                if github_done
+                else (
+                    "Create or update a GitHub classic token with repo and workflow "
+                    "scopes, save it to D:/secrets/github_token.txt, and do not paste "
+                    "it into chat."
+                )
+            ),
+            (
+                "Validate token scopes, authenticate GitHub tooling if possible, push "
+                "the branch, then create the public release/tag after final gates pass."
+            ),
             "python scripts/check_external_release_authorization.py",
         ),
         ActionRow(
@@ -140,10 +202,11 @@ def build_action_rows(root: Path) -> list[ActionRow]:
                 "No user action needed."
                 if github_rotation_done
                 else (
-                    "If D:/secrets/github_token.txt contains a token generated after the chat "
-                    "exposure, enter yes in release/EXTERNAL_INPUT_INTAKE_TEMPLATE.tsv. "
-                    "If not, regenerate a GitHub classic token with repo and workflow scopes, "
-                    "overwrite D:/secrets/github_token.txt, then enter yes."
+                    "If D:/secrets/github_token.txt contains a token generated after "
+                    "the chat exposure, enter yes in "
+                    "release/EXTERNAL_INPUT_INTAKE_TEMPLATE.tsv. If not, regenerate "
+                    "a GitHub classic token with repo and workflow scopes, overwrite "
+                    "D:/secrets/github_token.txt, then enter yes."
                 )
             ),
             "Use the token for GitHub push/release only after this safety gate passes.",
@@ -152,33 +215,77 @@ def build_action_rows(root: Path) -> list[ActionRow]:
         ActionRow(
             "DONE" if author_contacts_done else "P0",
             "Han Yan email and author contact consistency",
-            f"missing_current_author_email={missing_contact}; extra_supplied_contacts={extra_contacts}",
-            "No user action needed." if author_contacts_done else "Provide Han Yan email. Confirm whether supplied contacts not in the current author line are non-authors or should be added with author order/affiliations/CRediT.",
-            "Update author metadata templates, rerun contact reconciliation and author preflight, then regenerate submission metadata.",
-            "python scripts/reconcile_author_contacts.py && python scripts/check_author_confirmation_preflight.py",
+            (
+                f"missing_current_author_email={missing_contact}; "
+                f"extra_supplied_contacts={extra_contacts}"
+            ),
+            (
+                "No user action needed."
+                if author_contacts_done
+                else (
+                    "Provide Han Yan email. Confirm whether supplied contacts not in "
+                    "the current author line are non-authors or should be added with "
+                    "author order/affiliations/CRediT."
+                )
+            ),
+            (
+                "Update author metadata templates, rerun contact reconciliation and "
+                "author preflight, then regenerate submission metadata."
+            ),
+            (
+                "python scripts/reconcile_author_contacts.py && "
+                "python scripts/check_author_confirmation_preflight.py"
+            ),
         ),
         ActionRow(
             "DONE" if author_declarations_done else "P0",
             "Author-owned declarations",
             f"blocking={blocking_author}; pending={pending_author}",
-            "No user action needed." if author_declarations_done else "Confirm CRediT, funding, competing interests, ethics/data-use wording, and GitHub/Zenodo public-release approval.",
-            "Apply AUTHOR_CONFIRMATION_RESPONSE_TEMPLATE.tsv, update manuscript-facing statements, and rerun final blocker checks.",
-            "python scripts/apply_author_confirmation_response.py --apply && python scripts/check_author_confirmation_preflight.py",
+            (
+                "No user action needed."
+                if author_declarations_done
+                else (
+                    "Confirm CRediT, funding, competing interests, ethics/data-use "
+                    "wording, and GitHub/Zenodo public-release approval."
+                )
+            ),
+            (
+                "Apply AUTHOR_CONFIRMATION_RESPONSE_TEMPLATE.tsv, update "
+                "manuscript-facing statements, and rerun final blocker checks."
+            ),
+            (
+                "python scripts/apply_author_confirmation_response.py --apply && "
+                "python scripts/check_author_confirmation_preflight.py"
+            ),
         ),
         ActionRow(
             "DONE" if zenodo_done else ("CODEX_READY" if zenodo_ready_for_codex else "P0"),
             "Zenodo DOI",
-            f"token={zenodo_token.get('status', 'missing')}; doi_placeholder={zenodo_doi.get('status', 'missing')}",
-            "No user action needed; Codex can mint DOI after author release approval." if zenodo_ready_for_codex else "Either manually upload release/archives/sheafsignal_zenodo_upload.zip to Zenodo and give Codex the DOI, or save a Zenodo API token to D:/secrets/zenodo_token.txt.",
-            "Insert the real DOI into release metadata, Data Availability, and dataset manifest, then rebuild release archives and audits.",
+            (
+                f"token={zenodo_token.get('status', 'missing')}; "
+                f"doi_placeholder={zenodo_doi.get('status', 'missing')}; "
+                f"published_doi={published_doi or 'missing'}"
+            ),
+            zenodo_user_action,
+            (
+                "Keep the real DOI in release metadata, Data Availability, and dataset "
+                "manifest; rebuild release archives and audits after any tracked "
+                "release-file change."
+            ),
             "python scripts/check_release_metadata_placeholders.py",
         ),
         ActionRow(
             "P1",
             "External beta review return",
             review_decision,
-            "Send the prepared external review bundle to 2-3 independent AI/human reviewers and return their comments.",
-            "Triage returned reviews into fixed, downgraded_by_design, or out_of_scope actions before final journal targeting.",
+            (
+                "Send the prepared external review bundle to 2-3 independent AI/human "
+                "reviewers and return their comments."
+            ),
+            (
+                "Triage returned reviews into fixed, downgraded_by_design, or "
+                "out_of_scope actions before final journal targeting."
+            ),
             "reviewer response matrix update",
         ),
     ]
@@ -195,6 +302,16 @@ def build_report(rows: list[ActionRow]) -> str:
     decision = classify_decision(rows)
     p0_rows = [row for row in rows if row.priority == "P0"]
     p1_rows = [row for row in rows if row.priority == "P1"]
+    if p0_rows:
+        immediate_lines = [
+            f"{index}. {row.item}: {row.what_user_should_do}"
+            for index, row in enumerate(p0_rows, start=1)
+        ]
+    else:
+        immediate_lines = [
+            "当前没有 P0 用户动作。GitHub token rotation、作者声明、GitHub public release 和 Zenodo DOI 已有可审计记录。",
+            "P1 只剩外部 beta review return：这是 20-50 IF 稿件的加分项，不是本地 release 阻断项。",
+        ]
     table = [
         "| Priority | Item | Current status | What you do | What Codex does after | Validation |",
         "|---|---|---|---|---|---|",
@@ -214,21 +331,15 @@ def build_report(rows: list[ActionRow]) -> str:
             "",
             "## 你现在只需要处理什么",
             "",
-            "推荐先填写统一入口：`release/EXTERNAL_INPUT_INTAKE_TEMPLATE.tsv`。",
-            "",
-            "1. 重新生成 GitHub token：必须包含 `repo` 和 `workflow` scopes，保存到 `D:/secrets/github_token.txt`。",
-            "2. 提供 Han Yan email，并确认额外 16 个联系人是否不是作者；如果是作者，需要给出最终 author order、affiliation 和 CRediT。",
-            "3. 确认 author declarations：equal contribution、CRediT、funding、COI、ethics/data-use、GitHub/Zenodo public release approval。",
-            "4. Zenodo：手动上传 `release/archives/sheafsignal_zenodo_upload.zip` 后给 DOI，或把 Zenodo API token 保存到 `D:/secrets/zenodo_token.txt`。",
-            "5. 把 external review bundle 发给外部 AI/同行评审，拿回意见。",
+            *immediate_lines,
             "",
             "## Action Table",
             "",
             *table,
             "",
-            "## 我拿到这些信息后会直接做什么",
+            "## 我接下来直接做什么",
             "",
-            "首先运行一键 readiness 检查：",
+            "我会继续运行一键 readiness 检查：",
             "",
             "```bash",
             "python scripts/build_external_input_intake.py",
@@ -238,7 +349,7 @@ def build_report(rows: list[ActionRow]) -> str:
             "",
             "1. 验证 token scope 和 Zenodo/API 状态，不打印任何 token。",
             "2. 更新 author metadata、Data Availability、DOI 和 GitHub release 信息。",
-            "3. push 当前分支，创建 frozen release/tag。",
+            "3. push 当前分支，维护 frozen release/tag。",
             "4. public clean-clone 复现，并重跑 `pytest`、`ruff`、release audit、final blocker report。",
             "5. 刷新 live Gantt、IF20-50 distance report 和 final GO/NO-GO。",
             "",

@@ -6,5 +6,5 @@ github_token_api	pass	valid	GitHub API accepted the token for login=healthgreat;
 git_origin_remote	pass	configured	https://github.com/healthgreat/SheafSignal.git	Verify the remote is public before final submission.	git remote -v
 zenodo_token_file	pass	present	D:\secrets\zenodo_token.txt exists; size=60 bytes. Token content was not printed.	None if the API validation row also passes.	(Get-Item D:\secrets\zenodo_token.txt).Length
 zenodo_token_api	pass	valid	Zenodo API accepted the token. Token content was not printed.	Codex can use this token for Zenodo API upload when the release is frozen.	python scripts/check_external_release_authorization.py
-zenodo_upload_archive	pass	present	E:\4实验数据\10新算法\SheafSignal\release\archives\sheafsignal_zenodo_upload.zip; size=110415287 bytes	Use only after the final release metadata is frozen.	Test-Path release/archives/sheafsignal_zenodo_upload.zip
-zenodo_doi_placeholders	blocking	pending	PENDING_ZENODO_RELEASE is present.	Mint DOI and run scripts/finalize_zenodo_doi.py.	python scripts/check_release_metadata_placeholders.py
+zenodo_upload_archive	pass	present	E:\4实验数据\10新算法\SheafSignal\release\archives\sheafsignal_zenodo_upload.zip; size=110469837 bytes	Use only after the final release metadata is frozen.	Test-Path release/archives/sheafsignal_zenodo_upload.zip
+zenodo_doi_placeholders	pass	cleared	No PENDING_ZENODO_RELEASE placeholder found in checked files.	None.	python scripts/check_release_metadata_placeholders.py

@@ -1,8 +1,8 @@
 gate	status	blocking	evidence	next_action
 github_publication_auth	valid	no	gh=env_token_available_persistent_login_missing	No user action needed; Codex can use GH_TOKEN from the local token file.
 author_confirmation	blocking=0; pending=0	no	missing_author_email=0; extra_contacts=0	No action needed; author-owned declarations are applied.
-zenodo_identifier	token=present; doi=pending	no	release archive exists; DOI placeholder still blocks final metadata unless real DOI is supplied	No user action needed; Codex can mint DOI after the public release archive is final.
+zenodo_identifier	token=present; doi=cleared	no	Zenodo token/API and DOI placeholder audit are non-blocking; real DOI is recorded after upload when available.	No user action needed; Codex can mint DOI after the public release archive is final.
 external_input_intake	P0_missing=0	no	release/EXTERNAL_INPUT_INTAKE_TEMPLATE.tsv	No action needed unless author-owned facts change.
 author_response_from_intake	pending_rows=0	no	manuscript/submission_metadata/AUTHOR_CONFIRMATION_RESPONSE_FROM_INTAKE.tsv	No action needed; canonical author response has been derived from intake.
 short_user_action_packet	P0=0	no	release/USER_ACTION_NOW_PACKET_ZH.md	No P0 user action remains; keep the packet as the short audit trail.
-live_gantt_blockers	blocking_rows=3	yes	manuscript/SHEAFSIGNAL_LIVE_GANTT_STATUS.md	Resolve release-chain blockers shown in the live Gantt: GitHub branch/tag, DOI, metadata insertion, clean-clone, and submission-day journal check.
+live_gantt_blockers	blocking_rows=2	yes	manuscript/SHEAFSIGNAL_LIVE_GANTT_STATUS.md	Resolve release-chain blockers shown in the live Gantt. Submission-day journal metric verification is excluded from this pre-submission unblock count.

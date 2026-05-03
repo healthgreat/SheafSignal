@@ -4,8 +4,8 @@ Timestamp: 2026-05-03 02:00:00 +08:00
 
 ## Direct Status
 
-- Blocking or mandatory release gates tracked: `7`.
-- Gates already partly configured: `1`.
+- Blocking or mandatory release gates tracked: `1`.
+- Gates already partly configured: `3`.
 - Current decision: `RELEASE_NOT_READY_UNTIL_GITHUB_ZENODO_AUTHOR_CONFIRMATION`.
 
 This runbook is for release execution. It does not guarantee acceptance in any
@@ -14,10 +14,10 @@ journal and does not change the evidence boundary of the manuscript.
 ## Gate Matrix Summary
 
 - `G01_github_auth`: `valid` -> No user action needed; Codex can use GH_TOKEN from the local token file.
-- `G02_public_github_repo`: `origin_configured_push_pending` -> Create or connect a public GitHub repository and push the frozen branch.
-- `G03_release_tag`: `pending` -> Create an immutable release tag after final audits pass.
-- `G04_zenodo_doi`: `blocking_pending` -> Upload the frozen archive or provide a Zenodo token, then mint a real DOI.
-- `G05_metadata_insertion`: `pending_real_github_url_and_doi` -> Insert public GitHub URL and Zenodo DOI into all release and manuscript metadata.
+- `G02_public_github_repo`: `public_remote_branch_available` -> Create or connect a public GitHub repository and push the frozen branch.
+- `G03_release_tag`: `completed` -> Create an immutable release tag after final audits pass.
+- `G04_zenodo_doi`: `completed` -> No action needed.
+- `G05_metadata_insertion`: `completed` -> No action needed.
 - `G06_public_clean_clone`: `pending` -> Clone the public repository into a fresh directory and rerun demo plus audits.
 - `G07_author_confirmation`: `AUTHOR_CONFIRMATION_READY` -> No action needed; author-owned declarations are applied.
 - `S01_external_beta_review`: `recommended_not_required_for_local_go` -> Send the package to 2-3 independent computational biology readers and triage responses.

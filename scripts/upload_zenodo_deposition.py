@@ -35,9 +35,10 @@ class ZenodoApiError(RuntimeError):
 class ZenodoClient:
     """Minimal Zenodo REST API client using the standard library."""
 
-    def __init__(self, *, base_url: str, token: str) -> None:
+    def __init__(self, *, base_url: str, token: str, timeout: int = 600) -> None:
         self.base_url = base_url.rstrip("/")
         self.token = token
+        self.timeout = timeout
 
     def _request(
         self,
@@ -57,7 +58,7 @@ class ZenodoClient:
             headers["Content-Type"] = "application/octet-stream"
         request = Request(url, data=data, headers=headers, method=method)
         try:
-            with urlopen(request, timeout=120) as response:
+            with urlopen(request, timeout=self.timeout) as response:
                 text = response.read().decode("utf-8")
                 return json.loads(text) if text else {}
         except HTTPError as exc:
@@ -71,6 +72,12 @@ class ZenodoClient:
             "POST",
             f"{self.base_url}/api/deposit/depositions",
             payload={},
+        )
+
+    def get_deposition(self, deposition_id: int) -> dict[str, Any]:
+        return self._request(
+            "GET",
+            f"{self.base_url}/api/deposit/depositions/{deposition_id}",
         )
 
     def update_metadata(self, deposition_id: int, metadata: dict[str, Any]) -> dict[str, Any]:
@@ -212,6 +219,7 @@ def run_upload_workflow(
     allow_tbd_metadata: bool,
     dry_run: bool,
     finalize_local: bool,
+    existing_deposition_id: int | None = None,
 ) -> dict[str, Any]:
     metadata = load_metadata(metadata_path)
     issues = validate_upload_inputs(
@@ -234,6 +242,7 @@ def run_upload_workflow(
         "archive_size_bytes": archive_path.stat().st_size,
         "metadata_tbd_issues": metadata_tbd_issues(metadata),
         "deposition_id": "NA",
+        "existing_deposition_id": existing_deposition_id or "NA",
         "reserved_doi": "NA",
         "published_doi": "NA",
         "html_link": "NA",
@@ -246,7 +255,11 @@ def run_upload_workflow(
     if client is None:
         raise ValueError("Zenodo client is required when dry_run is false")
 
-    deposition = client.create_deposition()
+    deposition = (
+        client.get_deposition(existing_deposition_id)
+        if existing_deposition_id is not None
+        else client.create_deposition()
+    )
     deposition_id = int(deposition["id"])
     bucket_url = deposition["links"]["bucket"]
     metadata_response = client.update_metadata(deposition_id, metadata)
@@ -255,6 +268,7 @@ def run_upload_workflow(
     summary.update(
         {
             "deposition_id": deposition_id,
+            "reused_existing_deposition": existing_deposition_id is not None,
             "reserved_doi": reserved_doi or "NA",
             "html_link": metadata_response.get("links", {}).get(
                 "html",
@@ -290,6 +304,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--summary-json", default=DEFAULT_SUMMARY_JSON)
     parser.add_argument("--summary-md", default=DEFAULT_SUMMARY_MD)
     parser.add_argument("--token-env", default="ZENODO_ACCESS_TOKEN")
+    parser.add_argument("--timeout", type=int, default=600)
+    parser.add_argument("--existing-deposition-id", type=int)
     parser.add_argument("--sandbox", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--publish", action="store_true")
@@ -314,7 +330,11 @@ def main(argv: list[str] | None = None) -> int:
             f"Environment variable {args.token_env} is not set. "
             "Create a Zenodo token and set it before uploading."
         )
-    client = None if args.dry_run else ZenodoClient(base_url=base_url, token=token)
+    client = None if args.dry_run else ZenodoClient(
+        base_url=base_url,
+        token=token,
+        timeout=args.timeout,
+    )
     summary = run_upload_workflow(
         root=root,
         client=client,
@@ -328,6 +348,7 @@ def main(argv: list[str] | None = None) -> int:
         allow_tbd_metadata=args.allow_tbd_metadata,
         dry_run=args.dry_run,
         finalize_local=not args.no_finalize_local,
+        existing_deposition_id=args.existing_deposition_id,
     )
     print(f"wrote {summary_json_path}")
     print(f"wrote {summary_md_path}")

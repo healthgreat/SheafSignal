@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+import json
 
 import pandas as pd
 
@@ -188,6 +189,44 @@ def _read_tsv(path: Path) -> pd.DataFrame:
     return pd.read_csv(path, sep="\t")
 
 
+def _read_text(path: Path) -> str:
+    return path.read_text(encoding="utf-8", errors="replace") if path.exists() else ""
+
+
+def _zenodo_doi_completed(root: Path) -> bool:
+    datasets = _read_text(root / "metadata/datasets.tsv")
+    summary_path = root / "release/ZENODO_API_UPLOAD_SUMMARY.json"
+    if "10.5281/zenodo." not in datasets or "PENDING_ZENODO_RELEASE" in datasets:
+        return False
+    if not summary_path.exists():
+        return False
+    try:
+        summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return False
+    published = str(summary.get("published_doi", ""))
+    return published.startswith("10.5281/zenodo.")
+
+
+def _github_release_completed(root: Path) -> bool:
+    report = _read_text(root / "release/GITHUB_RELEASE_PUBLICATION_REPORT.md")
+    return (
+        "GITHUB_RELEASE_PUBLISHED" in report
+        and "https://github.com/healthgreat/SheafSignal/releases/tag/v0.1.0" in report
+    )
+
+
+def _author_template_completed(root: Path, artifact_path: str) -> bool:
+    text = _read_text(_resolve(root, artifact_path))
+    pending_tokens = [
+        "draft_pending_author_confirmation",
+        "needs_author_confirmation",
+        "tbd_by_authors",
+        "TBD",
+    ]
+    return bool(text) and not any(token in text for token in pending_tokens)
+
+
 def _status_for_row(
     *,
     artifact_exists: bool,
@@ -226,6 +265,17 @@ def _static_rows(root: Path) -> list[dict[str, object]]:
             missing_sources=missing_sources,
             provenance_type=item["provenance_type"],
         )
+        if item["artifact_id"] == "zenodo_doi" and _zenodo_doi_completed(root):
+            status = "pass"
+            notes = "Zenodo DOI minted and local metadata updated"
+        elif item["artifact_id"] == "github_public_release" and _github_release_completed(root):
+            status = "pass"
+            notes = "GitHub release published and release URL recorded"
+        elif item["provenance_type"] == "author_owned_template" and _author_template_completed(
+            root, item["artifact_path"]
+        ):
+            status = "pass"
+            notes = "author-owned metadata template is confirmed"
         rows.append(
             {
                 **item,

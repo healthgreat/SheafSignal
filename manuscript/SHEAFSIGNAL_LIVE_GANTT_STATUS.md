@@ -1,6 +1,6 @@
 # SheafSignal Live Gantt Status
 
-- Timestamp: `2026-05-04 02:13:49`
+- Timestamp: `2026-05-04 03:07:44`
 - Decision: `LIVE_STATUS_EXTERNAL_AND_AUTHOR_GATES_BLOCK_SUBMISSION`
 - IF20-50 decision: `IF20_50_SCIENTIFICALLY_HARDENED_EXTERNAL_RELEASE_BLOCKED`
 - Overall readiness: `79.3%`
@@ -25,12 +25,14 @@ gantt
     Author facts filled and applied           :done, 2026-05-04, 1d
     Author contact reconciliation             :done, 2026-05-04, 1d
 
-    section Current Blocking Work
-    GitHub token rotation confirmation        :crit, active, 2026-05-04, 1d
-    Public GitHub branch / release tag        :crit, active, 2026-05-04, 1d
-    Zenodo DOI minted                         :crit, active, 2026-05-04, 1d
-    Release metadata identifiers inserted     :crit, active, 2026-05-04, 1d
-    Public clean-clone reproduction           :crit, active, 2026-05-05, 1d
+    section Release Chain
+    GitHub token rotation / auth               :done, 2026-05-04, 1d
+    Public GitHub branch                       :done, 2026-05-04, 1d
+    GitHub release tag                         :done, 2026-05-04, 1d
+    Zenodo DOI minted                          :done, 2026-05-04, 1d
+    Release metadata identifiers               :done, 2026-05-04, 1d
+    Public clean-clone reproduction            :crit, active, 2026-05-05, 1d
+    Author confirmation                        :done, 2026-05-04, 1d
     Submission-day journal metric check       :crit, active, 2026-05-06, 1d
     Returned external beta reviews            :active, 2026-05-04, 5d
 
@@ -43,8 +45,8 @@ gantt
 | Item | Status | Owner | Blocking | Next action |
 |---|---|---|---|---|
 | `scientific_method_hardening` | `97.0%` | `codex` | `no` | Keep claims bounded; do not promote computational signals to mechanisms. |
-| `submission_infrastructure` | `44.5%` | `user_then_codex` | `yes` | Mint Zenodo DOI, publish GitHub release, insert identifiers, and run public clean-clone. |
-| `release_blockers` | `5 active` | `user_then_codex` | `yes` | Finish GitHub public branch/release tag, Zenodo DOI, metadata insertion, and clean-clone reproduction. |
+| `submission_infrastructure` | `44.5%` | `user_then_codex` | `yes` | Finish active release-chain blockers shown in release/RELEASE_UNBLOCKER_MATRIX.tsv. |
+| `release_blockers` | `1 active` | `user_then_codex` | `yes` | Finish active release-chain blockers shown in release/RELEASE_UNBLOCKER_MATRIX.tsv. |
 | `author_confirmation` | `blocking=0; pending=0` | `authors` | `no` | No action needed. |
 | `author_contact_reconciliation` | `AUTHOR_CONTACT_RECONCILIATION_READY` | `authors` | `no` | No action needed. |
 | `external_beta_reviews` | `EXTERNAL_BETA_REVIEW_NO_RETURNED_REVIEWS` | `user_or_external_reviewers` | `no` | Send shareable bundle, collect returned reviews, and triage them. |
@@ -57,7 +59,7 @@ gantt
 
 ## Short Interpretation
 
-The scientific and software side is near complete, and author-owned declarations are now applied. Submission is still blocked by the public release chain: GitHub public branch/tag, Zenodo DOI, identifier insertion, public clean-clone reproduction, and submission-day journal metric verification.
+The scientific and software side is near complete, author-owned declarations are applied, and the real DOI/GitHub identifiers are recorded. Current blocking release-chain rows are: `G06_public_clean_clone`.
 
 ## Boundary
 

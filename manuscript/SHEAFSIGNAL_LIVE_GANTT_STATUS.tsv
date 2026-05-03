@@ -1,7 +1,7 @@
 item	status	owner	blocking	next_action
 scientific_method_hardening	97.0%	codex	no	Keep claims bounded; do not promote computational signals to mechanisms.
-submission_infrastructure	44.5%	user_then_codex	yes	Mint Zenodo DOI, publish GitHub release, insert identifiers, and run public clean-clone.
-release_blockers	5 active	user_then_codex	yes	Finish GitHub public branch/release tag, Zenodo DOI, metadata insertion, and clean-clone reproduction.
+submission_infrastructure	44.5%	user_then_codex	yes	Finish active release-chain blockers shown in release/RELEASE_UNBLOCKER_MATRIX.tsv.
+release_blockers	1 active	user_then_codex	yes	Finish active release-chain blockers shown in release/RELEASE_UNBLOCKER_MATRIX.tsv.
 author_confirmation	blocking=0; pending=0	authors	no	No action needed.
 author_contact_reconciliation	AUTHOR_CONTACT_RECONCILIATION_READY	authors	no	No action needed.
 external_beta_reviews	EXTERNAL_BETA_REVIEW_NO_RETURNED_REVIEWS	user_or_external_reviewers	no	Send shareable bundle, collect returned reviews, and triage them.

@@ -10,6 +10,7 @@ submission-day gates before a public 20-50 IF submission package is frozen.
 from __future__ import annotations
 
 import csv
+import json
 import subprocess
 from pathlib import Path
 
@@ -77,6 +78,20 @@ def _git_has_tag(root: Path, tag: str = "v0.1.0") -> bool:
     return result.returncode == 0
 
 
+def _remote_has_tag(root: Path, tag: str = "v0.1.0") -> bool:
+    try:
+        result = subprocess.run(
+            ["git", "ls-remote", "--tags", "origin", tag],
+            cwd=root,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    except OSError:
+        return False
+    return result.returncode == 0 and bool(result.stdout.strip())
+
+
 def _current_branch(root: Path) -> str:
     try:
         result = subprocess.run(
@@ -132,6 +147,56 @@ def _has_pending_zenodo(root: Path) -> bool:
     return "PENDING_ZENODO_RELEASE" in manifest or "PENDING_ZENODO_RELEASE" in availability
 
 
+def _published_zenodo_doi(root: Path) -> str:
+    summary_path = root / "release/ZENODO_API_UPLOAD_SUMMARY.json"
+    if summary_path.exists():
+        try:
+            summary = json.loads(summary_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            summary = {}
+        doi = str(summary.get("published_doi", "")).strip()
+        if doi.startswith("10.5281/zenodo."):
+            return doi
+    availability = _read_text(root / "release/DATA_AVAILABILITY_STATEMENT_DRAFT.md")
+    marker = "10.5281/zenodo."
+    if marker in availability:
+        suffix = availability.split(marker, 1)[1].split()[0].strip("`.,)")
+        return marker + suffix
+    return ""
+
+
+def _github_release_published(root: Path) -> bool:
+    report = _read_text(root / "release/GITHUB_RELEASE_PUBLICATION_REPORT.md")
+    return (
+        "GITHUB_RELEASE_PUBLISHED" in report
+        and "https://github.com/healthgreat/SheafSignal/releases/tag/v0.1.0" in report
+    )
+
+
+def _metadata_identifiers_inserted(root: Path) -> bool:
+    placeholder_report = _read_text(root / "release/RELEASE_METADATA_PLACEHOLDER_REPORT.md")
+    has_doi = bool(_published_zenodo_doi(root))
+    has_github = "https://github.com/healthgreat/SheafSignal" in (
+        _read_text(root / "release/GITHUB_RELEASE_PUBLICATION_REPORT.md")
+        + _read_text(root / "pyproject.toml")
+        + _read_text(root / "CITATION.cff")
+    )
+    placeholders_clear = (
+        "RELEASE_METADATA_PLACEHOLDERS_CLEAR" in placeholder_report
+        or not _has_pending_zenodo(root)
+    )
+    return has_doi and has_github and placeholders_clear
+
+
+def _public_clean_clone_passed(root: Path) -> bool:
+    candidates = [
+        root / "release/public_clean_clone/PUBLIC_CLEAN_CLONE_REPORT.md",
+        root / "release/public_clean_clone/PUBLIC_CLEAN_CLONE_STATUS.tsv",
+    ]
+    text = "\n".join(_read_text(path) for path in candidates)
+    return "PUBLIC_CLEAN_CLONE_PASS" in text
+
+
 def _final_blocker_status(root: Path, blocker_id: str) -> str:
     rows = _read_tsv(root / "manuscript/FINAL_SUBMISSION_BLOCKERS.tsv")
     for row in rows:
@@ -168,12 +233,17 @@ def build_unblocker_rows(root: Path) -> list[dict[str, str]]:
     remote_url = _git_remote_url(root)
     remote_has_branch = _remote_has_branch(root) if remote_url else False
     has_release_tag = _git_has_tag(root)
+    has_remote_release_tag = _remote_has_tag(root)
+    github_release_published = _github_release_published(root)
     pending_zenodo = _has_pending_zenodo(root)
+    published_doi = _published_zenodo_doi(root)
     zenodo_status = _final_blocker_status(root, "checklist::Zenodo DOI minted")
     github_token_status = _authorization_status(root, "github_token_api")
     author_confirmation_status = _author_confirmation_decision(root)
     github_auth_ready = github_token_status in {"valid", "valid_with_required_scopes"}
     author_ready = author_confirmation_status.endswith("_READY")
+    metadata_done = _metadata_identifiers_inserted(root)
+    public_clean_clone_done = _public_clean_clone_passed(root)
 
     if remote_url and remote_has_branch:
         github_repo_status = "public_remote_branch_available"
@@ -181,8 +251,19 @@ def build_unblocker_rows(root: Path) -> list[dict[str, str]]:
         github_repo_status = "origin_configured_push_pending"
     else:
         github_repo_status = "pending_no_origin_remote"
-    tag_status = "local_tag_exists_needs_public_release" if has_release_tag else "pending"
-    zenodo_gate_status = "blocking_pending" if pending_zenodo else "complete_or_needs_audit"
+    if github_release_published and has_remote_release_tag:
+        tag_status = "completed"
+    elif has_release_tag and has_remote_release_tag:
+        tag_status = "remote_tag_exists_release_report_pending"
+    elif has_release_tag:
+        tag_status = "local_tag_exists_needs_public_release"
+    else:
+        tag_status = "pending"
+    zenodo_gate_status = (
+        "completed" if published_doi and not pending_zenodo else "blocking_pending"
+    )
+    metadata_status = "completed" if metadata_done else "pending_real_github_url_and_doi"
+    clean_clone_status = "completed" if public_clean_clone_done else "pending"
     github_auth_action = (
         "No user action needed; Codex can use GH_TOKEN from the local token file."
         if github_auth_ready
@@ -240,8 +321,8 @@ def build_unblocker_rows(root: Path) -> list[dict[str, str]]:
             "blocking",
             "user_then_codex",
             zenodo_gate_status,
-            zenodo_status or "PENDING_ZENODO_RELEASE present in release metadata",
-            "Upload the frozen archive or provide a Zenodo token, then mint a real DOI.",
+            zenodo_status or published_doi or "PENDING_ZENODO_RELEASE present in release metadata",
+            "No action needed." if zenodo_gate_status == "completed" else "Upload the frozen archive or provide a Zenodo token, then mint a real DOI.",
             "python scripts/check_release_metadata_placeholders.py",
             "Removes DOI blockers in dataset manifest and Data Availability.",
             "Mint DOI only after the release archive is final; do not mint an incomplete release.",
@@ -250,9 +331,9 @@ def build_unblocker_rows(root: Path) -> list[dict[str, str]]:
             "G05_metadata_insertion",
             "blocking",
             "codex_after_doi",
-            "pending_real_github_url_and_doi",
-            "CITATION, pyproject, .zenodo metadata, datasets.tsv, and Data Availability still need real identifiers.",
-            "Insert public GitHub URL and Zenodo DOI into all release and manuscript metadata.",
+            metadata_status,
+            "real GitHub release URL and Zenodo DOI detected." if metadata_done else "CITATION, pyproject, .zenodo metadata, datasets.tsv, and Data Availability still need real identifiers.",
+            "No action needed." if metadata_done else "Insert public GitHub URL and Zenodo DOI into all release and manuscript metadata.",
             "python scripts/check_release_metadata_placeholders.py",
             "Converts release metadata from placeholder state to submission-ready state.",
             "Identifier insertion is administrative; scientific claims remain bounded by claim gates.",
@@ -261,9 +342,9 @@ def build_unblocker_rows(root: Path) -> list[dict[str, str]]:
             "G06_public_clean_clone",
             "blocking",
             "codex_after_public_release",
-            "pending",
-            "Local clean-export preflight is not a substitute for a public clean-clone run.",
-            "Clone the public repository into a fresh directory and rerun demo plus audits.",
+            clean_clone_status,
+            "release/public_clean_clone/PUBLIC_CLEAN_CLONE_REPORT.md" if public_clean_clone_done else "Local clean-export preflight is not a substitute for a public clean-clone run.",
+            "No action needed." if public_clean_clone_done else "Clone the public repository into a fresh directory and rerun demo plus audits.",
             "python -m pytest; python scripts/release_audit.py",
             "Provides reviewer-grade reproducibility evidence.",
             "Clean-clone success supports reproducibility, not biological causality.",
@@ -305,7 +386,15 @@ def build_unblocker_rows(root: Path) -> list[dict[str, str]]:
 
 
 def build_runbook(rows: list[dict[str, str]]) -> str:
-    blocking_count = sum(1 for row in rows if row["priority"] == "blocking")
+    inactive = {"pass", "ready", "completed", "valid", "public_remote_branch_available"}
+    active_blockers = [
+        row
+        for row in rows
+        if row["priority"] == "blocking"
+        and row["current_status"] not in inactive
+        and not row["current_status"].endswith("_READY")
+    ]
+    blocking_count = len(active_blockers)
     complete_like = sum(
         1
         for row in rows
@@ -313,6 +402,11 @@ def build_runbook(rows: list[dict[str, str]]) -> str:
         or row["current_status"].startswith("configured")
         or row["current_status"].startswith("origin_configured")
         or row["current_status"].startswith("local_tag")
+    )
+    decision = (
+        "RELEASE_READY_FOR_FINAL_AUDIT"
+        if blocking_count == 0
+        else "RELEASE_NOT_READY_UNTIL_GITHUB_ZENODO_AUTHOR_CONFIRMATION"
     )
     row_lines = "\n".join(
         "- `{gate_id}`: `{current_status}` -> {required_action}".format(**row)
@@ -326,7 +420,7 @@ Timestamp: 2026-05-03 02:00:00 +08:00
 
 - Blocking or mandatory release gates tracked: `{blocking_count}`.
 - Gates already partly configured: `{complete_like}`.
-- Current decision: `RELEASE_NOT_READY_UNTIL_GITHUB_ZENODO_AUTHOR_CONFIRMATION`.
+- Current decision: `{decision}`.
 
 This runbook is for release execution. It does not guarantee acceptance in any
 journal and does not change the evidence boundary of the manuscript.

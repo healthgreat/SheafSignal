@@ -1,8 +1,8 @@
 # Zenodo Upload Preflight Report
 
-- Decision: `ZENODO_UPLOAD_PREFLIGHT_READY_FOR_API_UPLOAD_DOI_PENDING`
-- Passed checks: `15`
-- Pending checks: `1`
+- Decision: `ZENODO_UPLOAD_PREFLIGHT_READY_NO_DOI_PLACEHOLDERS`
+- Passed checks: `16`
+- Pending checks: `0`
 - Blocking checks: `0`
 
 ## Blocking Checks
@@ -11,7 +11,7 @@
 
 ## Pending Checks
 
-- `zenodo_doi_placeholders_expected`: release/DATA_AVAILABILITY_STATEMENT_DRAFT.md;metadata/datasets.tsv. Action: Mint DOI and run scripts/finalize_zenodo_doi.py after upload.
+- none
 
 ## Next Commands
 

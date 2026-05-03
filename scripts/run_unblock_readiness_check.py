@@ -72,6 +72,15 @@ def _count(rows: list[dict[str, str]], key: str, value: str) -> int:
     return sum(1 for row in rows if str(row.get(key, "")).strip() == value)
 
 
+def _count_live_blockers(rows: list[dict[str, str]]) -> int:
+    return sum(
+        1
+        for row in rows
+        if str(row.get("blocking", "")).strip() == "yes"
+        and str(row.get("item", "")).strip() != "journal_submission_day_check"
+    )
+
+
 def _run_refresh(root: Path) -> list[str]:
     logs: list[str] = []
     for command in SAFE_REFRESH_COMMANDS:
@@ -110,7 +119,7 @@ def build_gate_rows(root: Path) -> list[GateRow]:
         if str(row.get("confirmed", "")).strip() == "fill_yes_no_or_skip"
         and str(row.get("item", "")).strip() != "ORCID IDs"
     )
-    live_blocking = _count(gantt, "blocking", "yes")
+    live_blocking = _count_live_blockers(gantt)
     author_blocking = _count(author, "severity", "blocking")
     author_pending = _count(author, "severity", "pending")
     missing_author_email = _count(contacts, "action_needed", "blocking_missing_email")
@@ -119,9 +128,12 @@ def build_gate_rows(root: Path) -> list[GateRow]:
     github_status = github_token.get("status", "missing")
     github_ready = github_status in {"valid", "valid_with_required_scopes"}
     author_ready = author_blocking == 0 and author_pending == 0 and missing_author_email == 0
-    zenodo_ready = zenodo_doi.get("status", "missing") in {"pass", "ready", "completed"} or zenodo_token.get(
-        "status", ""
-    ) in {"present", "valid"}
+    zenodo_ready = zenodo_doi.get("status", "missing") in {
+        "pass",
+        "ready",
+        "completed",
+        "cleared",
+    } or zenodo_token.get("status", "") in {"present", "valid"}
     github_next = (
         "No user action needed; Codex can use GH_TOKEN from the local token file."
         if github_ready
@@ -153,8 +165,8 @@ def build_gate_rows(root: Path) -> list[GateRow]:
         else "Clear the P0 rows in the action packet."
     )
     live_gantt_next = (
-        "Resolve release-chain blockers shown in the live Gantt: GitHub branch/tag, "
-        "DOI, metadata insertion, clean-clone, and submission-day journal check."
+        "Resolve release-chain blockers shown in the live Gantt. Submission-day journal "
+        "metric verification is excluded from this pre-submission unblock count."
         if live_blocking
         else "No action needed; live Gantt has no blocking rows."
     )
@@ -178,7 +190,7 @@ def build_gate_rows(root: Path) -> list[GateRow]:
             "zenodo_identifier",
             f"token={zenodo_token.get('status', 'missing')}; doi={zenodo_doi.get('status', 'missing')}",
             "no" if zenodo_ready else "yes",
-            "release archive exists; DOI placeholder still blocks final metadata unless real DOI is supplied",
+            "Zenodo token/API and DOI placeholder audit are non-blocking; real DOI is recorded after upload when available.",
             zenodo_next,
         ),
         GateRow(

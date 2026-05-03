@@ -44,3 +44,4 @@ data/processed/tenx_breast_visium/annotation_summary.csv	zenodo	250	0.000238	dd0
 data/processed/tenx_breast_visium/expression.csv	zenodo	2493378	2.377871	2dafca2cb9e013db13a8166debd78e1bebeff4de9b231ca643cdb2cd342c2c6a	processed/frozen benchmark object
 data/processed/tenx_breast_visium/metadata.csv	zenodo	683765	0.652089	36a72aefd3438f855b257cf8b4007bc7f4dfba5663156bbe27b7f1ffa20b5044	processed/frozen benchmark object
 data/processed/tenx_breast_visium/profiles.csv	zenodo	5738	0.005472	9c60eb6e0f565388228c16340b36e54c9477358f96f97c24ec172ea18fa8fe29	processed/frozen benchmark object
+external_ai_review_packet/shareable_review_bundle/sheafsignal_external_beta_review_bundle.zip	zenodo	57910	0.055227	7c771fea7511770ec4261cfb8fd0d45784b8489e8fbbad82c9dcae6712d7ba37	large or binary omics-like file

@@ -1,16 +1,15 @@
 # Zenodo API Upload Summary
 
-- Mode: `dry_run`
-- Base URL: `https://zenodo.org`
-- Archive: `release/archives/sheafsignal_zenodo_upload.zip`
-- Metadata: `release/zenodo_deposition_metadata.json`
-- Deposition ID: `NA`
-- Reserved DOI: `NA`
-- Published DOI: `NA`
-- HTML link: `NA`
+- Mode: `publish_new_version`
+- Previous DOI: `10.5281/zenodo.20011640`
+- Published DOI: `10.5281/zenodo.20012189`
+- Concept DOI: `10.5281/zenodo.20011639`
+- HTML link: `https://zenodo.org/records/20012189`
+- Uploaded file: `sheafsignal_zenodo_upload.zip`
+- Archive size bytes: `110469837`
+- Archive SHA256: `431efce0a63e82157fd93e69e86848c376475a858dc1eddf1b32fd4dcb389edb`
+- Local metadata finalized: `true`
 
 ## Boundary
 
-This file never stores the Zenodo access token. Publishing a Zenodo record
-is irreversible through the normal deposit workflow; only use `--publish`
-with `--confirm-publish I_UNDERSTAND_ZENODO_PUBLISH_IS_FINAL` after metadata review.
+This file never stores the Zenodo access token.

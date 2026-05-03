@@ -12,9 +12,9 @@
 - Shareable review bundle: `ready`
 - 10,000-permutation confirmatory subset: `completed_10000`
 - GSE103322 replication supplement: `supplement_ready`
-- Live release blocking gates: `5` of `7`
+- Live release blocking gates: `1` of `7`
 - External authorization statuses: `configured=1, env_token_available_persistent_login_missing=1, pending=1, present=4, valid=2`
-- Zenodo preflight statuses: `pass=14, pending=2`
+- Zenodo preflight statuses: `pass=16`
 - Author confirmation severities: `pass=11`
 - Author response template: `applied`
 - Score boundary: these are internal readiness indices, not acceptance probabilities.
@@ -37,8 +37,8 @@ The GSE103322 HNSCC supplement-grade replication gate is now complete, but it re
 
 ## Current Gap Counts
 
-- Blocking gap rows in the matrix: `16`
-- Administrative pending rows: `1`
+- Blocking gap rows in the matrix: `6`
+- Administrative pending rows: `0`
 - Author-owned metadata rows: `0`
 - Git release warnings: `2`
 
@@ -53,10 +53,10 @@ The GSE103322 HNSCC supplement-grade replication gate is now complete, but it re
 | Gate | Priority | Owner | Current status | Required action |
 |---|---|---|---|---|
 | `G01_github_auth` | `blocking` | `user_then_codex` | `valid` | No user action needed; Codex can use GH_TOKEN from the local token file. |
-| `G02_public_github_repo` | `blocking` | `codex_after_auth` | `origin_configured_push_pending` | Create or connect a public GitHub repository and push the frozen branch. |
-| `G03_release_tag` | `blocking` | `codex_after_github` | `pending` | Create an immutable release tag after final audits pass. |
-| `G04_zenodo_doi` | `blocking` | `user_then_codex` | `blocking_pending` | Upload the frozen archive or provide a Zenodo token, then mint a real DOI. |
-| `G05_metadata_insertion` | `blocking` | `codex_after_doi` | `pending_real_github_url_and_doi` | Insert public GitHub URL and Zenodo DOI into all release and manuscript metadata. |
+| `G02_public_github_repo` | `blocking` | `codex_after_auth` | `public_remote_branch_available` | Create or connect a public GitHub repository and push the frozen branch. |
+| `G03_release_tag` | `blocking` | `codex_after_github` | `completed` | Create an immutable release tag after final audits pass. |
+| `G04_zenodo_doi` | `blocking` | `user_then_codex` | `completed` | No action needed. |
+| `G05_metadata_insertion` | `blocking` | `codex_after_doi` | `completed` | No action needed. |
 | `G06_public_clean_clone` | `blocking` | `codex_after_public_release` | `pending` | Clone the public repository into a fresh directory and rerun demo plus audits. |
 | `G07_author_confirmation` | `blocking` | `authors` | `AUTHOR_CONFIRMATION_READY` | No action needed; author-owned declarations are applied. |
 | `S01_external_beta_review` | `strengthening` | `user_or_codex_packet` | `recommended_not_required_for_local_go` | Send the package to 2-3 independent computational biology readers and triage responses. |

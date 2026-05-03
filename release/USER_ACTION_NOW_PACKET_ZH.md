@@ -1,19 +1,14 @@
 # SheafSignal 当前最短行动包
 
-- Timestamp: `2026-05-04 02:13:49`
+- Timestamp: `2026-05-04 03:07:44`
 - Decision: `USER_ACTION_PACKET_READY_NO_P0_BLOCKERS`
 - P0 items: `0`
 - P1 items: `1`
 
 ## 你现在只需要处理什么
 
-推荐先填写统一入口：`release/EXTERNAL_INPUT_INTAKE_TEMPLATE.tsv`。
-
-1. 重新生成 GitHub token：必须包含 `repo` 和 `workflow` scopes，保存到 `D:/secrets/github_token.txt`。
-2. 提供 Han Yan email，并确认额外 16 个联系人是否不是作者；如果是作者，需要给出最终 author order、affiliation 和 CRediT。
-3. 确认 author declarations：equal contribution、CRediT、funding、COI、ethics/data-use、GitHub/Zenodo public release approval。
-4. Zenodo：手动上传 `release/archives/sheafsignal_zenodo_upload.zip` 后给 DOI，或把 Zenodo API token 保存到 `D:/secrets/zenodo_token.txt`。
-5. 把 external review bundle 发给外部 AI/同行评审，拿回意见。
+当前没有 P0 用户动作。GitHub token rotation、作者声明、GitHub public release 和 Zenodo DOI 已有可审计记录。
+P1 只剩外部 beta review return：这是 20-50 IF 稿件的加分项，不是本地 release 阻断项。
 
 ## Action Table
 
@@ -23,12 +18,12 @@
 | `DONE` | GitHub token rotation after chat exposure | `github_token_rotation_confirmed=pass` | No user action needed. | Use the token for GitHub push/release only after this safety gate passes. | `python scripts/build_external_input_intake.py` |
 | `DONE` | Han Yan email and author contact consistency | `missing_current_author_email=0; extra_supplied_contacts=0` | No user action needed. | Update author metadata templates, rerun contact reconciliation and author preflight, then regenerate submission metadata. | `python scripts/reconcile_author_contacts.py && python scripts/check_author_confirmation_preflight.py` |
 | `DONE` | Author-owned declarations | `blocking=0; pending=0` | No user action needed. | Apply AUTHOR_CONFIRMATION_RESPONSE_TEMPLATE.tsv, update manuscript-facing statements, and rerun final blocker checks. | `python scripts/apply_author_confirmation_response.py --apply && python scripts/check_author_confirmation_preflight.py` |
-| `CODEX_READY` | Zenodo DOI | `token=present; doi_placeholder=pending` | No user action needed; Codex can mint DOI after author release approval. | Insert the real DOI into release metadata, Data Availability, and dataset manifest, then rebuild release archives and audits. | `python scripts/check_release_metadata_placeholders.py` |
+| `DONE` | Zenodo DOI | `token=present; doi_placeholder=cleared; published_doi=10.5281/zenodo.20012189` | No user action needed. | Keep the real DOI in release metadata, Data Availability, and dataset manifest; rebuild release archives and audits after any tracked release-file change. | `python scripts/check_release_metadata_placeholders.py` |
 | `P1` | External beta review return | `EXTERNAL_BETA_REVIEW_NO_RETURNED_REVIEWS` | Send the prepared external review bundle to 2-3 independent AI/human reviewers and return their comments. | Triage returned reviews into fixed, downgraded_by_design, or out_of_scope actions before final journal targeting. | `reviewer response matrix update` |
 
-## 我拿到这些信息后会直接做什么
+## 我接下来直接做什么
 
-首先运行一键 readiness 检查：
+我会继续运行一键 readiness 检查：
 
 ```bash
 python scripts/build_external_input_intake.py
@@ -38,7 +33,7 @@ python scripts/run_unblock_readiness_check.py
 
 1. 验证 token scope 和 Zenodo/API 状态，不打印任何 token。
 2. 更新 author metadata、Data Availability、DOI 和 GitHub release 信息。
-3. push 当前分支，创建 frozen release/tag。
+3. push 当前分支，维护 frozen release/tag。
 4. public clean-clone 复现，并重跑 `pytest`、`ruff`、release audit、final blocker report。
 5. 刷新 live Gantt、IF20-50 distance report 和 final GO/NO-GO。
 

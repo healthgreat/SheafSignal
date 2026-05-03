@@ -1,13 +1,13 @@
 # External Release Authorization Report
 
-- Decision: `EXTERNAL_RELEASE_AUTHORIZATION_PARTIAL_METADATA_BLOCKED`
-- Passed checks: `7`
+- Decision: `EXTERNAL_RELEASE_AUTHORIZATION_READY`
+- Passed checks: `8`
 - Pending checks: `1`
-- Blocking checks: `1`
+- Blocking checks: `0`
 
 ## Blocking Checks
 
-- `zenodo_doi_placeholders`: `pending`. Action: Mint DOI and run scripts/finalize_zenodo_doi.py.
+- none
 
 ## Interpretation Boundary
 

@@ -19,7 +19,7 @@
 
 ## RR3_public_data_reproducibility
 
-- Status: `external_pending`
+- Status: `mitigated`
 - Reviewer risk: Reviewer may ask whether all public data and processed objects are traceable.
 - Mitigation evidence: public_benchmark_rows=5
 - Residual boundary: Zenodo DOI remains an external submission step until minted.
@@ -28,7 +28,7 @@
 
 - Status: `mitigated`
 - Reviewer risk: Reviewer may request external CCC comparator evidence beyond internal LR baseline.
-- Mitigation evidence: LIANA=3;LRProductBaseline=5;MechanisticTargetPrior=3;NicheNet=3
+- Mitigation evidence: CellChat=3;CellPhoneDB=3;LIANA=3;LRProductBaseline=5;MechanisticTargetPrior=3;NicheNet=3
 - Residual boundary: CellChat, CellPhoneDB, and niche-DE are not claimed as completed unless their outputs are imported.
 
 ## RR5_sparse_cell_types
@@ -63,7 +63,7 @@
 
 - Status: `mitigated`
 - Reviewer risk: Reviewer or editor may ask whether supplementary figures, tables, and support files are complete and readable.
-- Mitigation evidence: supplementary_artifacts=84
+- Mitigation evidence: supplementary_artifacts=97
 - Residual boundary: Artifact readability does not replace manual caption or journal production review.
 
 ## RR10_result_table_integrity

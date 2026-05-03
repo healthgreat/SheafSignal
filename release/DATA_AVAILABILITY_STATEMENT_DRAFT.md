@@ -10,4 +10,6 @@ should be deposited on Zenodo before submission. The Zenodo record must include
 the files listed in `release/zenodo_upload_manifest.tsv` and checksums from
 `release/zenodo_sha256sums.txt`.
 
-Current DOI status: `PENDING_ZENODO_RELEASE`.
+Current DOI status: `https://doi.org/10.5281/zenodo.20011640`.
+
+Frozen processed benchmark objects are available at https://doi.org/10.5281/zenodo.20011640.

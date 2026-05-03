@@ -4,9 +4,7 @@ Repository URL: https://github.com/healthgreat/SheafSignal
 
 Updated files:
 
-- `CITATION.cff`
-- `pyproject.toml`
-- `release/zenodo_deposition_metadata.json`
+- none
 
 ## Boundary
 
