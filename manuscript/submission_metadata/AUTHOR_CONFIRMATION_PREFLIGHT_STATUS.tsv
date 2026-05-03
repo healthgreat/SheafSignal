@@ -3,10 +3,10 @@ Han Yan email	pass	confirmed	carrick8862@163.com	Provide final email for corresp
 equal contribution note	pass	confirmed	No equal-contribution statement	Confirm exact wording or absence of equal-contribution statement	authors
 author order	pass	confirmed	Chongfa Chen, MD; Han Yan, MD, PhD; Yi Miao, MD, PhD	Confirm final author order and degrees	authors
 affiliations	pass	confirmed	A1 Pancreas Center, The Affiliated BenQ Hospital of Nanjing Medical University, Nanjing, China	Confirm institution names and numbering	authors
-CRediT roles	pending	draft_pending_author_confirmation	See AUTHOR_CONTRIBUTIONS_CREDIT_TEMPLATE.tsv	Approve or correct CRediT assignments	authors
-funding acquisition	pending	needs_author_confirmation	Not reported	Confirm no funding role or provide funding authors/grants	authors
-competing interests	pending	draft_pending_author_confirmation	The authors declare no competing interests	Confirm or provide disclosure	corresponding_authors
-ethics data-use	pending	draft_pending_author_confirmation	Public processed data only; no new human samples; IRB exemption wording to confirm	Confirm institutional/journal wording	corresponding_authors
-public GitHub release	pending	external_release_confirmation	not yet created	Confirm public repository release is allowed	authors
-Zenodo deposition	pending	external_release_confirmation	not yet minted	Confirm Zenodo deposition contents and restrictions	authors
-ORCID IDs	pass	confirmed	Provided by user on 2026-05-04.	Optional: provide ORCID IDs if authors want them included	authors
+CRediT roles	pass	confirmed	See AUTHOR_CONTRIBUTIONS_CREDIT_TEMPLATE.tsv	Approve or correct CRediT assignments	authors
+funding acquisition	pass	confirmed	Han Yan National Natural Science Foundation of China Youth Fund; grant number not provided	Confirm no funding role or provide funding authors/grants	authors
+competing interests	pass	confirmed	The authors declare no competing interests	Confirm or provide disclosure	corresponding_authors
+ethics data-use	pass	confirmed	Public processed data only; no new human samples; IRB exemption wording to confirm	Confirm institutional/journal wording	corresponding_authors
+public GitHub release	pass	confirmed	Public GitHub release approved.	Confirm public repository release is allowed	authors
+Zenodo deposition	pass	confirmed	Zenodo deposition approved.	Confirm Zenodo deposition contents and restrictions	authors
+ORCID IDs	pass	confirmed	Yi Miao: https://orcid.org/0000-0003-2542-8663; Han Yan: https://orcid.org/0000-0002-2041-3115	Optional: provide ORCID IDs if authors want them included	authors

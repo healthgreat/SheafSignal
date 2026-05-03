@@ -87,7 +87,9 @@ def _active_release_blockers(rows: list[dict[str, str]]) -> list[dict[str, str]]
     return [
         row
         for row in rows
-        if row.get("priority") == "blocking" and row.get("current_status") not in inactive
+        if row.get("priority") == "blocking"
+        and row.get("current_status") not in inactive
+        and not str(row.get("current_status", "")).endswith("_READY")
     ]
 
 
@@ -120,28 +122,36 @@ def build_status_rows(root: Path) -> list[StatusRow]:
             _metric(if_text, "Submission infrastructure index"),
             "user_then_codex",
             "yes" if active_release else "no",
-            "Clear author facts, Zenodo DOI, GitHub release, and public clean-clone gates.",
+            "Mint Zenodo DOI, publish GitHub release, insert identifiers, and run public clean-clone.",
         ),
         StatusRow(
             "release_blockers",
             f"{len(active_release)} active",
             "user_then_codex",
             "yes" if active_release else "no",
-            "Finish author facts, mint Zenodo DOI, publish GitHub release, and rerun release pipeline.",
+            "Finish GitHub public branch/release tag, Zenodo DOI, metadata insertion, and clean-clone reproduction.",
         ),
         StatusRow(
             "author_confirmation",
             f"blocking={author_counts['blocking']}; pending={author_counts['pending']}",
             "authors",
             "yes" if author_counts["blocking"] or author_counts["pending"] else "no",
-            "Fill AUTHOR_CONFIRMATION_RESPONSE_TEMPLATE.tsv and apply it.",
+            (
+                "No action needed."
+                if not author_counts["blocking"] and not author_counts["pending"]
+                else "Fill AUTHOR_CONFIRMATION_RESPONSE_TEMPLATE.tsv and apply it."
+            ),
         ),
         StatusRow(
             "author_contact_reconciliation",
             contact_decision,
             "authors",
             "yes" if "BLOCKED" in contact_decision else "no",
-            "No action needed." if contact_decision == "AUTHOR_CONTACT_RECONCILIATION_READY" else "Provide Han Yan email and confirm whether extra supplied contacts are authors.",
+            (
+                "No action needed."
+                if contact_decision == "AUTHOR_CONTACT_RECONCILIATION_READY"
+                else "Provide Han Yan email and confirm whether extra supplied contacts are authors."
+            ),
         ),
         StatusRow(
             "external_beta_reviews",
@@ -162,21 +172,21 @@ def build_status_rows(root: Path) -> list[StatusRow]:
             _decision(action_packet_text) or "not_run",
             "user_then_codex",
             "no",
-            "Use release/USER_ACTION_NOW_PACKET_ZH.md as the short current unblock list.",
+            "No P0 user action remains; keep the packet as the short audit trail.",
         ),
         StatusRow(
             "external_input_intake",
             _decision(intake_text) or "not_run",
             "user_then_codex",
             "no",
-            "Fill release/EXTERNAL_INPUT_INTAKE_TEMPLATE.tsv without storing token values.",
+            "No action needed unless author-owned facts change.",
         ),
         StatusRow(
             "author_response_from_intake",
             _decision(response_from_intake_text) or "not_run",
             "codex",
             "no",
-            "Derived from intake; overwrite canonical author response only after review.",
+            "No action needed; canonical author response has been derived from intake.",
         ),
         StatusRow(
             "unblock_readiness_runner",
@@ -249,17 +259,18 @@ gantt
     Author response workflow                  :done, 2026-05-03, 1d
     Journal submission-day check template     :done, 2026-05-03, 1d
     GitHub and Zenodo token validation        :done, 2026-05-03, 1d
+    Author facts filled and applied           :done, 2026-05-04, 1d
+    Author contact reconciliation             :done, 2026-05-04, 1d
 
     section Current Blocking Work
-    Author facts filled and applied           :crit, active, 2026-05-03, 1d
-    Author contact reconciliation             :crit, active, 2026-05-03, 1d
+    Public GitHub branch / release tag        :crit, active, 2026-05-04, 1d
     Zenodo DOI minted                         :crit, active, 2026-05-04, 1d
+    Release metadata identifiers inserted     :crit, active, 2026-05-04, 1d
+    Public clean-clone reproduction           :crit, active, 2026-05-05, 1d
+    Submission-day journal metric check       :crit, active, 2026-05-06, 1d
     Returned external beta reviews            :active, 2026-05-04, 5d
 
     section After Unblock
-    Public GitHub release                     :2026-05-04, 1d
-    DOI metadata insertion                    :2026-05-04, 1d
-    Public clean-clone reproduction           :2026-05-05, 1d
     Final GO/NO-GO refresh                    :2026-05-06, 1d
 ```"""
 
@@ -296,7 +307,7 @@ def build_report(root: Path, rows: list[StatusRow]) -> str:
             "",
             "## Short Interpretation",
             "",
-            "The scientific and software side is near complete, but submission is still blocked by external release and author-owned facts. The project should not be submitted until GitHub, Zenodo DOI, author confirmation, returned review triage, and public clean-clone checks are complete.",
+            "The scientific and software side is near complete, and author-owned declarations are now applied. Submission is still blocked by the public release chain: GitHub public branch/tag, Zenodo DOI, identifier insertion, public clean-clone reproduction, and submission-day journal metric verification.",
             "",
             "## Boundary",
             "",

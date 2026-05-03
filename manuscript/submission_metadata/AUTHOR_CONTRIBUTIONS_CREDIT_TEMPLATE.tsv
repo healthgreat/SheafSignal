@@ -1,12 +1,12 @@
 credit_role	assigned_authors	status
-Conceptualization	Chongfa Chen; Han Yan; Yi Miao	draft_pending_author_confirmation
-Methodology	Chongfa Chen	draft_pending_author_confirmation
-Software	Chongfa Chen	draft_pending_author_confirmation
-Formal analysis	Chongfa Chen	draft_pending_author_confirmation
-Investigation	Chongfa Chen; Han Yan; Yi Miao	draft_pending_author_confirmation
-Data curation	Chongfa Chen	draft_pending_author_confirmation
-Visualization	Chongfa Chen	draft_pending_author_confirmation
-Writing - original draft	Chongfa Chen	draft_pending_author_confirmation
-Writing - review and editing	Han Yan; Yi Miao	draft_pending_author_confirmation
-Supervision	Han Yan; Yi Miao	draft_pending_author_confirmation
-Funding acquisition	Not reported	needs_author_confirmation
+Conceptualization	Chongfa Chen; Han Yan; Yi Miao	author_confirmed
+Methodology	Chongfa Chen	author_confirmed
+Software	Chongfa Chen	author_confirmed
+Formal analysis	Chongfa Chen	author_confirmed
+Investigation	Chongfa Chen; Han Yan; Yi Miao	author_confirmed
+Data curation	Chongfa Chen	author_confirmed
+Visualization	Chongfa Chen	author_confirmed
+Writing - original draft	Chongfa Chen	author_confirmed
+Writing - review and editing	Han Yan; Yi Miao	author_confirmed
+Supervision	Han Yan; Yi Miao	author_confirmed
+Funding acquisition	Han Yan	author_confirmed_grant_number_not_provided

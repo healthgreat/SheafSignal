@@ -264,15 +264,29 @@ def derive_author_response(
         _notes(intake, "zenodo_deposition_approved") or "Zenodo approval derived from intake.",
     )
 
-    rows.append(_pending_row(response_index, "ORCID IDs", "Optional ORCID IDs not handled by intake."))
-    audit.append(
-        DerivationAuditRow(
-            "orcid_ids",
-            "ORCID IDs",
-            "optional_pending",
-            "Optional ORCID IDs not handled by intake.",
+    orcid_base = _base_row(response_index, "ORCID IDs")
+    orcid_confirmed = _is_yes(str(orcid_base.get("confirmed", "")))
+    orcid_final = str(orcid_base.get("final_value", "") or orcid_base.get("current_value", "")).strip()
+    if orcid_confirmed and orcid_final:
+        rows.append(
+            _confirmed_row(
+                response_index,
+                "ORCID IDs",
+                orcid_final,
+                str(orcid_base.get("notes", "")).strip() or "Existing ORCID confirmation preserved.",
+            )
         )
-    )
+        audit.append(DerivationAuditRow("orcid_ids", "ORCID IDs", "derived", orcid_final))
+    else:
+        rows.append(_pending_row(response_index, "ORCID IDs", "Optional ORCID IDs not handled by intake."))
+        audit.append(
+            DerivationAuditRow(
+                "orcid_ids",
+                "ORCID IDs",
+                "optional_pending",
+                "Optional ORCID IDs not handled by intake.",
+            )
+        )
     return rows, audit
 
 

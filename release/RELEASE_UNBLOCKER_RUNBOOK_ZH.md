@@ -13,13 +13,13 @@ journal and does not change the evidence boundary of the manuscript.
 
 ## Gate Matrix Summary
 
-- `G01_github_auth`: `valid` -> Regenerate a GitHub token with repo and workflow scopes or finish browser login, then let Codex validate auth.
+- `G01_github_auth`: `valid` -> No user action needed; Codex can use GH_TOKEN from the local token file.
 - `G02_public_github_repo`: `origin_configured_push_pending` -> Create or connect a public GitHub repository and push the frozen branch.
 - `G03_release_tag`: `pending` -> Create an immutable release tag after final audits pass.
 - `G04_zenodo_doi`: `blocking_pending` -> Upload the frozen archive or provide a Zenodo token, then mint a real DOI.
 - `G05_metadata_insertion`: `pending_real_github_url_and_doi` -> Insert public GitHub URL and Zenodo DOI into all release and manuscript metadata.
 - `G06_public_clean_clone`: `pending` -> Clone the public repository into a fresh directory and rerun demo plus audits.
-- `G07_author_confirmation`: `AUTHOR_CONFIRMATION_PENDING` -> Confirm corresponding author email, equal-contribution wording, CRediT, funding, COI, ethics/data-use, and release approval.
+- `G07_author_confirmation`: `AUTHOR_CONFIRMATION_READY` -> No action needed; author-owned declarations are applied.
 - `S01_external_beta_review`: `recommended_not_required_for_local_go` -> Send the package to 2-3 independent computational biology readers and triage responses.
 - `S02_submission_day_metric_check`: `pending_submission_day` -> Recheck journal metrics, CAS zone, and warning status on the submission day.
 

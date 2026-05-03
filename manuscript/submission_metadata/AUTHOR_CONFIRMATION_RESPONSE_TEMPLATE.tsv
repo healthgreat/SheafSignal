@@ -1,12 +1,12 @@
 item	current_value	required_confirmation	owner	confirmed	final_value	notes
-Han Yan email	carrick8862@163.com	Provide final email for corresponding author Han Yan	authors	yes	carrick8862@163.com	Provided by user on 2026-05-04.
-equal contribution note	No equal-contribution statement	Confirm exact wording or absence of equal-contribution statement	authors	yes	No equal-contribution statement	Latest user-provided author block does not include an equal-contribution note.
-author order	Chongfa Chen; Han Yan; Yi Miao	Confirm final author order and degrees	authors	yes	Chongfa Chen, MD; Han Yan, MD, PhD; Yi Miao, MD, PhD	Provided by user on 2026-05-04.
-affiliations	A1 Pancreas Center, The Affiliated BenQ Hospital of Nanjing Medical University	Confirm institution names and numbering	authors	yes	A1 Pancreas Center, The Affiliated BenQ Hospital of Nanjing Medical University, Nanjing, China	Provided by user on 2026-05-04.
-CRediT roles	See AUTHOR_CONTRIBUTIONS_CREDIT_TEMPLATE.tsv	Approve or correct CRediT assignments	authors	fill_yes_no_or_skip		
-funding acquisition	Not reported	Confirm no funding role or provide funding authors/grants	authors	fill_yes_no_or_skip		
-competing interests	The authors declare no competing interests	Confirm or provide disclosure	corresponding_authors	fill_yes_no_or_skip		
-ethics data-use	Public processed data only; no new human samples; IRB exemption wording to confirm	Confirm institutional/journal wording	corresponding_authors	fill_yes_no_or_skip		
-public GitHub release	not yet created	Confirm public repository release is allowed	authors	fill_yes_no_or_skip		
-Zenodo deposition	not yet minted	Confirm Zenodo deposition contents and restrictions	authors	fill_yes_no_or_skip		
-ORCID IDs	Yi Miao: https://orcid.org/0000-0003-2542-8663; Han Yan: https://orcid.org/0000-0002-2041-3115	Optional: provide ORCID IDs if authors want them included	yes	Yi Miao: https://orcid.org/0000-0003-2542-8663; Han Yan: https://orcid.org/0000-0002-2041-3115	Provided by user on 2026-05-04.
+Han Yan email	carrick8862@163.com	Provide final email for corresponding author Han Yan	authors	yes	carrick8862@163.com	Need a valid Han Yan email in intake user_value.
+equal contribution note	No equal-contribution statement	Confirm exact wording or absence of equal-contribution statement	authors	yes	No equal-contribution statement	Need exact equal-contribution wording in intake user_value.
+author order	Chongfa Chen, MD; Han Yan, MD, PhD; Yi Miao, MD, PhD	Confirm final author order and degrees	authors	yes	Chongfa Chen, MD; Han Yan, MD, PhD; Yi Miao, MD, PhD	Extra supplied contacts decision: not_authors; Latest author line: Chongfa Chen, MD; Han Yan, MD, PhD; Yi Miao, MD, PhD; all A1.
+affiliations	A1 Pancreas Center, The Affiliated BenQ Hospital of Nanjing Medical University, Nanjing, China	Confirm institution names and numbering	authors	yes	A1 Pancreas Center, The Affiliated BenQ Hospital of Nanjing Medical University, Nanjing, China	Latest author line: Chongfa Chen, MD; Han Yan, MD, PhD; Yi Miao, MD, PhD; all A1.
+CRediT roles	See AUTHOR_CONTRIBUTIONS_CREDIT_TEMPLATE.tsv	Approve or correct CRediT assignments	authors	yes	See AUTHOR_CONTRIBUTIONS_CREDIT_TEMPLATE.tsv	User approved CRediT roles on 2026-05-04.
+funding acquisition	Not reported	Confirm no funding role or provide funding authors/grants	authors	yes	Han Yan National Natural Science Foundation of China Youth Fund; grant number not provided	Funding statement derived from intake.
+competing interests	The authors declare no competing interests	Confirm or provide disclosure	corresponding_authors	yes	The authors declare no competing interests	Competing interests statement derived from intake.
+ethics data-use	Public processed data only; no new human samples; IRB exemption wording to confirm	Confirm institutional/journal wording	corresponding_authors	yes	Public processed data only; no new human samples; IRB exemption wording to confirm	Ethics/data-use statement derived from intake.
+public GitHub release	not yet created	Confirm public repository release is allowed	authors	yes	Public GitHub release approved.	User approved public GitHub release on 2026-05-04; token safety still requires confirming replacement of the token pasted in chat before push.
+Zenodo deposition	not yet minted	Confirm Zenodo deposition contents and restrictions	authors	yes	Zenodo deposition approved.	User approved Zenodo deposition on 2026-05-04.
+ORCID IDs	Yi Miao: https://orcid.org/0000-0003-2542-8663; Han Yan: https://orcid.org/0000-0002-2041-3115	Optional: provide ORCID IDs if authors want them included	authors	yes	Yi Miao: https://orcid.org/0000-0003-2542-8663; Han Yan: https://orcid.org/0000-0002-2041-3115	Provided by user on 2026-05-04.

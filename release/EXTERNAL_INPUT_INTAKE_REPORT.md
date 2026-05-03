@@ -1,8 +1,8 @@
 # External Input Intake Report
 
-- Timestamp: `2026-05-04 00:47:58`
-- Decision: `EXTERNAL_INPUT_INTAKE_P0_MISSING`
-- P0 missing/blocking fields: `6`
+- Timestamp: `2026-05-04 02:02:32`
+- Decision: `EXTERNAL_INPUT_INTAKE_READY`
+- P0 missing/blocking fields: `0`
 
 ## Intake Status
 
@@ -14,12 +14,12 @@
 | `extra_contacts_decision` | `P0` | `pass` | `no` | value=not_authors; allowed=expand_author_line,not_authors | Choose one of the allowed values and put details in notes if needed. |
 | `equal_contribution_wording` | `P0` | `pass` | `no` | nonempty | Provide an approval value or replacement wording in user_value. |
 | `author_order_approved` | `P0` | `pass` | `no` | value=yes | Enter yes/approved/confirmed, or document corrections before approval. |
-| `credit_roles_approved` | `P0` | `missing` | `yes` | value=blank | Enter yes/approved/confirmed, or document corrections before approval. |
-| `funding_statement_approved` | `P0` | `missing` | `yes` | blank | Provide an approval value or replacement wording in user_value. |
-| `competing_interests_approved` | `P0` | `missing` | `yes` | blank | Provide an approval value or replacement wording in user_value. |
-| `ethics_data_use_approved` | `P0` | `missing` | `yes` | blank | Provide an approval value or replacement wording in user_value. |
-| `github_public_release_approved` | `P0` | `missing` | `yes` | value=blank | Enter yes/approved/confirmed, or document corrections before approval. |
-| `zenodo_deposition_approved` | `P0` | `missing` | `yes` | value=blank | Enter yes/approved/confirmed, or document corrections before approval. |
+| `credit_roles_approved` | `P0` | `pass` | `no` | value=yes | Enter yes/approved/confirmed, or document corrections before approval. |
+| `funding_statement_approved` | `P0` | `pass` | `no` | nonempty | Provide an approval value or replacement wording in user_value. |
+| `competing_interests_approved` | `P0` | `pass` | `no` | nonempty | Provide an approval value or replacement wording in user_value. |
+| `ethics_data_use_approved` | `P0` | `pass` | `no` | nonempty | Provide an approval value or replacement wording in user_value. |
+| `github_public_release_approved` | `P0` | `pass` | `no` | value=yes | Enter yes/approved/confirmed, or document corrections before approval. |
+| `zenodo_deposition_approved` | `P0` | `pass` | `no` | value=yes | Enter yes/approved/confirmed, or document corrections before approval. |
 | `external_beta_review_return_path` | `P1` | `pass` | `no` | optional_blank | Optionally provide a real path to returned reviews. |
 
 ## How To Use

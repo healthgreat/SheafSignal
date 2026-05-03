@@ -610,7 +610,9 @@ def live_release_summary(root: Path) -> dict[str, object]:
             "completed",
             "public_remote_branch_available",
             "ready",
+            "valid",
         }
+        and not row["current_status"].endswith("_READY")
     ]
     return {
         "rows": live_rows,
@@ -715,8 +717,8 @@ gantt
     Local clean-export reproduction preflight    :done, 2026-05-02, 1d
 
     section Hard Submission Blockers
-    Public GitHub remote, tag, release URL       :crit, 2026-05-03, 1d
-    Author metadata and CRediT finalization      :crit, 2026-05-03, 1d
+    Author metadata and CRediT finalization      :done, 2026-05-04, 1d
+    Public GitHub remote, tag, release URL       :crit, 2026-05-04, 1d
     Zenodo DOI minting and metadata insertion    :crit, 2026-05-04, 1d
     Public clean-clone reproduction preflight    :crit, 2026-05-05, 1d
 
@@ -765,7 +767,12 @@ def build_report(
     else:
         decision = "IF20_50_MAJOR_HARDENING_STILL_REQUIRED"
 
-    mandatory = [row for row in supplement_rows if row["blocking"] == "yes"]
+    mandatory = [
+        row
+        for row in supplement_rows
+        if row["blocking"] == "yes"
+        and not (row["priority"] == "M2" and author_metadata == 0)
+    ]
     optional = [row for row in supplement_rows if row["blocking"] != "yes"]
     mandatory_lines = [
         f"{row['priority']}. {row['action']} Expected effect: {row['expected_effect']}"
@@ -867,15 +874,15 @@ def build_report(
             "SheafSignal is now close to a defensible 20-50 IF methods-manuscript "
             "candidate on the scientific/code side, but it is not submission-ready. "
             "The main remaining distance is external release and submission metadata: "
-            "public GitHub URL/tag, real Zenodo DOI, author metadata, and a final "
-            "public clean-clone reproduction check. A local clean-export preflight "
+            "public GitHub URL/tag, real Zenodo DOI, identifier insertion, and a "
+            "final public clean-clone reproduction check. A local clean-export preflight "
             "has passed when this report shows `local_clean_export_pass`, but it "
             "does not replace the final public-GitHub clone test.",
             "",
             "The journal-metric audit now anchors the target board to publisher "
             "metric pages, while keeping CAS-zone and warning-journal status as "
             "official submission-day checks. This strengthens journal selection "
-            "discipline but does not remove the GitHub/Zenodo/author-metadata blockers.",
+            "discipline but does not remove the GitHub/Zenodo/public-release blockers.",
             "",
             beta_review_sentence,
             "",

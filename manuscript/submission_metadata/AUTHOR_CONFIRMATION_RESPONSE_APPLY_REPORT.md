@@ -2,15 +2,13 @@
 
 - Decision: `AUTHOR_CONFIRMATION_RESPONSE_APPLIED`
 - Applied to checklist: `True`
-- Confirmed rows: `5`
+- Confirmed rows: `11`
 - Blank response rows: `0`
 - Author-blocked rows: `0`
 
 ## Changed Rows
 
-- `author order`: `confirmed` -> `confirmed`
-- `affiliations`: `confirmed` -> `confirmed`
-- `ORCID IDs`: `confirmed` -> `confirmed`
+- none
 
 ## Boundary
 

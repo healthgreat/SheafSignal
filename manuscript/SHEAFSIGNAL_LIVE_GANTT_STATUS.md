@@ -1,6 +1,6 @@
 # SheafSignal Live Gantt Status
 
-- Timestamp: `2026-05-04 00:51:20`
+- Timestamp: `2026-05-04 02:02:35`
 - Decision: `LIVE_STATUS_EXTERNAL_AND_AUTHOR_GATES_BLOCK_SUBMISSION`
 - IF20-50 decision: `IF20_50_SCIENTIFICALLY_HARDENED_EXTERNAL_RELEASE_BLOCKED`
 - Overall readiness: `79.3%`
@@ -22,17 +22,18 @@ gantt
     Author response workflow                  :done, 2026-05-03, 1d
     Journal submission-day check template     :done, 2026-05-03, 1d
     GitHub and Zenodo token validation        :done, 2026-05-03, 1d
+    Author facts filled and applied           :done, 2026-05-04, 1d
+    Author contact reconciliation             :done, 2026-05-04, 1d
 
     section Current Blocking Work
-    Author facts filled and applied           :crit, active, 2026-05-03, 1d
-    Author contact reconciliation             :crit, active, 2026-05-03, 1d
+    Public GitHub branch / release tag        :crit, active, 2026-05-04, 1d
     Zenodo DOI minted                         :crit, active, 2026-05-04, 1d
+    Release metadata identifiers inserted     :crit, active, 2026-05-04, 1d
+    Public clean-clone reproduction           :crit, active, 2026-05-05, 1d
+    Submission-day journal metric check       :crit, active, 2026-05-06, 1d
     Returned external beta reviews            :active, 2026-05-04, 5d
 
     section After Unblock
-    Public GitHub release                     :2026-05-04, 1d
-    DOI metadata insertion                    :2026-05-04, 1d
-    Public clean-clone reproduction           :2026-05-05, 1d
     Final GO/NO-GO refresh                    :2026-05-06, 1d
 ```
 
@@ -41,21 +42,21 @@ gantt
 | Item | Status | Owner | Blocking | Next action |
 |---|---|---|---|---|
 | `scientific_method_hardening` | `97.0%` | `codex` | `no` | Keep claims bounded; do not promote computational signals to mechanisms. |
-| `submission_infrastructure` | `44.5%` | `user_then_codex` | `yes` | Clear author facts, Zenodo DOI, GitHub release, and public clean-clone gates. |
-| `release_blockers` | `6 active` | `user_then_codex` | `yes` | Finish author facts, mint Zenodo DOI, publish GitHub release, and rerun release pipeline. |
-| `author_confirmation` | `blocking=0; pending=6` | `authors` | `yes` | Fill AUTHOR_CONFIRMATION_RESPONSE_TEMPLATE.tsv and apply it. |
+| `submission_infrastructure` | `44.5%` | `user_then_codex` | `yes` | Mint Zenodo DOI, publish GitHub release, insert identifiers, and run public clean-clone. |
+| `release_blockers` | `5 active` | `user_then_codex` | `yes` | Finish GitHub public branch/release tag, Zenodo DOI, metadata insertion, and clean-clone reproduction. |
+| `author_confirmation` | `blocking=0; pending=0` | `authors` | `no` | No action needed. |
 | `author_contact_reconciliation` | `AUTHOR_CONTACT_RECONCILIATION_READY` | `authors` | `no` | No action needed. |
 | `external_beta_reviews` | `EXTERNAL_BETA_REVIEW_NO_RETURNED_REVIEWS` | `user_or_external_reviewers` | `no` | Send shareable bundle, collect returned reviews, and triage them. |
 | `shareable_review_bundle` | `SHAREABLE_REVIEW_BUNDLE_READY` | `codex` | `no` | Use bundle zip for external AI or human review. |
-| `user_action_now_packet` | `USER_ACTION_PACKET_READY_P0_BLOCKERS_REMAIN` | `user_then_codex` | `no` | Use release/USER_ACTION_NOW_PACKET_ZH.md as the short current unblock list. |
-| `external_input_intake` | `EXTERNAL_INPUT_INTAKE_P0_MISSING` | `user_then_codex` | `no` | Fill release/EXTERNAL_INPUT_INTAKE_TEMPLATE.tsv without storing token values. |
-| `author_response_from_intake` | `AUTHOR_RESPONSE_FROM_INTAKE_PARTIAL` | `codex` | `no` | Derived from intake; overwrite canonical author response only after review. |
+| `user_action_now_packet` | `USER_ACTION_PACKET_READY_NO_P0_BLOCKERS` | `user_then_codex` | `no` | No P0 user action remains; keep the packet as the short audit trail. |
+| `external_input_intake` | `EXTERNAL_INPUT_INTAKE_READY` | `user_then_codex` | `no` | No action needed unless author-owned facts change. |
+| `author_response_from_intake` | `AUTHOR_RESPONSE_FROM_INTAKE_READY` | `codex` | `no` | No action needed; canonical author response has been derived from intake. |
 | `unblock_readiness_runner` | `UNBLOCK_READINESS_BLOCKED_EXTERNAL_INPUTS` | `codex` | `no` | Run python scripts/run_unblock_readiness_check.py after external inputs are updated. |
 | `journal_submission_day_check` | `JOURNAL_SUBMISSION_DAY_CHECK_TEMPLATE_READY` | `codex_on_submission_day` | `yes` | Fill latest JIF, CAS zone, warning-list status, verifier, and date before submission. |
 
 ## Short Interpretation
 
-The scientific and software side is near complete, but submission is still blocked by external release and author-owned facts. The project should not be submitted until GitHub, Zenodo DOI, author confirmation, returned review triage, and public clean-clone checks are complete.
+The scientific and software side is near complete, and author-owned declarations are now applied. Submission is still blocked by the public release chain: GitHub public branch/tag, Zenodo DOI, identifier insertion, public clean-clone reproduction, and submission-day journal metric verification.
 
 ## Boundary
 

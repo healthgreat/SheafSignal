@@ -3,10 +3,10 @@ Han Yan email	carrick8862@163.com	Provide final email for corresponding author H
 equal contribution note	No equal-contribution statement	Confirm exact wording or absence of equal-contribution statement	confirmed	authors
 author order	Chongfa Chen, MD; Han Yan, MD, PhD; Yi Miao, MD, PhD	Confirm final author order and degrees	confirmed	authors
 affiliations	A1 Pancreas Center, The Affiliated BenQ Hospital of Nanjing Medical University, Nanjing, China	Confirm institution names and numbering	confirmed	authors
-CRediT roles	See AUTHOR_CONTRIBUTIONS_CREDIT_TEMPLATE.tsv	Approve or correct CRediT assignments	draft_pending_author_confirmation	authors
-funding acquisition	Not reported	Confirm no funding role or provide funding authors/grants	needs_author_confirmation	authors
-competing interests	The authors declare no competing interests	Confirm or provide disclosure	draft_pending_author_confirmation	corresponding_authors
-ethics data-use	Public processed data only; no new human samples; IRB exemption wording to confirm	Confirm institutional/journal wording	draft_pending_author_confirmation	corresponding_authors
-public GitHub release	not yet created	Confirm public repository release is allowed	external_release_confirmation	authors
-Zenodo deposition	not yet minted	Confirm Zenodo deposition contents and restrictions	external_release_confirmation	authors
-ORCID IDs	Provided by user on 2026-05-04.	Optional: provide ORCID IDs if authors want them included	confirmed	authors
+CRediT roles	See AUTHOR_CONTRIBUTIONS_CREDIT_TEMPLATE.tsv	Approve or correct CRediT assignments	confirmed	authors
+funding acquisition	Han Yan National Natural Science Foundation of China Youth Fund; grant number not provided	Confirm no funding role or provide funding authors/grants	confirmed	authors
+competing interests	The authors declare no competing interests	Confirm or provide disclosure	confirmed	corresponding_authors
+ethics data-use	Public processed data only; no new human samples; IRB exemption wording to confirm	Confirm institutional/journal wording	confirmed	corresponding_authors
+public GitHub release	Public GitHub release approved.	Confirm public repository release is allowed	confirmed	authors
+Zenodo deposition	Zenodo deposition approved.	Confirm Zenodo deposition contents and restrictions	confirmed	authors
+ORCID IDs	Yi Miao: https://orcid.org/0000-0003-2542-8663; Han Yan: https://orcid.org/0000-0002-2041-3115	Optional: provide ORCID IDs if authors want them included	confirmed	authors

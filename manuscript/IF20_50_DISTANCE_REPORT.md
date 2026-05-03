@@ -12,18 +12,18 @@
 - Shareable review bundle: `ready`
 - 10,000-permutation confirmatory subset: `completed_10000`
 - GSE103322 replication supplement: `supplement_ready`
-- Live release blocking gates: `7` of `7`
-- External authorization statuses: `configured=1, missing=1, not_logged_in=1, not_tested_missing_token=1, pending=1, present=3, valid_missing_workflow_scope=1`
+- Live release blocking gates: `5` of `7`
+- External authorization statuses: `configured=1, env_token_available_persistent_login_missing=1, pending=1, present=4, valid=2`
 - Zenodo preflight statuses: `pass=14, pending=2`
-- Author confirmation severities: `blocking=2, optional=1, pending=8`
-- Author response template: `template_ready`
+- Author confirmation severities: `pass=11`
+- Author response template: `applied`
 - Score boundary: these are internal readiness indices, not acceptance probabilities.
 
 ## Direct Answer
 
-SheafSignal is now close to a defensible 20-50 IF methods-manuscript candidate on the scientific/code side, but it is not submission-ready. The main remaining distance is external release and submission metadata: public GitHub URL/tag, real Zenodo DOI, author metadata, and a final public clean-clone reproduction check. A local clean-export preflight has passed when this report shows `local_clean_export_pass`, but it does not replace the final public-GitHub clone test.
+SheafSignal is now close to a defensible 20-50 IF methods-manuscript candidate on the scientific/code side, but it is not submission-ready. The main remaining distance is external release and submission metadata: public GitHub URL/tag, real Zenodo DOI, identifier insertion, and a final public clean-clone reproduction check. A local clean-export preflight has passed when this report shows `local_clean_export_pass`, but it does not replace the final public-GitHub clone test.
 
-The journal-metric audit now anchors the target board to publisher metric pages, while keeping CAS-zone and warning-journal status as official submission-day checks. This strengthens journal selection discipline but does not remove the GitHub/Zenodo/author-metadata blockers.
+The journal-metric audit now anchors the target board to publisher metric pages, while keeping CAS-zone and warning-journal status as official submission-day checks. This strengthens journal selection discipline but does not remove the GitHub/Zenodo/public-release blockers.
 
 Internal multi-agent AI reviews have now been returned and triaged. This reduces stale-objection risk and documents what has been fixed, but it still does not replace independent external human or computational-biology reviewer feedback.
 
@@ -45,7 +45,6 @@ The GSE103322 HNSCC supplement-grade replication gate is now complete, but it re
 ## Mandatory Before Any 20-50 IF Submission
 
 - M1. Create public GitHub remote, push codex/sheafsignal-hardening-release, create immutable release tag, and write the URL into CITATION.cff, pyproject.toml, .zenodo.json, and release metadata. Expected effect: Turns G11 from yellow to green after tag/release URL is verified.
-- M2. Fill author names, affiliations, ORCIDs when available, CRediT roles, competing interests, corresponding author, and final ethics/data-use wording. Expected effect: Clears author-owned placeholder rows and software citation creator fields.
 - M3. Mint Zenodo DOI only after GitHub URL and author metadata are real, then replace PENDING_ZENODO_RELEASE in metadata/datasets.tsv and Data Availability. Expected effect: Turns G12 from red to green and removes the final blocking DOI rows.
 - M4. Rerun clean-clone reproduction after GitHub and DOI insertion from the public repository: install locked Python environment, run demo workflow, and regenerate manuscript-facing audits. Expected effect: Converts local clean-export reproducibility into public clean-clone reproducibility evidence.
 
@@ -53,13 +52,13 @@ The GSE103322 HNSCC supplement-grade replication gate is now complete, but it re
 
 | Gate | Priority | Owner | Current status | Required action |
 |---|---|---|---|---|
-| `G01_github_auth` | `blocking` | `user_then_codex` | `valid_missing_workflow_scope` | Regenerate a GitHub token with repo and workflow scopes or finish browser login, then let Codex validate auth. |
+| `G01_github_auth` | `blocking` | `user_then_codex` | `valid` | No user action needed; Codex can use GH_TOKEN from the local token file. |
 | `G02_public_github_repo` | `blocking` | `codex_after_auth` | `origin_configured_push_pending` | Create or connect a public GitHub repository and push the frozen branch. |
 | `G03_release_tag` | `blocking` | `codex_after_github` | `pending` | Create an immutable release tag after final audits pass. |
 | `G04_zenodo_doi` | `blocking` | `user_then_codex` | `blocking_pending` | Upload the frozen archive or provide a Zenodo token, then mint a real DOI. |
 | `G05_metadata_insertion` | `blocking` | `codex_after_doi` | `pending_real_github_url_and_doi` | Insert public GitHub URL and Zenodo DOI into all release and manuscript metadata. |
 | `G06_public_clean_clone` | `blocking` | `codex_after_public_release` | `pending` | Clone the public repository into a fresh directory and rerun demo plus audits. |
-| `G07_author_confirmation` | `blocking` | `authors` | `AUTHOR_CONFIRMATION_BLOCKED` | Confirm corresponding author email, equal-contribution wording, CRediT, funding, COI, ethics/data-use, and release approval. |
+| `G07_author_confirmation` | `blocking` | `authors` | `AUTHOR_CONFIRMATION_READY` | No action needed; author-owned declarations are applied. |
 | `S01_external_beta_review` | `strengthening` | `user_or_codex_packet` | `recommended_not_required_for_local_go` | Send the package to 2-3 independent computational biology readers and triage responses. |
 | `S02_submission_day_metric_check` | `strengthening` | `codex` | `pending_submission_day` | Recheck journal metrics, CAS zone, and warning status on the submission day. |
 
@@ -101,8 +100,8 @@ gantt
     Local clean-export reproduction preflight    :done, 2026-05-02, 1d
 
     section Hard Submission Blockers
-    Public GitHub remote, tag, release URL       :crit, 2026-05-03, 1d
-    Author metadata and CRediT finalization      :crit, 2026-05-03, 1d
+    Author metadata and CRediT finalization      :done, 2026-05-04, 1d
+    Public GitHub remote, tag, release URL       :crit, 2026-05-04, 1d
     Zenodo DOI minting and metadata insertion    :crit, 2026-05-04, 1d
     Public clean-clone reproduction preflight    :crit, 2026-05-05, 1d
 

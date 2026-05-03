@@ -1,9 +1,9 @@
 item	owner	status	required_action
-author_names_and_order	authors	draft_filled_pending_confirmation	Confirm 8-author order and degree formatting in AUTHOR_METADATA_TEMPLATE.tsv.
-affiliations	authors	draft_filled_pending_confirmation	Confirm affiliation numbering and institutional names.
-corresponding_author	authors	partial	Han Yan and Yi Miao are marked as corresponding authors; Han Yan email is still missing.
-orcid	authors	not_provided	Optional but recommended: provide ORCID IDs for authors who have them.
-credit_contributions	authors	draft_filled_pending_confirmation	Confirm CRediT roles, especially funding acquisition.
-competing_interests	authors	draft_filled_pending_confirmation	Confirm whether "The authors declare no competing interests" is correct.
-ethics_data_use	authors	draft_filled_pending_confirmation	Confirm whether public de-identified data analysis requires local IRB exemption wording.
+author_names_and_order	authors	confirmed	Final author line confirmed: Chongfa Chen, MD; Han Yan, MD, PhD; Yi Miao, MD, PhD.
+affiliations	authors	confirmed	Single affiliation confirmed: Pancreas Center, The Affiliated BenQ Hospital of Nanjing Medical University, Nanjing, China.
+corresponding_author	authors	confirmed	Yi Miao and Han Yan corresponding author details, emails, and ORCID IDs confirmed.
+orcid	authors	confirmed	Yi Miao and Han Yan ORCID IDs provided by user on 2026-05-04.
+credit_contributions	authors	confirmed	CRediT roles approved; Funding acquisition assigned to Han Yan, grant number not provided.
+competing_interests	authors	confirmed	The authors declare no competing interests.
+ethics_data_use	authors	confirmed	Public-data ethics/data-use wording approved by user on 2026-05-04.
 data_and_code_availability	analysis_lead	external_identifier_blocked	Requires final public GitHub release URL and Zenodo DOI.

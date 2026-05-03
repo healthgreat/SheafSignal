@@ -172,6 +172,8 @@ def build_unblocker_rows(root: Path) -> list[dict[str, str]]:
     zenodo_status = _final_blocker_status(root, "checklist::Zenodo DOI minted")
     github_token_status = _authorization_status(root, "github_token_api")
     author_confirmation_status = _author_confirmation_decision(root)
+    github_auth_ready = github_token_status in {"valid", "valid_with_required_scopes"}
+    author_ready = author_confirmation_status.endswith("_READY")
 
     if remote_url and remote_has_branch:
         github_repo_status = "public_remote_branch_available"
@@ -181,6 +183,22 @@ def build_unblocker_rows(root: Path) -> list[dict[str, str]]:
         github_repo_status = "pending_no_origin_remote"
     tag_status = "local_tag_exists_needs_public_release" if has_release_tag else "pending"
     zenodo_gate_status = "blocking_pending" if pending_zenodo else "complete_or_needs_audit"
+    github_auth_action = (
+        "No user action needed; Codex can use GH_TOKEN from the local token file."
+        if github_auth_ready
+        else (
+            "Regenerate a GitHub token with repo and workflow scopes or finish "
+            "browser login, then let Codex validate auth."
+        )
+    )
+    author_action = (
+        "No action needed; author-owned declarations are applied."
+        if author_ready
+        else (
+            "Confirm corresponding author email, equal-contribution wording, CRediT, "
+            "funding, COI, ethics/data-use, and release approval."
+        )
+    )
 
     return [
         _row(
@@ -189,7 +207,7 @@ def build_unblocker_rows(root: Path) -> list[dict[str, str]]:
             "user_then_codex",
             github_token_status or "blocked_external_auth",
             "GitHub CLI auth status must show logged in; token content must never be printed.",
-            "Regenerate a GitHub token with repo and workflow scopes or finish browser login, then let Codex validate auth.",
+            github_auth_action,
             "python scripts/check_external_release_authorization.py",
             "Allows Codex to create or push the public repository.",
             "This is an account authorization gate, not a scientific evidence gate.",
@@ -256,7 +274,7 @@ def build_unblocker_rows(root: Path) -> list[dict[str, str]]:
             "authors",
             author_confirmation_status,
             "manuscript/submission_metadata/AUTHOR_CONFIRMATION_PACKET.md",
-            "Confirm corresponding author email, equal-contribution wording, CRediT, funding, COI, ethics/data-use, and release approval.",
+            author_action,
             "python scripts/check_author_confirmation_preflight.py; python scripts/check_final_submission_blockers.py --report-only",
             "Allows final journal upload metadata to be filled honestly.",
             "Author metadata cannot be inferred or fabricated by code.",

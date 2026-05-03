@@ -1,25 +1,25 @@
 # Author Response From External Intake Report
 
-- Timestamp: `2026-05-04 00:47:58`
-- Decision: `AUTHOR_RESPONSE_FROM_INTAKE_PARTIAL`
+- Timestamp: `2026-05-04 02:02:32`
+- Decision: `AUTHOR_RESPONSE_FROM_INTAKE_READY`
 - Overwrote canonical response template: `False`
-- Derived rows: `4`
-- Pending rows: `6`
-- Optional pending rows: `1`
+- Derived rows: `11`
+- Pending rows: `0`
+- Optional pending rows: `0`
 
 ## Derivation Audit
 
 - `han_yan_email` -> `Han Yan email`: `derived` (carrick8862@163.com)
 - `equal_contribution_wording` -> `equal contribution note`: `derived` (No equal-contribution statement)
-- `author_order_approved` -> `author order`: `derived` (Chongfa Chen; Han Yan; Yi Miao)
-- `author_order_approved` -> `affiliations`: `derived` (A1 Pancreas Center, The Affiliated BenQ Hospital of Nanjing Medical University)
-- `credit_roles_approved` -> `CRediT roles`: `pending` (If not approved, put corrected roles in notes.)
-- `funding_statement_approved` -> `funding acquisition`: `pending` (Funding statement derived from intake.)
-- `competing_interests_approved` -> `competing interests`: `pending` (Competing interests statement derived from intake.)
-- `ethics_data_use_approved` -> `ethics data-use`: `pending` (Ethics/data-use statement derived from intake.)
-- `github_public_release_approved` -> `public GitHub release`: `pending` (Required before public release.)
-- `zenodo_deposition_approved` -> `Zenodo deposition`: `pending` (Required before DOI release.)
-- `orcid_ids` -> `ORCID IDs`: `optional_pending` (Optional ORCID IDs not handled by intake.)
+- `author_order_approved` -> `author order`: `derived` (Chongfa Chen, MD; Han Yan, MD, PhD; Yi Miao, MD, PhD)
+- `author_order_approved` -> `affiliations`: `derived` (A1 Pancreas Center, The Affiliated BenQ Hospital of Nanjing Medical University, Nanjing, China)
+- `credit_roles_approved` -> `CRediT roles`: `derived` (See AUTHOR_CONTRIBUTIONS_CREDIT_TEMPLATE.tsv)
+- `funding_statement_approved` -> `funding acquisition`: `derived` (Han Yan National Natural Science Foundation of China Youth Fund; grant number not provided)
+- `competing_interests_approved` -> `competing interests`: `derived` (The authors declare no competing interests)
+- `ethics_data_use_approved` -> `ethics data-use`: `derived` (Public processed data only; no new human samples; IRB exemption wording to confirm)
+- `github_public_release_approved` -> `public GitHub release`: `derived` (Public GitHub release approved.)
+- `zenodo_deposition_approved` -> `Zenodo deposition`: `derived` (Zenodo deposition approved.)
+- `orcid_ids` -> `ORCID IDs`: `derived` (Yi Miao: https://orcid.org/0000-0003-2542-8663; Han Yan: https://orcid.org/0000-0002-2041-3115)
 
 ## Next Command When Ready
 

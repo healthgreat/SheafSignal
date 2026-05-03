@@ -39,6 +39,7 @@ SAFE_REFRESH_COMMANDS = [
     ["python", "scripts/apply_external_input_intake.py"],
     ["python", "scripts/reconcile_author_contacts.py"],
     ["python", "scripts/check_author_confirmation_preflight.py"],
+    ["python", "scripts/build_release_unblocker_matrix.py"],
     ["python", "scripts/build_user_action_now_packet.py"],
     ["python", "scripts/build_live_gantt_status.py"],
 ]
@@ -121,6 +122,42 @@ def build_gate_rows(root: Path) -> list[GateRow]:
     zenodo_ready = zenodo_doi.get("status", "missing") in {"pass", "ready", "completed"} or zenodo_token.get(
         "status", ""
     ) in {"present", "valid"}
+    github_next = (
+        "No user action needed; Codex can use GH_TOKEN from the local token file."
+        if github_ready
+        else "Regenerate GitHub token with repo and workflow scopes, then save it to D:/secrets/github_token.txt."
+    )
+    author_next = (
+        "No action needed; author-owned declarations are applied."
+        if author_ready
+        else "Confirm remaining author-owned declarations: CRediT, funding, COI, ethics/data-use, and public release approvals."
+    )
+    zenodo_next = (
+        "No user action needed; Codex can mint DOI after the public release archive is final."
+        if zenodo_ready
+        else "Provide a real Zenodo DOI or save a Zenodo API token to D:/secrets/zenodo_token.txt."
+    )
+    intake_next = (
+        "No action needed unless author-owned facts change."
+        if intake_p0 == 0
+        else "Fill the consolidated intake template, then rerun this check."
+    )
+    response_next = (
+        "No action needed; canonical author response has been derived from intake."
+        if response_pending == 0
+        else "Fill intake fields until the derived author response has no required pending rows."
+    )
+    action_packet_next = (
+        "No P0 user action remains; keep the packet as the short audit trail."
+        if action_p0 == 0
+        else "Clear the P0 rows in the action packet."
+    )
+    live_gantt_next = (
+        "Resolve release-chain blockers shown in the live Gantt: GitHub branch/tag, "
+        "DOI, metadata insertion, clean-clone, and submission-day journal check."
+        if live_blocking
+        else "No action needed; live Gantt has no blocking rows."
+    )
 
     return [
         GateRow(
@@ -128,49 +165,49 @@ def build_gate_rows(root: Path) -> list[GateRow]:
             github_status,
             "no" if github_ready else "yes",
             f"gh={github_cli.get('status', 'missing')}",
-            "Regenerate GitHub token with repo and workflow scopes, then save it to D:/secrets/github_token.txt.",
+            github_next,
         ),
         GateRow(
             "author_confirmation",
             f"blocking={author_blocking}; pending={author_pending}",
             "no" if author_ready else "yes",
             f"missing_author_email={missing_author_email}; extra_contacts={extra_contacts}",
-            "Confirm remaining author-owned declarations: CRediT, funding, COI, ethics/data-use, and public release approvals.",
+            author_next,
         ),
         GateRow(
             "zenodo_identifier",
             f"token={zenodo_token.get('status', 'missing')}; doi={zenodo_doi.get('status', 'missing')}",
             "no" if zenodo_ready else "yes",
             "release archive exists; DOI placeholder still blocks final metadata unless real DOI is supplied",
-            "Provide a real Zenodo DOI or save a Zenodo API token to D:/secrets/zenodo_token.txt.",
+            zenodo_next,
         ),
         GateRow(
             "external_input_intake",
             f"P0_missing={intake_p0}",
             "yes" if intake_p0 else "no",
             "release/EXTERNAL_INPUT_INTAKE_TEMPLATE.tsv",
-            "Fill the consolidated intake template, then rerun this check.",
+            intake_next,
         ),
         GateRow(
             "author_response_from_intake",
             f"pending_rows={response_pending}",
             "yes" if response_pending else "no",
             "manuscript/submission_metadata/AUTHOR_CONFIRMATION_RESPONSE_FROM_INTAKE.tsv",
-            "Fill intake fields until the derived author response has no required pending rows.",
+            response_next,
         ),
         GateRow(
             "short_user_action_packet",
             f"P0={action_p0}",
             "yes" if action_p0 else "no",
             "release/USER_ACTION_NOW_PACKET_ZH.md",
-            "Clear the P0 rows in the action packet.",
+            action_packet_next,
         ),
         GateRow(
             "live_gantt_blockers",
             f"blocking_rows={live_blocking}",
             "yes" if live_blocking else "no",
             "manuscript/SHEAFSIGNAL_LIVE_GANTT_STATUS.md",
-            "Rerun this check after user-owned facts and tokens are updated.",
+            live_gantt_next,
         ),
     ]
 
