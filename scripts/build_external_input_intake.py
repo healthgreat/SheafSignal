@@ -66,6 +66,17 @@ def default_rows() -> list[IntakeRow]:
             "The token must include repo and workflow scopes; scope validation is done by check_external_release_authorization.py.",
         ),
         IntakeRow(
+            "github_token_rotation_confirmed",
+            "P0",
+            "user",
+            "yes only after replacing any GitHub token that was pasted into chat or another non-secret channel.",
+            "token_pasted_in_chat_requires_rotation",
+            "",
+            "",
+            "yes",
+            "Security gate: Codex must not push with a token that may have been exposed in chat.",
+        ),
+        IntakeRow(
             "zenodo_doi",
             "P0",
             "user_or_codex_after_zenodo",

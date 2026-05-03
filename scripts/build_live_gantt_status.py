@@ -106,6 +106,8 @@ def build_status_rows(root: Path) -> list[StatusRow]:
     response_from_intake_text = _read_text(root / AUTHOR_RESPONSE_FROM_INTAKE)
     unblock_readiness_text = _read_text(root / UNBLOCK_READINESS)
     contact_decision = _decision(contact_text) or "not_run"
+    action_packet_decision = _decision(action_packet_text) or "not_run"
+    intake_decision = _decision(intake_text) or "not_run"
 
     author_counts = _author_counts(author_rows)
     active_release = _active_release_blockers(release_rows)
@@ -169,17 +171,25 @@ def build_status_rows(root: Path) -> list[StatusRow]:
         ),
         StatusRow(
             "user_action_now_packet",
-            _decision(action_packet_text) or "not_run",
+            action_packet_decision,
             "user_then_codex",
-            "no",
-            "No P0 user action remains; keep the packet as the short audit trail.",
+            "yes" if "P0_BLOCKERS_REMAIN" in action_packet_decision else "no",
+            (
+                "Clear the P0 rows in release/USER_ACTION_NOW_PACKET.tsv."
+                if "P0_BLOCKERS_REMAIN" in action_packet_decision
+                else "No P0 user action remains; keep the packet as the short audit trail."
+            ),
         ),
         StatusRow(
             "external_input_intake",
-            _decision(intake_text) or "not_run",
+            intake_decision,
             "user_then_codex",
-            "no",
-            "No action needed unless author-owned facts change.",
+            "yes" if "P0_MISSING" in intake_decision else "no",
+            (
+                "Fill missing P0 rows in release/EXTERNAL_INPUT_INTAKE_TEMPLATE.tsv."
+                if "P0_MISSING" in intake_decision
+                else "No action needed unless author-owned facts change."
+            ),
         ),
         StatusRow(
             "author_response_from_intake",
@@ -263,6 +273,7 @@ gantt
     Author contact reconciliation             :done, 2026-05-04, 1d
 
     section Current Blocking Work
+    GitHub token rotation confirmation        :crit, active, 2026-05-04, 1d
     Public GitHub branch / release tag        :crit, active, 2026-05-04, 1d
     Zenodo DOI minted                         :crit, active, 2026-05-04, 1d
     Release metadata identifiers inserted     :crit, active, 2026-05-04, 1d

@@ -17,6 +17,7 @@ from pathlib import Path
 
 
 RELEASE_STATUS = Path("release/EXTERNAL_RELEASE_AUTHORIZATION_STATUS.tsv")
+EXTERNAL_INPUT_INTAKE_STATUS = Path("release/EXTERNAL_INPUT_INTAKE_STATUS.tsv")
 AUTHOR_PREFLIGHT = Path("manuscript/submission_metadata/AUTHOR_CONFIRMATION_PREFLIGHT_STATUS.tsv")
 CONTACT_RECONCILIATION = Path("manuscript/submission_metadata/AUTHOR_CONTACT_RECONCILIATION.tsv")
 EXTERNAL_REVIEW_TRIAGE = Path("external_ai_review_packet/EXTERNAL_BETA_REVIEW_TRIAGE_REPORT.md")
@@ -73,6 +74,13 @@ def _row_by_id(rows: list[dict[str, str]], check_id: str) -> dict[str, str]:
     return {}
 
 
+def _row_by_field_id(rows: list[dict[str, str]], field_id: str) -> dict[str, str]:
+    for row in rows:
+        if row.get("field_id") == field_id:
+            return row
+    return {}
+
+
 def _count_author(rows: list[dict[str, str]], severity: str) -> int:
     return sum(row.get("severity") == severity for row in rows)
 
@@ -90,12 +98,14 @@ def _review_decision(text: str) -> str:
 
 def build_action_rows(root: Path) -> list[ActionRow]:
     release_rows = _read_tsv(root / RELEASE_STATUS)
+    intake_rows = _read_tsv(root / EXTERNAL_INPUT_INTAKE_STATUS)
     author_rows = _read_tsv(root / AUTHOR_PREFLIGHT)
     contact_rows = _read_tsv(root / CONTACT_RECONCILIATION)
     review_text = _read_text(root / EXTERNAL_REVIEW_TRIAGE)
 
     github_token = _row_by_id(release_rows, "github_token_api")
     github_cli = _row_by_id(release_rows, "github_cli_auth")
+    github_rotation = _row_by_field_id(intake_rows, "github_token_rotation_confirmed")
     zenodo_token = _row_by_id(release_rows, "zenodo_token_file")
     zenodo_doi = _row_by_id(release_rows, "zenodo_doi_placeholders")
 
@@ -105,6 +115,7 @@ def build_action_rows(root: Path) -> list[ActionRow]:
     extra_contacts = _count_contact(contact_rows, "confirm_not_author_or_update_author_line")
     review_decision = _review_decision(review_text)
     github_done = github_token.get("status") in {"valid", "valid_with_required_scopes"}
+    github_rotation_done = github_rotation.get("status") == "pass"
     author_contacts_done = missing_contact == 0 and extra_contacts == 0
     author_declarations_done = blocking_author == 0 and pending_author == 0
     zenodo_ready_for_codex = zenodo_token.get("status") in {"present", "valid"} and zenodo_doi.get(
@@ -120,6 +131,23 @@ def build_action_rows(root: Path) -> list[ActionRow]:
             "No user action needed." if github_done else "Create or update a GitHub classic token with repo and workflow scopes, save it to D:/secrets/github_token.txt, and do not paste it into chat.",
             "Validate token scopes, authenticate GitHub tooling if possible, push the branch, then create the public release/tag after final gates pass.",
             "python scripts/check_external_release_authorization.py",
+        ),
+        ActionRow(
+            "DONE" if github_rotation_done else "P0",
+            "GitHub token rotation after chat exposure",
+            f"github_token_rotation_confirmed={github_rotation.get('status', 'missing')}",
+            (
+                "No user action needed."
+                if github_rotation_done
+                else (
+                    "If D:/secrets/github_token.txt contains a token generated after the chat "
+                    "exposure, enter yes in release/EXTERNAL_INPUT_INTAKE_TEMPLATE.tsv. "
+                    "If not, regenerate a GitHub classic token with repo and workflow scopes, "
+                    "overwrite D:/secrets/github_token.txt, then enter yes."
+                )
+            ),
+            "Use the token for GitHub push/release only after this safety gate passes.",
+            "python scripts/build_external_input_intake.py",
         ),
         ActionRow(
             "DONE" if author_contacts_done else "P0",

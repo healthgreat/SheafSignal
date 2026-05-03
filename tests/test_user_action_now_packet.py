@@ -50,6 +50,7 @@ def test_build_action_rows_extracts_current_blockers(tmp_path):
     assert row_map["GitHub token / gh login"].current_status == (
         "github_token_api=valid_missing_workflow_scope; gh=not_logged_in"
     )
+    assert row_map["GitHub token rotation after chat exposure"].priority == "P0"
     assert row_map["Han Yan email and author contact consistency"].current_status == (
         "missing_current_author_email=1; extra_supplied_contacts=1"
     )
@@ -68,6 +69,6 @@ def test_build_outputs_writes_packet(tmp_path):
 
     summary = build_outputs(tmp_path)
 
-    assert summary["p0_rows"] == 4
+    assert summary["p0_rows"] == 5
     assert (tmp_path / summary["tsv"]).exists()
     assert (tmp_path / summary["report"]).exists()
