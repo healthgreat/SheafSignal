@@ -2,7 +2,7 @@
 
 - Decision: `SHAREABLE_REVIEW_BUNDLE_READY`
 - Archive: `external_ai_review_packet/shareable_review_bundle/sheafsignal_external_beta_review_bundle.zip`
-- Archive SHA256: `c2c1aad93adc84b60d2cdac5f2c938712161447ddd2be9a390a33fa2adfe97e1`
+- Archive SHA256: `d83280e5ddcf8281d73062bf3eae1d7da5ba7b4ac69d64306e9a91c68a8d827a`
 - Included files: `35`
 - Missing required files: `0`
 

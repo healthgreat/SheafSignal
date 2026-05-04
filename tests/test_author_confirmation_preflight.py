@@ -44,6 +44,30 @@ def test_author_confirmation_pending_when_no_blocking(tmp_path):
     assert script.classify_decision(rows) == "AUTHOR_CONFIRMATION_PENDING"
 
 
+def test_author_confirmation_blocks_pyproject_author_missing_email(tmp_path):
+    script = _load_script("check_author_confirmation_preflight")
+    checklist = tmp_path / "AUTHOR_CONFIRMATION_CHECKLIST.tsv"
+    checklist.write_text(
+        "item\tcurrent_value\trequired_confirmation\tstatus\towner\n"
+        "Competing interests\tapproved\tApprove wording\tconfirmed\tauthors\n",
+        encoding="utf-8",
+    )
+    pyproject = tmp_path / "pyproject.toml"
+    pyproject.write_text(
+        "[project]\n"
+        "authors = [\n"
+        '  {name = "Chongfa Chen", email = "chen@example.org"},\n'
+        '  {name = "Han Yan"},\n'
+        "]\n",
+        encoding="utf-8",
+    )
+
+    rows = script.build_author_confirmation_rows(checklist, pyproject)
+
+    assert script.classify_decision(rows) == "AUTHOR_CONFIRMATION_BLOCKED"
+    assert any(row.item == "pyproject author email: Han Yan" for row in rows)
+
+
 def test_author_confirmation_report_contains_minimal_reply():
     script = _load_script("check_author_confirmation_preflight")
     rows = [

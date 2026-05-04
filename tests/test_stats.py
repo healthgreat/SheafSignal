@@ -42,6 +42,8 @@ def test_demo_pipeline_with_permutation_writes_pvalues(tmp_path):
     global_stats = pd.read_csv(result.global_permutation_path)
     assert "sheaf_energy_empirical_p" in edge_stats.columns
     assert "frustration_fdr" in node_stats.columns
+    assert "n_permutations_skipped" in edge_stats.columns
+    assert edge_stats["n_permutations_requested"].eq(3).all()
     assert set(global_stats["metric"]).issuperset({"total_sheaf_energy", "curl_ratio"})
 
 

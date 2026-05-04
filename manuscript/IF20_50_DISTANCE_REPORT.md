@@ -1,6 +1,6 @@
 # SheafSignal IF 20-50 Distance Report
 
-- Decision: `IF20_50_SUBMISSION_CANDIDATE_AFTER_FINAL_FORMAT_CHECK`
+- Decision: `IF20_50_RETURNED_EXTERNAL_REVIEW_BLOCKERS_REMAIN`
 - Overall readiness index: `98.0%`
 - Scientific/method hardening index: `97.0%`
 - Submission infrastructure index: `100.0%`
@@ -8,7 +8,8 @@
 - Journal metric audit: `publisher_if_verified_cas_warning_final_check_required`
 - Journal submission-day check: `template_ready`
 - External beta review packet: `internal_ai_reviews_triaged_external_human_pending`
-- External beta review triage: `no_returned_external_reviews`
+- External beta review triage: `returned_reviews_with_fatal_concerns`
+- Returned-review open P0/P1 blockers: `65`
 - Shareable review bundle: `ready`
 - 10,000-permutation confirmatory subset: `completed_10000`
 - GSE103322 replication supplement: `supplement_ready`
@@ -21,30 +22,31 @@
 
 ## Direct Answer
 
-SheafSignal is now a locally GO package for a defensible 20-50 IF methods-manuscript route: public GitHub release, Zenodo DOI, identifier insertion, author confirmations, and public clean-clone reproduction are clear. This is not an acceptance guarantee; the remaining practical work is submission-day journal metric/CAS/warning verification and optional returned external beta-review comments.
+SheafSignal is not submission-ready for a 20-50 IF journal after the returned external-AI review cycle. The core release infrastructure is much stronger than before, and several code-level issues have already been patched, but the current gating problem is scientific: the rank-one sheaf construction may be judged equivalent to a standard graph coboundary, and the simulation ground truth remains too coupled to the residual definition. The next defensible step is not DOI or formatting; it is resolving or formally downgrading the returned P0/P1 review items.
 
 The journal-metric audit now anchors the target board to publisher metric pages, while keeping CAS-zone and warning-journal status as official submission-day checks. This strengthens journal selection discipline without turning journal metrics into scientific evidence.
 
-Internal multi-agent AI reviews have now been returned and triaged. This reduces stale-objection risk and documents what has been fixed, but it still does not replace independent external human or computational-biology reviewer feedback.
+Returned external-AI reviews have now been filed and triaged, and `65` P0/P1 items currently block the 20-50 IF route. These reviews are correlated AI critiques, not formal peer review, but the code-grounded findings are strong enough to pause submission until fixed or explicitly downgraded by design.
 
 The 10,000-permutation confirmatory subset is now both pre-specified and executed for the smallest GSE154778 manuscript-relevant tests. This improves p-value and FDR resolution for the statistical evidence, but it still must not be used to turn computational Myeloid, curl-like, or edge-level signals into validated biological mechanisms.
 
 GSE103322 has now completed a 1000-permutation, sample-stratified HNSCC replication rerun and can be used as supplement-grade workflow generality evidence. It still should not be used for primary comparator-completeness claims unless full external comparator imports are completed for this dataset.
 
-For a realistic 20-50 IF route, the release/metadata cycle is now complete locally. The remaining distance is submission-day journal metric/CAS/warning verification and optional returned external beta reviews. For a Nature Methods or Nature Biotechnology stretch route, the core package is defensible on local scientific/statistical hardening, but independent external critiques would still reduce risk.
+For the 20-50 IF route, returned-review P0/P1 items are now the dominant distance from submission. The highest-impact fixes are: choose the honest method route for the rank-one sheaf issue, replace or supplement the circular simulation with an independent perturbation task, add core/adapters tests, and keep all real-data biological claims strictly hypothesis-generating until those gates are clear.
 
 The GSE103322 HNSCC supplement-grade replication gate is now complete, but it remains outside primary comparator-completeness claims.
 
 ## Current Gap Counts
 
-- Blocking gap rows in the matrix: `0`
+- Blocking gap rows in the matrix: `2`
+- Returned-review blocker rows: `65`
 - Administrative pending rows: `0`
 - Author-owned metadata rows: `0`
 - Git release warnings: `0`
 
 ## Mandatory Before Any 20-50 IF Submission
 
-- None. Current release, DOI, metadata, author, and public clean-clone gates are locally clear.
+- R1. Resolve or formally downgrade returned-review P0/P1 blockers listed in external_ai_review_packet/external_beta_review_action_matrix.tsv. Expected effect: converts external beta review from a submission blocker into a documented pre-review response matrix.
 
 ## Live Release And Author Gates
 
@@ -64,9 +66,9 @@ The GSE103322 HNSCC supplement-grade replication gate is now complete, but it re
 
 - S1. Keep the completed pre-specified 10,000-permutation GSE154778 confirmatory subset as statistical-strengthening evidence, without promoting computational signals into biological mechanisms. Expected effect: Improves statistical defensibility; still does not create causal, clinical, therapeutic, or mechanism evidence.
 - S2. Keep GSE103322 as a supplement-grade HNSCC replication after the 1000 sample-stratified rerun, while keeping it outside primary comparator-completeness claims. Expected effect: Improves 20-50 IF resilience against dataset-specific-artifact criticism.
-- S3. Send the beta-review packet to 2-3 external computational biology readers or independent AI reviewers, then file responses in the review matrix. Expected effect: Improves cover-letter confidence and reduces desk-rejection risk from unclear novelty or reproducibility.
 - S4. Refresh the journal metric audit on the submission day, covering latest JIF source, CAS zone, and warning-journal status for the chosen target. Expected effect: Prevents stale IF/CAS/warning claims in the final submission plan.
 - S5. Keep Visium hotspot-only unless adding deconvolution or histology/pathology annotation. Expected effect: Prevents overclaiming while preserving spatial workflow demonstration value.
+- S3. After the returned-review P0/P1 matrix is fixed or downgraded by design, send the revised package to at least one non-correlated reviewer or model. Expected effect: checks whether the same fatal objections survive the remediation cycle.
 
 ## Journal Route Snapshot
 
@@ -109,7 +111,8 @@ gantt
     GSE103322 exploratory replication gate       :done, 2026-05-02, 1d
     GSE103322 1000-permutation supplement rerun  :done, 2026-05-02, 1d
     External beta review packet                  :done, 2026-05-02, 1d
-    Returned reviews from 2-3 external readers   :2026-05-06, 7d
+    Returned external AI reviews received        :done, 2026-05-04, 1d
+    Returned P0/P1 review blocker triage         :crit, active, 2026-05-04, 7d
     Open-web journal metric audit                :done, 2026-05-02, 1d
     Official CAS and warning-list final check    :2026-05-08, 1d
     Presubmission inquiry package refresh        :2026-05-09, 2d

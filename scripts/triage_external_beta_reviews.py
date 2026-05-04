@@ -67,6 +67,16 @@ def _read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="replace")
 
 
+def _should_ignore_review_file(path: Path) -> bool:
+    lowered = path.name.lower()
+    return (
+        lowered == "readme.md"
+        or lowered.startswith("00_readme")
+        or lowered.endswith("_template.tsv")
+        or path.name.startswith("_")
+    )
+
+
 def _normalize_line(line: str) -> str:
     return re.sub(r"\s+", " ", line.strip(" -*\t|"))
 
@@ -122,6 +132,13 @@ def _metadata_key(raw: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", raw.lower()).strip("_")
 
 
+def _clean_metadata_value(raw: str) -> str:
+    value = raw.strip()
+    value = re.sub(r"^\*+\s*", "", value)
+    value = re.sub(r"\s*\*+$", "", value)
+    return value.strip() or "not_reported"
+
+
 def parse_reviewer_metadata(path: Path) -> ReviewerMetadata:
     text = _read_text(path)
     values = {
@@ -151,7 +168,7 @@ def parse_reviewer_metadata(path: Path) -> ReviewerMetadata:
         key_raw, value = clean.split(":", 1)
         key = aliases.get(_metadata_key(key_raw))
         if key and value.strip():
-            values[key] = value.strip()
+            values[key] = _clean_metadata_value(value)
     return ReviewerMetadata(
         source_file=path.as_posix(),
         reviewer=_reviewer_name(path, text),
@@ -231,12 +248,7 @@ def collect_review_findings(input_dir: Path) -> list[ReviewFinding]:
         return []
     findings = []
     for path in sorted(input_dir.glob("*")):
-        lowered = path.name.lower()
-        if (
-            lowered == "readme.md"
-            or lowered.endswith("_template.tsv")
-            or path.name.startswith("_")
-        ):
+        if _should_ignore_review_file(path):
             continue
         if path.is_file() and path.suffix.lower() in {".md", ".txt", ".tsv"}:
             findings.extend(parse_review_file(path))
@@ -248,12 +260,7 @@ def collect_reviewer_metadata(input_dir: Path) -> list[ReviewerMetadata]:
         return []
     rows = []
     for path in sorted(input_dir.glob("*")):
-        lowered = path.name.lower()
-        if (
-            lowered == "readme.md"
-            or lowered.endswith("_template.tsv")
-            or path.name.startswith("_")
-        ):
+        if _should_ignore_review_file(path):
             continue
         if path.is_file() and path.suffix.lower() in {".md", ".txt"}:
             rows.append(parse_reviewer_metadata(path))

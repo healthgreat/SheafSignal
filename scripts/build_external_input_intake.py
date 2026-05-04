@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import os
 import re
 import time
 from dataclasses import dataclass
@@ -22,8 +23,18 @@ from pathlib import Path
 DEFAULT_TEMPLATE = Path("release/EXTERNAL_INPUT_INTAKE_TEMPLATE.tsv")
 DEFAULT_STATUS = Path("release/EXTERNAL_INPUT_INTAKE_STATUS.tsv")
 DEFAULT_REPORT = Path("release/EXTERNAL_INPUT_INTAKE_REPORT.md")
-GITHUB_TOKEN_PATH = Path(r"D:\secrets\github_token.txt")
-ZENODO_TOKEN_PATH = Path(r"D:\secrets\zenodo_token.txt")
+def _default_secret_path(env_name: str, filename: str) -> Path:
+    override = os.environ.get(env_name)
+    if override:
+        return Path(override)
+    secret_dir = os.environ.get("SHEAFSIGNAL_SECRET_DIR")
+    if secret_dir:
+        return Path(secret_dir) / filename
+    return Path.home() / ".config" / "sheafsignal" / filename
+
+
+GITHUB_TOKEN_PATH = _default_secret_path("SHEAFSIGNAL_GITHUB_TOKEN_PATH", "github_token.txt")
+ZENODO_TOKEN_PATH = _default_secret_path("SHEAFSIGNAL_ZENODO_TOKEN_PATH", "zenodo_token.txt")
 
 YES_VALUES = {"yes", "approved", "confirmed", "true"}
 OPTIONAL_BLANK = {"external_beta_review_return_path"}

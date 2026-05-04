@@ -25,6 +25,7 @@ class PermutationResult:
     global_statistics: pd.DataFrame
     n_permutations_requested: int
     n_permutations_completed: int
+    n_permutations_skipped: int
 
 
 def benjamini_hochberg(pvalues: pd.Series | np.ndarray) -> np.ndarray:
@@ -124,7 +125,7 @@ def permutation_test(
     """
     if n_permutations <= 0:
         empty = pd.DataFrame()
-        return PermutationResult(empty, empty, empty, n_permutations, 0)
+        return PermutationResult(empty, empty, empty, n_permutations, 0, 0)
     if cell_type_col not in metadata.columns:
         raise ValueError(f"Metadata must contain '{cell_type_col}'.")
 
@@ -155,6 +156,7 @@ def permutation_test(
     global_sum = {key: 0.0 for key in observed_global}
     global_sum_sq = {key: 0.0 for key in observed_global}
     completed = 0
+    skipped = 0
 
     for _ in range(n_permutations):
         permuted_metadata = metadata.copy()
@@ -176,6 +178,7 @@ def permutation_test(
                 allow_self=allow_self,
             )
         except ValueError:
+            skipped += 1
             continue
 
         pair_components, perm_global_scores = hodge_decomposition(
@@ -245,6 +248,8 @@ def permutation_test(
             "curl_empirical_p": edge_curl_p.values,
             "curl_fdr": benjamini_hochberg(edge_curl_p.values),
             "n_permutations": completed,
+            "n_permutations_requested": n_permutations,
+            "n_permutations_skipped": skipped,
             "permutation_strata_col": strata_col or "",
         }
     )
@@ -261,6 +266,8 @@ def permutation_test(
             "frustration_empirical_p": node_p.values,
             "frustration_fdr": benjamini_hochberg(node_p.values),
             "n_permutations": completed,
+            "n_permutations_requested": n_permutations,
+            "n_permutations_skipped": skipped,
             "permutation_strata_col": strata_col or "",
         }
     )
@@ -278,6 +285,8 @@ def permutation_test(
                 "null_sd": float(np.sqrt(max(null_var, 0.0))),
                 "empirical_p": p_value,
                 "n_permutations": completed,
+                "n_permutations_requested": n_permutations,
+                "n_permutations_skipped": skipped,
                 "permutation_strata_col": strata_col or "",
             }
         )
@@ -290,4 +299,5 @@ def permutation_test(
         global_statistics=global_statistics,
         n_permutations_requested=n_permutations,
         n_permutations_completed=completed,
+        n_permutations_skipped=skipped,
     )

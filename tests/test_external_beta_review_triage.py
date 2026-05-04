@@ -73,6 +73,10 @@ def test_collect_and_write_outputs(tmp_path):
         "reviewer4_code_review.md\tTO_FILL\n",
         encoding="utf-8",
     )
+    (input_dir / "00_README_returned_reviews.md").write_text(
+        "- Fatal concern: This README summarizes correlated reviewers and should not be parsed.\n",
+        encoding="utf-8",
+    )
     (input_dir / "review.md").write_text(
         "- Major concern: CellChat comparator scope must be described clearly.\n",
         encoding="utf-8",
@@ -88,6 +92,7 @@ def test_collect_and_write_outputs(tmp_path):
     assert outputs["action_matrix"].exists()
     assert outputs["reviewer_metadata"].exists()
     assert outputs["report"].exists()
+    assert all("README" not in finding.source_file for finding in findings)
 
 
 def test_collect_reviewer_metadata_from_markdown(tmp_path):
@@ -95,7 +100,7 @@ def test_collect_reviewer_metadata_from_markdown(tmp_path):
     input_dir.mkdir(parents=True)
     (input_dir / "reviewer4_code_review.md").write_text(
         "reviewer_model_name: ExternalAI\n"
-        "reviewer_model_version: v1\n"
+        "reviewer_model_version: ** v1\n"
         "review_timestamp_with_timezone: 2026-05-04 08:00 +08:00\n"
         "claimed_training_data_cutoff: 2026-01\n"
         "external_references_consulted: none\n"
@@ -107,4 +112,5 @@ def test_collect_reviewer_metadata_from_markdown(tmp_path):
 
     assert len(rows) == 1
     assert rows[0].reviewer_model_name == "ExternalAI"
+    assert rows[0].reviewer_model_version == "v1"
     assert rows[0].claimed_training_data_cutoff == "2026-01"

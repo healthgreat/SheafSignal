@@ -29,16 +29,16 @@ def test_ground_truth_recovery_reports_required_baseline_families():
         "hodge_only",
         "graph_centrality",
         "graph_smoothness",
+        "flow_gradient_product",
     }
     assert recovery["auroc"].notna().all()
     assert recovery["average_precision"].notna().all()
 
 
-def test_sheaf_energy_outperforms_non_sheaf_baselines_on_ground_truth_recovery():
+def test_ground_truth_recovery_includes_fair_flow_gradient_product_baseline():
     recovery = sheaf_ground_truth_recovery()
-    scores = recovery.set_index("method")["average_precision"].to_dict()
-    sheaf_score = scores["SheafSignal_sheaf_energy"]
-    non_sheaf_scores = [
-        score for method, score in scores.items() if method != "SheafSignal_sheaf_energy"
-    ]
-    assert sheaf_score > max(non_sheaf_scores)
+    row = recovery.set_index("method").loc["FlowGradientOpposition_product"]
+
+    assert row["uses_lr_flow"]
+    assert row["uses_pathway_state"]
+    assert not row["uses_sheaf_residual"]

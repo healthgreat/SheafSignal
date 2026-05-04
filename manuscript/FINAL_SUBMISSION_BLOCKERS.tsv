@@ -1,4 +1,5 @@
 blocker_id	severity	status	evidence	required_action
+external_beta_review::returned_findings	blocking	open_returned_review_blockers	67 open returned-review blocker rows; priorities=P0,P1.	Resolve or explicitly downgrade returned external-review P0/P1 findings before any 20-50 IF submission.
 author_metadata::affiliations	pass	pass	manuscript\submission_metadata\AFFILIATIONS_TEMPLATE.tsv	Fill all affiliations.
 author_metadata::authors	pass	pass	manuscript\submission_metadata\AUTHOR_METADATA_TEMPLATE.tsv	Fill all author names, emails, ORCIDs when available, corresponding author status, and conflict statements.
 author_metadata::competing_interests	pass	pass	manuscript\submission_metadata\COMPETING_INTERESTS_TEMPLATE.md	Replace TBD with final competing interests statement.

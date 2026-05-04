@@ -13,6 +13,7 @@ import argparse
 import csv
 import hashlib
 import json
+import os
 from dataclasses import dataclass
 from pathlib import Path
 import zipfile
@@ -23,7 +24,17 @@ DEFAULT_METADATA = Path("release/zenodo_deposition_metadata.json")
 DEFAULT_INSTRUCTIONS = Path("release/ZENODO_DEPOSITION_INSTRUCTIONS.md")
 DEFAULT_DATA_AVAILABILITY = Path("release/DATA_AVAILABILITY_STATEMENT_DRAFT.md")
 DEFAULT_DATASET_MANIFEST = Path("metadata/datasets.tsv")
-DEFAULT_TOKEN_PATH = Path(r"D:\secrets\zenodo_token.txt")
+def _default_secret_path(env_name: str, filename: str) -> Path:
+    override = os.environ.get(env_name)
+    if override:
+        return Path(override)
+    secret_dir = os.environ.get("SHEAFSIGNAL_SECRET_DIR")
+    if secret_dir:
+        return Path(secret_dir) / filename
+    return Path.home() / ".config" / "sheafsignal" / filename
+
+
+DEFAULT_TOKEN_PATH = _default_secret_path("SHEAFSIGNAL_ZENODO_TOKEN_PATH", "zenodo_token.txt")
 DEFAULT_STATUS = Path("release/ZENODO_UPLOAD_PREFLIGHT_STATUS.tsv")
 DEFAULT_REPORT = Path("release/ZENODO_UPLOAD_PREFLIGHT_REPORT.md")
 

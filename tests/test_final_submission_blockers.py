@@ -251,6 +251,33 @@ def test_final_submission_blockers_use_benchmark_result_contract_audit(tmp_path)
     assert table.iloc[0]["severity"] == "blocking"
 
 
+def test_final_submission_blockers_use_external_beta_review_action_matrix(tmp_path):
+    script = _load_script("check_final_submission_blockers")
+    path = tmp_path / "external_ai_review_packet" / "external_beta_review_action_matrix.tsv"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    pd.DataFrame(
+        [
+            {
+                "priority": "P0",
+                "domain": "methods",
+                "severity": "fatal",
+                "finding": "Simulation benchmark is circular.",
+                "suggested_action": "Fix benchmark.",
+                "owner": "codex_or_authors",
+                "status": "open_external_review_item",
+                "blocks_20_50_if": "yes",
+                "source_file": "reviewer4_code_review.md",
+            }
+        ]
+    ).to_csv(path, sep="\t", index=False)
+
+    rows = script.check_external_beta_review_gate(tmp_path)
+    table = pd.DataFrame(rows)
+
+    assert "external_beta_review::returned_findings" in set(table["blocker_id"])
+    assert table.iloc[0]["severity"] == "blocking"
+
+
 def test_final_submission_blockers_use_submission_provenance_audit(tmp_path):
     script = _load_script("check_final_submission_blockers")
     path = (

@@ -2,19 +2,20 @@ import pandas as pd
 
 from scripts.build_if20_50_gap_report import (
     _status_point,
+    author_response_template_status,
+    beta_review_packet_status,
     build_gap_matrix,
     build_report,
     build_supplementation_plan,
-    beta_review_packet_status,
     clean_preflight_status,
     confirmatory_permutation_status,
-    gse103322_replication_status,
-    live_release_summary,
+    external_beta_review_open_blocker_count,
     external_beta_review_triage_status,
-    shareable_review_bundle_status,
-    author_response_template_status,
-    journal_submission_day_check_status,
+    gse103322_replication_status,
     journal_metric_audit_status,
+    journal_submission_day_check_status,
+    live_release_summary,
+    shareable_review_bundle_status,
     score_gates,
 )
 
@@ -66,6 +67,50 @@ def test_gap_matrix_flags_submission_blocking_gates():
         pd.DataFrame(),
     )
 
+    assert rows[0]["if20_50_risk"] == "blocking"
+    assert rows[0]["submission_blocker"] == "yes"
+
+
+def test_gap_matrix_flags_returned_external_review_blockers(tmp_path):
+    matrix = pd.DataFrame(
+        [
+            {
+                "priority": "P0",
+                "domain": "methods",
+                "severity": "fatal",
+                "finding": "rank-one sheaf is degenerate",
+                "status": "open_external_review_item",
+                "blocks_20_50_if": "yes",
+            },
+            {
+                "priority": "P3",
+                "domain": "methods",
+                "severity": "comment",
+                "finding": "minor wording",
+                "status": "open_external_review_item",
+                "blocks_20_50_if": "no",
+            },
+        ]
+    )
+    review_dir = tmp_path / "external_ai_review_packet"
+    review_dir.mkdir(parents=True)
+    matrix.to_csv(
+        review_dir / "external_beta_review_action_matrix.tsv",
+        sep="\t",
+        index=False,
+    )
+
+    rows = build_gap_matrix(
+        pd.DataFrame(),
+        pd.DataFrame(),
+        pd.DataFrame(),
+        pd.DataFrame(),
+        pd.DataFrame(),
+        matrix,
+    )
+
+    assert external_beta_review_open_blocker_count(tmp_path) == 1
+    assert rows[0]["domain"] == "external_beta_review"
     assert rows[0]["if20_50_risk"] == "blocking"
     assert rows[0]["submission_blocker"] == "yes"
 

@@ -13,11 +13,13 @@ import argparse
 import csv
 from dataclasses import dataclass
 from pathlib import Path
+import tomllib
 
 
 DEFAULT_CHECKLIST = Path("manuscript/submission_metadata/AUTHOR_CONFIRMATION_CHECKLIST.tsv")
 DEFAULT_STATUS = Path("manuscript/submission_metadata/AUTHOR_CONFIRMATION_PREFLIGHT_STATUS.tsv")
 DEFAULT_REPORT = Path("manuscript/submission_metadata/AUTHOR_CONFIRMATION_PREFLIGHT_REPORT.md")
+DEFAULT_PYPROJECT = Path("pyproject.toml")
 
 BLOCKING_STATUSES = {"blocking_author_confirmation"}
 PENDING_STATUSES = {
@@ -84,7 +86,38 @@ def classify_status(status: str) -> str:
     return "review"
 
 
-def build_author_confirmation_rows(checklist_path: Path) -> list[AuthorConfirmationRow]:
+def _pyproject_author_email_rows(pyproject_path: Path | None) -> list[AuthorConfirmationRow]:
+    if pyproject_path is None or not pyproject_path.exists():
+        return []
+    with pyproject_path.open("rb") as handle:
+        data = tomllib.load(handle)
+    rows: list[AuthorConfirmationRow] = []
+    for author in data.get("project", {}).get("authors", []):
+        if not isinstance(author, dict):
+            continue
+        name = str(author.get("name", "")).strip()
+        email = str(author.get("email", "")).strip()
+        if name and not email:
+            rows.append(
+                AuthorConfirmationRow(
+                    item=f"pyproject author email: {name}",
+                    severity="blocking",
+                    status="blocking_author_confirmation",
+                    current_value="missing_email_in_pyproject.toml",
+                    required_confirmation=(
+                        "Add a non-empty email field for every pyproject.toml "
+                        "project author before submission."
+                    ),
+                    owner="authors",
+                )
+            )
+    return rows
+
+
+def build_author_confirmation_rows(
+    checklist_path: Path,
+    pyproject_path: Path | None = None,
+) -> list[AuthorConfirmationRow]:
     raw_rows = _read_tsv(checklist_path)
     rows: list[AuthorConfirmationRow] = []
     for raw in raw_rows:
@@ -99,6 +132,7 @@ def build_author_confirmation_rows(checklist_path: Path) -> list[AuthorConfirmat
                 owner=str(raw.get("owner", "")).strip(),
             )
         )
+    rows.extend(_pyproject_author_email_rows(pyproject_path))
     return rows
 
 
@@ -204,7 +238,7 @@ def main(argv: list[str] | None = None) -> int:
     checklist = Path(args.checklist)
     if not checklist.is_absolute():
         checklist = root / checklist
-    rows = build_author_confirmation_rows(checklist)
+    rows = build_author_confirmation_rows(checklist, root / DEFAULT_PYPROJECT)
     outputs = write_outputs(root, rows)
     print(f"decision: {classify_decision(rows)}")
     for label, path in outputs.items():

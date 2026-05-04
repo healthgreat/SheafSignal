@@ -107,6 +107,10 @@ REQUIRED_CLAIM_SAFETY_FILES = [
     "manuscript/CLAIM_SAFETY_AUDIT_REPORT.md",
 ]
 
+EXTERNAL_BETA_REVIEW_ACTION_MATRIX_PATH = Path(
+    "external_ai_review_packet/external_beta_review_action_matrix.tsv"
+)
+
 REQUIRED_SUPERGROK_HARDENING_FILES = [
     "manuscript/novelty_overlap/SHEAFSIGNAL_NOVELTY_OVERLAP_TABLE.tsv",
     "manuscript/novelty_overlap/SHEAFSIGNAL_NOVELTY_OVERLAP_REPORT.md",
@@ -949,6 +953,65 @@ def check_supergrok_hardening_gates(root: Path) -> list[dict[str, str]]:
     return rows
 
 
+def check_external_beta_review_gate(root: Path) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    matrix_path = root / EXTERNAL_BETA_REVIEW_ACTION_MATRIX_PATH
+    if not matrix_path.exists():
+        _add_row(
+            rows,
+            blocker_id="external_beta_review::returned_findings",
+            severity="pass",
+            status="no_returned_review_matrix",
+            evidence=str(EXTERNAL_BETA_REVIEW_ACTION_MATRIX_PATH),
+            required_action="Optional: collect external beta reviews and rerun triage before submission.",
+        )
+        return rows
+    matrix = pd.read_csv(matrix_path, sep="\t")
+    if matrix.empty:
+        _add_row(
+            rows,
+            blocker_id="external_beta_review::returned_findings",
+            severity="pass",
+            status="no_returned_review_findings",
+            evidence="Returned-review triage matrix is empty.",
+            required_action="No action unless external reviews are later returned.",
+        )
+        return rows
+    blocks_col = (
+        matrix["blocks_20_50_if"].astype(str).str.lower()
+        if "blocks_20_50_if" in matrix.columns
+        else pd.Series(["no"] * len(matrix), index=matrix.index)
+    )
+    status_col = (
+        matrix["status"].astype(str)
+        if "status" in matrix.columns
+        else pd.Series(["open_external_review_item"] * len(matrix), index=matrix.index)
+    )
+    blocking = matrix.loc[(blocks_col == "yes") & (status_col != "resolved")]
+    if blocking.empty:
+        severity = "pass"
+        status = "pass"
+        evidence = "No open returned-review findings block the target journal tier."
+        action = "Continue with final submission-day metric and format checks."
+    else:
+        severity = "blocking"
+        status = "open_returned_review_blockers"
+        priorities = ",".join(sorted(set(blocking.get("priority", pd.Series(dtype=str)).astype(str))))
+        evidence = f"{len(blocking)} open returned-review blocker rows; priorities={priorities}."
+        action = (
+            "Resolve or explicitly downgrade returned external-review P0/P1 findings before any 20-50 IF submission."
+        )
+    _add_row(
+        rows,
+        blocker_id="external_beta_review::returned_findings",
+        severity=severity,
+        status=status,
+        evidence=evidence,
+        required_action=action,
+    )
+    return rows
+
+
 def build_blocker_table(root: Path) -> pd.DataFrame:
     rows: list[dict[str, str]] = []
     rows.extend(check_required_files(root))
@@ -964,6 +1027,7 @@ def build_blocker_table(root: Path) -> pd.DataFrame:
     rows.extend(check_submission_provenance(root))
     rows.extend(check_method_reporting_readiness(root))
     rows.extend(check_supergrok_hardening_gates(root))
+    rows.extend(check_external_beta_review_gate(root))
     rows.extend(check_forbidden_positive_claims(root))
     table = pd.DataFrame(rows)
     severity_order = {"blocking": 0, "pending": 1, "pass": 2}

@@ -20,8 +20,20 @@ from dataclasses import dataclass
 from pathlib import Path
 
 
-DEFAULT_GITHUB_TOKEN_PATH = Path(r"D:\secrets\github_token.txt")
-DEFAULT_GH_EXE = Path(r"D:\BioSoft\GitHubCLI\gh_2.92.0\bin\gh.exe")
+def _default_secret_path(env_name: str, filename: str) -> Path:
+    override = os.environ.get(env_name)
+    if override:
+        return Path(override)
+    secret_dir = os.environ.get("SHEAFSIGNAL_SECRET_DIR")
+    if secret_dir:
+        return Path(secret_dir) / filename
+    return Path.home() / ".config" / "sheafsignal" / filename
+
+
+DEFAULT_GITHUB_TOKEN_PATH = _default_secret_path(
+    "SHEAFSIGNAL_GITHUB_TOKEN_PATH", "github_token.txt"
+)
+DEFAULT_GH_EXE = Path(os.environ.get("SHEAFSIGNAL_GH_EXE", "gh"))
 DEFAULT_TAG = "v0.1.0"
 DEFAULT_BRANCH = "codex/sheafsignal-hardening-release"
 DEFAULT_REPO = "healthgreat/SheafSignal"

@@ -16,7 +16,7 @@ authors = [
     {name = "Guangfu Wang", email = "Surgeonwgf@hotmail.com"},
     {name = "Zipeng Lu", email = "surgeonmark@hotmail.com"},
     {name = "Lingdi Yin", email = "yinlingdi@njmu.edu.cn"},
-    {name = "Han Yan"},
+    {name = "Han Yan", email = "carrick8862@163.com"},
     {name = "Yi Miao", email = "miaoyi@njmu.edu.cn"},
 ]
 dependencies = [

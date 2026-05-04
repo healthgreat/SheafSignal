@@ -39,6 +39,9 @@ BETA_REVIEW_PACKET_STATUS_PATH = Path(
 EXTERNAL_BETA_REVIEW_TRIAGE_REPORT_PATH = Path(
     "external_ai_review_packet/EXTERNAL_BETA_REVIEW_TRIAGE_REPORT.md"
 )
+EXTERNAL_BETA_REVIEW_ACTION_MATRIX_PATH = Path(
+    "external_ai_review_packet/external_beta_review_action_matrix.tsv"
+)
 SHAREABLE_REVIEW_BUNDLE_REPORT_PATH = Path(
     "external_ai_review_packet/shareable_review_bundle/SHAREABLE_REVIEW_BUNDLE_REPORT.md"
 )
@@ -286,6 +289,7 @@ def build_gap_matrix(
     review_matrix: pd.DataFrame,
     git_audit: pd.DataFrame,
     placeholder_audit: pd.DataFrame,
+    external_review_action_matrix: pd.DataFrame | None = None,
 ) -> list[dict[str, object]]:
     rows: list[dict[str, object]] = []
     for gate in gates.to_dict(orient="records"):
@@ -411,7 +415,72 @@ def build_gap_matrix(
                 }
             )
 
+    if external_review_action_matrix is not None and not external_review_action_matrix.empty:
+        open_review_blockers = _open_external_review_blockers(
+            external_review_action_matrix
+        )
+        if not open_review_blockers.empty:
+            severity_counts = (
+                open_review_blockers["priority"]
+                .astype(str)
+                .value_counts()
+                .sort_index()
+                .to_dict()
+            )
+            domains = ", ".join(
+                sorted(open_review_blockers["domain"].astype(str).unique())
+            )
+            counts = ", ".join(
+                f"{priority}={count}" for priority, count in severity_counts.items()
+            )
+            rows.append(
+                {
+                    "domain": "external_beta_review",
+                    "item_id": "returned_review_open_blockers",
+                    "item": (
+                        f"{len(open_review_blockers)} open returned-review "
+                        "P0/P1 blocker rows"
+                    ),
+                    "current_status": "open_external_review_blockers",
+                    "readiness_fraction": 0.0,
+                    "if20_50_risk": "blocking",
+                    "submission_blocker": "yes",
+                    "evidence": (
+                        f"{EXTERNAL_BETA_REVIEW_ACTION_MATRIX_PATH.as_posix()}; "
+                        f"priority_counts={counts}; domains={domains}"
+                    ),
+                    "required_next_action": (
+                        "Resolve, downgrade by design, or formally route every "
+                        "returned-review P0/P1 item before any 20-50 IF submission."
+                    ),
+                    "suggested_supplement": "external_beta_review_response_matrix",
+                }
+            )
+
     return rows
+
+
+def _open_external_review_blockers(action_matrix: pd.DataFrame) -> pd.DataFrame:
+    required_columns = {"blocks_20_50_if", "status"}
+    if action_matrix.empty or not required_columns.issubset(action_matrix.columns):
+        return pd.DataFrame()
+    resolved_statuses = {
+        "resolved",
+        "fixed",
+        "fixed_round2",
+        "downgraded_by_design",
+        "accepted_as_limitation",
+        "not_applicable",
+        "false_positive",
+    }
+    blocks = action_matrix["blocks_20_50_if"].astype(str).str.lower().eq("yes")
+    unresolved = ~action_matrix["status"].astype(str).str.lower().isin(resolved_statuses)
+    return action_matrix.loc[blocks & unresolved].copy()
+
+
+def external_beta_review_open_blocker_count(root: Path) -> int:
+    action_matrix = _read_tsv(root / EXTERNAL_BETA_REVIEW_ACTION_MATRIX_PATH)
+    return int(len(_open_external_review_blockers(action_matrix)))
 
 
 def build_supplementation_plan(
@@ -798,7 +867,8 @@ gantt
     GSE103322 exploratory replication gate       :done, 2026-05-02, 1d
     GSE103322 1000-permutation supplement rerun  :done, 2026-05-02, 1d
     External beta review packet                  :done, 2026-05-02, 1d
-    Returned reviews from 2-3 external readers   :2026-05-06, 7d
+    Returned external AI reviews received        :done, 2026-05-04, 1d
+    Returned P0/P1 review blocker triage         :crit, active, 2026-05-04, 7d
     Open-web journal metric audit                :done, 2026-05-02, 1d
     Official CAS and warning-list final check    :2026-05-08, 1d
     Presubmission inquiry package refresh        :2026-05-09, 2d
@@ -826,9 +896,12 @@ def build_report(
     administrative = _count_gap_rows(gap_rows, "administrative")
     author_metadata = _count_gap_rows(gap_rows, "author_metadata")
     release_warnings = _count_gap_rows(gap_rows, "release_warning")
+    returned_review_blockers = external_beta_review_open_blocker_count(root)
 
     active_live_blockers = int(live_summary["blocking_active"])
-    if score["overall_percent"] >= 85 and hard_blockers == 0 and active_live_blockers == 0:
+    if returned_review_blockers > 0:
+        decision = "IF20_50_RETURNED_EXTERNAL_REVIEW_BLOCKERS_REMAIN"
+    elif score["overall_percent"] >= 85 and hard_blockers == 0 and active_live_blockers == 0:
         decision = "IF20_50_SUBMISSION_CANDIDATE_AFTER_FINAL_FORMAT_CHECK"
     elif score["scientific_percent"] >= 85 and active_live_blockers > 0:
         decision = "IF20_50_SCIENTIFICALLY_HARDENED_EXTERNAL_RELEASE_BLOCKED"
@@ -855,10 +928,33 @@ def build_report(
         mandatory_lines = [
             "None. Current release, DOI, metadata, author, and public clean-clone gates are locally clear."
         ]
+    optional_source_rows = optional
+    if returned_review_blockers > 0:
+        optional_source_rows = [row for row in optional if row["priority"] != "S3"]
     optional_lines = [
         f"{row['priority']}. {row['action']} Expected effect: {row['expected_effect']}"
-        for row in optional
+        for row in optional_source_rows
     ]
+    if returned_review_blockers > 0:
+        if mandatory_lines == [
+            "None. Current release, DOI, metadata, author, and public clean-clone gates are locally clear."
+        ]:
+            mandatory_lines = []
+        mandatory_lines.insert(
+            0,
+            (
+                "R1. Resolve or formally downgrade returned-review P0/P1 blockers "
+                f"listed in {EXTERNAL_BETA_REVIEW_ACTION_MATRIX_PATH.as_posix()}. "
+                "Expected effect: converts external beta review from a submission "
+                "blocker into a documented pre-review response matrix."
+            ),
+        )
+        optional_lines.append(
+            "S3. After the returned-review P0/P1 matrix is fixed or downgraded by "
+            "design, send the revised package to at least one non-correlated reviewer "
+            "or model. Expected effect: checks whether the same fatal objections "
+            "survive the remediation cycle."
+        )
     if gse103322_status == "supplement_ready":
         gse103322_sentence = (
             "GSE103322 has now completed a 1000-permutation, sample-stratified "
@@ -887,6 +983,14 @@ def build_report(
             "That clears the packaging part of S3, but it does not count as completed "
             "external validation until independent reviewers or AI systems return "
             "written critiques that are filed in the response matrix."
+        )
+    if beta_triage_status == "returned_reviews_with_fatal_concerns":
+        beta_review_sentence = (
+            "Returned external-AI reviews have now been filed and triaged, and "
+            f"`{returned_review_blockers}` P0/P1 items currently block the 20-50 "
+            "IF route. These reviews are correlated AI critiques, not formal peer "
+            "review, but the code-grounded findings are strong enough to pause "
+            "submission until fixed or explicitly downgraded by design."
         )
     if confirmatory_status == "completed_10000":
         confirmatory_sentence = (
@@ -938,24 +1042,47 @@ def build_report(
             )
         )
 
-    direct_answer = (
-        "SheafSignal is now a locally GO package for a defensible 20-50 IF "
-        "methods-manuscript route: public GitHub release, Zenodo DOI, identifier "
-        "insertion, author confirmations, and public clean-clone reproduction are "
-        "clear. This is not an acceptance guarantee; the remaining practical work is "
-        "submission-day journal metric/CAS/warning verification and optional returned "
-        "external beta-review comments."
-        if active_live_blockers == 0 and hard_blockers == 0
-        else (
-            "SheafSignal is now close to a defensible 20-50 IF methods-manuscript "
-            "candidate on the scientific/code side, but it is not submission-ready. "
-            "The main remaining distance is external release and submission metadata: "
-            "public GitHub URL/tag, real Zenodo DOI, identifier insertion, and a "
-            "final public clean-clone reproduction check. A local clean-export preflight "
-            "has passed when this report shows `local_clean_export_pass`, but it "
-            "does not replace the final public-GitHub clone test."
+    if returned_review_blockers > 0:
+        stretch_route_sentence = (
+            "For the 20-50 IF route, returned-review P0/P1 items are now the "
+            "dominant distance from submission. The highest-impact fixes are: "
+            "choose the honest method route for the rank-one sheaf issue, replace "
+            "or supplement the circular simulation with an independent perturbation "
+            "task, add core/adapters tests, and keep all real-data biological claims "
+            "strictly hypothesis-generating until those gates are clear."
         )
-    )
+
+    if returned_review_blockers > 0:
+        direct_answer = (
+            "SheafSignal is not submission-ready for a 20-50 IF journal after the "
+            "returned external-AI review cycle. The core release infrastructure is "
+            "much stronger than before, and several code-level issues have already "
+            "been patched, but the current gating problem is scientific: the "
+            "rank-one sheaf construction may be judged equivalent to a standard "
+            "graph coboundary, and the simulation ground truth remains too coupled "
+            "to the residual definition. The next defensible step is not DOI or "
+            "formatting; it is resolving or formally downgrading the returned P0/P1 "
+            "review items."
+        )
+    else:
+        direct_answer = (
+            "SheafSignal is now a locally GO package for a defensible 20-50 IF "
+            "methods-manuscript route: public GitHub release, Zenodo DOI, identifier "
+            "insertion, author confirmations, and public clean-clone reproduction are "
+            "clear. This is not an acceptance guarantee; the remaining practical work is "
+            "submission-day journal metric/CAS/warning verification and optional returned "
+            "external beta-review comments."
+            if active_live_blockers == 0 and hard_blockers == 0
+            else (
+                "SheafSignal is now close to a defensible 20-50 IF methods-manuscript "
+                "candidate on the scientific/code side, but it is not submission-ready. "
+                "The main remaining distance is external release and submission metadata: "
+                "public GitHub URL/tag, real Zenodo DOI, identifier insertion, and a "
+                "final public clean-clone reproduction check. A local clean-export preflight "
+                "has passed when this report shows `local_clean_export_pass`, but it "
+                "does not replace the final public-GitHub clone test."
+            )
+        )
 
     return "\n".join(
         [
@@ -970,6 +1097,7 @@ def build_report(
             f"- Journal submission-day check: `{journal_submission_day_status}`",
             f"- External beta review packet: `{beta_review_status}`",
             f"- External beta review triage: `{beta_triage_status}`",
+            f"- Returned-review open P0/P1 blockers: `{returned_review_blockers}`",
             f"- Shareable review bundle: `{review_bundle_status}`",
             f"- 10,000-permutation confirmatory subset: `{confirmatory_status}`",
             f"- GSE103322 replication supplement: `{gse103322_status}`",
@@ -1007,6 +1135,7 @@ def build_report(
             "## Current Gap Counts",
             "",
             f"- Blocking gap rows in the matrix: `{hard_blockers}`",
+            f"- Returned-review blocker rows: `{returned_review_blockers}`",
             f"- Administrative pending rows: `{administrative}`",
             f"- Author-owned metadata rows: `{author_metadata}`",
             f"- Git release warnings: `{release_warnings}`",
@@ -1062,6 +1191,9 @@ def build_outputs(root: Path) -> dict[str, object]:
     review_matrix = _read_tsv(root / REVIEW_MATRIX_PATH)
     git_audit = _read_tsv(root / GIT_READINESS_PATH)
     placeholder_audit = _read_tsv(root / METADATA_PLACEHOLDER_PATH)
+    external_review_action_matrix = _read_tsv(
+        root / EXTERNAL_BETA_REVIEW_ACTION_MATRIX_PATH
+    )
     gates = apply_live_release_overrides(root, gates)
     review_matrix, git_audit = filter_resolved_release_rows(
         root,
@@ -1075,6 +1207,7 @@ def build_outputs(root: Path) -> dict[str, object]:
         review_matrix,
         git_audit,
         placeholder_audit,
+        external_review_action_matrix,
     )
     confirmatory_status = confirmatory_permutation_status(root)
     gse103322_status = gse103322_replication_status(root)
@@ -1089,6 +1222,7 @@ def build_outputs(root: Path) -> dict[str, object]:
         "gap_rows": len(gap_rows),
         "supplement_rows": len(supplement_rows),
         "report_path": REPORT_PATH.as_posix(),
+        "returned_review_open_blockers": external_beta_review_open_blocker_count(root),
     }
 
 
@@ -1108,6 +1242,7 @@ def main(argv: list[str] | None = None) -> int:
         f"{summary['score']['submission_infrastructure_percent']}%"
     )
     print(f"Gap rows: {summary['gap_rows']}")
+    print(f"Returned-review open P0/P1 blockers: {summary['returned_review_open_blockers']}")
     print(f"Supplement rows: {summary['supplement_rows']}")
     return 0
 

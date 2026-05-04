@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import os
 import shutil
 import subprocess
 import urllib.error
@@ -20,9 +21,23 @@ from dataclasses import dataclass
 from pathlib import Path
 
 
-DEFAULT_GITHUB_TOKEN_PATH = Path(r"D:\secrets\github_token.txt")
-DEFAULT_ZENODO_TOKEN_PATH = Path(r"D:\secrets\zenodo_token.txt")
-DEFAULT_GH_EXE = Path(r"D:\BioSoft\GitHubCLI\gh_2.92.0\bin\gh.exe")
+def _default_secret_path(env_name: str, filename: str) -> Path:
+    override = os.environ.get(env_name)
+    if override:
+        return Path(override)
+    secret_dir = os.environ.get("SHEAFSIGNAL_SECRET_DIR")
+    if secret_dir:
+        return Path(secret_dir) / filename
+    return Path.home() / ".config" / "sheafsignal" / filename
+
+
+DEFAULT_GITHUB_TOKEN_PATH = _default_secret_path(
+    "SHEAFSIGNAL_GITHUB_TOKEN_PATH", "github_token.txt"
+)
+DEFAULT_ZENODO_TOKEN_PATH = _default_secret_path(
+    "SHEAFSIGNAL_ZENODO_TOKEN_PATH", "zenodo_token.txt"
+)
+DEFAULT_GH_EXE = Path(os.environ.get("SHEAFSIGNAL_GH_EXE", "gh"))
 DEFAULT_STATUS_PATH = Path("release/EXTERNAL_RELEASE_AUTHORIZATION_STATUS.tsv")
 DEFAULT_REPORT_PATH = Path("release/EXTERNAL_RELEASE_AUTHORIZATION_REPORT.md")
 

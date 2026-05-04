@@ -178,6 +178,16 @@ def graph_smoothness_score(edges: pd.DataFrame) -> pd.Series:
     return pd.Series(values.to_numpy(dtype=float), index=edges.index)
 
 
+def flow_gradient_opposition_score(edges: pd.DataFrame) -> pd.Series:
+    """Score edges by direct LR-flow/pathway-gradient opposition.
+
+    This deliberately simple baseline combines the same two scalar ingredients
+    used by the residual, without invoking sheaf terminology.
+    """
+    values = -(edges["flow_z"].astype(float) * edges["pathway_gradient_z"].astype(float))
+    return pd.Series(values.to_numpy(dtype=float), index=edges.index)
+
+
 def sheaf_ground_truth_recovery(noise_sd: float = 0.0, seed: int = 1) -> pd.DataFrame:
     """Compare SheafSignal energy against LR, Hodge-only, centrality, and smoothness baselines."""
     edges = sheaf_ground_truth_edges(noise_sd=noise_sd, seed=seed)
@@ -237,6 +247,15 @@ def sheaf_ground_truth_recovery(noise_sd: float = 0.0, seed: int = 1) -> pd.Data
             "uses_pathway_state": True,
             "uses_sheaf_residual": False,
             "score_description": "edge-weighted squared pathway difference on LR graph",
+        },
+        {
+            "method": "FlowGradientOpposition_product",
+            "baseline_family": "flow_gradient_product",
+            "scores": flow_gradient_opposition_score(edges),
+            "uses_lr_flow": True,
+            "uses_pathway_state": True,
+            "uses_sheaf_residual": False,
+            "score_description": "negative product of LR-flow z-score and pathway-gradient z-score",
         },
     ]
     for spec in method_specs:

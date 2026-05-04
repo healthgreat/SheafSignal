@@ -1,14 +1,14 @@
 # Nature Methods Final Submission Go/No-Go Report
 
-Decision: `GO`
+Decision: `NO_GO`
 
-- Blocking items: 0
+- Blocking items: 1
 - Pending non-blocking items: 0
 - Passed checks: 125
 
 ## Blocking Items
 
-None.
+- `external_beta_review::returned_findings`: open_returned_review_blockers. Action: Resolve or explicitly downgrade returned external-review P0/P1 findings before any 20-50 IF submission.
 
 ## Pending Items
 
