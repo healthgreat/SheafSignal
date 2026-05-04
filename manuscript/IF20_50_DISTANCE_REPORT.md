@@ -9,7 +9,7 @@
 - Journal submission-day check: `template_ready`
 - External beta review packet: `internal_ai_reviews_triaged_external_human_pending`
 - External beta review triage: `returned_reviews_with_fatal_concerns`
-- Returned-review open P0/P1 blockers: `65`
+- Returned-review open P0/P1 blockers: `56`
 - Shareable review bundle: `ready`
 - 10,000-permutation confirmatory subset: `completed_10000`
 - GSE103322 replication supplement: `supplement_ready`
@@ -26,7 +26,7 @@ SheafSignal is not submission-ready for a 20-50 IF journal after the returned ex
 
 The journal-metric audit now anchors the target board to publisher metric pages, while keeping CAS-zone and warning-journal status as official submission-day checks. This strengthens journal selection discipline without turning journal metrics into scientific evidence.
 
-Returned external-AI reviews have now been filed and triaged, and `65` P0/P1 items currently block the 20-50 IF route. These reviews are correlated AI critiques, not formal peer review, but the code-grounded findings are strong enough to pause submission until fixed or explicitly downgraded by design.
+Returned external-AI reviews have now been filed and triaged, and `56` P0/P1 items currently block the 20-50 IF route. These reviews are correlated AI critiques, not formal peer review, but the code-grounded findings are strong enough to pause submission until fixed or explicitly downgraded by design.
 
 The 10,000-permutation confirmatory subset is now both pre-specified and executed for the smallest GSE154778 manuscript-relevant tests. This improves p-value and FDR resolution for the statistical evidence, but it still must not be used to turn computational Myeloid, curl-like, or edge-level signals into validated biological mechanisms.
 
@@ -39,7 +39,7 @@ The GSE103322 HNSCC supplement-grade replication gate is now complete, but it re
 ## Current Gap Counts
 
 - Blocking gap rows in the matrix: `2`
-- Returned-review blocker rows: `65`
+- Returned-review blocker rows: `56`
 - Administrative pending rows: `0`
 - Author-owned metadata rows: `0`
 - Git release warnings: `0`

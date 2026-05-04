@@ -23,6 +23,9 @@ ARCHIVE_NAME = "sheafsignal_external_beta_review_bundle.zip"
 MANIFEST_PATH = OUTPUT_DIR / "SHAREABLE_REVIEW_BUNDLE_MANIFEST.tsv"
 REPORT_PATH = OUTPUT_DIR / "SHAREABLE_REVIEW_BUNDLE_REPORT.md"
 ARCHIVE_PATH = OUTPUT_DIR / ARCHIVE_NAME
+EVIDENCE_INDEX_PATH = Path(
+    "external_ai_review_packet/beta_review_packet_2026-05-02/02_EVIDENCE_FILE_INDEX.tsv"
+)
 
 REQUIRED_FILES = [
     "README.md",
@@ -132,10 +135,47 @@ def _safe_files(root: Path, rel_paths: list[str], required: str) -> list[BundleR
     return rows
 
 
+def _deduplicate_paths(required_paths: list[str], optional_paths: list[str]) -> tuple[list[str], list[str]]:
+    required_unique: list[str] = []
+    optional_unique: list[str] = []
+    seen_required: set[str] = set()
+    for rel in required_paths:
+        rel = str(rel).strip()
+        if rel and rel not in seen_required:
+            required_unique.append(rel)
+            seen_required.add(rel)
+    seen_optional = set(seen_required)
+    for rel in optional_paths:
+        rel = str(rel).strip()
+        if rel and rel not in seen_optional:
+            optional_unique.append(rel)
+            seen_optional.add(rel)
+    return required_unique, optional_unique
+
+
+def evidence_index_required_files(root: Path) -> list[str]:
+    index_path = root / EVIDENCE_INDEX_PATH
+    if not index_path.exists():
+        return []
+    with index_path.open("r", encoding="utf-8", newline="") as handle:
+        rows = list(csv.DictReader(handle, delimiter="\t"))
+    required: list[str] = []
+    for row in rows:
+        if str(row.get("required", "")).strip().lower() == "yes":
+            rel_path = str(row.get("path", "")).strip()
+            if rel_path:
+                required.append(rel_path)
+    return required
+
+
 def build_bundle_manifest(root: Path) -> list[BundleRow]:
+    required_files, optional_files = _deduplicate_paths(
+        [*REQUIRED_FILES, *evidence_index_required_files(root)],
+        OPTIONAL_FILES,
+    )
     rows = []
-    rows.extend(_safe_files(root, REQUIRED_FILES, "yes"))
-    rows.extend(_safe_files(root, OPTIONAL_FILES, "no"))
+    rows.extend(_safe_files(root, required_files, "yes"))
+    rows.extend(_safe_files(root, optional_files, "no"))
     return rows
 
 
