@@ -10,7 +10,7 @@ from sheafsignal.core import compute_sheaf_energy
 from sheafsignal.sheaf import build_restriction_table, sheaf_laplacian
 
 
-def test_cellular_sheaf_residual_matches_legacy_mismatch():
+def test_rank_one_legacy_residual_matches_scalar_mismatch():
     edges = pd.DataFrame(
         {
             "sender": ["A", "B"],
@@ -58,4 +58,3 @@ def test_restriction_table_and_laplacian_are_rank_one_sheaf_contract():
     assert laplacian.matrix.shape == (3, 3)
     assert np.allclose(laplacian.matrix.to_numpy(), laplacian.matrix.to_numpy().T)
     assert np.isclose(laplacian.matrix.loc["B", "B"], 3.0)
-

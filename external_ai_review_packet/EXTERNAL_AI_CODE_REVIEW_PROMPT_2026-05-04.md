@@ -46,7 +46,11 @@ Return your review in this exact structure:
 
 3. Algorithm implementation review:
    Check formal sheaf API, Hodge targets, residual construction, permutation
-   logic, FDR logic, provenance hashing, and source/test consistency.
+   logic, FDR logic, provenance hashing, and source/test consistency. In
+   particular, decide whether the Round 3 higher-rank LR-channel sheaf code
+   (LR-channel vertex stalks, expression-scaled restriction maps, node-channel
+   Laplacian, and task-based comparator evaluation) removes the prior
+   rank-one/trivial-sheaf and circular-benchmark fatal objections.
 
 4. Reproducibility review:
    Check environment locking, CLI entry points, test coverage, deterministic
@@ -89,4 +93,3 @@ python scripts/triage_external_beta_reviews.py
 
 External AI code review is a risk-reduction step. It is not formal software
 verification, security certification, or peer review.
-

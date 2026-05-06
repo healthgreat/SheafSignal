@@ -173,6 +173,16 @@ def build_status_rows(root: Path) -> list[StatusRow]:
             "Send shareable bundle, collect returned reviews, and triage them.",
         ),
         StatusRow(
+            "round3_external_rereview",
+            "pending_external_rereview_after_higher_rank_sheaf_fix",
+            "user_or_external_reviewers",
+            "yes",
+            (
+                "Send the refreshed shareable and source-code bundles to 2-3 reviewers "
+                "and ask whether rank-one/trivial-sheaf and circular-benchmark fatal objections are gone."
+            ),
+        ),
+        StatusRow(
             "shareable_review_bundle",
             _decision(bundle_text) or "not_run",
             "codex",
@@ -278,7 +288,7 @@ gantt
     dateFormat  YYYY-MM-DD
 
     section Completed
-    Formal sheaf / Hodge core                 :done, 2026-05-02, 1d
+    Rank-one legacy sheaf / Hodge core        :done, 2026-05-02, 1d
     Full GSE154778 reannotation               :done, 2026-05-02, 1d
     Comparator and statistics hardening       :done, 2026-05-02, 1d
     External review bundle and triage         :done, 2026-05-03, 1d
@@ -287,6 +297,8 @@ gantt
     GitHub and Zenodo token validation        :done, 2026-05-03, 1d
     Author facts filled and applied           :done, 2026-05-04, 1d
     Author contact reconciliation             :done, 2026-05-04, 1d
+    Higher-rank LR-channel sheaf              :done, 2026-05-06, 1d
+    Task-based comparator evaluation          :done, 2026-05-06, 1d
 
     section Release Chain
 {github_auth}
@@ -298,6 +310,7 @@ gantt
 {author_confirmation}
     Submission-day journal metric check       :crit, active, 2026-05-06, 1d
     Returned external beta reviews            :active, 2026-05-04, 5d
+    Round 3 external rereview                 :crit, active, 2026-05-06, 5d
 
     section After Unblock
     Final GO/NO-GO refresh                    :2026-05-06, 1d

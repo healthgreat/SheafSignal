@@ -4,7 +4,8 @@ submission_infrastructure	100.0%	user_then_codex	no	No release-chain blocker rem
 release_blockers	0 active	user_then_codex	no	No release-chain blocker remains; proceed with final audits and public clean-clone evidence.
 author_confirmation	blocking=0; pending=0	authors	no	No action needed.
 author_contact_reconciliation	AUTHOR_CONTACT_RECONCILIATION_READY	authors	no	No action needed.
-external_beta_reviews	EXTERNAL_BETA_REVIEW_NO_RETURNED_REVIEWS	user_or_external_reviewers	no	Send shareable bundle, collect returned reviews, and triage them.
+external_beta_reviews	EXTERNAL_BETA_REVIEW_TRIAGED_FATAL_OR_REJECT_CONCERNS	user_or_external_reviewers	no	Send shareable bundle, collect returned reviews, and triage them.
+round3_external_rereview	pending_external_rereview_after_higher_rank_sheaf_fix	user_or_external_reviewers	yes	Send the refreshed shareable and source-code bundles to 2-3 reviewers and ask whether rank-one/trivial-sheaf and circular-benchmark fatal objections are gone.
 shareable_review_bundle	SHAREABLE_REVIEW_BUNDLE_READY	codex	no	Use bundle zip for external AI or human review.
 user_action_now_packet	USER_ACTION_PACKET_READY_NO_P0_BLOCKERS	user_then_codex	no	No P0 user action remains; keep the packet as the short audit trail.
 external_input_intake	EXTERNAL_INPUT_INTAKE_READY	user_then_codex	no	No action needed unless author-owned facts change.

@@ -2,13 +2,13 @@
 
 - Comparison classes: 7
 - Rows with citation placeholders requiring author verification: 3
-- Boundary: claim an integrated sheaf/Hodge CCC workflow, not broad first-ever novelty.
-- Reviewer-facing interpretation: SheafSignal is not a replacement for CCC, niche-DE, spatial domain detection, graph centrality, or Hodge methods; it composes CCC-derived observations with a domain-specific sheaf consistency residual.
+- Boundary: claim an integrated higher-rank LR-channel sheaf/Hodge CCC workflow, not broad first-ever novelty.
+- Reviewer-facing interpretation: SheafSignal is not a replacement for CCC, niche-DE, spatial domain detection, graph centrality, or Hodge methods; it composes CCC-derived observations with LR-channel-specific restriction maps and a domain-specific sheaf consistency residual.
 
 ## Highest-Risk Overlaps
 
 - `standard_ccc_tools`: high if described as a better CCC score. Safe claim: complements intensity-focused CCC tools with a graph-consistency readout.
-- `cellular_sheaf_methods`: high if described as first sheaf method in biology without a formal literature audit. Safe claim: presents an integrated sheaf/Hodge workflow for CCC graphs.
+- `cellular_sheaf_methods`: high if described as first sheaf method in biology without a formal literature audit. Safe claim: presents an integrated higher-rank LR-channel sheaf/Hodge workflow for CCC graphs.
 
 ## Claims To Avoid
 
@@ -19,4 +19,4 @@
 
 ## Safest One-Sentence Novelty Claim
 
-SheafSignal implements a domain-specific sheaf/Hodge workflow that converts CCC-derived ligand-receptor observations and pathway-state transitions into edge- and node-level graph-consistency residuals.
+SheafSignal implements a domain-specific higher-rank LR-channel sheaf/Hodge workflow that converts CCC-derived ligand-receptor channel observations and pathway-state transitions into edge- and node-level consistency residuals.

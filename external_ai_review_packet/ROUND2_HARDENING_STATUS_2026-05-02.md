@@ -2,6 +2,11 @@
 
 Date: 2026-05-02
 
+Update: the rank-one sheaf layer described below is now legacy/backward-compatible
+output. The current method-facing response to returned reviews is the Round 3
+higher-rank LR-channel sheaf report:
+`external_ai_review_packet/ROUND3_HIGHER_RANK_SHEAF_RESPONSE_2026-05-06.md`.
+
 ## Completed In This Round
 
 - Implemented an explicit rank-one cellular sheaf layer:

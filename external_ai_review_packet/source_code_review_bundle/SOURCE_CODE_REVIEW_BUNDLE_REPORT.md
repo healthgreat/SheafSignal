@@ -2,11 +2,11 @@
 
 - Decision: `SOURCE_CODE_REVIEW_BUNDLE_READY`
 - Archive: `external_ai_review_packet/source_code_review_bundle/sheafsignal_source_code_review_bundle.zip`
-- Archive SHA256: `a36f6644c3d4168585e567e85b275b0d515badd05d795bce9fd987c6a4d27ba5`
-- Included files: `195`
+- Archive SHA256: `48e604772a814c14d98af0d28aa1a2f44842e69fa145453927d86bdba7a54b65`
+- Included files: `198`
 - Source files under `src/`: `15`
-- Script files under `scripts/`: `82`
-- Test files under `tests/`: `82`
+- Script files under `scripts/`: `83`
+- Test files under `tests/`: `84`
 
 ## What To Send
 

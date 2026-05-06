@@ -3,7 +3,7 @@ rel_path	included	size_bytes	sha256	reason
 Dockerfile	yes	415	a736236b8c78dc92d9fb7d2bec8e1b490159169098ac7bb6f54df6c59d2c551a	source/test/config file for external code review
 LICENSE	yes	1081	131bd9b2ac43993bca4e8329dc8819b9e6848ffa70891678128538673e03b755	source/test/config file for external code review
 Makefile	yes	761	c069075bffdd6e0c866fe2c7eae0543ba9e8d51c3f2ce894e212f053661146e7	source/test/config file for external code review
-README.md	yes	30215	99b150f763468ab3b4e79b2784d41ae9000616937b420aa7ca128651eadcc759	source/test/config file for external code review
+README.md	yes	30700	405d914634ff6f03809c1bb8ddd734ff3c109256c3330728aed0bcf52fef259a	source/test/config file for external code review
 docs/data_and_code_availability_template.md	yes	2335	984d95a48e7cf8a6b84fcf65559e849ad273bfeea6dcd14e1737ba6cc5b8891a	source/test/config file for external code review
 docs/github_release_checklist.md	yes	1378	19ea7705c36418f294bae16e88f3d8a45d68ebc3d4b581c2be00e17d844145b9	source/test/config file for external code review
 docs/reviewer_reproducibility_quickstart.md	yes	5468	6650d7d06089dd6b47d4d38aa7cb48241932ef0d61f86526f225618e691ffb69	source/test/config file for external code review
@@ -13,7 +13,7 @@ envs/liana_environment.yml	yes	226	20fcaa3e9a0e627a5146f6b6c478273e73f87962314dc
 envs/reannotation_environment.yml	yes	267	f8349de62efa97230bdba67d5a07a9f445cebcf65213d22c24c1ea5055166bea	source/test/config file for external code review
 envs/requirements-core-lock.txt	yes	347	6fcfab4276c04692162db17ddb52f1939bca1a63806b057aa0efd32b5de99a61	source/test/config file for external code review
 envs/requirements-py311-lock.txt	yes	4285	4f12cf958cc65d17b6a6d8677cb1f20b20a515f64bdddd14473fbd9f978d1267	source/test/config file for external code review
-external_ai_review_packet/EXTERNAL_AI_CODE_REVIEW_PROMPT_2026-05-04.md	yes	2952	e6f4394bc24d5b67c295af09884bf87d8e22b20eabc5e6763e41fe10a3aa2bb8	source/test/config file for external code review
+external_ai_review_packet/EXTERNAL_AI_CODE_REVIEW_PROMPT_2026-05-04.md	yes	3246	90b942cd3bcb62204db5c318f39fba89206b69343bb2c1a3326ba1606218e637	source/test/config file for external code review
 pyproject.toml	yes	1949	efc0090f6ceb6f65eed3da6e033437139a7d716af8847052d8bf59663c2fab38	source/test/config file for external code review
 scripts/_bootstrap.py	yes	280	9774ce2acf11b13b2843a4f0753d3852a9dde9d84cdb7a2f8f3563d563885c77	source/test/config file for external code review
 scripts/apply_author_confirmation_response.py	yes	8779	8ae75b8eeff4b13c6e211b42d359241e9f4b5b1c5af9906aafcc7101d26cdbdb	source/test/config file for external code review
@@ -28,10 +28,10 @@ scripts/build_external_input_intake.py	yes	14808	35efe4271feaf85b1c8f657a909738c
 scripts/build_figure_legend_package.py	yes	18351	826ccce10130f471372b47055a56a86fcc2929a063babc02bef4195fea9e74f5	source/test/config file for external code review
 scripts/build_formal_sci_manuscript.py	yes	25518	da2780ddd7ff065c9e580445e8b1ad287104961130eb13c9e43e652d36418a0f	source/test/config file for external code review
 scripts/build_gse103322_replication_supplement.py	yes	18575	fe60906944c76315cda13a5f5acaf1c6bc30f8e30b51aa73663e719b9a183fb7	source/test/config file for external code review
-scripts/build_if20_50_gap_report.py	yes	55225	0402b19cb55f7db9c46fca70ba63522217c8e25e37a0435a59c744a6637cd971	source/test/config file for external code review
+scripts/build_if20_50_gap_report.py	yes	56089	8d92b8ef7541f388737f788d3662e35380bdeddd2ab8104e504d2189f6361f8d	source/test/config file for external code review
 scripts/build_journal_metric_audit.py	yes	11011	ea398916ae217e4227363802f5ffcc42b389f8d0baabca0e87a11fb31476060e	source/test/config file for external code review
 scripts/build_journal_target_board.py	yes	10662	624802185798f9d35fa348548c19411c710cfaf5507e60c5f7bf78080d0cc642	source/test/config file for external code review
-scripts/build_live_gantt_status.py	yes	15193	38b95bec2b5e4aa79ee9694d19d0d35e744816ecd38ffbf24c17d3cc6e6621d3	source/test/config file for external code review
+scripts/build_live_gantt_status.py	yes	15830	95327cfd13a4a8dd1a77eec6676fbaec3c595317cd3ca05d32b37d88d982b01f	source/test/config file for external code review
 scripts/build_nature_methods_submission_package.py	yes	30883	d3ddd4c6cda381ec665750dc6709c1b84267b9a65ca569a20872bec449b23846	source/test/config file for external code review
 scripts/build_novelty_overlap_table.py	yes	8400	dd10fa0426d0d31fddf6657490e8795aa81a8edbcc8f3ce3073fbffa75d71d32	source/test/config file for external code review
 scripts/build_polished_sci_manuscript_v2.py	yes	33871	c4fa8b480c913bfb2c3efc4ce1184914fe9d3ee9461857d70acab3653429fdc8	source/test/config file for external code review
@@ -56,7 +56,7 @@ scripts/check_claim_safety.py	yes	8599	490ca52b3dca63c86bed6f254f0ad4fd379536ffb
 scripts/check_comparator_scope_gate.py	yes	10877	7f4c718387ffe1cd3b6001a89c11a7003b7a088bc7840337b100a51473800738	source/test/config file for external code review
 scripts/check_external_comparator_readiness.py	yes	23427	ff03f55d0e5305de21f96daaea4a78186a7a4abe471da2fb5e14de8fcc3e4f76	source/test/config file for external code review
 scripts/check_external_release_authorization.py	yes	21874	da9378b0d2197d79310d4e6fede69b5130ad1eca6fbb6875a130742e77f506ad	source/test/config file for external code review
-scripts/check_final_submission_blockers.py	yes	42596	56643d476694c7ecd4a217106e7ba0d77973ed961270b94511e128ba1cd806b4	source/test/config file for external code review
+scripts/check_final_submission_blockers.py	yes	43291	ca77a7b6b1207e053b73f6dcf15d214f12d11bc1ffdb562145536cbcd42fd2cf	source/test/config file for external code review
 scripts/check_git_release_readiness.py	yes	10272	1bcdb366d9caa582659fb0baa0be151920b87b6e6ebf475aa491692659320720	source/test/config file for external code review
 scripts/check_main_figure_quality.py	yes	10716	21453fd47045097452cdd2b6d46025dc97f8bbcdb9757008bfdeb02386aa3052	source/test/config file for external code review
 scripts/check_manuscript_claim_hardening.py	yes	4768	0585343374ff2abc6df6bead23e16c8c5989f3dd3f7a0ccf70752d94d096d698	source/test/config file for external code review
@@ -90,6 +90,7 @@ scripts/run_cellphonedb_comparator.py	yes	13342	9d2918502674c293642dc929d269b991
 scripts/run_clean_clone_preflight.py	yes	10745	3a8adfd04d73edbe96f415408abf1824966808e37d2454a5090b1a10aa3c1d51	source/test/config file for external code review
 scripts/run_liana_comparator.py	yes	12584	e68f690c15c5c80c7c3d633faa8712b6b3b7d5035d111d3398499512bb948dd6	source/test/config file for external code review
 scripts/run_mechanistic_prior_comparator.py	yes	11313	2f1e8577bde59fc649864e1f040803b34ef4c64831e53b36537e22ab04b665f0	source/test/config file for external code review
+scripts/run_task_based_comparator_evaluation.py	yes	3718	b09fbd4843d3626b6e136c0363459e3c37c08b8267ababa8a2667703213b879e	source/test/config file for external code review
 scripts/run_tme_benchmark.py	yes	14485	75170f8bc87fb113626146a10daf44c305ca3aa764fdba9b3eca5f62c685bf6e	source/test/config file for external code review
 scripts/run_unblock_readiness_check.py	yes	12649	cedbc7f5237345a151fe8a762eb05b12adc491f037b6948b4b7517c4bc394423	source/test/config file for external code review
 scripts/sample_level_gse154778_stability.py	yes	10609	af2176990c4f79f9e0c816bdf08479a7627c74214fa2279baaa70d895be78a37	source/test/config file for external code review
@@ -97,7 +98,7 @@ scripts/stratify_gse154778_lesion.py	yes	10873	d1b1ecf3befe80789cd5aa74a4a663d1c
 scripts/sync_external_comparator_status.py	yes	5867	945d1034733ece12df36a307dd010b9abcb65e8d6e84c7e040951ad2f31871ef	source/test/config file for external code review
 scripts/triage_external_beta_reviews.py	yes	16896	05c19e0e043dca650656a1ea345603a0331c376b2914cce3ae8702234bf60cbd	source/test/config file for external code review
 scripts/upload_zenodo_deposition.py	yes	13241	67fb8a52bc12b4e984135e6fc3d6459e3481fbdcfa128963f1f5920bde45f5a1	source/test/config file for external code review
-src/sheafsignal/__init__.py	yes	306	893d2ff26dc7fc8a570c6ba7f5cd11b58b5134b28317b2fee4c4827130ddcbc8	source/test/config file for external code review
+src/sheafsignal/__init__.py	yes	360	8f9a71c23c1b4f8f07798f8c9e806ce5e8235a4c274fc5fafc199794581d24fc	source/test/config file for external code review
 src/sheafsignal/adapters.py	yes	38620	6db8805a43cfd80f02d8e580601d1e93b2d6e4b607b791d20f2f9daa2e481267	source/test/config file for external code review
 src/sheafsignal/cli.py	yes	4386	b8696385424d027c372336523aca696fb21063ec8de69370c8c508642a10c4e5	source/test/config file for external code review
 src/sheafsignal/comparators.py	yes	16090	8b5ff6f0f6b32542d8b4e9cabeb899de4c530ba4eef1bb0a635aae13ea2c2964	source/test/config file for external code review
@@ -105,11 +106,11 @@ src/sheafsignal/core.py	yes	7878	34baf0f6ca905eb59a83fb51d2d01ac82d5f3c2fac160b3
 src/sheafsignal/hodge.py	yes	6193	07673902ee93530977eb1d8eb55e88cdea0aee947e4639ce7853ae707b4569d2	source/test/config file for external code review
 src/sheafsignal/io.py	yes	2845	0c99c638d2f6f8783177b5a8431f336459cf2ab52411bbe2f0744b168c52072a	source/test/config file for external code review
 src/sheafsignal/manifest.py	yes	3360	312380ae3e6d644c7fd256dec00b20d15f39090a4c25a8b4c430c22b31539be8	source/test/config file for external code review
-src/sheafsignal/pipeline.py	yes	14975	89b6983ae96f19c1ce6b72d5e09870ecb1de4de9e9b38bb6859755c5699c1e92	source/test/config file for external code review
+src/sheafsignal/pipeline.py	yes	16577	5c414f84fee351a6cffab077e308a6374873ee66bd9084e024fbe4f2186267d9	source/test/config file for external code review
 src/sheafsignal/plotting.py	yes	2898	7b6df12269fc6df4b9c366a2e9914dbc458ebaa94c409e54f8519126b4d5ceff	source/test/config file for external code review
 src/sheafsignal/provenance.py	yes	1717	e3873a8342174cbc9f279eac46ba57147d8622162124753bdd492df438c160e8	source/test/config file for external code review
-src/sheafsignal/sheaf.py	yes	3840	725681d3cc618f41cc9ba5102b104e787bc74030f2ed76f6e93eccb424ae6074	source/test/config file for external code review
-src/sheafsignal/simulate.py	yes	18451	344c21fb98f0a651438dc5172fcbd23e77048697cde63a7d20076ea15aa8a5c0	source/test/config file for external code review
+src/sheafsignal/sheaf.py	yes	13423	69233ea972f2f9f9e4e3aabf7e8cdbe3143c2da3336c0a65318c1762eb85770f	source/test/config file for external code review
+src/sheafsignal/simulate.py	yes	20603	223a66b62f2cf371081b853a86107f6c7694ee8a3a4ce14b3199ebc85ca41e1c	source/test/config file for external code review
 src/sheafsignal/spatial.py	yes	9522	bee43bcd96c7141b0def6c58e3f33ef309f0ac62d6c5be272e5e5bd9cb08297d	source/test/config file for external code review
 src/sheafsignal/stats.py	yes	11545	5b275f7fe6a2c4d2f7c1f81ee7ceb54de1cd5cdb2a5419693a20d55d1f3478c5	source/test/config file for external code review
 tests/conftest.py	yes	375	a299ac90987f73dcca5431d6db0bbb80f949510ebff7818d364d2cf7024b0606	source/test/config file for external code review
@@ -138,7 +139,7 @@ tests/test_figure_legend_package.py	yes	5593	0c437b29bb777f40ee6ae3e185782a28c02
 tests/test_final_submission_blockers.py	yes	11666	d20179386ca372bdc9e51c198121fde4031a40608b32853cdbeea4648a79f2ec	source/test/config file for external code review
 tests/test_finalize_github_repository_url.py	yes	2311	af20c2f5d204a76b664a1c44b444b6aac4682a24f802aa314db2e8a520d53873	source/test/config file for external code review
 tests/test_formal_sci_manuscript.py	yes	3976	87494db1de4bb62071938ec49fb8a06b6a3836838ca388c400e375b370dbb837	source/test/config file for external code review
-tests/test_formal_sheaf.py	yes	1912	480a8cf7ece9f1c8bf06d1d835c21250b31fbb20a044db668a7944a84f6f213a	source/test/config file for external code review
+tests/test_formal_sheaf.py	yes	1912	19aec45e2f1bdb1e4cfc4ec89cc210663820f0eb7631af3f6553663d43b74c28	source/test/config file for external code review
 tests/test_git_release_readiness.py	yes	2026	41353d7fe67996a0f4557e10a14fcdba19c6b20e2479e2a2c43e447483858029	source/test/config file for external code review
 tests/test_gse103322_adapter.py	yes	2980	57f4eb620b185fba34a294b77788bc22f1ce0f37053b65891a4f9985b9899b22	source/test/config file for external code review
 tests/test_gse103322_replication_supplement.py	yes	4499	2020dd15cd60750902cc486e426fdcead24ac00e04859d783fdf5aa86384ebc8	source/test/config file for external code review
@@ -151,6 +152,7 @@ tests/test_gse154778_sample_level.py	yes	2873	b43d6d4934d7009d8b2cda51f70998d5c9
 tests/test_gse154778_stratified.py	yes	2944	0902206194396102229f702c124e828213c4a199d76a8a5023bb46e554a983f6	source/test/config file for external code review
 tests/test_gse176078_adapter.py	yes	8543	8147d266ddca3bc55219baa73a7b82e07255007097620a217e54bd0291470ce8	source/test/config file for external code review
 tests/test_gse72056_adapter.py	yes	7135	f43d74241de0644bf1b9e109a3d6ae4c383a4c899975f0b377335cf16c958bd9	source/test/config file for external code review
+tests/test_higher_rank_sheaf.py	yes	2866	789867a4b9c0ce7e3f319e06187676259a29930175c2bb6cf126c997c28fa956	source/test/config file for external code review
 tests/test_hodge.py	yes	887	aa0ccf2c3d7ec495c54e51661f539cb4b7179d13005bdedd43b77421ddba74a8	source/test/config file for external code review
 tests/test_if20_50_gap_report.py	yes	10993	59e8bdc450f8f3e1241de101d7f77f901222bd74298eafca5d5a123387a5a817	source/test/config file for external code review
 tests/test_journal_metric_audit.py	yes	1921	1e8a2dba8fbffa77ad6f07b61855b71327155a7a4859cc499b1a564350fc669d	source/test/config file for external code review
@@ -163,7 +165,7 @@ tests/test_method_reporting_readiness.py	yes	9042	ee92daa7bdd1bbe7ad84285d8bb6ec
 tests/test_nature_methods_format_audit.py	yes	4053	febe8bf5b1724a7fb21445b071aaa974338bf2f8a95014b48a57afd0418a2aec	source/test/config file for external code review
 tests/test_nature_methods_submission_package.py	yes	5801	c114e99c321e3a4475d9f423e6bd349ee3b4eb31e280049fa84ab150f915739e	source/test/config file for external code review
 tests/test_package_release_archives.py	yes	3716	bf9d1cb164b013df539f16e9eb7fb77060631c91961ac22fe3b6d11e59cf948d	source/test/config file for external code review
-tests/test_pipeline.py	yes	2449	ec6064cf3372a7cea55265a47a7f96884885840baecd1a75bbebb71d35550a53	source/test/config file for external code review
+tests/test_pipeline.py	yes	2689	f3f901476bace77885f2eafc026e2578dd020f72dc4cb704c372590f8a465fad	source/test/config file for external code review
 tests/test_polished_sci_manuscript_v2.py	yes	7647	da629543e782815960f7caa229ad42e72ef94e3d009e544058df45f1d3c86c8e	source/test/config file for external code review
 tests/test_pooled_fdr_audit.py	yes	1534	f65faadbd114088c7b4a963b5d9c4274b1fb3b5dce4b98c33425305e7aaf7084	source/test/config file for external code review
 tests/test_post_unblock_release_pipeline.py	yes	3461	7a37e93b3101db224bfc9c58e08171d65100d4f96bb7d8398521ef7aced61c74	source/test/config file for external code review
@@ -176,7 +178,7 @@ tests/test_release_metadata_placeholders.py	yes	2151	13aa9450389f64fd792f9483c9d
 tests/test_release_unblocker_matrix.py	yes	3194	ccda09124764653372669b1c4b9698d1a4cbfaa562bff94326d76c585b242cd9	source/test/config file for external code review
 tests/test_reproducibility_release.py	yes	2139	0ede946fa937feff2f4b693a96d18bb18b9d3547c7351ade7feba604cba7dc8f	source/test/config file for external code review
 tests/test_response_transfer_package.py	yes	3985	66cacba2c42c88ebfa8131cdc55bfdd3327ad8adb6b6b580ad596b2724044e25	source/test/config file for external code review
-tests/test_sheaf_ground_truth_simulation.py	yes	2821	a48671288b20d734b246fee61f54c18997bc2b3bbdc854cccddd8d8b9c504c93	source/test/config file for external code review
+tests/test_sheaf_ground_truth_simulation.py	yes	3288	9f7a7a564d01a7e4eb9257629cf891834d89deb2b2e24b72836e2b3d4f15c600	source/test/config file for external code review
 tests/test_simulate.py	yes	578	b6a2bd74405b7e2edf396abf6f79088f63f1112865328e8d195e74593a573139	source/test/config file for external code review
 tests/test_stats.py	yes	3233	acaeaa18c0f10ca33d9fb14d739182a40d0b5e7be2d7361f9dc2c1f418ad0527	source/test/config file for external code review
 tests/test_submission_metadata_templates.py	yes	1847	1a479343fe5317d5951f5fb6046a086af457ceb9fd4229cec8e0541898861fb8	source/test/config file for external code review
@@ -186,6 +188,7 @@ tests/test_submission_unblocker_handoff.py	yes	2823	9b6031d799839a6dbf102c429c64
 tests/test_submission_upload_package.py	yes	6948	dc52034a6d84418c07e4b212c508d8dd2ad1718c128009273c7e0294284e8073	source/test/config file for external code review
 tests/test_supergrok_hardening.py	yes	5464	0b6bfc9b87b62b41b2bb908c99a2ad908066627db725ca8ff0ffa25c21dd0818	source/test/config file for external code review
 tests/test_supplementary_artifacts.py	yes	5142	57ac93a28df3286dd1a8ac4589341e22ae1128689d2d1a6bef11ec41443a1a71	source/test/config file for external code review
+tests/test_task_based_comparator_evaluation.py	yes	1320	1ad2219eddc9bb008b61b9a89ba3e95cb8dd41231fc2b2f5d5835554c5681d51	source/test/config file for external code review
 tests/test_tenx_visium_adapter.py	yes	7356	0c6e935296ae7cd4933d2d7a8fccdbfcaf8598093810d166957ac78b1888110a	source/test/config file for external code review
 tests/test_tme_benchmark_tool_comparison.py	yes	3079	e87c3a1470e594913fe29401b6aba350a65ebefdc776d95753732dae3ec768f4	source/test/config file for external code review
 tests/test_unblock_readiness_check.py	yes	3551	04266757f77a93390296ff19945fcc60255fa5ac65c3686db671e307bd3309f9	source/test/config file for external code review

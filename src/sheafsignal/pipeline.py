@@ -18,7 +18,7 @@ from .hodge import attach_hodge_components, hodge_decomposition
 from .io import read_expression, read_gene_set, read_ligand_receptor_db, read_metadata
 from .plotting import plot_communication_network
 from .provenance import write_provenance
-from .sheaf import sheaf_laplacian
+from .sheaf import build_lr_channel_sheaf, sheaf_laplacian
 from .stats import permutation_test
 
 
@@ -122,12 +122,33 @@ def _attach_dual_hodge(edges: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, flo
     return edges, frustration_scores, communication_scores
 
 
-def _write_sheaf_contract_tables(edges: pd.DataFrame, results_dir: Path) -> tuple[Path, Path]:
+def _write_sheaf_contract_tables(
+    edges: pd.DataFrame,
+    results_dir: Path,
+    profiles: pd.DataFrame | None = None,
+    lr_db: pd.DataFrame | None = None,
+    pathway_scores: pd.DataFrame | None = None,
+) -> tuple[Path, Path]:
     sheaf = sheaf_laplacian(edges)
     restriction_path = results_dir / "cellular_sheaf_restrictions.csv"
     laplacian_path = results_dir / "cellular_sheaf_laplacian.csv"
     sheaf.restrictions.to_csv(restriction_path, index=False)
     sheaf.matrix.to_csv(laplacian_path)
+    if profiles is not None and lr_db is not None and pathway_scores is not None:
+        lr_channel_sheaf = build_lr_channel_sheaf(
+            profiles=profiles,
+            lr_db=lr_db,
+            pathway_scores=pathway_scores,
+        )
+        lr_channel_sheaf.channel_table.to_csv(
+            results_dir / "lr_channel_sheaf_restrictions.csv",
+            index=False,
+        )
+        lr_channel_sheaf.edge_summary.to_csv(
+            results_dir / "lr_channel_sheaf_edge_summary.csv",
+            index=False,
+        )
+        lr_channel_sheaf.laplacian.to_csv(results_dir / "lr_channel_sheaf_laplacian.csv")
     return restriction_path, laplacian_path
 
 
@@ -184,7 +205,13 @@ def _run_from_profiles(
     provenance_path = results_dir / "provenance.json"
     edges.to_csv(edge_path, index=False)
     score_table.to_csv(score_path, index=False)
-    _write_sheaf_contract_tables(edges, results_dir)
+    _write_sheaf_contract_tables(
+        edges,
+        results_dir,
+        profiles=profiles,
+        lr_db=lr_db,
+        pathway_scores=pathway_scores,
+    )
     write_provenance(
         provenance_path,
         inputs={
@@ -198,6 +225,12 @@ def _run_from_profiles(
             "allow_self": allow_self,
             "primary_hodge_flow_col": "sheaf_residual",
             "secondary_hodge_flow_col": "flow_z",
+            "higher_rank_sheaf": "lr_channel_expression_scaled_restrictions",
+            "higher_rank_sheaf_outputs": (
+                "lr_channel_sheaf_restrictions.csv;"
+                "lr_channel_sheaf_edge_summary.csv;"
+                "lr_channel_sheaf_laplacian.csv"
+            ),
         },
     )
 
@@ -358,7 +391,13 @@ def run_pipeline(
     provenance_path = results_dir / "provenance.json"
     edges.to_csv(edge_path, index=False)
     score_table.to_csv(score_path, index=False)
-    _write_sheaf_contract_tables(edges, results_dir)
+    _write_sheaf_contract_tables(
+        edges,
+        results_dir,
+        profiles=profile_result.profiles,
+        lr_db=lr_db,
+        pathway_scores=pathway_scores,
+    )
     write_provenance(
         provenance_path,
         inputs={
@@ -378,6 +417,12 @@ def run_pipeline(
             "permutation_strata_col": permutation_strata_col or "",
             "primary_hodge_flow_col": "sheaf_residual",
             "secondary_hodge_flow_col": "flow_z",
+            "higher_rank_sheaf": "lr_channel_expression_scaled_restrictions",
+            "higher_rank_sheaf_outputs": (
+                "lr_channel_sheaf_restrictions.csv;"
+                "lr_channel_sheaf_edge_summary.csv;"
+                "lr_channel_sheaf_laplacian.csv"
+            ),
         },
         annotation_version=_metadata_annotation_version(metadata),
     )

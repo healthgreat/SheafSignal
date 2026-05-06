@@ -5,6 +5,7 @@ import pandas as pd
 
 from .core import build_directed_lr_edges, compute_pathway_scores, compute_sheaf_energy
 from .hodge import attach_hodge_components, hodge_decomposition
+from .sheaf import build_lr_channel_sheaf
 
 
 def gradient_chain(n_nodes: int = 5, magnitude: float = 1.0) -> pd.DataFrame:
@@ -257,8 +258,31 @@ def flow_gradient_opposition_score(edges: pd.DataFrame) -> pd.Series:
     return pd.Series(values.to_numpy(dtype=float), index=edges.index)
 
 
+def higher_rank_lr_channel_sheaf_score(
+    edges: pd.DataFrame,
+    profiles: pd.DataFrame,
+    lr_db: pd.DataFrame,
+    pathway_scores: pd.DataFrame,
+) -> pd.Series:
+    """Score directed edges by higher-rank LR-channel-specific sheaf energy."""
+    lr_channel_sheaf = build_lr_channel_sheaf(profiles, lr_db, pathway_scores)
+    merged = edges[["sender", "receiver"]].merge(
+        lr_channel_sheaf.edge_summary[
+            ["sender", "receiver", "higher_rank_sheaf_energy"]
+        ],
+        on=["sender", "receiver"],
+        how="left",
+    )
+    return pd.Series(
+        merged["higher_rank_sheaf_energy"].fillna(0.0).to_numpy(dtype=float),
+        index=edges.index,
+    )
+
+
 def sheaf_ground_truth_recovery(noise_sd: float = 0.0, seed: int = 1) -> pd.DataFrame:
     """Compare SheafSignal energy against LR, Hodge-only, centrality, and smoothness baselines."""
+    profiles, lr_db, pathway_genes = sheaf_ground_truth_profiles(noise_sd=noise_sd, seed=seed)
+    pathway_scores = compute_pathway_scores(profiles, pathway_genes)
     edges = sheaf_ground_truth_edges(noise_sd=noise_sd, seed=seed)
     labels = edges["ground_truth_inconsistent"]
     rows = []
@@ -326,6 +350,20 @@ def sheaf_ground_truth_recovery(noise_sd: float = 0.0, seed: int = 1) -> pd.Data
             "uses_sheaf_residual": False,
             "score_description": "negative product of LR-flow z-score and pathway-gradient z-score",
         },
+        {
+            "method": "HigherRankLRChannelSheaf_energy",
+            "baseline_family": "higher_rank_lr_channel_sheaf",
+            "scores": higher_rank_lr_channel_sheaf_score(
+                edges,
+                profiles,
+                lr_db,
+                pathway_scores,
+            ),
+            "uses_lr_flow": True,
+            "uses_pathway_state": True,
+            "uses_sheaf_residual": True,
+            "score_description": "sum of LR-channel-specific higher-rank sheaf energies per edge",
+        },
     ]
     for spec in method_specs:
         scores = pd.Series(spec["scores"], index=edges.index).astype(float)
@@ -353,6 +391,11 @@ def sheaf_ground_truth_recovery(noise_sd: float = 0.0, seed: int = 1) -> pd.Data
 
 def independent_perturbation_recovery(noise_sd: float = 0.0, seed: int = 1) -> pd.DataFrame:
     """Evaluate recovery of a perturbation mask not defined by residual thresholding."""
+    profiles, lr_db, pathway_genes, _ = independent_perturbation_profiles(
+        noise_sd=noise_sd,
+        seed=seed,
+    )
+    pathway_scores = compute_pathway_scores(profiles, pathway_genes)
     edges = independent_perturbation_edges(noise_sd=noise_sd, seed=seed)
     labels = edges["ground_truth_perturbed"]
     rows = []
@@ -419,6 +462,20 @@ def independent_perturbation_recovery(noise_sd: float = 0.0, seed: int = 1) -> p
             "uses_pathway_state": True,
             "uses_sheaf_residual": False,
             "score_description": "negative product of LR-flow z-score and pathway-gradient z-score",
+        },
+        {
+            "method": "HigherRankLRChannelSheaf_energy",
+            "baseline_family": "higher_rank_lr_channel_sheaf",
+            "scores": higher_rank_lr_channel_sheaf_score(
+                edges,
+                profiles,
+                lr_db,
+                pathway_scores,
+            ),
+            "uses_lr_flow": True,
+            "uses_pathway_state": True,
+            "uses_sheaf_residual": True,
+            "score_description": "sum of LR-channel-specific higher-rank sheaf energies per edge",
         },
     ]
     for spec in method_specs:

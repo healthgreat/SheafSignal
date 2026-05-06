@@ -45,6 +45,9 @@ def test_demo_pipeline_writes_core_outputs(tmp_path):
     }.issubset(scores.columns)
     assert (tmp_path / "results" / "cellular_sheaf_laplacian.csv").exists()
     assert (tmp_path / "results" / "cellular_sheaf_restrictions.csv").exists()
+    assert (tmp_path / "results" / "lr_channel_sheaf_laplacian.csv").exists()
+    assert (tmp_path / "results" / "lr_channel_sheaf_restrictions.csv").exists()
+    assert (tmp_path / "results" / "lr_channel_sheaf_edge_summary.csv").exists()
     assert result.provenance_path is not None
     assert result.provenance_path.exists()
     assert len(edges) > 0

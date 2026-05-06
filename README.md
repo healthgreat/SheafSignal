@@ -1,11 +1,13 @@
 # SheafSignal
 
 SheafSignal is a prototype algorithm for cell-cell communication analysis.
-It now implements a rank-one cellular sheaf layer over a cell-type graph:
-vertex stalks represent pathway state, edge stalks represent communication
-observations, and the primary Hodge decomposition is applied to the sheaf
-coboundary residual. Communication-flow Hodge components remain secondary
-diagnostics.
+It now implements a higher-rank LR-channel-specific cellular sheaf layer over
+a cell-type communication graph: vertex stalks are `R^m` with one coordinate
+per ligand-receptor channel, restriction maps are expression-scaled by sender
+ligand and receiver receptor levels, and LR-channel residuals are aggregated
+into edge-level sheaf energy. The legacy rank-one scalar coboundary residual
+remains available for backward-compatible outputs, while communication-flow
+Hodge components remain secondary diagnostics.
 
 This repository currently contains a runnable methods package and public TME
 benchmark workflow. It is intended for method development and benchmarking,
@@ -17,8 +19,10 @@ This is currently a 20-50 IF methods-manuscript hardening workspace, not a
 submission-ready package. Round 2 hardening completed full GSE154778
 `scanpy_full_v1` reannotation, sample-stratified 1000-permutation benchmarking,
 the pre-specified GSE154778 10,000-permutation confirmatory subset, and formal
-sheaf residual outputs, but Zenodo/GitHub release remains on hold until public
-release metadata, author-owned fields, and DOI blockers are cleared. Acceptance in any
+sheaf residual outputs. Round 3 adds the higher-rank LR-channel sheaf and a
+task-based comparator evaluation to address returned-review objections about
+rank-one rebranding and circular simulation. The manuscript remains under
+external rereview before any 20-50 IF submission decision. Acceptance in any
 journal is not guaranteed. See:
 
 - `docs/publication_strategy.md`
@@ -74,6 +78,8 @@ journal is not guaranteed. See:
 - `manuscript/method_reporting/METHOD_REPORTING_REPORT.md`
 - `manuscript/submission_upload_package/`
 - `external_ai_review_packet/ROUND2_HARDENING_STATUS_2026-05-02.md`
+- `external_ai_review_packet/ROUND3_HIGHER_RANK_SHEAF_RESPONSE_2026-05-06.md`
+- `external_ai_review_packet/round3_higher_rank_response_matrix.tsv`
 - `external_ai_review_packet/EXTERNAL_BETA_REVIEW_TRIAGE_REPORT.md`
 - `external_ai_review_packet/external_beta_review_action_matrix.tsv`
 - `external_ai_review_packet/shareable_review_bundle/SHAREABLE_REVIEW_BUNDLE_REPORT.md`

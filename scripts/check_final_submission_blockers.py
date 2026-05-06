@@ -987,7 +987,26 @@ def check_external_beta_review_gate(root: Path) -> list[dict[str, str]]:
         if "status" in matrix.columns
         else pd.Series(["open_external_review_item"] * len(matrix), index=matrix.index)
     )
-    blocking = matrix.loc[(blocks_col == "yes") & (status_col != "resolved")]
+    status_lower = status_col.str.lower()
+    pending_rereview = status_lower.str.contains("pending_external_rereview", regex=False)
+    resolved = (
+        status_lower.isin(
+            {
+                "resolved",
+                "fixed",
+                "fixed_round2",
+                "downgraded_by_design",
+                "accepted_as_limitation",
+                "not_applicable",
+                "false_positive",
+            }
+        )
+        | status_lower.str.startswith("fixed_round2")
+        | status_lower.str.startswith("downgraded_by_design")
+        | status_lower.str.startswith("accepted_as_limitation")
+        | status_lower.str.startswith("false_positive")
+    ) & ~pending_rereview
+    blocking = matrix.loc[(blocks_col == "yes") & ~resolved]
     if blocking.empty:
         severity = "pass"
         status = "pass"

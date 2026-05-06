@@ -2,6 +2,11 @@
 
 Generated: 2026-05-04 08:05:00 +08:00
 
+Round 3 update: 2026-05-06. The package now includes a higher-rank
+LR-channel-specific sheaf implementation and a task-based comparator evaluation.
+Ask reviewers to judge whether these changes remove the prior fatal objections
+about rank-one/trivial sheaf framing and circular simulation.
+
 ## Purpose
 
 Use this document when asking 2-3 independent external AI reviewers to critique
@@ -27,15 +32,15 @@ and use:
 Current bundle status:
 
 - Decision: `SHAREABLE_REVIEW_BUNDLE_READY`
-- Included files: `47`
+- Included files: `51`
 - Missing required files: `0`
 - SHA256: see `external_ai_review_packet/shareable_review_bundle/SHAREABLE_REVIEW_BUNDLE_REPORT.md`
 
 Current source-code bundle status:
 
-- Decision: `SOURCE_CODE_REVIEW_BUNDLE_READY`
-- Included files: `195`
-- SHA256: `a36f6644c3d4168585e567e85b275b0d515badd05d795bce9fd987c6a4d27ba5`
+- Decision: see `external_ai_review_packet/source_code_review_bundle/SOURCE_CODE_REVIEW_BUNDLE_REPORT.md`
+- Included files: `198`
+- SHA256: `48e604772a814c14d98af0d28aa1a2f44842e69fa145453927d86bdba7a54b65`
 
 Public references reviewers may use:
 
@@ -65,10 +70,14 @@ Return your review with these sections:
 1. Editorial decision: ready / major revision / reject / not ready.
 2. Top 5 fatal or near-fatal methods concerns.
 3. Does the rank-one cellular sheaf framing justify the manuscript's claims?
-4. Is the Hodge decomposition on sheaf_residual technically defensible?
-5. What exact novelty claims must be downgraded?
-6. What additional method experiments would most improve a 20-50 IF submission?
-7. Best-fit journals and why.
+4. Does the Round 3 higher-rank LR-channel sheaf implementation remove the
+   prior trivial-sheaf objection?
+5. Does the task-based comparator evaluation reduce the circular benchmark
+   objection, and is the product-baseline tie acceptable with downgraded claims?
+6. Is the Hodge decomposition on sheaf_residual technically defensible?
+7. What exact novelty claims must be downgraded?
+8. What additional method experiments would most improve a 20-50 IF submission?
+9. Best-fit journals and why.
 ```
 
 ## Reviewer 2: Single-Cell, Spatial, And Biological Claims
@@ -122,9 +131,11 @@ Return your review with these sections:
 2. Top 5 fatal or near-fatal statistics/reproducibility concerns.
 3. Are permutation/FDR/bootstrap analyses enough for the claims being made?
 4. Is comparator coverage adequate for the stated manuscript scope?
-5. Can the public GitHub/Zenodo release support reproducibility review?
-6. What exact statistical or reproducibility claims must be downgraded?
-7. Best-fit journals and why.
+5. Does the Round 3 task-based comparator evaluation satisfy the request for
+   benchmarking beyond descriptive alignment?
+6. Can the public GitHub/Zenodo release support reproducibility review?
+7. What exact statistical or reproducibility claims must be downgraded?
+8. Best-fit journals and why.
 ```
 
 ## How To Save Returned Reviews

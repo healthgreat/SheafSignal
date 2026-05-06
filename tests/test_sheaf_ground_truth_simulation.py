@@ -35,6 +35,7 @@ def test_ground_truth_recovery_reports_required_baseline_families():
         "graph_centrality",
         "graph_smoothness",
         "flow_gradient_product",
+        "higher_rank_lr_channel_sheaf",
     }
     assert recovery["auroc"].notna().all()
     assert recovery["average_precision"].notna().all()
@@ -47,6 +48,16 @@ def test_ground_truth_recovery_includes_fair_flow_gradient_product_baseline():
     assert row["uses_lr_flow"]
     assert row["uses_pathway_state"]
     assert not row["uses_sheaf_residual"]
+
+
+def test_ground_truth_recovery_includes_higher_rank_lr_channel_sheaf():
+    recovery = sheaf_ground_truth_recovery()
+    row = recovery.set_index("method").loc["HigherRankLRChannelSheaf_energy"]
+
+    assert row["baseline_family"] == "higher_rank_lr_channel_sheaf"
+    assert row["uses_lr_flow"]
+    assert row["uses_pathway_state"]
+    assert row["uses_sheaf_residual"]
 
 
 def test_residual_aligned_ground_truth_is_explicitly_labeled_as_definition_dependent():
@@ -73,4 +84,5 @@ def test_independent_perturbation_recovery_reports_non_circular_task():
     assert set(recovery["simulation_task"]) == {"independent_perturbation"}
     assert not recovery["truth_depends_on_residual_definition"].any()
     assert scores["SheafSignal_sheaf_energy"] >= scores["LRProductBaseline_communication_flow"]
+    assert "HigherRankLRChannelSheaf_energy" in scores
     assert "FlowGradientOpposition_product" in scores

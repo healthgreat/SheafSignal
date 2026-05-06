@@ -1,8 +1,8 @@
 # SheafSignal Live Gantt Status
 
-- Timestamp: `2026-05-04 07:15:57`
-- Decision: `LIVE_STATUS_READY_FOR_FINAL_GO_NO_GO`
-- IF20-50 decision: `IF20_50_SUBMISSION_CANDIDATE_AFTER_FINAL_FORMAT_CHECK`
+- Timestamp: `2026-05-06 23:14:52`
+- Decision: `LIVE_STATUS_EXTERNAL_AND_AUTHOR_GATES_BLOCK_SUBMISSION`
+- IF20-50 decision: `IF20_50_RETURNED_EXTERNAL_REVIEW_BLOCKERS_REMAIN`
 - Overall readiness: `98.0%`
 - Scientific/method readiness: `97.0%`
 - Submission infrastructure readiness: `100.0%`
@@ -15,7 +15,7 @@ gantt
     dateFormat  YYYY-MM-DD
 
     section Completed
-    Formal sheaf / Hodge core                 :done, 2026-05-02, 1d
+    Rank-one legacy sheaf / Hodge core        :done, 2026-05-02, 1d
     Full GSE154778 reannotation               :done, 2026-05-02, 1d
     Comparator and statistics hardening       :done, 2026-05-02, 1d
     External review bundle and triage         :done, 2026-05-03, 1d
@@ -24,6 +24,8 @@ gantt
     GitHub and Zenodo token validation        :done, 2026-05-03, 1d
     Author facts filled and applied           :done, 2026-05-04, 1d
     Author contact reconciliation             :done, 2026-05-04, 1d
+    Higher-rank LR-channel sheaf              :done, 2026-05-06, 1d
+    Task-based comparator evaluation          :done, 2026-05-06, 1d
 
     section Release Chain
     GitHub token rotation / auth               :done, 2026-05-04, 1d
@@ -35,6 +37,7 @@ gantt
     Author confirmation                        :done, 2026-05-04, 1d
     Submission-day journal metric check       :crit, active, 2026-05-06, 1d
     Returned external beta reviews            :active, 2026-05-04, 5d
+    Round 3 external rereview                 :crit, active, 2026-05-06, 5d
 
     section After Unblock
     Final GO/NO-GO refresh                    :2026-05-06, 1d
@@ -49,7 +52,8 @@ gantt
 | `release_blockers` | `0 active` | `user_then_codex` | `no` | No release-chain blocker remains; proceed with final audits and public clean-clone evidence. |
 | `author_confirmation` | `blocking=0; pending=0` | `authors` | `no` | No action needed. |
 | `author_contact_reconciliation` | `AUTHOR_CONTACT_RECONCILIATION_READY` | `authors` | `no` | No action needed. |
-| `external_beta_reviews` | `EXTERNAL_BETA_REVIEW_NO_RETURNED_REVIEWS` | `user_or_external_reviewers` | `no` | Send shareable bundle, collect returned reviews, and triage them. |
+| `external_beta_reviews` | `EXTERNAL_BETA_REVIEW_TRIAGED_FATAL_OR_REJECT_CONCERNS` | `user_or_external_reviewers` | `no` | Send shareable bundle, collect returned reviews, and triage them. |
+| `round3_external_rereview` | `pending_external_rereview_after_higher_rank_sheaf_fix` | `user_or_external_reviewers` | `yes` | Send the refreshed shareable and source-code bundles to 2-3 reviewers and ask whether rank-one/trivial-sheaf and circular-benchmark fatal objections are gone. |
 | `shareable_review_bundle` | `SHAREABLE_REVIEW_BUNDLE_READY` | `codex` | `no` | Use bundle zip for external AI or human review. |
 | `user_action_now_packet` | `USER_ACTION_PACKET_READY_NO_P0_BLOCKERS` | `user_then_codex` | `no` | No P0 user action remains; keep the packet as the short audit trail. |
 | `external_input_intake` | `EXTERNAL_INPUT_INTAKE_READY` | `user_then_codex` | `no` | No action needed unless author-owned facts change. |

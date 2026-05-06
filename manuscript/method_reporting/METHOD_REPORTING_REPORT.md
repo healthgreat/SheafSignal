@@ -12,8 +12,8 @@ None.
 
 ## Reviewer Risk Status
 
-- `RR1_algorithm_rebranding` `mitigated`: Do not claim broad superiority; claim a distinct sheaf/Hodge object and measured consistency signals.
-- `RR2_simulation_ground_truth` `mitigated`: Simulation supports component recovery, not biological truth.
+- `RR1_algorithm_rebranding` `round3_pending_external_rereview`: The implementation now includes a higher-rank LR-channel sheaf with expression-scaled restriction maps; external rereview is still required before treating this as fully resolved.
+- `RR2_simulation_ground_truth` `round3_pending_external_rereview`: Independent perturbation recovery reduces the circularity concern, but the current product baseline ties SheafSignal, so superiority claims remain disallowed.
 - `RR3_public_data_reproducibility` `mitigated`: Zenodo DOI remains an external submission step until minted.
 - `RR4_comparator_scope` `mitigated`: CellChat, CellPhoneDB, and niche-DE are not claimed as completed unless their outputs are imported.
 - `RR5_sparse_cell_types` `mitigated`: GSE154778 main text should not promote Myeloid, CAF/Fibroblast, or any other cell type as a validated source mechanism until annotation and expression-mode permutation/FDR gates agree.

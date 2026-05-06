@@ -474,7 +474,16 @@ def _open_external_review_blockers(action_matrix: pd.DataFrame) -> pd.DataFrame:
         "false_positive",
     }
     blocks = action_matrix["blocks_20_50_if"].astype(str).str.lower().eq("yes")
-    unresolved = ~action_matrix["status"].astype(str).str.lower().isin(resolved_statuses)
+    status = action_matrix["status"].astype(str).str.lower()
+    pending_rereview = status.str.contains("pending_external_rereview", regex=False)
+    resolved = (
+        status.isin(resolved_statuses)
+        | status.str.startswith("fixed_round2")
+        | status.str.startswith("downgraded_by_design")
+        | status.str.startswith("accepted_as_limitation")
+        | status.str.startswith("false_positive")
+    ) & ~pending_rereview
+    unresolved = ~resolved
     return action_matrix.loc[blocks & unresolved].copy()
 
 
@@ -849,6 +858,8 @@ gantt
     Full GSE154778 Scanpy reannotation           :done, 2026-05-02, 1d
     Sample-stratified statistics and FDR audit   :done, 2026-05-02, 1d
     Simulation and ablation benchmark            :done, 2026-05-02, 1d
+    Higher-rank LR-channel sheaf                 :done, 2026-05-06, 1d
+    Task-based comparator evaluation             :done, 2026-05-06, 1d
     Primary scRNA comparator scope gate          :done, 2026-05-02, 1d
     Claim-language and Visium hotspot gating     :done, 2026-05-02, 1d
     Python environment lock                      :done, 2026-05-02, 1d
@@ -869,6 +880,7 @@ gantt
     External beta review packet                  :done, 2026-05-02, 1d
     Returned external AI reviews received        :done, 2026-05-04, 1d
     Returned P0/P1 review blocker triage         :crit, active, 2026-05-04, 7d
+    Round 3 external rereview                    :crit, active, 2026-05-06, 5d
     Open-web journal metric audit                :done, 2026-05-02, 1d
     Official CAS and warning-list final check    :2026-05-08, 1d
     Presubmission inquiry package refresh        :2026-05-09, 2d
@@ -1045,24 +1057,27 @@ def build_report(
     if returned_review_blockers > 0:
         stretch_route_sentence = (
             "For the 20-50 IF route, returned-review P0/P1 items are now the "
-            "dominant distance from submission. The highest-impact fixes are: "
-            "choose the honest method route for the rank-one sheaf issue, replace "
-            "or supplement the circular simulation with an independent perturbation "
-            "task, add core/adapters tests, and keep all real-data biological claims "
-            "strictly hypothesis-generating until those gates are clear."
+            "dominant distance from submission. Round 3 has implemented the "
+            "higher-rank LR-channel sheaf route and added task-based comparator "
+            "evidence, but these fixes must be rereviewed. The next highest-impact "
+            "items are a harder task where simple flow-gradient product baselines do "
+            "not trivially tie, pathway-gene-set sensitivity, finer cell-state or "
+            "independent-reference annotation checks, and strictly hypothesis-generating "
+            "real-data biological language."
         )
 
     if returned_review_blockers > 0:
         direct_answer = (
             "SheafSignal is not submission-ready for a 20-50 IF journal after the "
             "returned external-AI review cycle. The core release infrastructure is "
-            "much stronger than before, and several code-level issues have already "
-            "been patched, but the current gating problem is scientific: the "
-            "rank-one sheaf construction may be judged equivalent to a standard "
-            "graph coboundary, and the simulation ground truth remains too coupled "
-            "to the residual definition. The next defensible step is not DOI or "
-            "formatting; it is resolving or formally downgrading the returned P0/P1 "
-            "review items."
+            "much stronger than before, and Round 3 now addresses the two most "
+            "dangerous code-grounded objections with a higher-rank LR-channel sheaf "
+            "and an independent perturbation comparator task. The current gating "
+            "problem is that these fixes have not yet been externally rereviewed, and "
+            "the current task still lets a simple flow-gradient product baseline tie "
+            "SheafSignal. The next defensible step is not DOI or formatting; it is "
+            "external rereview plus either a harder task-based benchmark or explicit "
+            "downgrading of any superiority language."
         )
     else:
         direct_answer = (

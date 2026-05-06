@@ -9,7 +9,7 @@
 - Journal submission-day check: `template_ready`
 - External beta review packet: `internal_ai_reviews_triaged_external_human_pending`
 - External beta review triage: `returned_reviews_with_fatal_concerns`
-- Returned-review open P0/P1 blockers: `54`
+- Returned-review open P0/P1 blockers: `40`
 - Shareable review bundle: `ready`
 - 10,000-permutation confirmatory subset: `completed_10000`
 - GSE103322 replication supplement: `supplement_ready`
@@ -22,24 +22,24 @@
 
 ## Direct Answer
 
-SheafSignal is not submission-ready for a 20-50 IF journal after the returned external-AI review cycle. The core release infrastructure is much stronger than before, and several code-level issues have already been patched, but the current gating problem is scientific: the rank-one sheaf construction may be judged equivalent to a standard graph coboundary, and the simulation ground truth remains too coupled to the residual definition. The next defensible step is not DOI or formatting; it is resolving or formally downgrading the returned P0/P1 review items.
+SheafSignal is not submission-ready for a 20-50 IF journal after the returned external-AI review cycle. The core release infrastructure is much stronger than before, and Round 3 now addresses the two most dangerous code-grounded objections with a higher-rank LR-channel sheaf and an independent perturbation comparator task. The current gating problem is that these fixes have not yet been externally rereviewed, and the current task still lets a simple flow-gradient product baseline tie SheafSignal. The next defensible step is not DOI or formatting; it is external rereview plus either a harder task-based benchmark or explicit downgrading of any superiority language.
 
 The journal-metric audit now anchors the target board to publisher metric pages, while keeping CAS-zone and warning-journal status as official submission-day checks. This strengthens journal selection discipline without turning journal metrics into scientific evidence.
 
-Returned external-AI reviews have now been filed and triaged, and `54` P0/P1 items currently block the 20-50 IF route. These reviews are correlated AI critiques, not formal peer review, but the code-grounded findings are strong enough to pause submission until fixed or explicitly downgraded by design.
+Returned external-AI reviews have now been filed and triaged, and `40` P0/P1 items currently block the 20-50 IF route. These reviews are correlated AI critiques, not formal peer review, but the code-grounded findings are strong enough to pause submission until fixed or explicitly downgraded by design.
 
 The 10,000-permutation confirmatory subset is now both pre-specified and executed for the smallest GSE154778 manuscript-relevant tests. This improves p-value and FDR resolution for the statistical evidence, but it still must not be used to turn computational Myeloid, curl-like, or edge-level signals into validated biological mechanisms.
 
 GSE103322 has now completed a 1000-permutation, sample-stratified HNSCC replication rerun and can be used as supplement-grade workflow generality evidence. It still should not be used for primary comparator-completeness claims unless full external comparator imports are completed for this dataset.
 
-For the 20-50 IF route, returned-review P0/P1 items are now the dominant distance from submission. The highest-impact fixes are: choose the honest method route for the rank-one sheaf issue, replace or supplement the circular simulation with an independent perturbation task, add core/adapters tests, and keep all real-data biological claims strictly hypothesis-generating until those gates are clear.
+For the 20-50 IF route, returned-review P0/P1 items are now the dominant distance from submission. Round 3 has implemented the higher-rank LR-channel sheaf route and added task-based comparator evidence, but these fixes must be rereviewed. The next highest-impact items are a harder task where simple flow-gradient product baselines do not trivially tie, pathway-gene-set sensitivity, finer cell-state or independent-reference annotation checks, and strictly hypothesis-generating real-data biological language.
 
 The GSE103322 HNSCC supplement-grade replication gate is now complete, but it remains outside primary comparator-completeness claims.
 
 ## Current Gap Counts
 
 - Blocking gap rows in the matrix: `2`
-- Returned-review blocker rows: `54`
+- Returned-review blocker rows: `40`
 - Administrative pending rows: `0`
 - Author-owned metadata rows: `0`
 - Git release warnings: `0`
@@ -93,6 +93,8 @@ gantt
     Full GSE154778 Scanpy reannotation           :done, 2026-05-02, 1d
     Sample-stratified statistics and FDR audit   :done, 2026-05-02, 1d
     Simulation and ablation benchmark            :done, 2026-05-02, 1d
+    Higher-rank LR-channel sheaf                 :done, 2026-05-06, 1d
+    Task-based comparator evaluation             :done, 2026-05-06, 1d
     Primary scRNA comparator scope gate          :done, 2026-05-02, 1d
     Claim-language and Visium hotspot gating     :done, 2026-05-02, 1d
     Python environment lock                      :done, 2026-05-02, 1d
@@ -113,6 +115,7 @@ gantt
     External beta review packet                  :done, 2026-05-02, 1d
     Returned external AI reviews received        :done, 2026-05-04, 1d
     Returned P0/P1 review blocker triage         :crit, active, 2026-05-04, 7d
+    Round 3 external rereview                    :crit, active, 2026-05-06, 5d
     Open-web journal metric audit                :done, 2026-05-02, 1d
     Official CAS and warning-list final check    :2026-05-08, 1d
     Presubmission inquiry package refresh        :2026-05-09, 2d
