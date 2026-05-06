@@ -27,7 +27,7 @@ and use:
 Current bundle status:
 
 - Decision: `SHAREABLE_REVIEW_BUNDLE_READY`
-- Included files: `46`
+- Included files: `47`
 - Missing required files: `0`
 - SHA256: see `external_ai_review_packet/shareable_review_bundle/SHAREABLE_REVIEW_BUNDLE_REPORT.md`
 
@@ -35,7 +35,7 @@ Current source-code bundle status:
 
 - Decision: `SOURCE_CODE_REVIEW_BUNDLE_READY`
 - Included files: `195`
-- SHA256: `220e1def5eb5051ba659f4c1e8da2daf5de4c259424df5ec2e7edd2e99356730`
+- SHA256: `a36f6644c3d4168585e567e85b275b0d515badd05d795bce9fd987c6a4d27ba5`
 
 Public references reviewers may use:
 

@@ -71,7 +71,7 @@ scripts/download_public_datasets.py	yes	7415	87c3826ab72e95faa5d5b8b51203f7603ab
 scripts/export_comparator_inputs.py	yes	9036	72ef3c1da5ef726a609892ecec4d93c739cfbf2dd2bb61e874a58e8f2a4dca99	source/test/config file for external code review
 scripts/finalize_github_repository_url.py	yes	4136	9921a8ac0de909447c9d91867c2a1292c6d1a80c99910b5ed307ddc9533c66df	source/test/config file for external code review
 scripts/finalize_zenodo_doi.py	yes	4429	4c5b93c09cc82bdee3d9d566d3639debe81a8200ec83e5bc8c8f226cf10dbeb4	source/test/config file for external code review
-scripts/generate_sheaf_ground_truth_benchmark.py	yes	1497	d3176b4c98664d9fa97f3bdc1b39c82d33880cfd62c3190852c13d741cf8d2d6	source/test/config file for external code review
+scripts/generate_sheaf_ground_truth_benchmark.py	yes	2487	24dc4ba9433b91b0414c1a5aa13d61f9932ee101f903783f880d1f5362ad6167	source/test/config file for external code review
 scripts/generate_simulation_benchmark.py	yes	1954	3460bc43eaf38902f0d45a4196492984be233ec0e5128ef45dd5871bace48f9b	source/test/config file for external code review
 scripts/import_external_comparator.py	yes	5976	bb12b0d34872b622ae27dd8ac45058abe8c05bcce153da83992c5dcef36498d7	source/test/config file for external code review
 scripts/make_publication_figures.py	yes	31840	cff5e0e26e66ac240aae1ea3033c4891394fbba2e16d8a08997b2e8ed76ba39c	source/test/config file for external code review
@@ -109,7 +109,7 @@ src/sheafsignal/pipeline.py	yes	14975	89b6983ae96f19c1ce6b72d5e09870ecb1de4de9e9
 src/sheafsignal/plotting.py	yes	2898	7b6df12269fc6df4b9c366a2e9914dbc458ebaa94c409e54f8519126b4d5ceff	source/test/config file for external code review
 src/sheafsignal/provenance.py	yes	1717	e3873a8342174cbc9f279eac46ba57147d8622162124753bdd492df438c160e8	source/test/config file for external code review
 src/sheafsignal/sheaf.py	yes	3840	725681d3cc618f41cc9ba5102b104e787bc74030f2ed76f6e93eccb424ae6074	source/test/config file for external code review
-src/sheafsignal/simulate.py	yes	11498	868c80f946b215ca7b50537d24a4dad893ecb090a35263a4acf8092741a50185	source/test/config file for external code review
+src/sheafsignal/simulate.py	yes	18451	344c21fb98f0a651438dc5172fcbd23e77048697cde63a7d20076ea15aa8a5c0	source/test/config file for external code review
 src/sheafsignal/spatial.py	yes	9522	bee43bcd96c7141b0def6c58e3f33ef309f0ac62d6c5be272e5e5bd9cb08297d	source/test/config file for external code review
 src/sheafsignal/stats.py	yes	11545	5b275f7fe6a2c4d2f7c1f81ee7ceb54de1cd5cdb2a5419693a20d55d1f3478c5	source/test/config file for external code review
 tests/conftest.py	yes	375	a299ac90987f73dcca5431d6db0bbb80f949510ebff7818d364d2cf7024b0606	source/test/config file for external code review
@@ -176,7 +176,7 @@ tests/test_release_metadata_placeholders.py	yes	2151	13aa9450389f64fd792f9483c9d
 tests/test_release_unblocker_matrix.py	yes	3194	ccda09124764653372669b1c4b9698d1a4cbfaa562bff94326d76c585b242cd9	source/test/config file for external code review
 tests/test_reproducibility_release.py	yes	2139	0ede946fa937feff2f4b693a96d18bb18b9d3547c7351ade7feba604cba7dc8f	source/test/config file for external code review
 tests/test_response_transfer_package.py	yes	3985	66cacba2c42c88ebfa8131cdc55bfdd3327ad8adb6b6b580ad596b2724044e25	source/test/config file for external code review
-tests/test_sheaf_ground_truth_simulation.py	yes	1561	2532e2df093dbe9c64ee7729fa7eda13dd750cea94c31c803d082692c1bfb27e	source/test/config file for external code review
+tests/test_sheaf_ground_truth_simulation.py	yes	2821	a48671288b20d734b246fee61f54c18997bc2b3bbdc854cccddd8d8b9c504c93	source/test/config file for external code review
 tests/test_simulate.py	yes	578	b6a2bd74405b7e2edf396abf6f79088f63f1112865328e8d195e74593a573139	source/test/config file for external code review
 tests/test_stats.py	yes	3233	acaeaa18c0f10ca33d9fb14d739182a40d0b5e7be2d7361f9dc2c1f418ad0527	source/test/config file for external code review
 tests/test_submission_metadata_templates.py	yes	1847	1a479343fe5317d5951f5fb6046a086af457ceb9fd4229cec8e0541898861fb8	source/test/config file for external code review

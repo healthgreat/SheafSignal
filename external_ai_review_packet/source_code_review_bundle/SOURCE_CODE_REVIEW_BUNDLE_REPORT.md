@@ -2,7 +2,7 @@
 
 - Decision: `SOURCE_CODE_REVIEW_BUNDLE_READY`
 - Archive: `external_ai_review_packet/source_code_review_bundle/sheafsignal_source_code_review_bundle.zip`
-- Archive SHA256: `220e1def5eb5051ba659f4c1e8da2daf5de4c259424df5ec2e7edd2e99356730`
+- Archive SHA256: `a36f6644c3d4168585e567e85b275b0d515badd05d795bce9fd987c6a4d27ba5`
 - Included files: `195`
 - Source files under `src/`: `15`
 - Script files under `scripts/`: `82`

@@ -112,6 +112,58 @@ def sheaf_ground_truth_profiles(noise_sd: float = 0.0, seed: int = 1) -> tuple[p
     return profiles, lr_db, ["PATH_A", "PATH_B"]
 
 
+def independent_perturbation_profiles(
+    noise_sd: float = 0.0,
+    seed: int = 1,
+) -> tuple[pd.DataFrame, pd.DataFrame, list[str], set[tuple[str, str]]]:
+    """Create profiles where truth labels come from a predefined perturbation mask.
+
+    The positive edges are externally specified sender/receiver pairs. They are
+    not selected by thresholding the SheafSignal residual after the fact. A
+    high-flow concordant decoy is included so LR intensity alone is not a
+    sufficient ground-truth definition.
+    """
+    rng = np.random.default_rng(seed)
+    profiles = pd.DataFrame(
+        {
+            "L_perturb": [8.0, 7.0, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2],
+            "R_perturb": [0.2, 0.2, 8.0, 7.0, 0.2, 0.2, 0.2, 0.2],
+            "L_decoy": [0.2, 0.2, 0.2, 0.2, 8.0, 7.0, 0.2, 0.2],
+            "R_decoy": [0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 8.0, 7.0],
+            "PATH_A": [3.0, 3.0, 0.0, 0.0, 0.0, 0.0, 3.0, 3.0],
+            "PATH_B": [3.0, 3.0, 0.0, 0.0, 0.0, 0.0, 3.0, 3.0],
+        },
+        index=[
+            "P_sender_0",
+            "P_sender_1",
+            "P_recv_0",
+            "P_recv_1",
+            "D_low_0",
+            "D_low_1",
+            "D_high_0",
+            "D_high_1",
+        ],
+    )
+    if noise_sd > 0:
+        profiles = profiles + rng.normal(0.0, noise_sd, size=profiles.shape)
+        profiles = profiles.clip(lower=0.0)
+    profiles.index.name = "cell_type"
+    lr_db = pd.DataFrame(
+        {
+            "ligand": ["L_perturb", "L_decoy"],
+            "receptor": ["R_perturb", "R_decoy"],
+            "weight": [1.0, 1.0],
+        }
+    )
+    truth = {
+        ("P_sender_0", "P_recv_0"),
+        ("P_sender_0", "P_recv_1"),
+        ("P_sender_1", "P_recv_0"),
+        ("P_sender_1", "P_recv_1"),
+    }
+    return profiles, lr_db, ["PATH_A", "PATH_B"], truth
+
+
 def sheaf_ground_truth_edges(noise_sd: float = 0.0, seed: int = 1) -> pd.DataFrame:
     """Run SheafSignal primitives on synthetic profiles and attach truth labels."""
     profiles, lr_db, pathway_genes = sheaf_ground_truth_profiles(noise_sd=noise_sd, seed=seed)
@@ -122,6 +174,23 @@ def sheaf_ground_truth_edges(noise_sd: float = 0.0, seed: int = 1) -> pd.DataFra
     edges["ground_truth_inconsistent"] = [
         (str(row.sender), str(row.receiver)) in truth for row in edges.itertuples(index=False)
     ]
+    return edges
+
+
+def independent_perturbation_edges(noise_sd: float = 0.0, seed: int = 1) -> pd.DataFrame:
+    """Run SheafSignal primitives on independent perturbation profiles."""
+    profiles, lr_db, pathway_genes, truth = independent_perturbation_profiles(
+        noise_sd=noise_sd,
+        seed=seed,
+    )
+    pathway_scores = compute_pathway_scores(profiles, pathway_genes)
+    edges = build_directed_lr_edges(profiles, lr_db)
+    edges = compute_sheaf_energy(edges, pathway_scores)
+    edges["ground_truth_perturbed"] = [
+        (str(row.sender), str(row.receiver)) in truth for row in edges.itertuples(index=False)
+    ]
+    edges["ground_truth_source"] = "predefined_external_perturbation_mask"
+    edges["truth_depends_on_residual_definition"] = False
     return edges
 
 
@@ -268,6 +337,103 @@ def sheaf_ground_truth_recovery(noise_sd: float = 0.0, seed: int = 1) -> pd.Data
                 "seed": seed,
                 "n_edges": int(len(edges)),
                 "n_positive_edges": int(labels.sum()),
+                "simulation_task": "residual_aligned_ground_truth",
+                "ground_truth_source": "predefined_high_to_low_pathway_edge_mask",
+                "truth_depends_on_residual_definition": True,
+                "auroc": binary_auroc(labels, scores),
+                "average_precision": binary_average_precision(labels, scores),
+                "uses_lr_flow": bool(spec["uses_lr_flow"]),
+                "uses_pathway_state": bool(spec["uses_pathway_state"]),
+                "uses_sheaf_residual": bool(spec["uses_sheaf_residual"]),
+                "score_description": spec["score_description"],
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def independent_perturbation_recovery(noise_sd: float = 0.0, seed: int = 1) -> pd.DataFrame:
+    """Evaluate recovery of a perturbation mask not defined by residual thresholding."""
+    edges = independent_perturbation_edges(noise_sd=noise_sd, seed=seed)
+    labels = edges["ground_truth_perturbed"]
+    rows = []
+    method_specs = [
+        {
+            "method": "SheafSignal_sheaf_energy",
+            "baseline_family": "sheaf_residual",
+            "scores": edges["sheaf_energy"],
+            "uses_lr_flow": True,
+            "uses_pathway_state": True,
+            "uses_sheaf_residual": True,
+            "score_description": "weighted squared residual between LR flow and pathway coboundary",
+        },
+        {
+            "method": "LRProductBaseline_communication_flow",
+            "baseline_family": "lr_intensity",
+            "scores": edges["communication_flow"],
+            "uses_lr_flow": True,
+            "uses_pathway_state": False,
+            "uses_sheaf_residual": False,
+            "score_description": "raw ligand-receptor product communication intensity",
+        },
+        {
+            "method": "Absolute_pathway_gradient",
+            "baseline_family": "pathway_gradient",
+            "scores": edges["pathway_gradient_z"].abs(),
+            "uses_lr_flow": False,
+            "uses_pathway_state": True,
+            "uses_sheaf_residual": False,
+            "score_description": "absolute pathway-state gradient without LR-flow mismatch",
+        },
+        {
+            "method": "HodgeOnly_non_gradient_flow",
+            "baseline_family": "hodge_only",
+            "scores": hodge_only_non_gradient_score(edges),
+            "uses_lr_flow": True,
+            "uses_pathway_state": False,
+            "uses_sheaf_residual": False,
+            "score_description": "curl plus harmonic magnitude from communication flow only",
+        },
+        {
+            "method": "GraphCentrality_endpoint_strength",
+            "baseline_family": "graph_centrality",
+            "scores": endpoint_centrality_score(edges),
+            "uses_lr_flow": True,
+            "uses_pathway_state": False,
+            "uses_sheaf_residual": False,
+            "score_description": "sender out-strength plus receiver in-strength on LR graph",
+        },
+        {
+            "method": "GraphSmoothness_pathway_signal",
+            "baseline_family": "graph_smoothness",
+            "scores": graph_smoothness_score(edges),
+            "uses_lr_flow": True,
+            "uses_pathway_state": True,
+            "uses_sheaf_residual": False,
+            "score_description": "edge-weighted squared pathway difference on LR graph",
+        },
+        {
+            "method": "FlowGradientOpposition_product",
+            "baseline_family": "flow_gradient_product",
+            "scores": flow_gradient_opposition_score(edges),
+            "uses_lr_flow": True,
+            "uses_pathway_state": True,
+            "uses_sheaf_residual": False,
+            "score_description": "negative product of LR-flow z-score and pathway-gradient z-score",
+        },
+    ]
+    for spec in method_specs:
+        scores = pd.Series(spec["scores"], index=edges.index).astype(float)
+        rows.append(
+            {
+                "method": spec["method"],
+                "baseline_family": spec["baseline_family"],
+                "noise_sd": noise_sd,
+                "seed": seed,
+                "n_edges": int(len(edges)),
+                "n_positive_edges": int(labels.sum()),
+                "simulation_task": "independent_perturbation",
+                "ground_truth_source": "predefined_external_perturbation_mask",
+                "truth_depends_on_residual_definition": False,
                 "auroc": binary_auroc(labels, scores),
                 "average_precision": binary_average_precision(labels, scores),
                 "uses_lr_flow": bool(spec["uses_lr_flow"]),
