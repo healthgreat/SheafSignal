@@ -1,0 +1,4 @@
+{
+  "$comment": "启用哪些模块就写在这里。删掉一行 = 卸载一个模块；加一行 = 安装一个模块。改完运行 npm run gen（dev/build 命令会自动运行）。",
+  "enabled": ["legal", "auth", "article", "video", "like", "comment"]
+}

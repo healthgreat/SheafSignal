@@ -1,0 +1,13 @@
+{
+  "bsonType": "object",
+  "description": "点赞记录（匿名，按设备去重）。只允许通过 mod-like 云对象访问。",
+  "required": ["target_type", "target_id", "device_id"],
+  "permission": { "read": false, "create": false, "update": false, "delete": false },
+  "properties": {
+    "_id": { "description": "ID，系统自动生成" },
+    "target_type": { "bsonType": "string", "description": "被点赞内容的类型，如 article / video" },
+    "target_id": { "bsonType": "string" },
+    "device_id": { "bsonType": "string" },
+    "create_date": { "bsonType": "timestamp" }
+  }
+}

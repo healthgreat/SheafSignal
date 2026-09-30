@@ -1,0 +1,18 @@
+{
+  "bsonType": "object",
+  "description": "评论。后台实名（user_id 关联手机号账号）、前台自愿（只展示 nickname）；先审后发。只允许通过 mod-comment 云对象访问。",
+  "required": ["target_type", "target_id", "user_id", "content", "status"],
+  "permission": { "read": false, "create": false, "update": false, "delete": false },
+  "properties": {
+    "_id": { "description": "ID，系统自动生成" },
+    "target_type": { "bsonType": "string" },
+    "target_id": { "bsonType": "string" },
+    "user_id": { "bsonType": "string", "foreignKey": "uni-id-users._id" },
+    "nickname": { "bsonType": "string", "maxLength": 20 },
+    "content": { "bsonType": "string", "maxLength": 500 },
+    "status": { "bsonType": "string", "enum": ["pending", "approved", "rejected"] },
+    "create_date": { "bsonType": "timestamp" },
+    "reviewer_id": { "bsonType": "string" },
+    "review_date": { "bsonType": "timestamp" }
+  }
+}

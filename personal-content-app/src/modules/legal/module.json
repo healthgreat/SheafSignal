@@ -1,0 +1,16 @@
+{
+  "id": "legal",
+  "name": "法律文本",
+  "version": "1.0.0",
+  "contractVersion": 1,
+  "description": "隐私政策、服务协议。应用商店上架必需。",
+  "dependsOn": [],
+  "pages": [
+    { "path": "pages/privacy", "title": "隐私政策" },
+    { "path": "pages/terms", "title": "服务协议" }
+  ],
+  "provides": {
+    "privacyPage": "pages/privacy",
+    "termsPage": "pages/terms"
+  }
+}

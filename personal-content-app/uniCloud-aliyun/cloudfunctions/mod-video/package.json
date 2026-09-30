@@ -1,0 +1,17 @@
+{
+  "name": "mod-video",
+  "version": "1.0.0",
+  "main": "index.obj.js",
+  "license": "MIT",
+  "dependencies": {
+    "app-core": "file:../common/app-core",
+    "uni-id-common": "file:../common/uni-id-common"
+  },
+  "extensions": {
+    "uni-cloud-jql": {}
+  },
+  "cloudfunction-config": {
+    "memorySize": 256,
+    "timeout": 10
+  }
+}

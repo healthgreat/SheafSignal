@@ -1,0 +1,87 @@
+// 自动生成：请勿手改。页面来自各模块的 module.json，运行 npm run gen 重新生成。
+{
+  "pages": [
+    {
+      "path": "modules/article/pages/list",
+      "style": {
+        "navigationBarTitleText": "文章",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "modules/legal/pages/privacy",
+      "style": {
+        "navigationBarTitleText": "隐私政策"
+      }
+    },
+    {
+      "path": "modules/legal/pages/terms",
+      "style": {
+        "navigationBarTitleText": "服务协议"
+      }
+    },
+    {
+      "path": "modules/auth/pages/mine",
+      "style": {
+        "navigationBarTitleText": "我的"
+      }
+    },
+    {
+      "path": "modules/auth/pages/login",
+      "style": {
+        "navigationBarTitleText": "手机号登录"
+      }
+    },
+    {
+      "path": "modules/article/pages/detail",
+      "style": {
+        "navigationBarTitleText": ""
+      }
+    },
+    {
+      "path": "modules/video/pages/list",
+      "style": {
+        "navigationBarTitleText": "视频",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "modules/video/pages/detail",
+      "style": {
+        "navigationBarTitleText": ""
+      }
+    },
+    {
+      "path": "modules/video/pages/player",
+      "style": {
+        "navigationBarTitleText": "播放"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "我的小站",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#F6F6F6"
+  },
+  "tabBar": {
+    "color": "#8A8A8A",
+    "selectedColor": "#2B6CB0",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "modules/article/pages/list",
+        "text": "文章"
+      },
+      {
+        "pagePath": "modules/video/pages/list",
+        "text": "视频"
+      },
+      {
+        "pagePath": "modules/auth/pages/mine",
+        "text": "我的"
+      }
+    ]
+  }
+}

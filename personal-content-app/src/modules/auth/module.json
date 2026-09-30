@@ -1,0 +1,18 @@
+{
+  "id": "auth",
+  "name": "账号",
+  "version": "1.0.0",
+  "contractVersion": 1,
+  "description": "手机号验证码登录（uni-id）。实现核心层的 session 接口，其他模块通过 session / requireLogin 使用，不直接依赖本模块。",
+  "dependsOn": ["legal"],
+  "pages": [
+    { "path": "pages/mine", "title": "我的", "tab": { "text": "我的", "order": 90 } },
+    { "path": "pages/login", "title": "手机号登录" }
+  ],
+  "provides": {
+    "loginPage": "pages/login"
+  },
+  "api": { "cloudObject": "uni-id-co" },
+  "mock": "mock.js",
+  "setup": "setup.js"
+}

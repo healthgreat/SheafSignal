@@ -1,0 +1,13 @@
+[
+  {
+    "IndexName": "uniq_target_device",
+    "MgoKeySchema": {
+      "MgoIndexKeys": [
+        { "Name": "target_type", "Direction": "1" },
+        { "Name": "target_id", "Direction": "1" },
+        { "Name": "device_id", "Direction": "1" }
+      ],
+      "MgoIsUnique": true
+    }
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "name": "app-core",
+  "version": "1.0.0",
+  "description": "所有业务模块共享的统一接口层：返回格式、错误码、参数校验、鉴权、存储抽象、内容审核",
+  "main": "index.js",
+  "license": "MIT"
+}

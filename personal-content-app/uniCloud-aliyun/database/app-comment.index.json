@@ -1,0 +1,24 @@
+[
+  {
+    "IndexName": "target_status_date",
+    "MgoKeySchema": {
+      "MgoIndexKeys": [
+        { "Name": "target_type", "Direction": "1" },
+        { "Name": "target_id", "Direction": "1" },
+        { "Name": "status", "Direction": "1" },
+        { "Name": "create_date", "Direction": "-1" }
+      ],
+      "MgoIsUnique": false
+    }
+  },
+  {
+    "IndexName": "user_date",
+    "MgoKeySchema": {
+      "MgoIndexKeys": [
+        { "Name": "user_id", "Direction": "1" },
+        { "Name": "create_date", "Direction": "-1" }
+      ],
+      "MgoIsUnique": false
+    }
+  }
+]

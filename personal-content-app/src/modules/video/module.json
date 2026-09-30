@@ -1,0 +1,15 @@
+{
+  "id": "video",
+  "name": "视频",
+  "version": "1.0.0",
+  "contractVersion": 1,
+  "description": "视频列表与详情。视频文件托管在 B 站，这里只展示元数据并调用 B 站播放器。",
+  "dependsOn": [],
+  "pages": [
+    { "path": "pages/list", "title": "视频", "tab": { "text": "视频", "order": 20 }, "style": { "enablePullDownRefresh": true } },
+    { "path": "pages/detail", "title": "" },
+    { "path": "pages/player", "title": "播放" }
+  ],
+  "api": { "cloudObject": "mod-video" },
+  "mock": "mock.js"
+}

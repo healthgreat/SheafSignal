@@ -1,0 +1,21 @@
+{
+  "bsonType": "object",
+  "description": "视频元数据。视频文件托管在 B 站，这里只存 BV 号。",
+  "required": ["title", "bvid", "status"],
+  "permission": {
+    "read": "'admin' in auth.role",
+    "create": "'admin' in auth.role",
+    "update": "'admin' in auth.role",
+    "delete": "'admin' in auth.role"
+  },
+  "properties": {
+    "_id": { "description": "ID，系统自动生成" },
+    "title": { "bsonType": "string", "title": "标题", "maxLength": 100, "trim": "both" },
+    "cover": { "bsonType": "string", "title": "封面图 URL", "format": "url" },
+    "bvid": { "bsonType": "string", "title": "B 站 BV 号", "pattern": "^BV[0-9A-Za-z]{10}$" },
+    "duration": { "bsonType": "int", "title": "时长（秒）" },
+    "description": { "bsonType": "string", "title": "简介", "maxLength": 1000 },
+    "status": { "bsonType": "string", "title": "状态", "enum": ["draft", "published"], "defaultValue": "draft" },
+    "publish_date": { "bsonType": "timestamp", "title": "发布时间", "defaultValue": { "$env": "now" } }
+  }
+}

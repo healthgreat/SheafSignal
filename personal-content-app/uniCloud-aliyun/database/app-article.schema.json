@@ -1,0 +1,20 @@
+{
+  "bsonType": "object",
+  "description": "文章。客户端不能直接读写，读取统一走 mod-article 云对象；管理员可在 uni-admin 中编辑。",
+  "required": ["title", "content", "status"],
+  "permission": {
+    "read": "'admin' in auth.role",
+    "create": "'admin' in auth.role",
+    "update": "'admin' in auth.role",
+    "delete": "'admin' in auth.role"
+  },
+  "properties": {
+    "_id": { "description": "ID，系统自动生成" },
+    "title": { "bsonType": "string", "title": "标题", "maxLength": 100, "trim": "both" },
+    "summary": { "bsonType": "string", "title": "摘要", "maxLength": 200 },
+    "cover": { "bsonType": "string", "title": "封面图 URL", "format": "url" },
+    "content": { "bsonType": "string", "title": "正文（HTML）", "componentForEdit": { "name": "textarea" } },
+    "status": { "bsonType": "string", "title": "状态", "enum": ["draft", "published"], "defaultValue": "draft" },
+    "publish_date": { "bsonType": "timestamp", "title": "发布时间", "defaultValue": { "$env": "now" } }
+  }
+}

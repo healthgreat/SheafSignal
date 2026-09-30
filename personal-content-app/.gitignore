@@ -1,0 +1,8 @@
+node_modules/
+dist/
+unpackage/
+.hbuilderx/
+*.log
+.env.local
+# 云函数本地调试产生的依赖
+uniCloud-aliyun/cloudfunctions/**/node_modules/

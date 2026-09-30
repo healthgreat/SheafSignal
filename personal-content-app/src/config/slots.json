@@ -1,0 +1,9 @@
+{
+  "$comment": "扩展插槽：内容页面上预留的位置，其他模块可以把组件'插'进来。所有插进来的组件都必须接收同样的 props。",
+  "slots": {
+    "content-footer": {
+      "description": "文章/视频详情页底部（点赞、评论等互动功能）",
+      "props": ["targetType", "targetId"]
+    }
+  }
+}

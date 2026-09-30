@@ -1,0 +1,12 @@
+{
+  "id": "comment",
+  "name": "评论",
+  "version": "1.0.0",
+  "contractVersion": 1,
+  "description": "评论（后台实名、前台自愿；先审后发）。通过 content-footer 插槽挂到任何内容上。",
+  "dependsOn": ["auth"],
+  "pages": [],
+  "extensions": [{ "slot": "content-footer", "component": "components/CommentPanel.vue", "order": 20 }],
+  "api": { "cloudObject": "mod-comment" },
+  "mock": "mock.js"
+}

@@ -1,0 +1,48 @@
+{
+  "name": "我的小站",
+  "appid": "",
+  "description": "个人内容 App：文章与视频",
+  "versionName": "0.1.0",
+  "versionCode": "1",
+  "transformPx": false,
+  "app-plus": {
+    "usingComponents": true,
+    "nvueStyleCompiler": "uni-app",
+    "compilerVersion": 3,
+    "splashscreen": {
+      "alwaysShowBeforeRender": true,
+      "waiting": true,
+      "autoclose": true,
+      "delay": 0
+    },
+    "modules": {},
+    "distribute": {
+      "android": {
+        "permissions": [
+          "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+          "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>"
+        ],
+        "excludePermissions": [
+          "android.permission.READ_PHONE_STATE",
+          "android.permission.CAMERA",
+          "android.permission.GET_ACCOUNTS",
+          "android.permission.READ_LOGS",
+          "android.permission.WRITE_SETTINGS",
+          "android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        ]
+      },
+      "ios": {},
+      "sdkConfigs": {}
+    }
+  },
+  "mp-weixin": {
+    "appid": "",
+    "setting": { "urlCheck": false },
+    "usingComponents": true
+  },
+  "h5": {
+    "title": "我的小站"
+  },
+  "uniStatistics": { "enable": false },
+  "vueVersion": "3"
+}
