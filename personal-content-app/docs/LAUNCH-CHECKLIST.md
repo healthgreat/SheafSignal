@@ -27,7 +27,9 @@
 4. 右键 `database` → 上传所有数据库 schema 和索引。
 5. `cp .env.example .env`，把其中的 `VITE_API_MODE=mock` 改成 `VITE_API_MODE=cloud`，重新运行。
 6. 管理后台：插件市场导入 **uni-admin**（单独一个项目，关联同一个服务空间），
-   用它发布文章 / 视频、审核评论（`mod-comment` 的 `pending` / `review` 接口），并给自己的账号设置 `admin` 角色。
+   用它发布文章 / 视频（schema 已允许 `admin` 角色读写），并给自己的账号设置 `admin` 角色。
+   ⚠️ 评论审核页面**尚未实现**：云端 `mod-comment` 已提供管理员接口 `pending`（待审列表）和 `review`（通过 / 拒绝），
+   还需要在 uni-admin 里加一个调用这两个接口的页面。
 
 ## 阶段 3：合规自检（上架前）
 
