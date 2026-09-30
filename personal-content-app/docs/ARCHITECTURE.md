@@ -4,11 +4,12 @@
 
 **每个功能都是一个独立模块；模块之间不互相调用，只通过核心层（`@/core`）提供的统一接口通信。**
 所以加一个功能 = 加一个文件夹，删一个功能 = 删配置里的一行，修一个功能 = 只改那一个文件夹。
+不同的模块组合保存为"配置档"（profile），例如个人版 `personal` 和完整版 `full`。
 
 ```
 ┌──────────────────────────── 前端（uni-app：App / H5 / 小程序）────────────────────────────┐
 │                                                                                          │
-│   modules/article   modules/video   modules/like   modules/comment   modules/auth  legal │
+│  article   video   like   comment   auth   profile   legal     （modules/ 下的独立模块）   │
 │         │                 │               │               │               │          │   │
 │         └─────────────────┴───────┬───────┴───────────────┴───────────────┴──────────┘   │
 │                                   ▼  只允许 import '@/core'                               │
@@ -32,7 +33,7 @@
 | 1 | **模块清单** `module.json` | 每个模块目录 | 声明页面、tab、依赖、插槽扩展、提供的能力、版本号 |
 | 2 | **API 契约** `{ code, message, data }` + 错误码 | `app-core/contract.json`（前后端共用这一份） | 所有后端接口返回同一种格式 |
 | 3 | **调用方式** `api.call(module, action, params)` | `src/core/api.js` | 所有前端模块用同一种方式调后端 |
-| 4 | **扩展插槽** `content-footer`（props：`targetType`、`targetId`） | `src/config/slots.json` | 一个模块把组件"插"进另一个模块的页面，而不需要对方 import 它 |
+| 4 | **扩展插槽** `content-footer`（props：`targetType`、`targetId`）、`profile-header`（无 props） | `src/config/slots.json` | 一个模块把组件"插"进另一个模块的页面，而不需要对方 import 它 |
 | 5 | **能力 / 会话 / 事件** `registry.capability()`、`session`、`events` | `src/core/` | 跨模块协作：比如"去登录页"、"当前是谁"、"登录状态变了" |
 
 ### module.json 字段
@@ -84,7 +85,7 @@ module.exports = {
 
 `scripts/gen-modules.mjs` 在每次 `dev` / `build` 前自动运行：
 
-1. 读取 `src/config/modules.config.json` 里启用的模块。
+1. 读取 `src/config/modules.config.json`，按配置档（默认 `profile` 字段，或环境变量 `APP_PROFILE`）确定启用哪些模块。
 2. **校验**：id、版本号格式、契约版本、依赖、页面文件是否存在、插槽是否存在、能力是否重复提供，
    以及 **模块之间是否有直接 import**（有就报错）。
 3. **生成**：`src/pages.json`、`src/generated/registry.js`、`src/generated/setups.js`、`src/generated/slots/*.vue`。
@@ -96,8 +97,12 @@ module.exports = {
 
 ## 常见操作
 
+### 切换配置档
+`APP_PROFILE=full npm run dev:h5` 临时切换；或把 `modules.config.json` 的 `profile` 改成 `full`。
+测试会检查每个配置档的模块组合是否都合法。
+
 ### 卸载一个模块
-在 `src/config/modules.config.json` 的 `enabled` 里删掉它，重新运行 `npm run dev:h5`。
+在 `src/config/modules.config.json` 对应配置档的 `enabled` 里删掉它，重新运行 `npm run dev:h5`。
 页面、tab、插槽里的组件会自动消失。如果有别的模块依赖它，构建会失败并告诉你是谁依赖它。
 
 ### 升级一个模块
@@ -109,9 +114,14 @@ module.exports = {
 1. 新建 `src/modules/favorite/module.json`，比如往 `content-footer` 插槽插一个 `FavoriteButton.vue`。
 2. 组件里用 `api.call('favorite', 'toggle', { targetType, targetId })`。
 3. 新建 `uniCloud-aliyun/cloudfunctions/mod-favorite/`（复制 `mod-like` 改一改）和数据库 schema。
-4. 在 `modules.config.json` 的 `enabled` 里加上 `"favorite"`。
+4. 在 `modules.config.json` 需要它的配置档的 `enabled` 里加上 `"favorite"`。
 
 文章、视频页面一行都不用改：它们只认识 `content-footer` 插槽，不认识具体模块。
+
+### 实例：账号卡片是怎么出现在"我的"页面上的
+"我的"页面属于 `profile` 模块，它只在顶部放了一个 `profile-header` 插槽，并不知道 `auth` 模块存在。
+`auth` 在自己的 `module.json` 里声明 `extensions: [{ slot: 'profile-header', component: 'components/AccountCard.vue' }]`。
+所以个人版（不启用 auth）的"我的"页面上就没有登录卡片，完整版上就有，`profile` 模块一行都不用改。
 
 ### 新增一种内容（例：播客 `podcast`）
 新建 `podcast` 模块，详情页里放 `<ContentFooterSlot target-type="podcast" :target-id="id" />`，

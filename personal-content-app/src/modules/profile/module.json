@@ -1,0 +1,9 @@
+{
+  "id": "profile",
+  "name": "我的",
+  "version": "1.0.0",
+  "contractVersion": 1,
+  "description": "“我的”页面：法律文本入口、版本信息。顶部提供 profile-header 插槽，账号等模块可以插入自己的卡片。",
+  "dependsOn": ["legal"],
+  "pages": [{ "path": "pages/index", "title": "我的", "tab": { "text": "我的", "order": 90 } }]
+}

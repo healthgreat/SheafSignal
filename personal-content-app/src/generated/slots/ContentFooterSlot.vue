@@ -2,13 +2,11 @@
 <template>
   <view class="ext-slot ext-slot--content-footer">
     <LikeLikeButton :target-type="targetType" :target-id="targetId" />
-    <CommentCommentPanel :target-type="targetType" :target-id="targetId" />
   </view>
 </template>
 
 <script setup>
 import LikeLikeButton from '@/modules/like/components/LikeButton.vue'
-import CommentCommentPanel from '@/modules/comment/components/CommentPanel.vue'
 
 defineProps({
   targetType: { type: String, required: true },

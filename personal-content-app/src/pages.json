@@ -21,15 +21,9 @@
       }
     },
     {
-      "path": "modules/auth/pages/mine",
+      "path": "modules/profile/pages/index",
       "style": {
         "navigationBarTitleText": "我的"
-      }
-    },
-    {
-      "path": "modules/auth/pages/login",
-      "style": {
-        "navigationBarTitleText": "手机号登录"
       }
     },
     {
@@ -79,7 +73,7 @@
         "text": "视频"
       },
       {
-        "pagePath": "modules/auth/pages/mine",
+        "pagePath": "modules/profile/pages/index",
         "text": "我的"
       }
     ]

@@ -2,11 +2,13 @@
 import { createApi, createCloudTransport, createMockTransport } from './api.js'
 import { session } from './session.js'
 import { getDeviceId } from './device.js'
-import { MODULES, MOCKS, CAPABILITIES } from '../generated/registry.js'
+import { PROFILE, MODULES, MOCKS, CAPABILITIES } from '../generated/registry.js'
 
 export { CODES, ApiError, messageOf } from './contract.js'
 export { events } from './events.js'
 export { session }
+
+export { PROFILE }
 
 export const API_MODE = import.meta.env.VITE_API_MODE === 'cloud' ? 'cloud' : 'mock'
 

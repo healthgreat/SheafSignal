@@ -1,14 +1,30 @@
 # 我的小站：个人内容 App
 
-一个用来发布**自己的文章和视频**的手机 App。读者可以**匿名点赞**，也可以**登录后评论**。
+一个用来发布**自己的文章和视频**的手机 App。读者可以**匿名点赞**；完整版还支持**登录后评论**。
 
 - **技术栈**：uni-app（Vue 3）+ uniCloud（阿里云），一套代码同时产出 Android App、iOS App、H5 和微信小程序。
 - **架构**：模块化 + 统一接口。每个功能都是可以插拔的独立模块，详见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
 - **上架**：国内应用商店上架的完整清单见 [docs/LAUNCH-CHECKLIST.md](docs/LAUNCH-CHECKLIST.md)。
 
-| 文章 | 视频 | 详情（点赞 + 评论） | 我的 |
-|---|---|---|---|
-| ![](docs/screenshots/1-articles.png) | ![](docs/screenshots/2-videos.png) | ![](docs/screenshots/3-detail.png) | ![](docs/screenshots/4-mine.png) |
+| 文章 | 视频 | 详情（完整版：点赞 + 评论） | 我的（个人版） | 我的（完整版） |
+|---|---|---|---|---|
+| ![](docs/screenshots/1-articles.png) | ![](docs/screenshots/2-videos.png) | ![](docs/screenshots/3-detail.png) | ![](docs/screenshots/4-mine-personal.png) | ![](docs/screenshots/4-mine-full.png) |
+
+## 两个配置档（profile）
+
+同一套代码，通过 `src/config/modules.config.json` 选择启用哪些模块：
+
+| 配置档 | 启用的模块 | 适合 |
+|---|---|---|
+| **`personal`（默认）** | legal、profile、article、video、like | **个人主体**上架：不登录、不评论，除点赞用的设备标识外不收集个人信息 |
+| `full` | 以上全部 + auth、comment | 个体工商户 / 企业主体：增加手机号登录和评论（先审后发） |
+
+```bash
+npm run dev:h5                      # 默认配置档（personal）
+APP_PROFILE=full npm run dev:h5     # 临时切换到完整版
+```
+
+隐私政策和服务协议会根据启用的模块自动调整内容，保证文字与实际功能一致。
 
 ## 功能
 
@@ -17,9 +33,10 @@
 | `article` | 文章列表、详情（HTML 正文） | 否 |
 | `video` | 视频列表、详情、B 站播放器 | 否 |
 | `like` | 点赞，按设备去重 | 否 |
-| `comment` | 评论，先审后发 | 是（手机号验证，后台实名、前台显示昵称） |
-| `auth` | 手机号验证码登录、"我的"页面 | — |
-| `legal` | 隐私政策、服务协议 | — |
+| `comment` | 评论，先审后发（仅 full） | 是（手机号验证，后台实名、前台显示昵称） |
+| `auth` | 手机号验证码登录，往"我的"页面插入账号卡片（仅 full） | — |
+| `profile` | "我的"页面：协议入口、版本信息 | — |
+| `legal` | 隐私政策、服务协议（随启用的模块自动调整） | — |
 
 ## 快速开始
 
@@ -32,7 +49,7 @@ npm run dev:h5        # 浏览器预览：打开终端里显示的地址（默�
 ```
 
 默认是 **mock 模式**：所有数据都来自各模块的 `mock.js`，不需要任何云服务就能完整预览。
-登录时手机号随便填 11 位，验证码填 `123456`。
+完整版登录时，手机号随便填 11 位，验证码填 `123456`。
 
 ### 常用命令
 
@@ -60,12 +77,12 @@ cp .env.example .env      # 然后把 VITE_API_MODE=mock 改成 VITE_API_MODE=cl
 personal-content-app/
 ├── src/
 │   ├── config/
-│   │   ├── modules.config.json   # ⭐ 启用哪些模块（插拔开关）
+│   │   ├── modules.config.json   # ⭐ 配置档：每个配置档启用哪些模块（插拔开关）
 │   │   ├── slots.json            # 扩展插槽定义
 │   │   └── app.config.json       # App 名称、导航栏、tab 样式
 │   ├── core/                     # 核心层：api、session、events、registry（模块只能 import 这里）
 │   ├── modules/                  # 业务模块，每个都有 module.json
-│   │   ├── article/  video/  like/  comment/  auth/  legal/
+│   │   ├── article/  video/  like/  comment/  auth/  profile/  legal/
 │   ├── generated/                # 自动生成，请勿手改
 │   ├── pages.json                # 自动生成，请勿手改
 │   ├── manifest.json             # App 配置（已精简 Android 权限）
@@ -84,9 +101,10 @@ personal-content-app/
 
 | 项目 | 状态 |
 |---|---|
-| H5 / App / 微信小程序三端编译 | ✅ 通过 |
-| H5 mock 模式端到端流程（浏览 → 点赞 → 登录 → 评论 → 审核中） | ✅ 在 Chromium 中实际走通 |
-| 单元测试（统一接口层、4 个云端模块、装配脚本、前端核心层） | ✅ 26 / 26 |
+| 两个配置档 × H5 / App / 微信小程序，共 6 次编译 | ✅ 通过 |
+| personal：无评论区、无登录入口、隐私政策不提手机号 | ✅ 在 Chromium 中实际验证 |
+| full：浏览 → 点赞 → 登录 → 评论 → 审核中 | ✅ 在 Chromium 中实际走通 |
+| 单元测试（统一接口层、4 个云端模块、装配脚本、配置档、前端核心层） | ✅ 29 / 29 |
 | 卸载模块演示（删掉 comment 后详情页只剩点赞；删掉 auth 时构建报出依赖错误） | ✅ |
 | 真实 uniCloud 部署、uni-id 短信登录、App 云打包 | ⚠️ 尚未验证：需要你的 DCloud 账号和 HBuilderX |
 

@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 // 模块装配脚本：config/modules.config.json + 各模块 module.json → 自动生成的"胶水代码"
 //
+// 用哪个配置档：默认读 modules.config.json 的 "profile"，也可以临时指定：
+//   APP_PROFILE=full npm run dev:h5
+//
 // 生成物（都在 src/ 下，不要手改，改了也会被覆盖）：
 //   pages.json                    页面路由与底部 tab
 //   generated/registry.js         已启用模块清单、mock、能力（capabilities）
@@ -152,9 +155,9 @@ export function buildPagesJson({ manifests, enabled, appConfig }) {
 export function buildSlotComponent(slotName, slotDef, extensions) {
   const sorted = [...extensions].sort((a, b) => (a.order ?? 100) - (b.order ?? 100))
   const props = slotDef.props.map((p) => `:${p.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)}="${p}"`).join(' ')
-  const tags = sorted.map((e) => `    <${e.name} ${props} />`).join('\n')
+  const tags = sorted.map((e) => `    <${e.name}${props ? ` ${props}` : ''} />`).join('\n')
   const imports = sorted.map((e) => `import ${e.name} from '@/modules/${e.module}/${e.component}'`).join('\n')
-  const propDefs = slotDef.props.map((p) => `  ${p}: { type: String, required: true },`).join('\n')
+  const propDefs = slotDef.props.map((p) => `\n  ${p}: { type: String, required: true },`).join('')
   return `<!-- 自动生成：插槽 "${slotName}"（${slotDef.description}）。请勿手改，运行 npm run gen 重新生成。 -->
 <template>
   <view class="ext-slot ext-slot--${slotName}">
@@ -165,9 +168,7 @@ ${tags || '    <!-- 当前没有模块扩展这个插槽 -->'}
 <script setup>
 ${imports}
 
-defineProps({
-${propDefs}
-})
+defineProps({${propDefs}${propDefs ? '\n' : ''}})
 </script>
 `
 }
@@ -184,7 +185,7 @@ function enabledList(manifests, enabled) {
   })
 }
 
-export function buildRegistryJs({ manifests, enabled, withMocks }) {
+export function buildRegistryJs({ manifests, enabled, withMocks, profile = '' }) {
   const list = enabledList(manifests, enabled)
   const capabilities = {}
   for (const m of list) {
@@ -195,6 +196,8 @@ export function buildRegistryJs({ manifests, enabled, withMocks }) {
   const mocks = mockMods.map((m) => `  '${m.id}': mock_${ident(m.id)},`)
   return `// 自动生成：已启用模块清单。请勿手改，运行 npm run gen 重新生成。
 ${imports.join('\n')}
+
+export const PROFILE = ${JSON.stringify(profile)}
 
 export const MODULES = ${JSON.stringify(list, null, 2)}
 
@@ -219,6 +222,18 @@ ${setups.join('\n')}
 `
 }
 
+// ---------- 配置档（profile）：同一套代码，按上架主体启用不同的模块组合 ----------
+
+export function resolveProfile(config, requested) {
+  const name = requested || config.profile
+  const profile = config.profiles && config.profiles[name]
+  if (!profile) {
+    const known = Object.keys(config.profiles || {}).join(', ')
+    throw new Error(`未知的配置档 "${name}"（可选：${known}）`)
+  }
+  return { name, enabled: profile.enabled, description: profile.description || '' }
+}
+
 // ---------- 读取环境变量（决定是否打包 mock 数据） ----------
 
 function readApiMode() {
@@ -236,7 +251,14 @@ function readApiMode() {
 // ---------- 主流程 ----------
 
 export function generate() {
-  const { enabled } = readJson(path.join(SRC, 'config/modules.config.json'))
+  let profile
+  try {
+    profile = resolveProfile(readJson(path.join(SRC, 'config/modules.config.json')), process.env.APP_PROFILE)
+  } catch (e) {
+    console.error(`✗ ${e.message}`)
+    process.exit(1)
+  }
+  const { enabled } = profile
   const { slots } = readJson(path.join(SRC, 'config/slots.json'))
   const appConfig = readJson(path.join(SRC, 'config/app.config.json'))
   const manifests = loadManifests()
@@ -267,7 +289,7 @@ export function generate() {
 
   fs.writeFileSync(
     path.join(outDir, 'registry.js'),
-    buildRegistryJs({ manifests, enabled, withMocks: apiMode !== 'cloud' }),
+    buildRegistryJs({ manifests, enabled, withMocks: apiMode !== 'cloud', profile: profile.name }),
   )
   fs.writeFileSync(path.join(outDir, 'setups.js'), buildSetupsJs({ manifests, enabled }))
 
@@ -284,7 +306,7 @@ export function generate() {
   }
 
   console.log(
-    `✓ 已装配 ${enabled.length} 个模块（${enabled.join(', ')}），API 模式：${apiMode}，` +
+    `✓ 配置档 ${profile.name}：已装配 ${enabled.length} 个模块（${enabled.join(', ')}），API 模式：${apiMode}，` +
       `页面 ${pagesJson.pages.length} 个，tab ${pagesJson.tabBar?.list.length || 0} 个`,
   )
 }

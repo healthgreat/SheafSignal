@@ -1,4 +1,14 @@
 {
-  "$comment": "启用哪些模块就写在这里。删掉一行 = 卸载一个模块；加一行 = 安装一个模块。改完运行 npm run gen（dev/build 命令会自动运行）。",
-  "enabled": ["legal", "auth", "article", "video", "like", "comment"]
+  "$comment": "配置档（profile）= 一组启用的模块。改 profile 或者临时用 APP_PROFILE=full npm run dev:h5 切换。改完运行 npm run gen（dev/build 会自动运行）。",
+  "profile": "personal",
+  "profiles": {
+    "personal": {
+      "description": "个人主体上架版：不登录、不评论，除点赞用的设备标识外不收集个人信息",
+      "enabled": ["legal", "profile", "article", "video", "like"]
+    },
+    "full": {
+      "description": "完整版（含手机号登录和评论）：建议以个体工商户或企业主体上架",
+      "enabled": ["legal", "profile", "auth", "article", "video", "like", "comment"]
+    }
+  }
 }
